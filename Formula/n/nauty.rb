@@ -6,6 +6,10 @@ class Nauty < Formula
   license "Apache-2.0"
   version_scheme 1
 
+  # patch to correct the location of nauty*.pc files
+  # upstream informed and responded that it will be worked on
+  patch :DATA
+
   livecheck do
     url :homepage
     regex(/Current\s+?version:\s*?v?(\d+(?:[._]\d+)+(?:r\d+)?)/i)
@@ -61,3 +65,17 @@ class Nauty < Formula
     system "./test"
   end
 end
+__END__
+diff --git a/makefile.in b/makefile.in
+index 422ff69..572448f 100644
+--- a/makefile.in
++++ b/makefile.in
+@@ -17,7 +17,7 @@ exec_prefix=@exec_prefix@
+ bindir=@bindir@
+ libdir=@libdir@
+ includedir=@includedir@
+-pkgconfigexecdir=${prefix}/libdata/pkgconfig
++pkgconfigexecdir=${libdir}/pkgconfig
+ 
+ INSTALL=@INSTALL@
+ INSTALL_DATA=@INSTALL_DATA@
