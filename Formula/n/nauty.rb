@@ -6,10 +6,6 @@ class Nauty < Formula
   license "Apache-2.0"
   version_scheme 1
 
-  # patch to correct the location of nauty*.pc files
-  # upstream informed and responded that it will be worked on
-  patch :DATA
-
   livecheck do
     url :homepage
     regex(/Current\s+?version:\s*?v?(\d+(?:[._]\d+)+(?:r\d+)?)/i)
@@ -17,6 +13,10 @@ class Nauty < Formula
       page.scan(regex).map { |match| match.first.tr("_R", ".r") }
     end
   end
+
+  # patch to correct the location of nauty*.pc files
+  # upstream informed and responded that it will be worked on
+  patch :DATA
 
   bottle do
     rebuild 1
