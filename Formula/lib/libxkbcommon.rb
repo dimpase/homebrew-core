@@ -4,6 +4,7 @@ class Libxkbcommon < Formula
   url "https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-1.13.1.tar.gz"
   sha256 "aeb951964c2f7ecc08174cb5517962d157595e9e3f38fc4a130b91dc2f9fec18"
   license "MIT"
+  compatibility_version 1
   head "https://github.com/xkbcommon/libxkbcommon.git", branch: "master"
 
   bottle do
@@ -21,8 +22,7 @@ class Libxkbcommon < Formula
   depends_on "pkgconf" => :build
 
   depends_on "libxcb"
-  depends_on "xkeyboard-config"
-  depends_on "xorg-server"
+  depends_on "xkeyboard-config" => :no_linkage
 
   uses_from_macos "libxml2"
 

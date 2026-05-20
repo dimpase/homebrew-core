@@ -1,12 +1,13 @@
 class Xsimd < Formula
   desc "Modern, portable C++ wrappers for SIMD intrinsics"
   homepage "https://xsimd.readthedocs.io/en/latest/"
-  url "https://github.com/xtensor-stack/xsimd/archive/refs/tags/14.0.0.tar.gz"
-  sha256 "17de0236954955c10c09d6938d4c5f3a3b92d31be5dadd1d5d09fc1b15490dce"
+  url "https://github.com/xtensor-stack/xsimd/archive/refs/tags/14.2.0.tar.gz"
+  sha256 "21e841ab684b05331e81e7f782431753a029ef7b7d9d6d3ddab837e7782a40ee"
   license "BSD-3-Clause"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "099e7c2b4b4b8e283d16dfbab2983f1b2d4a627e4933965006a8319b8a8564d8"
+    sha256 cellar: :any_skip_relocation, all: "2bc310b5c4877504470689b912f1deb2d0a1a3611ed06ce54106faa517ed1b75"
   end
 
   depends_on "cmake" => :build
@@ -22,7 +23,7 @@ class Xsimd < Formula
       #include <vector>
       #include <type_traits>
 
-      #include "xsimd/config/xsimd_inline.hpp"
+      #include "xsimd/config/xsimd_macros.hpp"
       #include "xsimd/memory/xsimd_alignment.hpp"
 
       using namespace xsimd;

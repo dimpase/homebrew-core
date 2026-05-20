@@ -1,24 +1,22 @@
 class Geni < Formula
   desc "Standalone database migration tool"
   homepage "https://github.com/emilpriver/geni"
-  url "https://github.com/emilpriver/geni/archive/refs/tags/v1.1.9.tar.gz"
-  sha256 "c955d84b3a2c28830b7042c8d6e6c9084509a44c436bf9a2a873d2d57b71cd13"
+  url "https://github.com/emilpriver/geni/archive/refs/tags/v1.3.2.tar.gz"
+  sha256 "df47a50e11c00c267f74dda72dc021c0d8040a6031e5a7f03e40f64148052c19"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "aadd4145294832bb28f3e7d7ef0a96c7d93be78fc9cc24abed572af6804f4a3d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "47c7d0b677ba85e9bf5da130af783d8d0a62e1ca672dbf71000c894358591af7"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a68daffdc5c81c5aca974470d79ef100f78642c4b82bfe40a6a35e0bd35304f7"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a92883ccccfeb4e74850c6490f590c8d42915a91df6a7461f60cd85c4467edaa"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "647ed788257bc0b649226118ba3edcdcfe4a6a0b08e7afb5d690f997e822b47e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c72961dd2a9f193d161e1cdf0fa516fd9587b24e34a600b3194ac0f6f158df39"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fd61338d5a05345b6a68e9cdc001e4858f8b95114cd7288917fee64eee94b919"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6258b9128b1b279c32bd9db744e59784b884b25429d25f66e83b51d7cf41e9e1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "30d5f598c58849d8e92a11072841bf677a3976bcf0d78e7e9798363647885dcc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1499710310962b678215feb9daaf2b2df60a518f39a4d081840964d6452bb4b7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c4b289a38d4e6cff9b1b0cc4e4832acb285d3d694d79264910cacdc7dfe0305a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f19f9a4850a54d81c8ca7667a4996cbf217ac7b61e4c5e7d8ccd04547b96f71c"
   end
 
   depends_on "rust" => :build
 
   def install
-    # Workaround to build `aegis v0.9.3` for arm64 linux without -march `sha3`
-    ENV.append_to_cflags "-march=native" if OS.linux? && Hardware::CPU.arm?
     system "cargo", "install", *std_cargo_args
   end
 

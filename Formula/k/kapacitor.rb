@@ -2,8 +2,8 @@ class Kapacitor < Formula
   desc "Open source time series data processor"
   homepage "https://github.com/influxdata/kapacitor"
   url "https://github.com/influxdata/kapacitor.git",
-      tag:      "v1.8.2",
-      revision: "10da10eedc8af65e92ae49d6e121359f25cd4d57"
+      tag:      "v1.8.5",
+      revision: "1632cc16b34166a05dd52cd9dc718ad68cceab23"
   license "MIT"
   head "https://github.com/influxdata/kapacitor.git", branch: "master"
 
@@ -13,13 +13,12 @@ class Kapacitor < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "822a0e79d5d35e2c2cbeee27867b3831b30f0a6aabbf26fce0d2b726dd30f7ee"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2fb71d3960b390c6f5aeec1a14ee060fad56f9302b2706b450d2ba231adbc958"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f36a3067683e96713810c7b3dcd060007f21f1c044601ce63a2420b767765de4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "dddb6ae35acea0ecfbe5c1818d55341d4f35fb1124077bfecf4af227a7c00bce"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6fa7d1e8798aa0a5ff6b1c21290c2e22a17f5b6c632c14df2449085f484d9d2f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "da8b6f5b885d9a75d92011c0b51648a43d5bc2496032f66855e97a89821f6f26"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0d224352807131ce89f62bf9740760ec49fbb0cae0280e5afe70251486eeedce"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "000605ad433ea143cfcfe8b5de1a80c346150d4229b062f34900e6f23d6c7420"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8c97bff7206f356ab78d642d61eb40c9fb3661f3a3998820f5ca662292d44298"
+    sha256 cellar: :any_skip_relocation, sonoma:        "486e54a5d48b284e22ee733162e805084b3acb49b04da858e67549a79ef7d720"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5bc2dd3cae02273c9b1ffe58a31367cd3091b554aca21946b1c7e8f09ea9ca0e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f2f966ba0e9e731b6cf061e0dce29591b5dc1f28396d0aca903b877a2132fdb5"
   end
 
   depends_on "go" => :build
@@ -43,6 +42,8 @@ class Kapacitor < Formula
     ENV.append_to_rustflags "--allow dead_code --allow mismatched_lifetime_syntaxes"
     # `flux` Workaround for `error: private item shadows public glob re-export`
     ENV.append_to_rustflags "--allow hidden_glob_reexports"
+    # `flux` Workaround for `error: value assigned to `<varname>` is never read`
+    ENV.append_to_rustflags "--allow unused_assignments"
 
     # Workaround to avoid patchelf corruption when cgo is required (for flux)
     if OS.linux? && Hardware::CPU.arch == :arm64

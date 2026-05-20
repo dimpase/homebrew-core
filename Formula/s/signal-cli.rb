@@ -1,71 +1,92 @@
 class SignalCli < Formula
   desc "CLI and dbus interface for WhisperSystems/libsignal-service-java"
   homepage "https://github.com/AsamK/signal-cli"
-  url "https://github.com/AsamK/signal-cli/archive/refs/tags/v0.13.24.tar.gz"
-  sha256 "c76e290f5ae5f0490eaf7b1d5fe6089d1d1305ee2bebe836cb405f976dd8dbf1"
+  url "https://github.com/AsamK/signal-cli/archive/refs/tags/v0.14.3.tar.gz"
+  sha256 "feb98997af67eddba4a7284334aabae381ca26aede85d9e5703098b76f8779ef"
   license "GPL-3.0-or-later"
+  revision 1
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "d8b2ee12323eac268a1cdc3b1d611b60e4a29137b049b151cc97d04dbaa186b4"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f58ebaf088e1ea205115aa61466964fb7f48cbfd23ed069770ff8f68d7684b8d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "31e1168bb0750efe27c29976a78dee301397141d0d7d96cd224bfeda1708da8f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4f2411058f467e49584287824cb1257e831d05d728acdcd9fe8c52eb4df14d8a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "31370a70af92a50540bc39c3233c268b802f08fb19c8b7eb27034db0a839ccc0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d8f765d9f1ba3e62277df7e05b21de196562088db69e45ba90c8ef3602471275"
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3263da635b6dfad191f2585ffe8ab0d89de37f6a7c836e4a73a8a87a86c202bf"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6f2258461eb057e99c19016eae1e3c29b38a3c2bf90d5ee58947aebc438cf666"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8064cf779d575d8b3372fc72a245e1971f992b1f4e7fef4dd96536e4cdfa9ed6"
+    sha256                               arm64_linux:   "3b3b54dbd33f30fab99c84f20ffc5a84db4b6d82a303b4b7da0c59f0136f9284"
+    sha256                               x86_64_linux:  "97592edc978ed20508f9175c386eb85e87b8035f8d57cf5fe0b9ad61c247e421"
+  end
+
+  depends_on "asciidoc" => :build
   depends_on "cmake" => :build # For `boring-sys` crate in `libsignal-client`
-  depends_on "gradle@8" => :build # older version needed for `libsignal-client`
+  depends_on "docbook-xsl" => :build
+  depends_on "graalvm" => :build
+  depends_on "gradle" => :build
   depends_on "protobuf" => :build
   depends_on "rust" => :build
 
-  depends_on "openjdk@21"
-
+  uses_from_macos "libxslt" => :build
   uses_from_macos "llvm" => :build # For `libclang`, used by `boring-sys` crate
+  uses_from_macos "python" => :build
   uses_from_macos "zip" => :build
 
-  # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal#determine-the-required-libsignal-client-version
-  # To check the version of `libsignal-client`, run:
-  # url=https://github.com/AsamK/signal-cli/releases/download/v$version/signal-cli-$version.tar.gz
-  # curl -fsSL $url | tar -tz | grep libsignal-client
+  on_linux do
+    depends_on "zlib-ng-compat"
+  end
+
   resource "libsignal-client" do
-    url "https://github.com/signalapp/libsignal/archive/refs/tags/v0.87.0.tar.gz"
-    sha256 "bfa6415dfc05cd578b0428605d57ae2474b4c7f85236122a55ffce29bc7de2d9"
+    url "https://github.com/signalapp/libsignal/archive/refs/tags/v0.92.1.tar.gz"
+    sha256 "5ad152a5eec8789f8e7a3b9d85d1e356cdb6177bd273b4e174e2e477b5930502"
+
+    livecheck do
+      url "https://raw.githubusercontent.com/AsamK/signal-cli/refs/tags/v#{LATEST_VERSION}/libsignal-version"
+      regex(/^v?(\d+(?:\.\d+)+)$/i)
+    end
   end
 
   def install
-    java_version = "21"
-    ENV["JAVA_HOME"] = Language::Java.java_home(java_version)
+    ENV["JAVA_HOME"] = if OS.mac?
+      Formula["graalvm"].opt_libexec/"graalvm.jdk/Contents/Home"
+    else
+      Formula["graalvm"].opt_libexec
+    end
 
-    # FIXME: find a better way to handle resource version check as this can easily break
-    regexp = /^## \[#{Regexp.escape(version.to_s)}\].*\s+Requires libsignal-client version (\d+(?:\.\d+)+)/i
-    libsignal_client_version = File.read("CHANGELOG.md")[regexp, 1]
-    odie "Could not find libsignal-client version in CHANGELOG.md" if libsignal_client_version.blank?
+    native_image_env = ENV.keys.grep(/^HOMEBREW_/).map { |key| "-E#{key}" }
+    ENV.prepend "NATIVE_IMAGE_OPTIONS", native_image_env.join(" ")
 
+    # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal
     resource("libsignal-client").stage do |r|
-      odie "#{r.name} needs to be updated to #{libsignal_client_version}!" if libsignal_client_version != r.version
+      libsignal_version = (buildpath/"libsignal-version").read.strip
+      odie "libsignal-client needs to be updated to #{libsignal_version}!" if r.version != libsignal_version
       system "gradle", "--no-daemon", "--project-dir=java", "-PskipAndroid", ":client:jar"
       buildpath.install Pathname.glob("java/client/build/libs/libsignal-client-*.jar")
     end
 
     libsignal_client_jar = buildpath.glob("libsignal-client-*.jar").first
-    system "gradle", "--no-daemon", "-Plibsignal_client_path=#{libsignal_client_jar}", "installDist"
-    libexec.install (buildpath/"build/install/signal-cli").children
-    (libexec/"bin/signal-cli.bat").unlink
-    (bin/"signal-cli").write_env_script libexec/"bin/signal-cli", Language::Java.overridable_java_home_env(java_version)
+    system "gradle", "--no-daemon", "-Plibsignal_client_path=#{libsignal_client_jar}", "nativeCompile"
+    bin.install (buildpath/"build/native/nativeCompile/signal-cli")
+
+    cd "man" do
+      ENV["XML_CATALOG_FILES"] = etc/"xml/catalog"
+      system "make", "install"
+      man1.install Dir["man1/*"]
+      man5.install Dir["man5/*"]
+    end
   end
 
   test do
     output = shell_output("#{bin}/signal-cli --version")
     assert_match "signal-cli #{version}", output
 
-    begin
-      io = IO.popen("#{bin}/signal-cli link", err: [:child, :out])
-      sleep 24
-    ensure
-      Process.kill("SIGINT", io.pid)
-      Process.wait(io.pid)
+    ENV["XDG_DATA_HOME"] = testpath
+    ENV["XDG_RUNTIME_DIR"] = testpath
+    link_output = +""
+    IO.popen("#{bin}/signal-cli -v link", err: [:child, :out]) do |io|
+      link_output << io.readpartial(1024) until link_output.include?("sgnl://linkdevice?uuid=")
+      Process.kill("KILL", io.pid)
     end
-    assert_match "sgnl://linkdevice?uuid=", io.read
+    assert_match "sgnl://linkdevice?uuid=", link_output
   end
 end

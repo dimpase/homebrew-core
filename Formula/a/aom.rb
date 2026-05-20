@@ -2,43 +2,40 @@ class Aom < Formula
   desc "Codec library for encoding and decoding AV1 video streams"
   homepage "https://aomedia.googlesource.com/aom"
   url "https://aomedia.googlesource.com/aom.git",
-      tag:      "v3.13.1",
-      revision: "d772e334cc724105040382a977ebb10dfd393293"
+      tag:      "v3.14.0",
+      revision: "047d8cf6168feafe1300eb6902000dd1a03d5549"
   license "BSD-2-Clause"
   head "https://aomedia.googlesource.com/aom.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "518aed50b3ab63ef4d9b7cefcfaf257b683f247f06dd81c173c7e5df03bd9d5a"
-    sha256 cellar: :any,                 arm64_sequoia: "ca79133eb9a4ec1e943322ef475811cc2be310cccfc28d4aa1326bfba0ffa0c7"
-    sha256 cellar: :any,                 arm64_sonoma:  "697ad35de4a11f4a9f8a7307384081a397ca58ff238060a396e1248e88a08b24"
-    sha256 cellar: :any,                 arm64_ventura: "9329b9bf9dbd64be5bf52ad5eb822e0a7454948bfb91746772e0ee2788ae70e4"
-    sha256 cellar: :any,                 sonoma:        "5d05040b86a95990ea50468ff17b5cbe3bccb2e636a1f6256e4c0439fe189f93"
-    sha256 cellar: :any,                 ventura:       "644685d7962c133de1873d831d87a6cc71138fcbf2bbe2455b51000011a72b3a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "dfb1ae4c7df80a5a2a6df56e1eef67536da73f1c90601d96c637e6a871ed2635"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c860bd13961bfa2cba27db91983d7bfac46e9a00ae005174ea6faa41bce43969"
+    sha256 cellar: :any,                 arm64_tahoe:   "72e45baf4c02b6aa2ad059dc6469d7f5a0c2f087118f4089879c6319533363d2"
+    sha256 cellar: :any,                 arm64_sequoia: "44eb9342758b1f7dc17ee80c6bac93f316966781964902813ed39931b9ee6610"
+    sha256 cellar: :any,                 arm64_sonoma:  "c73438ff1056315ffb2eedd1a8e6e31a78242090d5d5f9519c4fa556f1e854e5"
+    sha256 cellar: :any,                 sonoma:        "0ef9d87db1682476846d69e6fdcef03c296efc4896bfe7bd100c2d93c841a252"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8078a6f9d17db9ec9e4bb522deb266bb61411c4b14b8d109921af147df43a88f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3663e4528ce21efa8f1d7dac9e3e1104f054db76134e1dbf01fba57c3e7c6e45"
   end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
-  depends_on "jpeg-xl"
   depends_on "libvmaf"
 
   on_intel do
-    depends_on "yasm" => :build
+    depends_on "nasm" => :build
   end
 
   def install
     ENV.runtime_cpu_detection
 
-    args = [
-      "-DCMAKE_INSTALL_RPATH=#{rpath}",
-      "-DENABLE_DOCS=off",
-      "-DENABLE_EXAMPLES=on",
-      "-DENABLE_TESTDATA=off",
-      "-DENABLE_TESTS=off",
-      "-DENABLE_TOOLS=off",
-      "-DBUILD_SHARED_LIBS=on",
-      "-DCONFIG_TUNE_VMAF=1",
+    args = %W[
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DENABLE_DOCS=OFF
+      -DENABLE_EXAMPLES=ON
+      -DENABLE_TESTDATA=OFF
+      -DENABLE_TESTS=OFF
+      -DENABLE_TOOLS=OFF
+      -DBUILD_SHARED_LIBS=ON
+      -DCONFIG_TUNE_VMAF=1
     ]
 
     system "cmake", "-S", ".", "-B", "brewbuild", *args, *std_cmake_args

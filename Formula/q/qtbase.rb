@@ -1,16 +1,17 @@
 class Qtbase < Formula
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  sha256 "aeb78d29291a2b5fd53cb55950f8f5065b4978c25fb1d77f627d695ab9adf21e"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  sha256 "d9594a31228aa23ad6b531719a29b45f0f3989fe6c136d45767ea179f233c1ac"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } }, # qmake
     "BSD-3-Clause", # *.cmake
     "GFDL-1.3-no-invariants-only", # *.qdoc
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtbase.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -21,12 +22,12 @@ class Qtbase < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "62b847653b08af0913e0c006497bb98b2015c7549cf954cd10b2c6851a670480"
-    sha256 cellar: :any,                 arm64_sequoia: "aa74bb3590fcf718fd54028dd1f6d41cac584d9c79c860f1f8dd904a2e3e1665"
-    sha256 cellar: :any,                 arm64_sonoma:  "d28e4d0bcae1b026b69ea2ddd21e996332813cf23e980f2b5970e6175837ce9f"
-    sha256 cellar: :any,                 sonoma:        "ac88078b92f4f028a0a51bf5ecc44b9113fb9ec7ceedc67ca0b382309c48b320"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "82d00be342ed225f61d4762da61a8c81c88211598b0f8b84c6240cd1e49f2eac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b81bb0eaef4e7080afbb06223b371dbfbae5f479fd3395354d3affdbeead3da1"
+    sha256 cellar: :any,                 arm64_tahoe:   "6419abdf69aad16d191e9436c0bee2f9ff76d9de35ebc92f618773824e299e1e"
+    sha256 cellar: :any,                 arm64_sequoia: "b2527029cb0737da5123adef886f9f076acc4ab181e70753d6b20391a9eda5d3"
+    sha256 cellar: :any,                 arm64_sonoma:  "1e768903b1be563380a7e1a788ad46e644f7acdd31700ceb2f168d7f932b5420"
+    sha256 cellar: :any,                 sonoma:        "9b1f643d440cba0d3edd1ff9a053f08005fb95e6a1ca26d59cde380e2e4c0b08"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8a3776facf2705b2e0c421a9d449bfba1564365474c6979aa6ba2a69f3d421cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8b0c4e72c8d2910533b2a99d6376ee671ab7084c8784be4ee81ca36a6a24878f"
   end
 
   depends_on "cmake" => [:build, :test]

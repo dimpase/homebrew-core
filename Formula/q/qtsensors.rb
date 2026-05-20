@@ -1,14 +1,15 @@
 class Qtsensors < Formula
   desc "Provides access to sensors via QML and C++ interfaces"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtsensors-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtsensors-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtsensors-everywhere-src-6.10.2.tar.xz"
-  sha256 "91e6515b7cebbfae3696861933f5359cc303dfe82f7849cf5a10df378c8ef581"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtsensors-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtsensors-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtsensors-everywhere-src-6.11.1.tar.xz"
+  sha256 "23617062da7be526d023dec7f9b76231001a1098a7e5f94c646f2e4f87cfcf8f"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     "BSD-3-Clause", # *.cmake
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtsensors.git", branch: "dev"
 
   livecheck do
@@ -16,12 +17,12 @@ class Qtsensors < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "c2a0b942e7acc0355f1886e0c571a86d1e1ae7309b5ba878bdfe440598e35c6d"
-    sha256 cellar: :any,                 arm64_sequoia: "42fab0920eab80ce70443e9c031dbbe25bc50e58c54247bf8cffaf383877509e"
-    sha256 cellar: :any,                 arm64_sonoma:  "b440f79e4e50b54dcc57b5a756a29edf4e4e10d06e69d84f4c87762a9c567c2b"
-    sha256 cellar: :any,                 sonoma:        "854b42a45707ac3f35fac35ee08cd145701bf8226f5b55fe69ebd466e98d427c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "856995a08b739ee8d535a4ff3643797086436fdbca7defdee1632da0319536a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "59f8c14abdf6bfedb4eab8028f7e30aa746acc9f0fb455ed7857664fce02b76e"
+    sha256 cellar: :any,                 arm64_tahoe:   "a5c7f669f591e40ea7c7926e8e084fdff4799dcd71b9a019d7ebda9e4100f22c"
+    sha256 cellar: :any,                 arm64_sequoia: "91cf5868f2d44f0e88631a7c0dfdf1e424a33443db21b8f43a25dc0ba38eff48"
+    sha256 cellar: :any,                 arm64_sonoma:  "727c08c9cef9d7d75a7d3e954f45ddd3bfaf693bb4b97374646dab3197e90dd2"
+    sha256 cellar: :any,                 sonoma:        "dc84bf91a29c82666d75d1470abe88e5e3b52dee5cedce17c1cfaf21aa90977a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "dd0812242d8e0a45764207e7e77e0df0716428d44c2e1461eb053a4e4f184b03"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6c53fd946ac5c43d071097b7aec6be4849e3ee0e7b9877d0bc3ef2adc5c23529"
   end
 
   depends_on "cmake" => [:build, :test]

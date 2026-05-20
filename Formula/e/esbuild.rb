@@ -1,18 +1,18 @@
 class Esbuild < Formula
   desc "Extremely fast JavaScript bundler and minifier"
   homepage "https://esbuild.github.io/"
-  url "https://github.com/evanw/esbuild/archive/refs/tags/v0.27.3.tar.gz"
-  sha256 "05d56070104b46d24c8921bfc4c83209d71cf583eb0396c13d0f359705bb5b61"
+  url "https://github.com/evanw/esbuild/archive/refs/tags/v0.28.0.tar.gz"
+  sha256 "7aae83b197db3fd695e6f378d30fd6cbddeb93e4b1057b2c41d36ecb1dfebbc2"
   license "MIT"
   head "https://github.com/evanw/esbuild.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a95668be4a38d020c2abafa9697c336d1593dfc2e58223036d9f1a04b3bb9926"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a95668be4a38d020c2abafa9697c336d1593dfc2e58223036d9f1a04b3bb9926"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a95668be4a38d020c2abafa9697c336d1593dfc2e58223036d9f1a04b3bb9926"
-    sha256 cellar: :any_skip_relocation, sonoma:        "016acef2dee0cff19a79d6280675b37dcddc3126029280312fab8c347a42d919"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "178a4dee01d76ec8844744719c36e5d06213fd3716ffc7bfa81dead47ea88c7d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "085a0b97746153c6de5bf7e972808e436b0e3fa70c92ec06967ac2dd735cc539"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f62ac013c8317d78e0523e136ddaf21bd1e5165f774cc27d31ed6059ff0df855"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f62ac013c8317d78e0523e136ddaf21bd1e5165f774cc27d31ed6059ff0df855"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f62ac013c8317d78e0523e136ddaf21bd1e5165f774cc27d31ed6059ff0df855"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c64ef57deb512ce3c553ddc910cbcebe2102b5846c555d39467578037a3937cf"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "847f32ae2438b0afd916a011be8e2325ddf42cb2956d63c7d009b1fae3fc9207"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "852fa72d9edbcabb3c7174d2d6170d18817203bd978b3e0644d4aac0a951bb95"
   end
 
   depends_on "go" => :build

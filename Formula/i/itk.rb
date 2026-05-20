@@ -1,8 +1,8 @@
 class Itk < Formula
   desc "Insight Toolkit is a toolkit for performing registration and segmentation"
   homepage "https://itk.org"
-  url "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v5.4.5/InsightToolkit-5.4.5.tar.gz"
-  sha256 "ecab9119664e2571b90740ba9ab3ca11cb46942dbd7bb87c0de5bb15309a36c9"
+  url "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v5.4.6/InsightToolkit-5.4.6.tar.gz"
+  sha256 "1177567965a2522c53f7c77ed222afd619262f508caaf026646b21e275971e95"
   license "Apache-2.0"
   revision 1
   head "https://github.com/InsightSoftwareConsortium/ITK.git", branch: "main"
@@ -13,13 +13,12 @@ class Itk < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "b2a8f96cd226af1a815933d1daee93c710ceaafaac326c8820a9104427df3917"
-    sha256 arm64_sequoia: "23133969310686e96f33a55f517f0fb41e20d13211cae77bcfaf9a9072385faa"
-    sha256 arm64_sonoma:  "4f9be429fe1e5c8f5e86a3aaf829223407acf93f9fa6f88fdc7fafc691acd8ee"
-    sha256 sonoma:        "b1a1409ea3e92ab6adcb31ae2d234ae0eddd7b835a267ea026f578f876377c3e"
-    sha256 arm64_linux:   "da238b4ffceb9c53fd94bba8ba720d714173fd072c31729008bec80314c81b4f"
-    sha256 x86_64_linux:  "94c87addcf68107b478da8dde5df4ae2c5d82f98c104765dc8cfed670adbb6ec"
+    sha256 arm64_tahoe:   "bcce74d0894ccc3b4dcc6e0d92e264929f718fedca0a9219093c6b30b3eaea89"
+    sha256 arm64_sequoia: "59b0532ddde3c7e7b82d2869a19d3fd5ab08851a2c7bdbfcd14f4d0c32b31ea0"
+    sha256 arm64_sonoma:  "56095812a041dd41df3c0dba2062b7653f046adb76be83c886553b9a5cd9bf9e"
+    sha256 sonoma:        "79af92257afc03f640da8881a295d51edaa1c538dbc3c81cc59965b82cdb55f5"
+    sha256 arm64_linux:   "2c5059cb05b249b1df209451cb917e36539656c1a5831933763914d5b817120d"
+    sha256 x86_64_linux:  "cb2f54a21adfaf74b9155b79a5b6778de4531f9df13e061591607e4c314df257"
   end
 
   depends_on "cmake" => :build

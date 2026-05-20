@@ -1,18 +1,27 @@
 class Aicommit2 < Formula
   desc "Reactive CLI that generates commit messages for Git and Jujutsu with AI"
   homepage "https://github.com/tak-bro/aicommit2"
-  url "https://registry.npmjs.org/aicommit2/-/aicommit2-2.4.28.tgz"
-  sha256 "a66ed0124e545296459a4aa17a9fd25d661badbba95e96e2fee71b98c099fdd3"
+  url "https://registry.npmjs.org/aicommit2/-/aicommit2-2.5.20.tgz"
+  sha256 "69b93bbe5f2dd008d7c6748160dd35485c797ed3415f35b49b2e5e54708da15e"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "6169bac1648018125bfc67da807b9dd53b4848a7cb6db7fb4edc9609e04bf846"
+    sha256 cellar: :any_skip_relocation, all: "e82e0a505098a9492ced4ffdf2bbfd7b9e9c0a49d0ac29a9df2b2f69602e4ecb"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *std_npm_args
+    # Optional dependencies include `@github/copilot-sdk`
+    # which uses proprietary license
+    (libexec/"aicommit2").install buildpath.glob("*")
+    cd libexec/"aicommit2" do
+      system "npm", "install", "--omit=optional", *std_npm_args(prefix: false)
+      with_env(npm_config_prefix: libexec) do
+        system "npm", "link"
+      end
+    end
+
     bin.install_symlink libexec.glob("bin/*")
   end
 
@@ -28,7 +37,7 @@ class Aicommit2 < Formula
     (testpath/"test.txt").write "test content"
     system "git", "add", "test.txt"
 
-    assert_match "Please set at least one API key", shell_output("#{bin}/aicommit2 2>&1", 1)
+    assert_match "No AI provider API keys configured.", shell_output("#{bin}/aicommit2 2>&1", 1)
     shell_output("#{bin}/aicommit2 config set OPENAI.key=sk-test")
     assert_match "key: 'sk-test'", shell_output("#{bin}/aicommit2 config get OPENAI")
   end

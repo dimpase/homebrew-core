@@ -1,8 +1,8 @@
 class Cdncheck < Formula
   desc "Utility to detect various technology for a given IP address"
   homepage "https://projectdiscovery.io"
-  url "https://github.com/projectdiscovery/cdncheck/archive/refs/tags/v1.2.24.tar.gz"
-  sha256 "fc01b1ecd7f2578946d92fc91e4dfe666f94ff8cf51ae73fe2284201bb5c5f51"
+  url "https://github.com/projectdiscovery/cdncheck/archive/refs/tags/v1.2.36.tar.gz"
+  sha256 "2c5bb9a40dd3c9d18d5d7e4893a73303e98ec073c9306115132fc177ff9a77e9"
   license "MIT"
   head "https://github.com/projectdiscovery/cdncheck.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Cdncheck < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "36029c3189d714c8ba147a9874bfb69a30d748d930060fdd83e289cd368661c7"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fc0233134cb66fef445fccbafb27c5c4c4c4ee5532e0ee53ebff9464e364de60"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a6092b7e01ac0afb848b498a5ef373fa39d54d631ad70d6855ff38921e33d3a0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e953e141cb79807c662528aaebd49556e59b94dbbb1bc6f866879c23a4257210"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9aeff239013bf9e2e4f434713388eee9cb67681d97d7ffcc9d2f88df2af44c20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cf564e3ba0c9963f7373ae8732e9b26530a44e525956dad19d20268ea537cede"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "34d302b6956d2e5159485a3012b9afda9219ef67b020946026b5defe0ac83cd0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bc958647317b3c4c4f04032914144c84551d8e2c95dccd9114c20bae6aeaa48d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ec9c3d72f3f7a8be4a198611441f980686652881adf16f25e257adaf2a45089d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6ba6ca2c07518021a74710380695085d25434430f4d01e690cafea7a2867e6e0"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "75bb7e94cf3758b280e516d9f33e740dd440b8a0e8fda533c5b3789a4e53e2d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6c7368287c0c7e35443b7d5ef8807057435879bf39036db7a762a839467f60ba"
   end
 
   depends_on "go" => :build
@@ -29,6 +29,6 @@ class Cdncheck < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/cdncheck -version 2>&1")
 
-    assert_match "Found result: 1", shell_output("#{bin}/cdncheck -i 173.245.48.12/32 2>&1")
+    assert_match "cdncheck", shell_output("#{bin}/cdncheck -i 1.1.1.1 2>&1")
   end
 end

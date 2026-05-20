@@ -1,19 +1,18 @@
 class Zellij < Formula
   desc "Pluggable terminal workspace, with terminal multiplexer as the base feature"
   homepage "https://zellij.dev"
-  url "https://github.com/zellij-org/zellij/archive/refs/tags/v0.43.1.tar.gz"
-  sha256 "e9fd24190869be6e9e8d731df2ccd0b3b1dd368ae9dbb9d620ec905b83e325ec"
+  url "https://github.com/zellij-org/zellij/archive/refs/tags/v0.44.3.tar.gz"
+  sha256 "33ae61fc802b59462fed49b424893596d3aa819646bdce53d5602f714c1264fe"
   license "MIT"
   head "https://github.com/zellij-org/zellij.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0fd12578e1e52bbe7536fe7e2c57914fcad0cf935b6af381a4d6de6248ba8268"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9d0e7a93b03bf99864e5a2b753852d1a987a264d8cd98947906d6799901aa33d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8f7843d66a1a76ee969adfafab713595d57fb671acc82cb7c7c4d85e47166abd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7f3a794db4ce52ed3d1e64d0a86dcf78e77f50e01ed19bf99193c373f46d563b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "ea6f112c98a503e8d7a9bcfe22b065f2f036fcf829bfe49d77e5aa7d25f5fddd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe90ea20c44eecc63bc7f412a3fa621d7e1320c4d508ed11a177fc6b2b04b998"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "6decd7dfb3879e42c52a9eec138c33dfa9c0d69c9ab51896be876ea950bb323c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29132e50ca246096e5e6f0144423131242d88783526a3fd3b64d672db87be6b7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4a728dee27e4fe97fb579d975d1ae3d8c288ce02f75461e5536e2105e79b4a86"
+    sha256 cellar: :any_skip_relocation, sonoma:        "98f2f83a458132c06664dfb68b171271cec4720cac3cad3378e7cd0d4ac0a491"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8747da68e69c9a69936e18555de5681aa0ef9311d6449e6bee112d1f590c7590"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5d07c9a26b372b8de218ee43a4b4dd4b83412d70988d3242f4739426ec471c24"
   end
 
   depends_on "rust" => :build
@@ -26,7 +25,6 @@ class Zellij < Formula
   def install
     # Ensure that the `openssl` crate picks up the intended library.
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
 
     system "cargo", "install", *std_cargo_args
 

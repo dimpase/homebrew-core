@@ -1,28 +1,21 @@
 class Vitess < Formula
   desc "Database clustering system for horizontal scaling of MySQL"
   homepage "https://vitess.io"
-  url "https://github.com/vitessio/vitess/archive/refs/tags/v23.0.2.tar.gz"
-  sha256 "f32b112de130e53073b2abfc3b64a28836dea8f9f2ff42e3265298ec44d51a2b"
+  url "https://github.com/vitessio/vitess/archive/refs/tags/v24.0.1.tar.gz"
+  sha256 "272ea5406c50265cc88d5ff1b36da1869bb914cb1bc482a70df1c51389ea65dc"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9a8bef5f13343ac744abd83462d0d29bcfeeddef96458a65c24f282522df7d3d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b8e84cfbe8c043cd7154ddf6eeade961e1655dfb1c4291643bbf0bd4239f8654"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bcf2e1bd26f4e1abe5b4af751bb2e5a93c75ea68831d7d226643f88e4e0ee42f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "66984c58ccb0d07c24dd4ffeaaa0d902eecf72b2d0ac9d6c39c1773b886d9118"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4a81b2109237ebf34c2e5514f974b4a2711e5a852f17826c50a8dfbc006e45d2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6aca7ed0c4b00c241e15ccfde86a134d7d775a1a94f7327d3ac2bab799d5af23"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c43113dce825328b95b2039c605a3631108ecf150ace6453f39da23702fefbab"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "25db5916f12030b60818a7b5769d3a1251cf314dd46433e8c663c71471a5e620"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5bd5490b0377e5a979d5a2836389af806cf6b52275dc1c98eb3db1d19d27ec23"
+    sha256 cellar: :any_skip_relocation, sonoma:        "767934518ea6e6255391ac02956d46eb8155b354985a01ecb92b9dca00f72ed8"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b3e8e7b40d0e0d93803c21df11fc9fe9c112a9b0b17851437b226e6616f44974"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "53d4696432f973f4338b981818d2ca69d7548f0c0631f7a385bf30a447a6a9db"
   end
 
   depends_on "go" => :build
   depends_on "etcd"
-
-  # Support Go 1.26 and later with Swiss maps always enabled
-  # Upstream PR ref: https://github.com/vitessio/vitess/pull/19088
-  patch do
-    url "https://github.com/vitessio/vitess/commit/1e131ea41b87a047acff3b1977d9fece8e25bfff.patch?full_index=1"
-    sha256 "6dd13ffbde947a2c0d426c5a6361e3f0f708c9fc1bd1df7b000ad06fa8644a9c"
-  end
 
   def install
     # -buildvcs=false needed for build to succeed on Go 1.18.

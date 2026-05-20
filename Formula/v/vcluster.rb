@@ -2,8 +2,8 @@ class Vcluster < Formula
   desc "Creates fully functional virtual k8s cluster inside host k8s cluster's namespace"
   homepage "https://www.vcluster.com"
   url "https://github.com/loft-sh/vcluster.git",
-      tag:      "v0.32.0",
-      revision: "b78126d731ef7d5d01ee9bd85897d0520d281f69"
+      tag:      "v0.34.0",
+      revision: "bb9e88b0a9e45c68d744eebe6bde5c4664cdb676"
   license "Apache-2.0"
   head "https://github.com/loft-sh/vcluster.git", branch: "main"
 
@@ -16,16 +16,17 @@ class Vcluster < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5dd269a447e9ce5816b76fd5296320dd4f2d146d118fda937bf181ddd9c9fd05"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7812e71441926b8560484a7045ae9877d099712e0e6432f325c3cb14b592d053"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c6fc2a43d060282d71d10431e80cd0bab7f0efea7eac755dc322ea23616544d4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0e9bc5e33fcdfb0468c0102200b82a62f8ce4ea96699fb1bb6456a8be8d775f9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "bbf2683ac6bbda3841bd0d7854626bdd94bb13a69bb2c1d3acbf4160efa88c52"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "27e2c76de749452a0db3cd2a30ee3596676411a3d40bdab08614f5090de48036"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5e7c4b7acc55784fa6e33eaddf3738c9ea30716e52d2ca81964fb8e6e818ccbd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a2edfcac630df58604e2fd834aa50c3dedcb75f4520a2c03442c544e7173e516"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "de63237e45d1fe69b4745a386127dd1e029f8a66e73a8cbd008d9f0fcaa32ae3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5d2116021e7db82c4d1b4dcc145f9505144c12d77207af7aec2adee91b065722"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "962cfa63a65937485bd63ff33b365433c933aa2991ac5b445f2014076b812858"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4d0de573c1f21e9187ca808d1e028464e63988fb297a204f22cd27e8afa11956"
   end
 
   depends_on "go" => :build
-  depends_on "helm@3"
+  depends_on "helm"
   depends_on "kubernetes-cli"
 
   def install
@@ -37,8 +38,6 @@ class Vcluster < Formula
   end
 
   test do
-    ENV.prepend_path "PATH", Formula["helm@3"].opt_bin
-
     assert_match version.to_s, shell_output("#{bin}/vcluster version")
 
     output = shell_output("#{bin}/vcluster create vcluster -n vcluster --create-namespace 2>&1", 1)

@@ -1,8 +1,8 @@
 class Libsolv < Formula
   desc "Library for solving packages and reading repositories"
   homepage "https://github.com/openSUSE/libsolv"
-  url "https://github.com/openSUSE/libsolv/archive/refs/tags/0.7.35.tar.gz"
-  sha256 "e6ef552846f908beb3bbf6ca718b6dd431bd8a281086d82af9a6d2a3ba919be5"
+  url "https://github.com/openSUSE/libsolv/archive/refs/tags/0.7.37.tar.gz"
+  sha256 "ad6a38624dde26fc59c41427608536c443b76f90dcb6bb96c2e70b8e3ee20419"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,12 @@ class Libsolv < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_tahoe:   "72baee113a3ee720b1ece1944fa2ed5eed559e86255287929dd2b53ffff028e2"
-    sha256 cellar: :any,                 arm64_sequoia: "a425f21b81b1df18f797a4c21a88c1a5783673ffe9de0310dffcf2129cbc7d09"
-    sha256 cellar: :any,                 arm64_sonoma:  "0b3016f7c6dd93632c2d53355bd4fc775af5b40b13e59ba9f93ce4d5905cf408"
-    sha256 cellar: :any,                 sonoma:        "2d99b3f6594519bcace1fbba7f3f3bc5ba22a38e544861be43cf5e893bbdbce2"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8628bcc2dece4bccbb2ebb973bd957655a08e4c309240f981818d35380cb0a2f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c3c71e6ba50b6473113475af7a26884aa1b8314d6c6f5ddff2c1bed3e2fe5bb6"
+    sha256 cellar: :any,                 arm64_tahoe:   "b65aca1a7f1876cde376dbb21c43deecbda2644934ead2a5b5e7d090997593bb"
+    sha256 cellar: :any,                 arm64_sequoia: "975c816a8e47eb9f8a9ee8b244c7039094971d38411e7a6bf3039bc3624febd5"
+    sha256 cellar: :any,                 arm64_sonoma:  "be33a46245533a8a0e7672dff3b1adebb7b23cde1fa5d07ade115d5f738ae7dd"
+    sha256 cellar: :any,                 sonoma:        "4fac39badbbf4a2662e9aecd4170957cd8c901ce641aad5bbabb91e9302b8030"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "13fb5494c75df1f113dbbc51e649f3006f4471da2ad297be6f213780e3c70a4a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f43a05ae93e5e41be66adf05a44e9fa681b09a8708600c6943932b705967dfe9"
   end
 
   depends_on "cmake" => :build

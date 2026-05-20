@@ -2,15 +2,16 @@ class Gstreamer < Formula
   desc "Development framework for multimedia applications"
   homepage "https://gstreamer.freedesktop.org/"
   license all_of: ["LGPL-2.0-or-later", "LGPL-2.1-or-later", "MIT"]
+  compatibility_version 1
 
   stable do
-    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.28.1/gstreamer-1.28.1.tar.bz2"
-    sha256 "86ec0179104664a1ca6de57d7c886d3a8aa0491d1a243d02514b306885272b91"
+    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.28.3/gstreamer-1.28.3.tar.bz2"
+    sha256 "a4787d6eea0beacfe63eb607b7ac84bebb3c34fff7c25080a28ffce8cb2169f1"
 
     # When updating this resource, use the tag that matches the GStreamer version.
     resource "rs" do
-      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.28.1/gst-plugins-rs-gstreamer-1.28.1.tar.bz2"
-      sha256 "5488965db0fbb491810188ff144ec5a43055a6a5fc3412bef6b7a81cb504e60d"
+      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.28.3/gst-plugins-rs-gstreamer-1.28.3.tar.bz2"
+      sha256 "8a476692bd190079fc4b04ac46bce85d6b223558b037eb01d4b2371ae6892811"
 
       livecheck do
         formula :parent
@@ -24,12 +25,12 @@ class Gstreamer < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "75331c0fab7d9d309a3ea234cc52c9c32e05d32e7ea8ba1254217eceb1394b2e"
-    sha256 arm64_sequoia: "e33e1f7f50a707189c99bb1178844b5d5d405b2385a8044417e9f369dc45ad5a"
-    sha256 arm64_sonoma:  "77ed98f4de4486ef2ecbc4c5035c286f49d875716772060015f77255d3414e93"
-    sha256 sonoma:        "d7d8f73d695687a768bb01eee7a772199bed980dae59a9f7ec7ccb117be5753c"
-    sha256 arm64_linux:   "b4cf93110905bce375158be2d16b5f09ec89998f81a8a4e338f7f98f531dcc4f"
-    sha256 x86_64_linux:  "65838c00ee5ef28889fd6aab631dfed1fe2efbd6dd588bc1a65d30a58c115d6e"
+    sha256 arm64_tahoe:   "22e3aa6a0c7ea009c6a4cd748c5ce747f360372a90d9f537ec6bdd39373827a3"
+    sha256 arm64_sequoia: "68344e4d5f092bca480fbe0ea54650eca19b7e1d77cd8d6389efceb55550eb21"
+    sha256 arm64_sonoma:  "f0758d3ac93a113b78c5e6bcbd5b96df3a20a59c578ca35dafb469bce822b16b"
+    sha256 sonoma:        "4e6fb11fd6433320d9c020b16d4762243517ac3f66c552f253f391c2cd844f3e"
+    sha256 arm64_linux:   "d81220e39109d8fc570fc898253e46ac6f39e4e7815af0a60e7e729ecfe9251a"
+    sha256 x86_64_linux:  "f3a7f68bf93ec5dea49f323a402c4098e3004c832970c40b9b3bc566b2149179"
   end
 
   head do
@@ -124,6 +125,7 @@ class Gstreamer < Formula
 
   on_linux do
     depends_on "alsa-lib"
+    depends_on "elfutils" => :no_linkage
     depends_on "fontconfig"
     depends_on "freetype"
     depends_on "libdrm"
@@ -203,6 +205,7 @@ class Gstreamer < Formula
       -Dgst-plugins-rs:sodium=enabled
       -Dgst-plugins-rs:csound=disabled
       -Dgst-plugins-rs:gtk4=enabled
+      -Dgst-plugins-rs:webrtchttp=enabled
       -Dgst-plugins-rs:sodium-source=system
     ]
 
@@ -227,7 +230,6 @@ class Gstreamer < Formula
     ENV.append_to_rustflags "--codegen link-args=-Wl,#{rpath_args.join(",")}"
 
     # Make sure the `openssl-sys` crate uses our OpenSSL.
-    ENV["OPENSSL_NO_VENDOR"] = "1"
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
 
     system "meson", "setup", "build", *args, *std_meson_args

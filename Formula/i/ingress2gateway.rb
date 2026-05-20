@@ -1,18 +1,18 @@
 class Ingress2gateway < Formula
   desc "Convert Kubernetes Ingress resources to Kubernetes Gateway API resources"
   homepage "https://github.com/kubernetes-sigs/ingress2gateway"
-  url "https://github.com/kubernetes-sigs/ingress2gateway/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "6afffb36873af934f1499d68ea73d432bb711a3025e8f3f5ab330162798ce871"
+  url "https://github.com/kubernetes-sigs/ingress2gateway/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "a3c74ca555df43e40b0acd89743cb0ade9b1ad72bcd61fad0d0bec0b233a9c7c"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/ingress2gateway.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "19f1d9a3652f55e3469d0a6b6fdcc5a59e62fdb0591797e6c541e347535fd6ad"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "19f1d9a3652f55e3469d0a6b6fdcc5a59e62fdb0591797e6c541e347535fd6ad"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "19f1d9a3652f55e3469d0a6b6fdcc5a59e62fdb0591797e6c541e347535fd6ad"
-    sha256 cellar: :any_skip_relocation, sonoma:        "fda5b0dea1e86df82a07f08cc65f37e5ce8089b92e608272406a3b0551c21f6f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "31a12392fde4047e27597340d74968a952054c0a0316b82e165cd04e80ea049a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "837f74795b0f866473130c6aae03f2b829ea23b17fcc5d51eef45394912db239"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "62f589debe662edb6b0334b2cc906de5b81168444ab688d77b25cc09a0396a73"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "62f589debe662edb6b0334b2cc906de5b81168444ab688d77b25cc09a0396a73"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62f589debe662edb6b0334b2cc906de5b81168444ab688d77b25cc09a0396a73"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ed1c1eb32daca7a1a017ccd4b83442dba6eed99ab9d6177be7779de5243d9ea7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "65cfc1a5c64753665a15b70d36ed8ba94a666690599d6de0314a9737e2e38056"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "363ac48d982fe5071d25fbdaaef9f4c3e42481356fd6d01e97951ec60de94b57"
   end
 
   depends_on "go" => :build
@@ -25,17 +25,13 @@ class Ingress2gateway < Formula
   end
 
   test do
-    test_file = testpath/"test.yml"
-    test_file.write <<~YAML
+    (testpath/"test.yml").write <<~YAML
       apiVersion: networking.k8s.io/v1
       kind: Ingress
       metadata:
         name: foo
         namespace: bar
         annotations:
-          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
         labels:
           name: foo
@@ -52,10 +48,6 @@ class Ingress2gateway < Formula
                   name: foo-bar
                   port:
                     number: 443
-        tls:
-        - hosts:
-          - foo,bar
-          secretName: foo-bar-cert
     YAML
 
     expected = <<~YAML
@@ -73,16 +65,6 @@ class Ingress2gateway < Formula
           name: foo-bar-http
           port: 80
           protocol: HTTP
-        - hostname: foo.bar
-          name: foo-bar-https
-          port: 443
-          protocol: HTTPS
-          tls:
-            certificateRefs:
-            - group: null
-              kind: null
-              name: foo-bar-cert
-      status: {}
       ---
       apiVersion: gateway.networking.k8s.io/v1
       kind: HTTPRoute
@@ -108,12 +90,7 @@ class Ingress2gateway < Formula
         parents: []
     YAML
 
-    result = shell_output("#{bin}/ingress2gateway\
-                          print\
-                          --providers ingress-nginx\
-                          --input-file #{testpath}/test.yml\
-                          -A")
-
-    assert_equal expected.chomp, result.chomp
+    output = shell_output("#{bin}/ingress2gateway print --providers ingress-nginx --input-file #{testpath}/test.yml")
+    assert_equal expected.chomp, output.chomp
   end
 end

@@ -1,35 +1,31 @@
 class Fb303 < Formula
   desc "Thrift functions for querying information from a service"
   homepage "https://github.com/facebook/fb303"
-  url "https://github.com/facebook/fb303/archive/refs/tags/v2026.01.12.00.tar.gz"
-  sha256 "e455652551702d040b9ba7c9e3991f556c851fc513fd28b039a56127a1190dd5"
+  url "https://github.com/facebook/fb303/archive/refs/tags/v2026.05.18.00.tar.gz"
+  sha256 "d0da2ac576f66338c8325fce1d0d3fcff11c4f87b2249d7dc27cc26b0e3615a5"
   license "Apache-2.0"
-  revision 1
+  compatibility_version 1
   head "https://github.com/facebook/fb303.git", branch: "main"
 
   bottle do
-    sha256                               arm64_tahoe:   "a2ca11b554ea9b7110a5a897a78efe7c908e816d7ac7055d683378629239a331"
-    sha256                               arm64_sequoia: "af12a8e70f3c967fcf69ced337f68a5965f1aa22194f0af40e548d2db06a6ca1"
-    sha256                               arm64_sonoma:  "0390e77b75ddbccf590874c04c36e434554aea4a6e7cfde26bf3feadb13e3ae4"
-    sha256 cellar: :any,                 sonoma:        "5b266a720a5708b3676e4789ecc490ce3eea7b455a46fea786168325f67d3628"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a48765f312636e7109a0d8db061767d0805a7ffbd112ec2dddf5e025d6807995"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1fc0acecdb8da793d006c74a8b8202282beff9f5d85fb80e2974394350a5d764"
+    sha256                               arm64_tahoe:   "495f4e9c8e83d7194cebba9fc5c496ce7149190b4112c49c2174c51788e94e5c"
+    sha256                               arm64_sequoia: "3069f3d08cb4c7a832455589ac09b6d9e92867ee26ea94c7b1bf91f7f077bdd2"
+    sha256                               arm64_sonoma:  "fa3a65178af3b9c96886c55f2d441a6f719b6675e3f5ad3cc658a513b937e07f"
+    sha256 cellar: :any,                 sonoma:        "6b25cd1766a5dec7decf0d7894223c4bff76d851aa30a81a7e5ce0e0e3cfc548"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "63b5f0b1b65cf48a94039e65d0cbde7e689243a5b25bc988e8d27ddce59ae5df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60243d307d7422146aef9ac5c8b082e044307504dd5943af66078eb15733b3c9"
   end
 
   depends_on "cmake" => [:build, :test]
+  depends_on "fizz" => [:build, :test]
   depends_on "mvfst" => [:build, :test]
   depends_on "fbthrift"
-  depends_on "fizz"
   depends_on "fmt"
   depends_on "folly"
   depends_on "gflags"
   depends_on "glog"
-  depends_on "openssl@3"
 
   def install
-    # Workaround to build with glog >= 0.7 until fixed upstream
-    inreplace "CMakeLists.txt", /^find_package\(Glog MODULE /, "# \\0"
-
     shared_args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"]
     shared_args << "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-dead_strip_dylibs" if OS.mac?
 

@@ -1,17 +1,23 @@
 class Bbtools < Formula
   desc "Brian Bushnell's tools for manipulating reads"
   homepage "https://bbmap.org/"
-  url "https://downloads.sourceforge.net/bbmap/BBMap_39.76.tar.gz"
-  sha256 "f1f8c38f09b6014c4d9e05e7585197806f6153d93624fe8045e9c26502745d41"
+  url "https://downloads.sourceforge.net/bbmap/BBMap_39.85.tar.gz"
+  sha256 "8cedb08064eba414eb6e0573927294ca35500f53eb178bb9bc7357a894482e01"
   license "BSD-3-Clause"
 
+  # Check for the patched versions
+  livecheck do
+    url "https://sourceforge.net/projects/bbmap/files/"
+    regex(/BBMap[._-]v?(\d+(?:\.\d+)+\w?)/i)
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "7b38a8d78f8eb9883229b3192394c6a85fe2275563de3d799de4132ff57ba354"
-    sha256 cellar: :any,                 arm64_sequoia: "60f80990bcc5939e588f640b9c90a8637fcda4740e48c7a36ab3f99fdf8fca7e"
-    sha256 cellar: :any,                 arm64_sonoma:  "1608ce56d1ab5d534247e0f83ac8f21000cbfd4f43f4164f2c2a7685dcf60044"
-    sha256 cellar: :any,                 sonoma:        "4b8c2e5b182667829ddcf99f9904713d7ffc4fd4e68b12a644e6254b968e8730"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4316d04b7928144b207f53f0288b2fd5db42bf02efd70f1b4b53e2ba8648aa26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "878a9172e70e51e7c5743b272f686f9b4b5d120d7a6dbacccd239fa06727beca"
+    sha256 cellar: :any,                 arm64_tahoe:   "7ca54b7b60111a5fbc5753b2dfb78d34ab7a0accf41e85f9080dcdd762f41e57"
+    sha256 cellar: :any,                 arm64_sequoia: "5dcb1d9a2433136d7d49b28d127ba116fc5de1a2e7b4bfba8282e7b5611998ab"
+    sha256 cellar: :any,                 arm64_sonoma:  "d12dac30cedfb9ee47759ca0424eb7035d8e3bd5becc62d40879ccdcdfd217a8"
+    sha256 cellar: :any,                 sonoma:        "c0c838f257b589f8e0cfd19500cc5a4aad480775cbfbbfa5a4571d3daaca13f0"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "6aab9b7df57e9f15ad5d6466c0215d8ff0aace9e6ed0c19ab1729635def429ce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ee098fe790cfb5ebbfa4ebb7234956a258777fec24f9a52b7e4b013af5045af5"
   end
 
   depends_on "openjdk"

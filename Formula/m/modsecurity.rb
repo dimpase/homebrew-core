@@ -1,18 +1,18 @@
 class Modsecurity < Formula
   desc "Libmodsecurity is one component of the ModSecurity v3 project"
   homepage "https://github.com/owasp-modsecurity/ModSecurity"
-  url "https://github.com/owasp-modsecurity/ModSecurity/releases/download/v3.0.14/modsecurity-v3.0.14.tar.gz"
-  sha256 "f7599057b35e67ab61764265daddf9ab03c35cee1e55527547afb073ce8f04e8"
+  url "https://github.com/owasp-modsecurity/ModSecurity/releases/download/v3.0.15/modsecurity-v3.0.15.tar.gz"
+  sha256 "c276c838df6b61d96aa52075aee17d426af52755e16d09edca9f9d718696fda7"
   license "Apache-2.0"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "9bb41a2f71c67c4e99049408bbe318e1cf2c0b10e4e90fe992b3f79fb7055a69"
-    sha256 cellar: :any,                 arm64_sequoia: "a1755b42fb4b7ec87ce91063516a2ad3556164d298c3929ff7cd2719edd33dcb"
-    sha256 cellar: :any,                 arm64_sonoma:  "3fd03a5329efea1ca34f0a9cd0c4b7dd166dd30bbe8b119aa4399745f04b6c47"
-    sha256 cellar: :any,                 sonoma:        "d4b19335eeb71851802f1de03b6c5348a8211cc0bf0ecd289370dcd160c0330d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c637476b9bbc85fb184b6a4e1f5893d6dcd2aca6f489699b9fe4cc02f82e3e9b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ee186488795d3a79d22170d0cf241b9ca2702b2dac511b89287417f9840eb6e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_tahoe:   "e51b958e7f3ec2ebe0324cb0f133aa6af929c429d22589bb042ac5a9f524eeb7"
+    sha256 cellar: :any,                 arm64_sequoia: "47d9a27168331fe29ea86eb6c398a94ee9c0d7c2a295ab62cdf2364e5de29d73"
+    sha256 cellar: :any,                 arm64_sonoma:  "fc6b93dc556fc26c55831e5c0365fdc6e45261dcf8ecb3a6271ac6a49f6c48f9"
+    sha256 cellar: :any,                 sonoma:        "8bfd7a7e85fe4102ae34638c5bdd7a3c5135aa57e5610f7411c069c47788f050"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e8efcb21e3ece35ac7c3df4bc83c0b38f10ce86881d45f80098a0946ef9467aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3c901de2b4e8c412d29aa69ac9974a0e52786fa689172619c72269904e3b3685"
   end
 
   depends_on "autoconf" => :build
@@ -27,14 +27,6 @@ class Modsecurity < Formula
   uses_from_macos "curl", since: :monterey
   uses_from_macos "libxml2"
 
-  # Use ArchLinux patch to fix build with libxml2 2.12.
-  # TODO: Check if fixed in future libxml2 release.
-  # Issue ref: https://github.com/owasp-modsecurity/ModSecurity/issues/3023
-  patch do
-    url "https://gitlab.archlinux.org/archlinux/packaging/packages/libmodsecurity/-/raw/5c78cfaaeb00c842731c52851341884c74bdc9b2/libxml-includes.patch"
-    sha256 "7ee0adbe5b164ca512c49e51e30ffd41e29244156a695e619dcf1d0387e69aef"
-  end
-
   def install
     system "autoreconf", "--force", "--install", "--verbose"
 
@@ -46,7 +38,7 @@ class Modsecurity < Formula
       "--disable-examples",
       "--disable-silent-rules",
       "--with-libxml=#{libxml2}",
-      "--with-lua=#{Formula["lua"].opt_prefix}",
+      "--with-lua=#{Formula["lua@5.4"].opt_prefix}",
       "--with-pcre2=#{Formula["pcre2"].opt_prefix}",
       "--with-yajl=#{Formula["yajl"].opt_prefix}",
       "--without-geoip",

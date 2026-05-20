@@ -1,17 +1,17 @@
 class Witr < Formula
   desc "Why is this running?"
   homepage "https://github.com/pranshuparmar/witr"
-  url "https://github.com/pranshuparmar/witr/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "dce5f0fe15a6de590f44b6c2d09e282300e30cb52eaff3e44c6643c960203cee"
+  url "https://github.com/pranshuparmar/witr/archive/refs/tags/v0.3.2.tar.gz"
+  sha256 "4ba1bdb58845aa74a219e905003c3ea604985fd14162c47419954ece2b35410b"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0c7f34d3243aa23a756901cf3f4ffc831d586e19f30e1f43908c6a3d1e591907"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1ff4cff6554dc662703b3d395c6dd78332c7d34f3d4901628490f40c615a5e87"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "caee8a7bbf5cdcb36749337259190709ccafe0617d824f94082426ee1d4fbefa"
-    sha256 cellar: :any_skip_relocation, sonoma:        "31051b50229f4a47c603f5dd29a9fe43b389ab93df3a0a7cb0d7b5fbb9ddc206"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "96449d0c78d48ff58e5749643ddc933be3bfba70ae21e583b44c0a54747c368d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc65750ef8b21a137a65c098cf33fa15a8c5290829d78a711accdb38636ce68c"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "22a3b348b3000c4dbb6aeee0c0fe03c2d780b0c887216c60e9439a65a4a93ca8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "499dad8604be295b8241ac3a7c924f5da5448bfb349c0891642bba34cb93c5b8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2f4f4f5d01820045842e781f8fce20a06af8957453e17c7e475a79981a964393"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4f35476656a1339caf64c22c7474aaf75558725e2597ada41fcfb8c17472a1ad"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8d445a1f8e9a47900bd555b7d5516c784b8d76eb3df72ae246593c957e619df7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f33fee6b7fe39c681879b5400691695478ced8119133f52cbe49053d6abe0453"
   end
 
   depends_on "go" => :build
@@ -24,6 +24,6 @@ class Witr < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/witr --version")
-    assert_match "Error: no process ancestry found", shell_output("#{bin}/witr --pid 99999999 2>&1", 1)
+    assert_match "no process ancestry found", shell_output("#{bin}/witr --pid 99999999 2>&1", 2)
   end
 end

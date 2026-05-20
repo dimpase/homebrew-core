@@ -1,18 +1,18 @@
 class GrafanaAlloy < Formula
   desc "OpenTelemetry Collector distribution with programmable pipelines"
   homepage "https://grafana.com/oss/alloy-opentelemetry-collector/"
-  url "https://github.com/grafana/alloy/archive/refs/tags/v1.13.2.tar.gz"
-  sha256 "5cb793f8ddfb141de9447fb96cbd1c005ed500aeca1ef583ea399d1b4739dccb"
+  url "https://github.com/grafana/alloy/archive/refs/tags/v1.16.1.tar.gz"
+  sha256 "a10d194733ea3eafde769dd0b9d17bf30603ce2f27d160611aaedba0186f364d"
   license "Apache-2.0"
   head "https://github.com/grafana/alloy.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a1daa39b202c1beafd34b03edf87a325f7497578592ca6dea11f9f3e11409e79"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "714abda40d9c2217127ffd03d0a01f3c6cd5b87edf0ce2921d5d9de80b11fec6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5fcad10912412bbb6c976660b325ce25fce14efd8c8cc1e6fd1b8b1e0ee45382"
-    sha256 cellar: :any_skip_relocation, sonoma:        "01121065e0bf3be51369d045b58eb6001c889cf40f3dc642334f0e8cf812c413"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "f6d063a497988b8e6db2a5c39892af6ec00efd911a18da320c850ef9ac2789a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e23b5884dbb68f16b403f38a69717d51b0b01be19a5b5d8da01e276205b16506"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "7daf59438631eb9243a7fb748be5b5884fd064c3ed358fbf83ab3230a6620492"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7c26b7c8237d1f12d3e5e9140bd4625ab99539de5e4e5d0f31c57b73d20c411b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "13c72795b344ac65c0f7c596930fd38355682cd0b997b30f0e4f188900bfc59e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "27ef321985902b97bdc6978ff33dcf83b6693650385b4fe41de3b1750919dfea"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "958ec3b5187946ae2c5a7d1976efda13472c1aae83a900b23f8400cf40fa18b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6ca7a8bbb138b96f589f7eecf24c3fbb62a5f3e6b31b8a03957c34157ef53203"
   end
 
   depends_on "go" => :build
@@ -45,8 +45,8 @@ class GrafanaAlloy < Formula
     tags << "promtail_journal_enabled" if OS.linux?
 
     cd "internal/web/ui" do
-        system "npm", "install", *std_npm_args(prefix: false)
-        system "npm", "run", "build"
+      system "npm", "install", *std_npm_args(prefix: false)
+      system "npm", "run", "build"
     end
 
     system "go", "build", "-C", "collector", *std_go_args(ldflags:, tags:, output: bin/"alloy")

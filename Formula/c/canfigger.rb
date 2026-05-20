@@ -1,22 +1,18 @@
 class Canfigger < Formula
   desc "Simple configuration file parser library"
   homepage "https://github.com/andy5995/canfigger/"
-  url "https://github.com/andy5995/canfigger/releases/download/v0.3.0/canfigger-0.3.0.tar.xz"
-  sha256 "3d813e69e0cc3a43c09cf565138ac1278f7bcea74053204f54e3872c094cb534"
-  license "GPL-3.0-or-later"
+  url "https://github.com/andy5995/canfigger/releases/download/v0.3.2/canfigger-0.3.2.tar.xz"
+  sha256 "f128a62cec50cce16e1e8c87012f8564d972b663316b27358d1d7f6b4486bec8"
+  license "MIT"
   head "https://github.com/andy5995/canfigger.git", branch: "trunk"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:    "6a1990da902b615052fa6d3b98704b8a0dc1320d7545feb2f9a86d8a9413288a"
-    sha256 cellar: :any,                 arm64_sequoia:  "1eea36988f6c7adf32c10b85effe85af3344fd9c294de23c7d3f8b391222c56e"
-    sha256 cellar: :any,                 arm64_sonoma:   "d55f2ee425decbb379da3105d48ec055a42b87f72efbffa6a875d53e74faebfb"
-    sha256 cellar: :any,                 arm64_ventura:  "ca6dbe2e1c9d8841cf927367e9f472b1fed91d84ada7ac1295e78e7c135f6341"
-    sha256 cellar: :any,                 arm64_monterey: "4fa68580783fc78146550db423b46e27004fe2c83ff54135159e750b399f06e5"
-    sha256 cellar: :any,                 sonoma:         "ae03386506e951da6525a8c437c62aee6e232ab8a52ab14bcb7c63de103d4903"
-    sha256 cellar: :any,                 ventura:        "163c84d05419a4c6f58fbfaa5923ef2bea68a5c7fb8e89bb7080323840ffe6a5"
-    sha256 cellar: :any,                 monterey:       "2481309bc1cc7485ae7fca15bcb396498b19a5ef370cb3a71c9e608b8bc16fd7"
-    sha256 cellar: :any_skip_relocation, arm64_linux:    "c8f836846182fc7b48b5375c1a69bb771b3ab32f38e4e7dece9c687960cd4739"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b3630e0553221aa87402808455550585ca65a0549a6ca12f1c6d1fa85366596"
+    sha256 cellar: :any,                 arm64_tahoe:   "13a1c0f9dc12a5ab24bb8135873296b386a9a2550adb8c70ca2baa62035b5e68"
+    sha256 cellar: :any,                 arm64_sequoia: "0f6c11ffa385f60746737a34ad1e358b05a5695244d6a7764309a5d11617a671"
+    sha256 cellar: :any,                 arm64_sonoma:  "e89a075bcb14bd0e42811ba36699c3418eae2538631fa0ee3473712c5a5cd913"
+    sha256 cellar: :any,                 sonoma:        "a25520c1a99e0d88ac2449d30daadfb00c95837466b4ec9678aaa449d38e6894"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a2aedd0fc386f76944c4d383b849e5a4f670330ecf9d13c454ae2c9a79082bde"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "961162137d888c0bc94b2fa6573d35c68429d50262a02be47a5a7d2573df7f7f"
   end
 
   depends_on "meson" => :build
@@ -34,7 +30,7 @@ class Canfigger < Formula
     EOS
 
     (testpath/"test.c").write <<~C
-      #include <canfigger.h>
+      #include <canfigger/canfigger.h>
       #include <stdio.h>
 
       int main()

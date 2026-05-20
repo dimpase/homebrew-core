@@ -3,17 +3,19 @@ class YtDlp < Formula
 
   desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/58/d9/55ffff25204733e94a507552ad984d5a8a8e4f9d1f0d91763e6b1a41c79b/yt_dlp-2026.2.21.tar.gz"
-  sha256 "4407dfc1a71fec0dee5ef916a8d4b66057812939b509ae45451fa8fb4376b539"
+  url "https://files.pythonhosted.org/packages/8b/34/7c6b4e3f89cb6416d2cd7ab6dab141a1df97ab0fb22d15816db2c92148c9/yt_dlp-2026.3.17.tar.gz"
+  sha256 "ba7aa31d533f1ffccfe70e421596d7ca8ff0bf1398dc6bb658b7d9dec057d2c9"
   license "Unlicense"
+  revision 2
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "49e667d871969ab33e076530618d8ed2ab0ca0298da3bbca1b4c029f5be44a2c"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "61425301bda97e8e6e00fb7b875621081c583f85dced67785237a8d169705413"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bad9f05aaa33f02dafc1042b13429a2908904ffeca852c38651f62705fa8ce42"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b9accfab7533741811c33bba742a1dba439d77d818cd4e71bb198655b6ec771c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "61969d1f60a5bab05903704bc6bfcc4a604c1f056c6ea9b68273336d173546bb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "269db6ce160fcac76390682952ab4cc233d679b4e424d0a9af40e7fc0ffb2c58"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a993e3e8cd567b9a16271c82ed9696d626016f79b133c6f18f777df984574649"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b7a387812f49e4dcb83434422bfa5636233ea0d449e24715978c2925ed4f4548"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ed215fdebc5470d68be798292df2273c9c19c6ffc5e5ff990c01bd48e50d968d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0f94d1e0f294cceb99ec0896ebf63daff604af2133800dcb298e5ed9d436c33e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f8e5f98eeadb9780a368da25b29efc1a0bc8daf20490b275b0ce11dc7c163511"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d6de3556c6c5a0e2c4d6ddc0eaf84d57ed164157025a68da80e297b63948095b"
   end
 
   head do
@@ -36,13 +38,13 @@ class YtDlp < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "mutagen" do
@@ -56,13 +58,13 @@ class YtDlp < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/24/36/7180e7f077c38108945dbbdf60fe04db681c3feb6e96419f8c6dc8723741/requests-2.34.1.tar.gz"
+    sha256 "0fc5669f2b69704449fe1552360bd2a73a54512dfd03e65529157f1513322beb"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   resource "websockets" do
@@ -71,8 +73,8 @@ class YtDlp < Formula
   end
 
   resource "yt-dlp-ejs" do
-    url "https://files.pythonhosted.org/packages/6b/0d/b9e4ab1b47cdeba0842df634b74b3c0144307640ad5b632a5e189c4ab7ce/yt_dlp_ejs-0.5.0.tar.gz"
-    sha256 "8dfae59e418232f485253dcf8e197fefa232423c3af7824fe19e4517b173293b"
+    url "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz"
+    sha256 "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e"
   end
 
   def install

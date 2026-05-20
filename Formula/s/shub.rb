@@ -3,19 +3,19 @@ class Shub < Formula
 
   desc "Scrapinghub command-line client"
   homepage "https://shub.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/11/a4/91a0d8c3dccf5dedb7e75a65ecd0bb2a1d789ef34e1630642864b62dea75/shub-2.16.0.tar.gz"
-  sha256 "776283a538b6cd1749f4bf6a94db9d39da208383e37558603b0cf2ed64acbd08"
+  url "https://files.pythonhosted.org/packages/a7/a7/f812c9881fd8a89b72bdb1c1c4ddc34a7c6ceb4d6756c755abd3af44d247/shub-2.17.1.tar.gz"
+  sha256 "f288fcd9664a47bd9b0cf3c1b7fa7073c6d9a9bb99a0139dc5b9b3df0ed9d98e"
   license "BSD-3-Clause"
-  revision 2
+  revision 1
   head "https://github.com/scrapinghub/shub.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "ff2b86fcc9e91303ccae53d4f7fcb3c683fe0d344cc6dfaf0773d8e3bbf1574d"
-    sha256 cellar: :any,                 arm64_sequoia: "d041e2c8cd1d3a8c8dca3897eff9305072bcedf22354bb5863e25cab270a91e2"
-    sha256 cellar: :any,                 arm64_sonoma:  "66226e4a06545f42200b48ca97e0c0341f4a14325911df73b6291a96deb09183"
-    sha256 cellar: :any,                 sonoma:        "037628a76f59a6af099436cb81356f1ac3e901e1b23780fd2c4b20f3ea1d6b81"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "221237e759342b9ed5b86291358f57b599d9b0f90777d5f562f9ae8eb526f7b3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8a67633d08fcbf6d06863a4e66e63867d9a56a63668e638e33563ea2e38e4a05"
+    sha256 cellar: :any,                 arm64_tahoe:   "3cdd21b6c0297bec0f660371faa42f75657fefdd868cd3543718d4c4d8d691d2"
+    sha256 cellar: :any,                 arm64_sequoia: "3edec73d9e581b9f61855a353ed7dee026588f8cfe26ba8f1b0d42ae3a2ef10b"
+    sha256 cellar: :any,                 arm64_sonoma:  "0fba33e644698090059b6a9a5d48b7408ea61d1405566c12250d85266381bb78"
+    sha256 cellar: :any,                 sonoma:        "698f959bb29277dd3c22a1b5af0eb5feface43f24e00c78e9fc31250fa324af9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "01b038520658e437aff78e6836507dc15f0db8e7a71d6724a538db3f0def787e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "229e77e34885b9b3a1274c3238e852a90746a0a4ed8856cad444481d33bec3af"
   end
 
   depends_on "certifi" => :no_linkage
@@ -25,13 +25,13 @@ class Shub < Formula
   pypi_packages exclude_packages: "certifi"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz"
-    sha256 "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"
+    url "https://files.pythonhosted.org/packages/bb/63/f9e1ea081ce35720d8b92acde70daaedace594dc93b693c869e0d5910718/click-8.3.3.tar.gz"
+    sha256 "398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2"
   end
 
   resource "docker" do
@@ -40,13 +40,13 @@ class Shub < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/a1/d4/1fc4078c65507b51b96ca8f8c3ba19e6a61c8253c72794544580a7b6c24d/packaging-25.0.tar.gz"
-    sha256 "d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "pyyaml" do
@@ -55,8 +55,8 @@ class Shub < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/43/b8/7a707d60fea4c49094e40262cc0e2ca6c768cca21587e34d3f705afec47e/requests-2.34.0.tar.gz"
+    sha256 "7d62fe92f50eb82c529b0916bb445afa1531a566fc8f35ffdc64446e771b856a"
   end
 
   resource "retrying" do
@@ -65,13 +65,13 @@ class Shub < Formula
   end
 
   resource "scrapinghub" do
-    url "https://files.pythonhosted.org/packages/99/63/7fb80a7ae2e21f2cadadbf442bb8b3c7025bb9b055c873803c204d19b162/scrapinghub-2.5.0.tar.gz"
-    sha256 "1c2324cca7c2d0d7a0d9c12e3270f4a158cc1b3a96a100e55d37c2154552a313"
+    url "https://files.pythonhosted.org/packages/9a/76/7c82eee31f76f4c52ae632566bb49875e8fb63c19168f928f9ea2cb0a9c5/scrapinghub-2.7.0.tar.gz"
+    sha256 "df9b98481d1f6ca7ad8b56fdd05699ed4365c1d44718e226484cd32c0586ee89"
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/18/5d/3bf57dcd21979b887f014ea83c24ae194cfcd12b9e0fda66b957c69d1fca/setuptools-80.9.0.tar.gz"
-    sha256 "f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"
+    url "https://files.pythonhosted.org/packages/4f/db/cfac1baf10650ab4d1c111714410d2fbb77ac5a616db26775db562c8fab2/setuptools-82.0.1.tar.gz"
+    sha256 "7d872682c5d01cfde07da7bccc7b65469d3dca203318515ada1de5eda35efbf9"
   end
 
   resource "six" do
@@ -90,8 +90,8 @@ class Shub < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   def install

@@ -1,10 +1,10 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
   homepage "https://groonga.org/"
-  url "https://github.com/groonga/groonga/releases/download/v16.0.0/groonga-16.0.0.tar.gz"
-  sha256 "e8cec40d59c848617912d988c69ca67445c19fd2d8fcb5b6080eded2df89d545"
+  url "https://github.com/groonga/groonga/releases/download/v16.0.2/groonga-16.0.2.tar.gz"
+  sha256 "4bb7c995ef370b2370ed16fe78ddeebe827da22127d1cecf0696f8f5f28dde69"
   license "LGPL-2.1-or-later"
-  revision 1
+  compatibility_version 1
   head "https://github.com/groonga/groonga.git", branch: "main"
 
   livecheck do
@@ -13,12 +13,12 @@ class Groonga < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "7910a742eb29d2d570423205b3aacd0abc396276d6215c0f811f3e38d0f46714"
-    sha256 arm64_sequoia: "5795febcb34f83e6240adf67cbc328776f0c85177dd034c41b81e7c2a1056005"
-    sha256 arm64_sonoma:  "10d42b2a81b4c3df9d49725fad36bdd75f8644d553da6bbaed91991ac73f1f11"
-    sha256 sonoma:        "2b488a31fe2550ccaac8501b78c52d52ab32f6355d34355af724f768252807fd"
-    sha256 arm64_linux:   "c31791814bce7fe99918d95d8a1b9406eaeb6d0de2538ac79bd5a8544874f690"
-    sha256 x86_64_linux:  "785265fa1be880554dcc9587daa48652897cff9baf7752c99b9d3c774bf13e79"
+    sha256 arm64_tahoe:   "fa4e7c569fff51e13e2fe1d78335683e1bd0baba10539172ef5f9d5119b9cc33"
+    sha256 arm64_sequoia: "83792e45b9bc7256d1616af8627699791a904bafc7fe67f626e03f2e763ee3fe"
+    sha256 arm64_sonoma:  "03428dd8b7e3394116dd94ebf409d5770e885c42e99a835ca427916bbc7654dc"
+    sha256 sonoma:        "891468af7fc00888fc84199146675864a355d271846fa1e28ff0fd938f3da8ca"
+    sha256 arm64_linux:   "f72eafa105c6c5067f264b6246738046064694a063a77a314e2528a891c35ce3"
+    sha256 x86_64_linux:  "c15ff28279da67efb9fe1c278f6618d5273d2551fb7ff59d4f02c27f5ef149de"
   end
 
   depends_on "cmake" => :build
@@ -44,6 +44,10 @@ class Groonga < Formula
   resource "groonga-normalizer-mysql" do
     url "https://github.com/groonga/groonga-normalizer-mysql/releases/download/v1.3.0/groonga-normalizer-mysql-1.3.0.tar.gz"
     sha256 "693c24eff9ba95cd498ba28f8d5826843caec347b5aa6976e565e69535b44147"
+
+    livecheck do
+      url :url
+    end
   end
 
   def install

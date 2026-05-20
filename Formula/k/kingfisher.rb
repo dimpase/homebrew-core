@@ -1,17 +1,17 @@
 class Kingfisher < Formula
   desc "MongoDB's blazingly fast secret scanning and validation tool"
   homepage "https://github.com/mongodb/kingfisher"
-  url "https://github.com/mongodb/kingfisher/archive/refs/tags/v1.84.0.tar.gz"
-  sha256 "81e8f385533ce6feb60d276986a121eb5a847a7ad06b1dfb3bd2dee932c82b6f"
+  url "https://github.com/mongodb/kingfisher/archive/refs/tags/v1.100.0.tar.gz"
+  sha256 "fb410827ff898f4de7f1893d8f554b4aa6b117b20478a1a55774b2c616770d68"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "eefc80053ba32ea265b7a58b9f3fde155f41ec0f933ef4903bba01bc4b196b4f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "946971acc3ea4b68f3ad2e364ede23069ed918a7c71d1c9143533ea1034f2179"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "20003d48949c7e7562acaab861720ab764f7630f838e344d16766c142c1ba22e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "011d5adc365d5d182eecaa1ca30100b71fa176ca42dbb8948012411922cafb59"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9333af0f02b7cfd6e6506aad8bdd28d5fe75fc0c2079b9f26502d782b1dfc49c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "20b63e17c64ee8504e4c480d3ffdc6e6860a14fc343e34768db26f901de5a927"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "bbaf28914f1d89b4c1ec49da6c979250e242160f546a73cd063a0b24fd8fdbbe"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f5abf0f4f6ed309c73030490a30a47076bd5cdfa04a328a670cac057178f1d02"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "efae7bca03c3988620c0129ddc1a008f437dbd7fdf1efc54a6aafe9e514166b3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7b7fed09f737a108a4922560ba78f9b78b2ba3891c26325d22ef8c8e3f175dc0"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3456138b1232fc23d10ee310769e2bc40d13a4f4a3538556919b0dd7739bcd10"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5ec7201a7ed56bc0647e8382ab96478e515d58bfcdeeb780709556607bb91097"
   end
 
   depends_on "boost" => :build
@@ -22,7 +22,9 @@ class Kingfisher < Formula
   uses_from_macos "bzip2"
 
   def install
-    system "cargo", "install", *std_cargo_args(features: "system-alloc")
+    args = std_cargo_args
+    args << "--features=system-alloc" if OS.mac?
+    system "cargo", "install", *args
   end
 
   test do

@@ -1,19 +1,18 @@
 class CouchbaseShell < Formula
   desc "Modern and fun shell for Couchbase Server and Capella"
   homepage "https://couchbase.sh"
-  url "https://github.com/couchbaselabs/couchbase-shell/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "2679e5e2655ea0744efe66cce665481d95676ef26d284ea0341311068ccfb972"
+  url "https://github.com/couchbaselabs/couchbase-shell/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "7a68af72f0275626f163ac8e200551f73cbd13ac1b91ae0b11e30821857062ad"
   license "Apache-2.0"
   head "https://github.com/couchbaselabs/couchbase-shell.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "977f11ee4b592d21b686acc1b1f944ccc489a5880fcea647692ff54c65596ff7"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e77f30aea33590c635f0e616d8c1be503015152ebcf627d71e123d7b8e2fc49b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e42479455532b58a4e19a483ce3281a13394d13fb8d9d5cca32a0cc0753082b5"
-    sha256 cellar: :any_skip_relocation, sonoma:        "5f2fb928c3cf68b02d379a4525096bb20a901033ab1f0521256b6ee35d8fbcba"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9e204136d8f0f757dadf3e5c3856fdedd0c77d5a6367596f171491094b307bc6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b5dee81dbd8b43cbe658722db7d7b981dbf109759ef30a34a546da8ab2ea085d"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "d6f55a754b14e838c418eaf6cdf83f1c26e54385db6a1a926b0c6f5417d413ef"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e19cc1eb7c4eaca1ef60ceaeda9a292d6c603dc6cb45cdcd9a9b15e65b5a58ca"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d0f42859da70bf41c44fd5c8b70a5ffb27060e723c7506364453bf18f92a8770"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1513c71ce31d57c637a2eea18b53cb9b3429806d207c7f1efe0a9a2c822f174f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c8a6439bae474f3abd676cd4eb03a856f7d4332962ca1bb2d9c5f0048e9e2e22"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "549b48e285b2817cdc5072d35ae976e9d4188ddac47c5d2d9ef180a40fb77ce5"
   end
 
   depends_on "pkgconf" => :build

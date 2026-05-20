@@ -17,8 +17,6 @@ class GnustepBase < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
-
   bottle do
     rebuild 1
     sha256 cellar: :any,                 arm64_tahoe:   "0693816f992adcfc685d2ee8464599a92a51bfb60a8fc428b7a41f77b6657266"
@@ -47,7 +45,10 @@ class GnustepBase < Formula
     depends_on "libobjc2"
     depends_on "zlib-ng-compat"
     depends_on "zstd"
-    fails_with :gcc
+  end
+
+  fails_with :gcc do
+    cause "GCC Objective-C support is insufficient"
   end
 
   def install
@@ -58,7 +59,7 @@ class GnustepBase < Formula
       Formula["gnustep-make"].share/"GNUstep/Makefiles"
     end
 
-    if OS.mac? && MacOS.version > :big_sur && (sdk = MacOS.sdk_path_if_needed)
+    if OS.mac? && MacOS.version > :big_sur && (sdk = MacOS.sdk_path)
       ENV["ICU_CFLAGS"] = "-I#{sdk}/usr/include"
       ENV["ICU_LIBS"] = "-L#{sdk}/usr/lib -licucore"
 

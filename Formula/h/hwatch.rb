@@ -1,20 +1,18 @@
 class Hwatch < Formula
   desc "Modern alternative to the watch command"
   homepage "https://github.com/blacknon/hwatch"
-  url "https://github.com/blacknon/hwatch/archive/refs/tags/0.3.19.tar.gz"
-  sha256 "b0c7da2b8279e483a88019f07a058c978c324f37cd67c34b50de46fb5bd0db16"
+  url "https://github.com/blacknon/hwatch/archive/refs/tags/0.4.2.tar.gz"
+  sha256 "b13a492ac1fded05ee072c904f61f227a1a5119c6767c2dbed03eb2e7c261a1f"
   license "MIT"
   head "https://github.com/blacknon/hwatch.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b24003504b186e8c333d486d6b537096330efcc8ecf81fead08b461fbcbcaff2"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "28288a789480c819fde11788c0b35086e29c19691ce52075565fb46b2abc4f7b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "78cabd0217cac85bdd8d4b459cf2ff9eac0d5cc6fc865fd1287a2b7cceb07c4d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "bd598066ec25a28c99b6af7d3cf2dd4f21568effda47fe2d337eccdb97f6acbd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ae0f06837309e0c232866023b8258b77825353eb931b6f0c8adabf789cb8b7eb"
-    sha256 cellar: :any_skip_relocation, ventura:       "c9fa547c1b2b927bde3a9ad76e3a2f730cd3338e1ccff8ad935633900271d7da"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e23c602171e0c2b3fef61c8efbaf763609dac8e410368c07798221acd54cd154"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4fd00a8be3bb4833c96b76ca42e5ed029ff3da919deae9a199ed09273840038"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "71dff6498d09e57195888320ddb66176ff6b57f9dde0d174b8cb52998f60bfd9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4de6b83445b84c2267a981d19631fde94aaba0de0db94bc9c23e1682e5c6e02e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fcf0c8b524fcf6fc356b54237f6597a22c26de26f113c0440cb98e70e0c8255a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e225e2a5749cd5e10446d95bdde53f4f9d5ede375d00a2abb798e0521dca504e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9a8e899013ab815d0ec3e578a67661f9155e73c5ca2619d1c727f3116180e525"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "89005a5387b3134b32dc3125c3d98c8c43e3c144def53e8b3299b4311b1b509c"
   end
 
   depends_on "rust" => :build
@@ -22,9 +20,7 @@ class Hwatch < Formula
   def install
     system "cargo", "install", *std_cargo_args
     man1.install "man/hwatch.1"
-    bash_completion.install "completion/bash/hwatch-completion.bash" => "hwatch"
-    zsh_completion.install "completion/zsh/_hwatch"
-    fish_completion.install "completion/fish/hwatch.fish"
+    generate_completions_from_executable(bin/"hwatch", "--completion")
   end
 
   test do

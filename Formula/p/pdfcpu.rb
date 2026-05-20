@@ -1,17 +1,22 @@
 class Pdfcpu < Formula
   desc "PDF processor written in Go"
   homepage "https://pdfcpu.io"
-  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.11.1.tar.gz"
-  sha256 "f92a3c0953acf4dc8d6e6c39fa89053f9e506ed1cbb1dcac13ea25ca03da8f03"
+  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.12.1.tar.gz"
+  sha256 "a15d61b50e432b90b435e59728fde241fdcb745eba06f437cbf106aafc7ff2d0"
   license "Apache-2.0"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3460ddd5ac0731fcbe8360bd4073dda88b3ad1584c95e04a4f10d6ad7f3ea384"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3460ddd5ac0731fcbe8360bd4073dda88b3ad1584c95e04a4f10d6ad7f3ea384"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3460ddd5ac0731fcbe8360bd4073dda88b3ad1584c95e04a4f10d6ad7f3ea384"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ec2cfb6966da2ba98a5d6d2a005f2583b7a7f01eee11d99de45da87247eaf383"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "82c913aea72e972eeac04f67b2c8da26e13406287c2bf3663f6c3d61d1fcff56"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "245a80d951be6fc212e1898d3f5bee33c771b1683d25d5a5b7fdfa49015f917b"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f423e614b6a4d1765e57de61487850b34bf63ac206b2982f4c3a5e5b82f50271"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f423e614b6a4d1765e57de61487850b34bf63ac206b2982f4c3a5e5b82f50271"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f423e614b6a4d1765e57de61487850b34bf63ac206b2982f4c3a5e5b82f50271"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ab3e25520b6c1120fd4e25f2e6da50886760db804eb1a31ac0b9f756957e5dff"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f7165211f222952e921d166198596b8a27086d49dba8638f70b7d48f498ebd9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "72529330d9aa8c2d205b2763fd6d39e3664e76f2aeea7758d14a74c802db4103"
   end
 
   depends_on "go" => :build

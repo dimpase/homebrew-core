@@ -1,8 +1,8 @@
 class BitwardenCli < Formula
   desc "Secure and free password manager for all of your devices"
   homepage "https://bitwarden.com/"
-  url "https://github.com/bitwarden/clients/archive/refs/tags/cli-v2026.1.0.tar.gz"
-  sha256 "dc17b8f2e1e2db124c9753d1c537568296429837a7555d8f25a9d91926af0a82"
+  url "https://github.com/bitwarden/clients/archive/refs/tags/cli-v2026.4.2.tar.gz"
+  sha256 "5797d89a1553460b6363b3726c5a592bbe8c0591df7aa40485c42dde2f1d01b9"
   license "GPL-3.0-only"
   head "https://github.com/bitwarden/clients.git", branch: "main"
 
@@ -12,7 +12,7 @@ class BitwardenCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "fe8c9fb525c38d20bec8d4cb434a340b14f351376f752c262e6185b8a7287e94"
+    sha256 cellar: :any_skip_relocation, all: "e373754c769cc1959b2c1ca20e7e28420887a0ec52978d8135b3d15badfdb2f7"
   end
 
   depends_on "node"

@@ -1,8 +1,8 @@
 class Martin < Formula
   desc "Blazing fast tile server, tile generation, and mbtiles tooling"
   homepage "https://martin.maplibre.org"
-  url "https://github.com/maplibre/martin/archive/refs/tags/martin-v1.3.1.tar.gz"
-  sha256 "67e4a090f422a1806be7410b1d196a40051180bae65b0a1ced217d4ffae2eaac"
+  url "https://github.com/maplibre/martin/archive/refs/tags/martin-v1.10.1.tar.gz"
+  sha256 "556f0701d0a584a6ce1953ee6f8b3a0689845f23e1e3c8d6712e5b007c4d8da2"
   license any_of: ["Apache-2.0", "MIT"]
 
   livecheck do
@@ -11,12 +11,12 @@ class Martin < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "51d3c6ca938ad5ff7c980d95332b10c43a7ceb6313aea0c4bb24183ee8fb50c1"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f31fe6b7529a56d9c14a3cf7b836973d0f6e9e16db6ef6b01817f10a87e190c0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "912d6319f85ba624eaf9021c1f83dfdbd21629245246f9cb6ff4273dd1af2dad"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f6a8b40b4e56b46f99d6936f063908244e2b502f75b4fac951b6f8b6b25d87ca"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9cdfffbdd1b0fd3b5d4cac6c1cac609ce6311b2cb11c9bb6edf6f8b7f7cdd0aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bd3859d31801611890b2706e95b9d074884b321728e08809f6aace4222320fee"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "d77f6f3905ee81548180efca50ce536394fc7df592bbe660a1b5e561c8736389"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0763639b046334500c13826f524e85d9b729ee810cdc053931c0758b7c1324cb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "02eb81c9bd19fd5e8f0833be4f0fa7e30789f5b89a2bb497f66e039751dfe3ec"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ac98b4f105eeda4e2dc73b7035d85719895f9350240027c4fd879e2eee69b3d9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "aeec1188c9d620c1f552779c2224ace47a5b0154cd4ee00b367a73a76c7d76d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f07c2c7459f9648fbdb63b29633f6a99ade7e3d3353645474fdf150fa3868364"
   end
 
   depends_on "node" => :build
@@ -25,7 +25,9 @@ class Martin < Formula
   uses_from_macos "sqlite" => :test
 
   def install
-    system "cargo", "install", *std_cargo_args(path: "martin")
+    # Disable `rendering` feature to avoid building maplibre-native from source.
+    features = %w[fonts lambda mbtiles metrics pmtiles postgres sprites styles webui mlt]
+    system "cargo", "install", "--no-default-features", *std_cargo_args(path: "martin", features:)
     system "cargo", "install", *std_cargo_args(path: "mbtiles")
     pkgshare.install "tests/fixtures/mbtiles"
   end

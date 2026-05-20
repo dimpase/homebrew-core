@@ -1,10 +1,10 @@
 class Gdal < Formula
   desc "Geospatial Data Abstraction Library"
   homepage "https://gdal.org/en/stable/"
-  url "https://github.com/OSGeo/gdal/releases/download/v3.12.2/gdal-3.12.2.tar.gz"
-  sha256 "458a899feea38000258144517fedc6662ebba255971669d2901ba77e9e8fbf79"
+  url "https://github.com/OSGeo/gdal/releases/download/v3.13.0/gdal-3.13.0.tar.gz"
+  sha256 "1eb8c56a8cea4d3c733d90a719540c1aab981e4eb15e03057092e69b2935ae73"
   license "MIT"
-  revision 1
+  compatibility_version 2
 
   livecheck do
     url "https://download.osgeo.org/gdal/CURRENT/"
@@ -12,12 +12,12 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "8bef2ca8de69248cd3bce7f5c129914fb7d57c45a4e71943f364863e9c886c65"
-    sha256 arm64_sequoia: "7c8668172dc51e28be9a37e7f6229cb3109c384c7cef5a2638d724b10cff1ce7"
-    sha256 arm64_sonoma:  "018933bc2041fd435cd2ce20af65fc07d2bcfc4ea0e6433fcd30619417c45866"
-    sha256 sonoma:        "f1562a39ab2c2854ae0f2b507b5cdcdb230478914754ea8be089656460f386b9"
-    sha256 arm64_linux:   "b84fb74e4a9ed323041d93b95d6ebceb0b97a7183180c29089d375221c72bb85"
-    sha256 x86_64_linux:  "585f62fc47b328ad75094ec71dff9198e8ab344d3af08fc67ded26a79627dd84"
+    sha256 arm64_tahoe:   "9b2812b4332e7e4f5ab05252e1114166cc6c0e20fce69fda6945b9ca9ee0b997"
+    sha256 arm64_sequoia: "a042fe8d2a96779eae669fd992179a7c06ed2a26d1f5c5a2532f6f7a3c783148"
+    sha256 arm64_sonoma:  "188f10bdd733e768ff91a1af6ac03cabae303d56512185ecfd17ee76253246ee"
+    sha256 sonoma:        "40c26598383f99d1844c99590a45907ab001f1a59a9862ff573f05c2556bdc63"
+    sha256 arm64_linux:   "41343ebf7d274d94be8204494fde301b628b1a1bbad283cd4e2e509d407209f4"
+    sha256 x86_64_linux:  "f7a45e0322e1f00b78efeac74757bb2b8491b8a3d11c41f2a751a46c556652b8"
   end
 
   head do
@@ -89,17 +89,6 @@ class Gdal < Formula
   conflicts_with "avce00", because: "both install a cpl_conv.h header"
   conflicts_with "cpl", because: "both install cpl_error.h"
 
-  # fix for poppler 26.02+ compatibility, upstream pr ref, https://github.com/OSGeo/gdal/pull/13850
-  # remove in 3.12.3 release
-  patch do
-    url "https://github.com/OSGeo/gdal/commit/8f2e654223e9fbde0978eea0d8f03ad6f091ad8c.patch?full_index=1"
-    sha256 "51d3016957ef82cae333780c82523979aae7c338d9c38fd9b6d18f971e171335"
-  end
-  patch do
-    url "https://github.com/OSGeo/gdal/commit/c8ff7e31650cb61acf40903928aabf2514754038.patch?full_index=1"
-    sha256 "8f57f13342b1d7e7fcfc5920a9e4943478661f126d45a5646b99cdae8ceff264"
-  end
-
   def python3
     "python3.14"
   end
@@ -134,6 +123,7 @@ class Gdal < Formula
       -DPython_EXECUTABLE=#{which(python3)}
       -DGDAL_PYTHON_INSTALL_LIB=#{site_packages}
       -DCMAKE_CXX_STANDARD=17
+      -DGDAL_USE_OPENMP=OFF
     ]
 
     # JavaVM.framework in SDK causing Java bindings to be built

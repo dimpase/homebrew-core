@@ -1,27 +1,23 @@
 class Promptfoo < Formula
   desc "Test your LLM app locally"
   homepage "https://promptfoo.dev/"
-  url "https://registry.npmjs.org/promptfoo/-/promptfoo-0.120.25.tgz"
-  sha256 "3170b2be72127a5f24485631ee45ddc4642eaa685edb497d26b0453fbbfaa2aa"
+  url "https://registry.npmjs.org/promptfoo/-/promptfoo-0.121.11.tgz"
+  sha256 "094bcc44d03bb9224d0c7b8d02a01cfe0b7fdf937e0e314936596c483c9bd665"
   license "MIT"
 
   bottle do
-    sha256                               arm64_tahoe:   "6cf678e962eb8e0d94060ab7109d7aa63e4e8e70caccedcf0e153ce46edb36b7"
-    sha256                               arm64_sequoia: "fe7085de6badd42b934ce70a1112453c74de3e9bca0445b78ee17a860ce27eb3"
-    sha256                               arm64_sonoma:  "f0c55c51eac434a8c85326dbc2ff6697972cf4f71683ad0b6c488e9ad0c9c26a"
-    sha256                               sonoma:        "bfc9e28a677f30e350f4b356d1c62e5972a76c81c53a7cc199e0d36311943ff9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "66dae4ef0d65a3af9fa82004d244fdcfc4ed5a92b3c1952379711021844eae6c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c6af9db6ce84f69a3711341a0e29a28ff3dad1d00fb1080f1040aec84072b712"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b24bb523292e3f1c768aa87189bca8d70c33a0b5392b2bd9f31a0f4596990e86"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "66e211c06d1b2b40ce347e978550d2a49a7a22b8d34b574a869c13f7ca862be3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "919991735ccb3f237b7d193150e73d803b6d47efb9da8799e399ef881d6f30a2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c0f2e82ac25be2d19130a83c4444d3b2d4cde81437d3186ca77dbddb7d88c7aa"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "740c7dff09131a8a0310ed069003aaebc284b0c7368c50c4fc4a2e61086b9007"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a862705313e72778264e8572d6bdf0e73f2ab2a7949173fde5c486ee06dfbc35"
   end
 
-  depends_on "glib"
-  depends_on "node"
-  depends_on "vips"
+  depends_on "node@24"
 
   on_macos do
     depends_on "llvm" => :build if DevelopmentTools.clang_build_version < 1700
-    depends_on "gettext"
-    depends_on "pcre2"
   end
 
   fails_with :clang do
@@ -29,36 +25,20 @@ class Promptfoo < Formula
     cause "better-sqlite3 fails to build"
   end
 
-  # Resources needed to build sharp from source to avoid bundled vips
-  # https://sharp.pixelplumbing.com/install/#building-from-source
-  resource "node-addon-api" do
-    url "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.5.0.tgz"
-    sha256 "d12f07c8162283b6213551855f1da8dac162331374629830b5e640f130f07910"
-  end
-
-  resource "node-gyp" do
-    url "https://registry.npmjs.org/node-gyp/-/node-gyp-12.2.0.tgz"
-    sha256 "8689bbeb45a3219dfeb5b05a08d000d3b2492e12db02d46c81af0bee5c085fec"
-  end
-
   def install
-    ENV["SHARP_FORCE_GLOBAL_LIBVIPS"] = "1"
-    system "npm", "install", *std_npm_args(ignore_scripts: false), *resources.map(&:cached_download)
-    bin.install_symlink libexec.glob("bin/*")
-
-    # Remove incompatible pre-built binaries
-    node_modules = libexec/"lib/node_modules/promptfoo/node_modules"
-    rm_r(node_modules/"@anthropic-ai/claude-agent-sdk/vendor/ripgrep")
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
-    keep = node_modules.glob("onnxruntime-node/bin/napi-v*/#{OS.kernel_name.downcase}/#{arch}")
-    rm_r(node_modules.glob("onnxruntime-node/bin/napi-v*/*/*") - keep)
-    if OS.linux? && Hardware::CPU.intel?
-      rm(node_modules.glob("onnxruntime-node/bin/napi-v*/*/*/libonnxruntime_providers_{cuda,tensorrt}.so"))
+    # NOTE: We need to disable optional dependencies to avoid proprietary @anthropic-ai/claude-agent-sdk;
+    # however, npm global install seems to ignore `--omit` flags. To work around this, we perform a local
+    # install and then symlink it using `brew link`.
+    (libexec/"promptfoo").install buildpath.children
+    cd libexec/"promptfoo" do
+      system "npm", "install", "--omit=dev", "--omit=optional", *std_npm_args(prefix: false)
+      system "npm", "run", "--prefix=node_modules/better-sqlite3", "build-release"
+      with_env(npm_config_prefix: libexec) do
+        system "npm", "link"
+      end
     end
 
-    # Remove unneeded pre-built binaries
-    rm_r(node_modules.glob("@img/sharp-*"))
-    rm_r(node_modules.glob("sharp/node_modules/@img/sharp-*"))
+    bin.install_symlink libexec.glob("bin/*")
   end
 
   test do

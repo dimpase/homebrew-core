@@ -1,8 +1,8 @@
 class Oxlint < Formula
   desc "High-performance linter for JavaScript and TypeScript written in Rust"
   homepage "https://oxc.rs/"
-  url "https://github.com/oxc-project/oxc/archive/refs/tags/oxlint_v1.50.0.tar.gz"
-  sha256 "0b3ca09780c4ed99fde0dce95c5a106496d9bf034c9755d1507688a577b17e48"
+  url "https://github.com/oxc-project/oxc/archive/refs/tags/oxlint_v1.66.0.tar.gz"
+  sha256 "fa2f6542958de021b2dcac8b296a5f872001b6d8fbd7e295ef643ebb6c0f7ae2"
   license "MIT"
   head "https://github.com/oxc-project/oxc.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Oxlint < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9dc3668af0e9c01e4c1e20b53050edb9d8a09f71c71a0c652c28c96fb3a1f56c"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0bfec2af93741ac672e6f5c73884c70177a7cbd6361ee5d3e39ec1419f095a36"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "06b017485927328b17a78932ad3ca99bf64d337157b6dd917cce059c0f78c395"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3ceb9e86b8d939b8b4e10d956dd499730a59f8d900fcc2bd7043057a63ee93a0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d24972cd38d75bc2dadda1357845664e672c22a717372e6c5f764a361af2a200"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "584230735f2e7f4ec237357be461915c8a4cd23bc9a56c2043341b4faff55908"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "111f9a52a3639318618cb755f1b53fb3e10f2c4edc93c4e1f4420d167a0687d1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1eec31c8dc5c7ac092154e1ff40d9c09cacffdcfe611a0665c546cef9ae30673"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2743c821e681a05d381a597fb1ff65ecc78afa4e82d172579d6fc12f946fb599"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e8b3db13a69692762145522522c19c7bae5d8c6d779ef913b31b0e0d9e2af047"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "881daac04d2036077c3f77813002e9f6989a332e4900789b51325030e5d88248"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7fae29f27c81387f355a316da9a754da92d862056b7ea6d2243e20a7efb5025a"
   end
 
   depends_on "rust" => :build
@@ -29,7 +29,7 @@ class Oxlint < Formula
   test do
     (testpath/"test.js").write "const x = 1;"
     output = shell_output("#{bin}/oxlint test.js 2>&1")
-    assert_match "eslint(no-unused-vars): Variable 'x' is declared but never used", output
+    assert_match "eslint(no-unused-vars)::Variable 'x' is declared but never used", output
 
     assert_match version.to_s, shell_output("#{bin}/oxlint --version")
   end

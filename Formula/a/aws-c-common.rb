@@ -1,17 +1,18 @@
 class AwsCCommon < Formula
   desc "Core c99 package for AWS SDK for C"
   homepage "https://github.com/awslabs/aws-c-common"
-  url "https://github.com/awslabs/aws-c-common/archive/refs/tags/v0.12.6.tar.gz"
-  sha256 "138822ecdcaff1d702f37d4751f245847d088592724921cc6bf61c232b198d6b"
+  url "https://github.com/awslabs/aws-c-common/archive/refs/tags/v0.13.1.tar.gz"
+  sha256 "a85bfd3a9939cc9a18dcd0cbd34c66ffbefec9b908c4b4dad2217b17e21b26ff"
   license "Apache-2.0"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "2d0343c9653e92155e51a9ed8c832b3092f308b6f94f472f2e902c1976f3f463"
-    sha256 cellar: :any,                 arm64_sequoia: "904e876238629c69c369e96cc94b36f66f563bf4a17194b989174a81b8b210e4"
-    sha256 cellar: :any,                 arm64_sonoma:  "442efd831ca5723844a129955e26d34850cd2154e10a6a6e3caa338e3533be52"
-    sha256 cellar: :any,                 sonoma:        "36dfa3d4cc1268257c2e9c05cf18c678f20a9650e03201cfb115f187bac4cde9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "67702cb1299ad594a38bf8ac8a5f28926cd9aa1aa60faa75270037120ff064d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "51c47099203ac0e0e63c6efdfb31097882df14b68f8817417eff2dbc2567fa8f"
+    sha256 cellar: :any,                 arm64_tahoe:   "b4d3851f2a5fd8ec2ee6baf88e87c77af439a6bcdcb19c696a956add8263eac7"
+    sha256 cellar: :any,                 arm64_sequoia: "015ba350a90ff639d63a8d13d3c464bcc9dd125f8a3340b589aa5013b788200b"
+    sha256 cellar: :any,                 arm64_sonoma:  "337c998d9fac22b8863e38c15e7a3095d12180602a330fe8ff9ae1440703d058"
+    sha256 cellar: :any,                 sonoma:        "1d14412fc4a1f768eed63e597d615e7fffb492b230e45c995398cd300ac35dac"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3ed63b3b847cd7ad041b6235ae4c85283fe4f822d4b3fffef88a4875aa0383f9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "acaef04e208ff292c82d0c2643f6de54916cebac716199d3838904665ffca6e9"
   end
 
   depends_on "cmake" => :build

@@ -1,18 +1,18 @@
 class Sendme < Formula
   desc "Tool to send files and directories, based on iroh"
   homepage "https://iroh.computer/sendme"
-  url "https://github.com/n0-computer/sendme/archive/refs/tags/v0.31.0.tar.gz"
-  sha256 "2b4f0a361cf61852d915dbe2aac62c1d0108b510d36c204a128b77621bec72e3"
+  url "https://github.com/n0-computer/sendme/archive/refs/tags/v0.34.0.tar.gz"
+  sha256 "5231ce3bf8636d0aa98dc612e0288ca3083d55d2983ae666d98762a9af926709"
   license "MIT"
   head "https://github.com/n0-computer/sendme.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "deffd7e19f9f562d47795661c0aa9e58633f661e4bbf8c8d6a3b7db502b268b1"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a9d98392f3b5a9dd275ddaae95e855964a144699a0060049e9221710a78b26f1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6f454e01b132cf096c33f2f62631295b536f997c7f319317437ba7e2009f0473"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1d9e1f90e76cc02a10b798accc25452ed4129b7fbbc88c5ad254f02542e6ebd7"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e503cc2d8d24a526c01e52b8735c9d48b9465edbb2e4ccc127ec602f6e5ae01e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e12efc7e94bfe59cc2d1c56ffd6553b3096e9690c0333917858989d69c6fe028"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b08e1195a14b1b1e779db64f0a105f718cd8e03f33f982a5a9646d003e35e4ca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a022e4c99baae0d3ed3027b1009d8dfbb19fa3253a4dcb33ffc8e8316ec578f8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "41371d12d68282c5938d489f34110becf71c794dd46d8e6f3dc6c9a7ee7e2df4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4f1624af90bb13f2fbe21e1e7243832dfe2ff7cb2b7555d26493cd23e34778bb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "fdd3fa6bda56ecb3f564ec0205b44f0a1d3fcb47defcd362300f569b9e5a4058"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "329dcf751da295667160e8bcabeb549cc543589d7024a256c0e84b224e06bafd"
   end
 
   depends_on "rust" => :build

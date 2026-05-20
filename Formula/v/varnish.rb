@@ -1,29 +1,29 @@
 class Varnish < Formula
   desc "High-performance HTTP accelerator"
   homepage "https://www.varnish-cache.org/"
-  url "https://varnish-cache.org/_downloads/varnish-8.0.0.tgz"
-  mirror "https://fossies.org/linux/www/varnish-8.0.0.tgz"
-  sha256 "633b8c4706591ceae241c8432ef84f7c5ef9787f4eea535babf5fc6c6111ad5b"
+  url "https://github.com/varnish/varnish/releases/download/varnish-9.0.3/varnish-9.0.3.tar.gz"
+  sha256 "2aac11dd95329b0cea148d478168b3ccc6fe45fab38160c440159386403b69fd"
   license "BSD-2-Clause"
 
   livecheck do
-    url "https://varnish-cache.org/releases/"
-    regex(/href=.*?varnish[._-]v?(\d+(?:\.\d+)+)\.t/i)
+    url :stable
+    strategy :github_latest
   end
 
   bottle do
-    sha256 arm64_tahoe:   "0a8d6152d4ad247cd6db1428e8e1623962e2e36e37845885b938149cb8ef9b75"
-    sha256 arm64_sequoia: "d2344af09a8923209d5574df6a82d7259e89c178d3eb9d3d171cd331b24e079f"
-    sha256 arm64_sonoma:  "9d45e69a4fe1ac7c0ac795ccabbd42ca112d505d89e6e9ae6f7ea285d5ca456a"
-    sha256 sonoma:        "9365b9f88df4e9f64ec4f3029314bcc02f9145e30162b338d33310c3a4922da0"
-    sha256 arm64_linux:   "96e866901ed4adc75cc7ffd649220ac99f4218659918dc362dfa110baff1182c"
-    sha256 x86_64_linux:  "f962e3926627d4613fc452eb9ed4d976e11449f98a660a937cb7e2953e75c16e"
+    sha256 arm64_tahoe:   "9bc364d2ce1c2fa7d3a2400959fc35c8b0aaf7dc5f209a848e69cd0e5979813b"
+    sha256 arm64_sequoia: "bcc038aa04dd5c5cd7a00ece939ee456f62cb955dd97bf3289695e0529291442"
+    sha256 arm64_sonoma:  "4f79ce550e36b4d6aa2b868df9bf50192102371bb1baf92d70ea35b481817d7f"
+    sha256 sonoma:        "855a5c992fc7fa2f13597597f1d966ed8022c22b8c898da30b1120668c97784f"
+    sha256 arm64_linux:   "7c236bb7320009d0b1dfa405dfd14f6a59408409c77dee3a975a8b4af4f38bd8"
+    sha256 x86_64_linux:  "a9227348792ecdf765b221fc6a6ccc5668d4e0cf31e81eb6fbda47eb72c1cd40"
   end
 
   depends_on "docutils" => :build
   depends_on "graphviz" => :build
   depends_on "pkgconf" => :build
   depends_on "sphinx-doc" => :build
+  depends_on "openssl@3"
   depends_on "pcre2"
 
   uses_from_macos "python" => :build
@@ -47,7 +47,7 @@ class Varnish < Formula
     (etc/"varnish").install "etc/example.vcl" => "default.vcl"
     (var/"varnish").mkpath
 
-    (pkgshare/"tests").install buildpath.glob("bin/varnishtest/tests/*.vtc")
+    (pkgshare/"tests").install buildpath.glob("bin/vinyltest/tests/*.vtc")
     (pkgshare/"tests/vmod").install buildpath.glob("vmod/tests/*.vtc")
   end
 

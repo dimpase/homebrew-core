@@ -2,20 +2,25 @@ class Mlx < Formula
   include Language::Python::Virtualenv
 
   desc "Array framework for Apple silicon"
-  homepage "https://github.com/ml-explore/mlx"
-  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.30.5.tar.gz"
-  sha256 "448eefb3c9d4f42001e7e3236b2a33326a892dee520aaf4da60c2fa5c11182e2"
+  homepage "https://ml-explore.github.io/mlx/build/html/index.html"
+  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.31.2.tar.gz"
+  sha256 "bdb9b619f80962dd00c0bffb65e59c53f565c2b550f189a1467f8bc6089401ab"
   license all_of: [
     "MIT", # main license
     "Apache-2.0", # metal-cpp resource
   ]
-  compatibility_version 1
+  compatibility_version 3
   head "https://github.com/ml-explore/mlx.git", branch: "main"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "e2a7df5b69e2b5af13e58ea6f9fa3fc041c053665ed74e77c39e0ea5c36a1f35"
-    sha256 cellar: :any, arm64_sequoia: "dc355fdbbaf9dff28e38eb2376fdf081fa8044a1902e93a183db08961fef9fd4"
-    sha256 cellar: :any, arm64_sonoma:  "dc46bce3c064732dd1ccf4a6d8a20111b85b8e105b8dd90ca6f48d3b62e15f47"
+    sha256 cellar: :any, arm64_tahoe:   "def8a7ae1e6a6506eed4dea45bf52b55be0f52f8364f8a928da6e65b1204a371"
+    sha256 cellar: :any, arm64_sequoia: "79e643d23e3f55a315461919d69d1ef7b3ba103405fe4ccc0645229c049a6b4e"
+    sha256 cellar: :any, arm64_sonoma:  "76e09c7c3393af4a4d171c4dee580efcd945c83b702e60f12c7ed9ebd647fc0b"
   end
 
   depends_on "cmake" => :build
@@ -27,7 +32,6 @@ class Mlx < Formula
   depends_on xcode: ["15.0", :build] # for metal
   depends_on arch: :arm64
   depends_on macos: :sonoma
-  depends_on :macos
   depends_on "python@3.14"
 
   # https://github.com/ml-explore/mlx/blob/v#{version}/CMakeLists.txt
@@ -59,9 +63,11 @@ class Mlx < Formula
     # which redirects FetchContent_Declare() to find_package() and helps find our `fmt`.
     # To re-block fetches, we use the not-recommended `FETCHCONTENT_FULLY_DISCONNECTED`.
     args = %W[
-      -DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,#{rpath(source: mlx_python_dir)}
+      -DUSE_SYSTEM_FMT=ON
       -DHOMEBREW_ALLOW_FETCHCONTENT=ON
       -DFETCHCONTENT_FULLY_DISCONNECTED=ON
+      -DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,#{rpath(source: mlx_python_dir)},-rpath,#{lib}
+      -DCMAKE_INSTALL_RPATH=#{rpath}
       -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
       -DFETCHCONTENT_SOURCE_DIR_GGUFLIB=#{buildpath}/gguflib
     ]

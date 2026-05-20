@@ -1,18 +1,19 @@
 class Taglib < Formula
   desc "Audio metadata library"
   homepage "https://taglib.org/"
-  url "https://taglib.github.io/releases/taglib-2.2.tar.gz"
-  sha256 "c89e7ebd450535e77c9230fac3985fcdce7bee05e06c9cd0bc36d50184e9c9dd"
-  license all_of: ["LGPL-2.1-only", "MPL-1.1"]
+  url "https://taglib.github.io/releases/taglib-2.3.tar.gz"
+  sha256 "7349f6fd942418bc7009ebe743eb7c9d055f02921ec56fa436ec25007c47fd38"
+  license any_of: ["LGPL-2.1-only", "MPL-1.1"]
+  compatibility_version 1
   head "https://github.com/taglib/taglib.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "d0044355186d153ad651115e26d09394ddc11239309fa0fb0c7c95aeb8e4240a"
-    sha256 cellar: :any,                 arm64_sequoia: "aba6369a993f148591a3e714bc470f4ada52e63837fc188a383ba1f7d113e8de"
-    sha256 cellar: :any,                 arm64_sonoma:  "e84e807e6890ba7bb3ad27334c6973ff82733a29b380031dd30c03105c878ec8"
-    sha256 cellar: :any,                 sonoma:        "e76523d01007ea5b5009701443c70f718c74a7e35c564ece10dc691b9ec9395e"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4018c10b274e6b50c87c2fd733a78394f84e26f5ac76978231124f90c733c1fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3d173f67508c1856472128df632dbae773ad1035da34c728d9166b6f6753c46e"
+    sha256 cellar: :any,                 arm64_tahoe:   "a928c47709f2870b87d973f74358edf18816d8263304f5e4e9911898162107a3"
+    sha256 cellar: :any,                 arm64_sequoia: "65e5ecc716029c9d1eae11fb643a18df772980a01a09cad434af97bcba955bdb"
+    sha256 cellar: :any,                 arm64_sonoma:  "6b2e26e84d1f58b7a04b40e33bbcdab30f3459779f9229c248f196ca8e94f3d7"
+    sha256 cellar: :any,                 sonoma:        "eb9aefea72d75bee73fc35661433d9f2ebd20f408f70c91011b81c3ccb140f96"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b6c5c4793004c5c00d0e1267fd3ac8258a9a136cbfe7b471942543733da76d1e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "051fc7c416146bc92af62e067e517c3ee37b8834f7a7a8ebb66d1f6dd98f11fd"
   end
 
   depends_on "cmake" => :build

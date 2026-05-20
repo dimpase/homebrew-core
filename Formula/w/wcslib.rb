@@ -1,9 +1,10 @@
 class Wcslib < Formula
   desc "Library and utilities for the FITS World Coordinate System"
   homepage "https://www.atnf.csiro.au/computing/software/wcs/"
-  url "https://www.atnf.csiro.au/computing/software/wcs/wcslib-releases/wcslib-8.5.tar.bz2"
-  sha256 "f1fd1b78fbfdbabda363f8045e0c59e32735eca45482a5302191e56fe062eace"
+  url "https://www.atnf.csiro.au/computing/software/wcs/wcslib-releases/wcslib-8.7.tar.bz2"
+  sha256 "792fe05c09544433a9a4ea5480facdbec2da6d28058275b5e9006a1f28c56465"
   license "LGPL-3.0-or-later"
+  compatibility_version 1
 
   livecheck do
     url :homepage
@@ -11,12 +12,12 @@ class Wcslib < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "7b176690e05aff3882cecc3e5c6ef64d800c2cb5ce5ebf8629c5b7908f8cca5f"
-    sha256 cellar: :any,                 arm64_sequoia: "b254677bd8b4b7a06702079840332bb63ffc26a7858d50c8161192bbf618e9aa"
-    sha256 cellar: :any,                 arm64_sonoma:  "eb929201b5228f879e57b117fc31b4d408dbe9d90c777bec07d899d8833803df"
-    sha256 cellar: :any,                 sonoma:        "0a5a6f824d5bb42d811358b69df421eb1a50a45140241318103753ff2efb5cfc"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e754f29a4470f5a89690a2147596d89df0bccaf0e3e4910567cf7f29123d96b0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "10cd6cb0fdd6857a41558bbb526d12d0666ac11c6e07262c41ce350d46393318"
+    sha256 cellar: :any,                 arm64_tahoe:   "7862b82a3edb40c92b1db6bd17d33b150ff46b3354a6072dea7c53c4a21875d8"
+    sha256 cellar: :any,                 arm64_sequoia: "80d43d74309563e70cb7e81d545b86a96ff6e3fe4e6e8ed74d92258e83586a74"
+    sha256 cellar: :any,                 arm64_sonoma:  "dc562a7d28d614c06344dd69d1cd625125e21b674cc0cc1bb5a5d32f30e08912"
+    sha256 cellar: :any,                 sonoma:        "3aee2b3fc19089b1a2e25619c2b8d120467960d54f987990c05a039b6057daec"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4a3e05e8f3590410d0d6dedce0e9a168f5e071c36814d489de4e558873bee325"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9448426b45eec907d0d711aafea4afe8ef1ed8de083e3f07f247ae8c3d38a79c"
   end
 
   depends_on "cfitsio"
@@ -25,6 +26,9 @@ class Wcslib < Formula
     # Remove all the revision control files which mention prior GPL license
     # to avoids accidentally compiling GPL code which would impact license.
     rm_r buildpath.glob("**/RCS/")
+
+    # Expose C99 snprintf() in flex-generated sources.
+    inreplace "configure", "-D_POSIX_C_SOURCE=1", "-D_POSIX_C_SOURCE=200112L"
 
     system "./configure", "--disable-fortran",
                           "--with-cfitsiolib=#{Formula["cfitsio"].opt_lib}",

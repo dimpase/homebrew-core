@@ -2,8 +2,8 @@ class Julia < Formula
   desc "Fast, Dynamic Programming Language"
   homepage "https://julialang.org/"
   # Use the `-full` tarball to avoid having to download during the build.
-  url "https://github.com/JuliaLang/julia/releases/download/v1.12.5/julia-1.12.5-full.tar.gz"
-  sha256 "de3bf3693d938d7e15539a5c3ac2177c546acd0d7b7bc4e327e30d6a7238f1e3"
+  url "https://github.com/JuliaLang/julia/releases/download/v1.12.6/julia-1.12.6-full.tar.gz"
+  sha256 "711f3aa8d6ec5c9004593eb8f3d53e3564cd759acba8ad4adae967afc20332cc"
   license all_of: ["MIT", "BSD-3-Clause", "Apache-2.0", "BSL-1.0"]
   head "https://github.com/JuliaLang/julia.git", branch: "master"
 
@@ -17,12 +17,12 @@ class Julia < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "9785857320c7d661ee4658ebdf4b3e3983904beca996c081222ec8ec50b6ebc2"
-    sha256 cellar: :any,                 arm64_sequoia: "7d67a46ec8794767598055582bb4e3cd3117239dc43e697de49abec822e7385e"
-    sha256 cellar: :any,                 arm64_sonoma:  "f6a777fb6382ec79c96627769bed728b22f752e46ee672e38051f9ce890de2f0"
-    sha256 cellar: :any,                 sonoma:        "ecb8100fb9924dbfe8ae53aaba483542b8cba21d3afe53a14bb667cea5b35f23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4ff47b0a140358b3ccfa2891f41b8a2cc97a2d68853f7e2d96c54417adb15bd8"
+    sha256 cellar: :any,                 arm64_tahoe:   "0bb211e4fd86ece2ac70c41d8837dca72ff8f0211aa9c1bf6d145a9dd417eca3"
+    sha256 cellar: :any,                 arm64_sequoia: "7ac7fad8e6b347d701bde5500abd2243821d88f62ce3455c728e643cb5d3ab3d"
+    sha256 cellar: :any,                 arm64_sonoma:  "c2ad6e5fa61633fb49c6ac16eec104860f59502454437c30154f6add53e3b8fc"
+    sha256 cellar: :any,                 sonoma:        "a08682c717772c224125dfb554ee72728e5c113d9767f039123012c8c409bf07"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "031f2fad72004425fda1465d469056ae4b1be7c4b0ab9b4789bb065708c51cb4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "960bce588ddc557aecf7b73089f1c9529c671bc029b7141e6444adf1e232e27c"
   end
 
   depends_on "cmake" => :build # Needed to build LLVM
@@ -92,20 +92,26 @@ class Julia < Formula
       WITH_TERMINFO=0
     ]
 
+    args << "TAGGED_RELEASE_BANNER=Built by #{tap&.user || "unknown user"} (v#{pkg_version})"
     args << "MACOSX_VERSION_MIN=#{MacOS.version}" if OS.mac?
 
     # Set MARCH and JULIA_CPU_TARGET to ensure Julia works on machines we distribute to.
-    # Values adapted from https://github.com/JuliaCI/julia-buildkite/blob/main/utilities/build_envs.sh
-    args << "MARCH=#{Hardware.oldest_cpu}" if Hardware::CPU.intel?
+    # https://github.com/JuliaLang/julia/blob/master/doc/src/devdocs/build/distributing.md#target-architectures
+    march = ENV["HOMEBREW_OPTFLAGS"].to_s[/-march=(\S+)/, 1]
+    args << "MARCH=#{march}" if march
 
+    # Values adapted from https://github.com/JuliaCI/julia-buildkite/blob/main/utilities/build_envs.sh
     cpu_targets = %w[generic]
     if Hardware::CPU.arm?
       if OS.mac?
         # For Apple Silicon, we don't care about other hardware
         cpu_targets << "apple-m1,clone_all"
       else
-        cpu_targets += %w[cortex-a57 thunderx2t99 carmel,clone_all
-                          apple-m1,base(3) neoverse-512tvb,base(3)]
+        cpu_targets += %w[cortex-a57
+                          thunderx2t99
+                          carmel,clone_all
+                          apple-m1,base(3)
+                          neoverse-512tvb,base(3)]
       end
     end
     if Hardware::CPU.intel?
@@ -114,12 +120,6 @@ class Julia < Formula
                         x86-64-v4,-rdrnd,base(1)]
     end
     args << "JULIA_CPU_TARGET=#{cpu_targets.join(";")}"
-    user = begin
-      tap.user
-    rescue
-      "unknown user"
-    end
-    args << "TAGGED_RELEASE_BANNER=Built by #{user} (v#{pkg_version})"
 
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/julia"
     # Help Julia find keg-only dependencies
@@ -162,6 +162,9 @@ class Julia < Formula
           ln_sf so.relative_path_from(lib/"julia"), lib/"julia"
         end
       end
+
+      # Remove debug testing library which causes EOFError when parsing ELF
+      rm lib/"julia/libccalltest.so.debug" if Hardware::CPU.arm?
     end
 
     # Create copies of the necessary gcc libraries in `buildpath/"usr/lib"`

@@ -2,10 +2,10 @@ class Grpc < Formula
   desc "Next generation open source RPC library and framework"
   homepage "https://grpc.io/"
   url "https://github.com/grpc/grpc.git",
-      tag:      "v1.78.1",
-      revision: "5b6492ea90b2b867a6adad1b10a6edda28e860d1"
+      tag:      "v1.80.0",
+      revision: "f5e2d6e856176c2f6b7691032adfefe21e5f64c1"
   license "Apache-2.0"
-  compatibility_version 1
+  compatibility_version 2
   head "https://github.com/grpc/grpc.git", branch: "master"
 
   # There can be a notable gap between when a version is tagged and a
@@ -20,12 +20,12 @@ class Grpc < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "5def1df59ea6fecd20f3a4f1082d8ff3badafece0510ff498ee7fd3b5a0e1fc6"
-    sha256 cellar: :any, arm64_sequoia: "a56e4ec1760eb5dc2a715d246b3cad1b158c96d181b361252765293195cf279b"
-    sha256 cellar: :any, arm64_sonoma:  "538bdd2ee34e8ecd51ba2adec54351f2bca263dad81c744cc56489108a840811"
-    sha256 cellar: :any, sonoma:        "0f90b8cdd7d6a9b5e44a63d17c756765fd5c71ee45e1bf7579a3e7919e2b381b"
-    sha256               arm64_linux:   "240bf31b99c4f4f1121f43452ff5cbec6f68eb70954f868aa68e4b83aab1d50f"
-    sha256               x86_64_linux:  "0cdc078ea1a542d5675dfbe524643d9c1ed81d5a08f0545f69a1af07ae0c9de4"
+    sha256 cellar: :any, arm64_tahoe:   "e07f534a474548118ba1879799be8e560678911b0e91bbd52a27e3d6abfde6cb"
+    sha256 cellar: :any, arm64_sequoia: "19e1c98632a105338cffbb308dd587cc04ef3cacee688ff4892af2861602f5d8"
+    sha256 cellar: :any, arm64_sonoma:  "06e533173dfe0d814cee4f83324c43fd5d8dec9b694e1574fe1fd67d438bb21f"
+    sha256 cellar: :any, sonoma:        "97db373cd4f8f885a4ebd22f1e8328a26d6918a2f128c6fc6886de4ea3d39456"
+    sha256               arm64_linux:   "19c584caa0b6853cf6d67c271d3e524826aaea629a3adcfe520f7e65e5c9aec3"
+    sha256               x86_64_linux:  "c7c4c58471157c69b9faf935d2e9d91846af8c68b39015fbcff5670211718bb7"
   end
 
   depends_on "cmake" => :build
@@ -52,10 +52,8 @@ class Grpc < Formula
   def install
     args = %W[
       -DCMAKE_CXX_STANDARD=17
-      -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
       -DCMAKE_INSTALL_RPATH=#{rpath}
       -DBUILD_SHARED_LIBS=ON
-      -DgRPC_BUILD_TESTS=OFF
       -DgRPC_INSTALL=ON
       -DgRPC_ABSL_PROVIDER=package
       -DgRPC_CARES_PROVIDER=package
@@ -64,33 +62,9 @@ class Grpc < Formula
       -DgRPC_ZLIB_PROVIDER=package
       -DgRPC_RE2_PROVIDER=package
     ]
-    system "cmake", "-S", ".", "-B", "_build", *args, *std_cmake_args
+    system "cmake", "-S", ".", "-B", "_build", "-DgRPC_BUILD_TESTS=OFF", *args, *std_cmake_args
     system "cmake", "--build", "_build"
     system "cmake", "--install", "_build"
-
-    # `grpc_cli` fails to build on Linux. In any case, it looks like it isn't meant to be installed.
-    # TODO: consider dropping this on macOS too.
-    return unless OS.mac?
-
-    # The following are installed manually, so need to use CMAKE_*_LINKER_FLAGS
-    # TODO: `grpc_cli` is a huge pain to install. Consider removing it.
-    linker_flags = %W[-rpath #{rpath}]
-    args = %W[
-      -DCMAKE_EXE_LINKER_FLAGS=-Wl,#{linker_flags.join(",")}
-      -DCMAKE_SHARED_LINKER_FLAGS=-Wl,#{linker_flags.join(",")}
-      -DBUILD_SHARED_LIBS=ON
-      -DgRPC_BUILD_TESTS=ON
-      -DgRPC_ABSL_PROVIDER=package
-      -DgRPC_CARES_PROVIDER=package
-      -DgRPC_PROTOBUF_PROVIDER=package
-      -DgRPC_SSL_PROVIDER=package
-      -DgRPC_ZLIB_PROVIDER=package
-      -DgRPC_RE2_PROVIDER=package
-    ]
-    system "cmake", "-S", ".", "-B", "_build-grpc_cli", *args, *std_cmake_args
-    system "cmake", "--build", "_build-grpc_cli", "--target", "grpc_cli"
-    bin.install "_build-grpc_cli/grpc_cli"
-    lib.install (buildpath/"_build-grpc_cli").glob(shared_library("libgrpc++_test_config", "*"))
   end
 
   test do
@@ -108,11 +82,5 @@ class Grpc < Formula
     flags = shell_output("pkgconf --cflags --libs libcares protobuf re2 grpc++").chomp.split
     system ENV.cc, "test.cpp", "-L#{Formula["abseil"].opt_lib}", *flags, "-o", "test"
     system "./test"
-
-    # We don't build `grpc_cli` on Linux.
-    return unless OS.mac?
-
-    output = shell_output("#{bin}/grpc_cli ls localhost:#{free_port} 2>&1", 1)
-    assert_match "Received an error when querying services endpoint.", output
   end
 end

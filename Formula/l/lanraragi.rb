@@ -1,38 +1,42 @@
 class Lanraragi < Formula
   desc "Web application for archival and reading of manga/doujinshi"
   homepage "https://github.com/Difegue/LANraragi"
-  url "https://github.com/Difegue/LANraragi/archive/refs/tags/v.0.9.60.tar.gz"
-  sha256 "27889a0b32b70ddfd2781b0c55d8924953baf879a55cf3bd54759902ea3fea49"
+  url "https://github.com/Difegue/LANraragi/archive/refs/tags/v.0.9.71.tar.gz"
+  sha256 "4dab46dddd2c227bd0428eef4318cad673fca1e2a1420eee1fa2110043827408"
   license "MIT"
-  revision 1
   head "https://github.com/Difegue/LANraragi.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "cfeddce6cf385603aacfd7e6f8575ec15f287bff42368fbd6750fcc2e73cab94"
-    sha256 cellar: :any,                 arm64_sequoia: "cc74f3545f1c4bef7bee2be1c24430cd9c99dc68f5d019c2014570aa9c5b5e4c"
-    sha256 cellar: :any,                 arm64_sonoma:  "8be2d798cfb4fcbf459f8b4ff7d363e5ceca3975314e2bb773f7a8e4643de5db"
-    sha256 cellar: :any,                 sonoma:        "5258447053106cf0c9e7072f8a596a999be0e1ced876e5348b1b1c10e9dab074"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "ed1140b6d3c63a5ea2f986e16cf7ed78b9eb95872a4f091d24657c80f1e7b034"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "062e2b9bc86d06ab91ba517c8b039762e8e26883a660c13264adf53e6f7a6c27"
+    sha256 cellar: :any,                 arm64_tahoe:   "82f115b1051d6ae57411796a4a239c639106ee35ccdf1d73c4c4bb5b0979dcb1"
+    sha256 cellar: :any,                 arm64_sequoia: "e09a9184d798b6dfe60d293111c0f353546581f772b9ad3e45de40a851d50f53"
+    sha256 cellar: :any,                 arm64_sonoma:  "5656dc03498a8963e26890841f82298174fc928c8b5a6d0089b402fc97a0cf87"
+    sha256 cellar: :any,                 sonoma:        "339388cc5e250d86fe2022def364a219eebca2f0595f95bb6ac4685d3e897d9e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c177edbccbda0156e095788003c56ac911fc515d3ad941a079ac98d8ff4cb58"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0157925219e3eb6d4b3ba454387d9b66d1eb41b9560e24da521d701b7d106f11"
   end
 
+  depends_on "cpanminus" => :build
   depends_on "pkgconf" => :build
 
-  depends_on "cpanminus"
   depends_on "ghostscript"
   depends_on "imagemagick"
   depends_on "libarchive"
   depends_on "node"
   depends_on "openssl@3"
-  depends_on "perl"
+  depends_on "perl" # perl >= 5.36.0
   depends_on "redis" # TODO: migrate to `valkey`
   depends_on "zstd"
 
   uses_from_macos "libffi"
 
   resource "Image::Magick" do
-    url "https://cpan.metacpan.org/authors/id/J/JC/JCRISTY/Image-Magick-7.1.1-28.tar.gz"
-    sha256 "bc54137346c1d45626e7075015f7d1dae813394af885457499f54878cfc19e0b"
+    url "https://cpan.metacpan.org/authors/id/J/JC/JCRISTY/Image-Magick-7.1.2-3.tar.gz"
+    sha256 "dc6ee21aed560d36f36be608909344bd2e25d63ab5d959553401e02f5df28a6b"
+
+    livecheck do
+      url :url
+      regex(/href=.*?Image-Magick[._-]v?(\d+(?:\.\d+)*(?:-\d+)?)\.t/i)
+    end
   end
 
   def install
@@ -64,6 +68,7 @@ class Lanraragi < Formula
               "'#{ENV["ARCHIVE_LIBARCHIVE_LIB_DLL"]}'"
 
     (libexec/"lib").install Dir["lib/*"]
+    (libexec/"tools").install "tools/openapi.yaml"
     libexec.install "script", "package.json", "public", "locales", "templates", "tests", "lrr.conf"
     libexec.install "tools/build/homebrew/redis.conf"
     bin.install "tools/build/homebrew/lanraragi"

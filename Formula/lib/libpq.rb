@@ -1,9 +1,10 @@
 class Libpq < Formula
   desc "Postgres C API library"
   homepage "https://www.postgresql.org/docs/current/libpq.html"
-  url "https://ftp.postgresql.org/pub/source/v18.2/postgresql-18.2.tar.bz2"
-  sha256 "5245bd1b79700d55b8e0575be0325ef61e7bbef627e6a616e4cf36ad4687be36"
+  url "https://ftp.postgresql.org/pub/source/v18.4/postgresql-18.4.tar.bz2"
+  sha256 "81a81ec695fb0c7901407defaa1d2f7973617154cf27ba74e3a7ab8e64436094"
   license "PostgreSQL"
+  compatibility_version 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -11,12 +12,12 @@ class Libpq < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "6a62698c8a7f67547b16eb63e4e32ee020b1abbe1fccd1f158218038244e413f"
-    sha256 arm64_sequoia: "8a0543dfd0685c3f9ba23e8fdf612b8b67c450511096ac87cef00c34accc75de"
-    sha256 arm64_sonoma:  "6db92a3dcdb28640e55f1c6d37c803654ede3bed0e0337da5c26fd98399b1f58"
-    sha256 sonoma:        "b136439c0b56ba81b86592e036a0571cf4407860cc5916cdb4c427d96901f492"
-    sha256 arm64_linux:   "67b9e9c2335e23a8b8a9090462464dfc988949f29e2d42525c6b0541a3c41829"
-    sha256 x86_64_linux:  "987c057b568e0c2dc724f696dea994cad48678103d3684f85ba3c9a1265a6518"
+    sha256 arm64_tahoe:   "f94a7562414ac6fc936a1e5a4c8a9d15ab8ffa9e55f60d28de25829d940b0840"
+    sha256 arm64_sequoia: "330927e9bc9f8737be1f60ebf6c86c4e1b1b2cb0bf9d066d6b62d83ce4d1a742"
+    sha256 arm64_sonoma:  "296732cb2341b80b61bad7b17038cc63ea74b0adf775f5477bc78d8760892a81"
+    sha256 sonoma:        "e16b143662f9bec10d264e91e3ec77178ab8379f49897934ff3a202b389eb7e7"
+    sha256 arm64_linux:   "bce9273e2448b574f4a994aaf79dfe58c3b334f89d2c0ea15b0312fbe53a2ce7"
+    sha256 x86_64_linux:  "4a71086c769b0cd1c4dc273b26b958af2451f031ca6b0982238a27056d4a3769"
   end
 
   keg_only "it conflicts with PostgreSQL"
@@ -34,6 +35,7 @@ class Libpq < Formula
   uses_from_macos "flex" => :build
   uses_from_macos "libxml2" => :build
   uses_from_macos "libxslt" => :build # for xsltproc
+  uses_from_macos "curl"
 
   on_linux do
     depends_on "readline"
@@ -47,6 +49,7 @@ class Libpq < Formula
     system "./configure", "--disable-debug",
                           "--prefix=#{prefix}",
                           "--with-gssapi",
+                          "--with-libcurl",
                           "--with-openssl",
                           "--libdir=#{opt_lib}",
                           "--includedir=#{opt_include}"

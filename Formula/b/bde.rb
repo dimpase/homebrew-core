@@ -1,8 +1,8 @@
 class Bde < Formula
   desc "Basic Development Environment: foundational C++ libraries used at Bloomberg"
   homepage "https://github.com/bloomberg/bde"
-  url "https://github.com/bloomberg/bde/archive/refs/tags/4.36.0.0.tar.gz"
-  sha256 "70b5f5a28a8084c5ef551a478a27d165192813b4af77b3c1ed66234b6bc673d1"
+  url "https://github.com/bloomberg/bde/archive/refs/tags/4.38.0.0.tar.gz"
+  sha256 "0a8eba6db1a643208f91d3c806bd51a3e7bf6f77ad7c58c200097d4dd961d323"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class Bde < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ca9c771cf655b9eb228a5697d58033f1ffbdb1a6ba9700792182658dd18fdcd0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "506a1ca18af9b72ce73aa3b53d64d22c68f6b4041ceb8df163e08e13e5c47708"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "edecd76f30383c2bb91bab3b252d182068dfe083d67cf73fd8fc4daff0bd2219"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8a3f3680c9e40707e2d09bd2b4f2766874ef6720570c9220d31efd05c980135f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "307ddc4826c42486b6c7784d3b623e0ed5d55abded02d243aee14c43ffa631e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "929c4e3fea86df27636afa9c09fa872f897322ba3c673abb31ae7f77e807c400"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a8ea458c832d920bcc5d133444a79f2978bac85987d5c2ac0718ace35809f764"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "613c5844b10b4cacedaa326de2f2d83d1837c9c7ba0eca8a7a72aa33df6a2aa9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4dc4cfd381bf0e2aadcaec37b3e827908ea446560759accb2d40ac7171beaeb5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9be8f92465a3dbf5a75a5adb2507356cdd88f8e563a0c8c35781343fb6240b10"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2350054462474b340ffe39f4aa83180bba4240212dfc1d63c70af5d6b944b977"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dab17fed9239bb826d0991923520d87936b8e759d924e29566da19e1784853bd"
   end
 
   depends_on "cmake" => :build
@@ -25,8 +25,8 @@ class Bde < Formula
   depends_on "pcre2"
 
   resource "bde-tools" do
-    url "https://github.com/bloomberg/bde-tools/archive/refs/tags/4.36.0.0.tar.gz"
-    sha256 "3467289d98034e874db39040b39ca4c110c275a926b939577b2f18e1ad7d3615"
+    url "https://github.com/bloomberg/bde-tools/archive/refs/tags/4.38.0.0.tar.gz"
+    sha256 "7796f2db05ef009f4ee7c036c4c5861bc12a45dc39f5b9539bd53794f6a1e783"
 
     livecheck do
       regex(/^v?(\d+\.\d+\.\d+\.\d+)$/i)
@@ -42,15 +42,12 @@ class Bde < Formula
     inreplace "groups/bdl/group/bdl.dep", "pcre2", "libpcre2-posix"
     inreplace "groups/bdl/bdlpcre/bdlpcre_regex.h", "#include <pcre2/pcre2.h>", "#include <pcre2.h>"
 
-    toolchain_file = "bde-tools/cmake/toolchains/#{OS.kernel_name.downcase}/default.cmake"
     args = %W[
-      -DBUILD_BITNESS=64
-      -DUFID=opt_exc_mt_64_shr
-      -DCMAKE_MODULE_PATH=./bde-tools/cmake
-      -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DCMAKE_TOOLCHAIN_FILE=#{toolchain_file}
-      -DPYTHON_EXECUTABLE=#{which("python3.14")}
       -DBdeBuildSystem_DIR=#{buildpath}/bde-tools/BdeBuildSystem/
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DPython3_EXECUTABLE=#{which("python3.14")}
+      -DCMAKE_CXX_STANDARD=17
+      -DCMAKE_CXX_FLAGS=-fsized-deallocation
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
@@ -70,7 +67,7 @@ class Bde < Formula
         return 0;
       }
     CPP
-    system ENV.cxx, "-I#{include}", "test.cpp", "-L#{lib}", "-lbsl", "-o", "test"
+    system ENV.cxx, "test.cpp", "-o", "test", "-std=c++17", "-I#{include}", "-L#{lib}", "-lbsl"
     system "./test"
   end
 end

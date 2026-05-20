@@ -1,8 +1,8 @@
 class Whosthere < Formula
   desc "LAN discovery tool with a modern TUI written in Go"
   homepage "https://github.com/ramonvermeulen/whosthere"
-  url "https://github.com/ramonvermeulen/whosthere/archive/refs/tags/v0.6.1.tar.gz"
-  sha256 "fafb6a69cf64593818c2944055b7a55572715f6136aa0b97767843b68c3556f7"
+  url "https://github.com/ramonvermeulen/whosthere/archive/refs/tags/v0.8.1.tar.gz"
+  sha256 "fcb4230bab275f269bd2c93b0550d0a4dc73b075b15ba1cff32d1042148391be"
   license "Apache-2.0"
   head "https://github.com/ramonvermeulen/whosthere.git", branch: "main"
 
@@ -11,12 +11,12 @@ class Whosthere < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0946376455982d73d5113c149d7833ff5f11bf447a1a9837e555fa4131d57dac"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "62af42fa9124df09d566db7e4accda20b3a66755c82fce542afd159a9624a872"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ccc49388c8b0b29e32335dc7fce0a7f8d4f12b146981d244e4b34767497d39cd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "307ed960c69cd44376d794aa7d1571ec49a9cd0dacf919fd7c6d16b2d9156f13"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a3bd3a4796bf24bd03bc9a79629b0c379c1254c1c5a99a6139c820d102664930"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "561c04d83ef76ba0aefe83511225c4ac136ad126dfb22cd3b5171355dc0f589b"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ab03df912ffc5fda16f727e0d4ef4883e274559e136d218a6894990cd5c14b65"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ab03df912ffc5fda16f727e0d4ef4883e274559e136d218a6894990cd5c14b65"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ab03df912ffc5fda16f727e0d4ef4883e274559e136d218a6894990cd5c14b65"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7b8cb6f4bc9bc48b1c5e0f2a95baf8563da073aab61c82f483363c2303ff783b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "498bd3a696fd9833fc95016642082c16db75a176dd1fbed9582bd5e9c28063ad"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f1a14cb7fca6ccd2e0040f881d95bfdd662fec60368e96dddca5502823dcb058"
   end
 
   depends_on "go" => :build
@@ -25,7 +25,7 @@ class Whosthere < Formula
     ldflags = %W[
       -s -w
       -X main.versionStr=#{version}
-      -X main.dateStr=#{Time.now.utc.iso8601}
+      -X main.dateStr=#{time.iso8601}
     ]
 
     ldflags << "-X main.commitStr=#{Utils.git_short_head}" if build.head?

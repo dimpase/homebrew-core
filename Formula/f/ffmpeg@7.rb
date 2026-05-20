@@ -1,12 +1,12 @@
 class FfmpegAT7 < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-7.1.3.tar.xz"
-  sha256 "f0bf043299db9e3caacb435a712fc541fbb07df613c4b893e8b77e67baf3adbe"
+  url "https://ffmpeg.org/releases/ffmpeg-7.1.4.tar.xz"
+  sha256 "71f4aac3573ed9060489cb62526a6c7dda815ae10993789611acd7be9fa9fbf4"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
-  license "GPL-2.0-or-later"
-  revision 2
+  # Passing `--enable-version3` changes the license to GPL v3+.
+  license "GPL-3.0-or-later"
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -14,12 +14,12 @@ class FfmpegAT7 < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "937f36beebc1a352eb0d13858369f91dc4764eb2affc9de8ca777525ba17e26a"
-    sha256 arm64_sequoia: "cbbf1b05291f63cb4abc1154c8dd1ed6ebbb2375799c40c8e61d8dd1eccfbd42"
-    sha256 arm64_sonoma:  "4e1bd63ba5a194ea347c632a5ee7476e8120b7ce4320c2fd638782ba41889ee1"
-    sha256 sonoma:        "f3d5a3849438960c3b6ff47cce8774cafccd4e6e0b50d67d2e9cdca4a501b12d"
-    sha256 arm64_linux:   "591ad8e5883fdbc299a18b0e6a0c1cef7aa0b49cbbefd2a903f05b93e3f83cb5"
-    sha256 x86_64_linux:  "dc3b931b06d3eda59de2afd77db701b8be7f65c1080ca813a4df0a0aa841d270"
+    sha256 arm64_tahoe:   "08623dcad485e539bbeb7e82950e163a30ea34c3df81a0de0013ea86b5521365"
+    sha256 arm64_sequoia: "8e0f0c6f03bcfc7665d3a11db3e9d648d6dec8001df3e33ce22dba7fcb251881"
+    sha256 arm64_sonoma:  "439b2d54e18fb35027ace36dc64fc790c39c7ad2bd5ce61f43233a8e19267b7a"
+    sha256 sonoma:        "649e9438a7832b1fe98e4410bb4daf492898fd4d660f0eaa5f6c30a5b8beb6ed"
+    sha256 arm64_linux:   "e3312db8229779f222abda6f638270c7720500759300b15aab7e6905b4e43ea1"
+    sha256 x86_64_linux:  "0ba5c935f641f3d82d15c8e09b1ad44e24696854a785ca82e770306217ab3631"
   end
 
   keg_only :versioned_formula
@@ -84,19 +84,6 @@ class FfmpegAT7 < Formula
 
   on_intel do
     depends_on "nasm" => :build
-  end
-
-  # Fix for QtWebEngine, do not remove
-  # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
-  patch do
-    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
-    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
-  end
-
-  # Backport support for svt-av1 4.x
-  patch do
-    url "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/a5d4c398b411a00ac09d8fe3b66117222323844c"
-    sha256 "1dbbc1a4cf9834b3902236abc27fefe982da03a14bcaa89fb90c7c8bd10a1664"
   end
 
   def install

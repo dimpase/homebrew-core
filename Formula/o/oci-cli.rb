@@ -3,22 +3,22 @@ class OciCli < Formula
 
   desc "Oracle Cloud Infrastructure CLI"
   homepage "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm"
-  url "https://files.pythonhosted.org/packages/e3/c1/e11300c6473edefd72358814dd38226aa3d3864374e9429eadd4169bbfaa/oci_cli-3.74.2.tar.gz"
-  sha256 "70789c0d4e28a7be9ba82ac8fdb414f5f8bddfbb9083ade5db6f324f2575f7b9"
+  url "https://files.pythonhosted.org/packages/f8/56/1bfa4fca77ee8ad4fee72e9ba8ad3cd439f070773784ba20be7bb98ed3c2/oci_cli-3.83.0.tar.gz"
+  sha256 "dfed75408b3faa5edab1107b1026d7bd51024efd1f34763fd8dd4791491a22ca"
   license any_of: ["UPL-1.0", "Apache-2.0"]
   head "https://github.com/oracle/oci-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "ebc9cd4ded99d98125ad676657a689a47013060cdd907558121963f1d8f6e9ff"
-    sha256 cellar: :any,                 arm64_sequoia: "16744e6f323912f55f1125d065df5a16a9897e882bca58fc2c0ba17522d03052"
-    sha256 cellar: :any,                 arm64_sonoma:  "fb32ce883fcdbd61d64daa52cd4478209498f0d84f981676414bc8f257fa8bef"
-    sha256 cellar: :any,                 sonoma:        "1b4d0091cf17a49b4f86bc1731215e815ca4a2aec0a796e2d39fddc6ea3ad045"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6cdda81a795e891ccaeaa324d9e9341919b9a1f859c5e8f92853c5097fc73d98"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9bda0727bac1a3de5a6b61708580b3e8eae63d60f41b5cb45268af2af8d36f5f"
+    sha256 cellar: :any,                 arm64_tahoe:   "29e6d431bbd1c5a99da45d4f3d0beabef5af698e4164780e04b973e1b9ff9b91"
+    sha256 cellar: :any,                 arm64_sequoia: "ff91a088d11477e3f7caa356329d0d9e76070d0a753f8e9c8076e65b35f5c2b6"
+    sha256 cellar: :any,                 arm64_sonoma:  "b79c35ae6130e82c826f8a381f6ca52c2cc85a9b35c2f6fbc58ebc2eedad69a9"
+    sha256 cellar: :any,                 sonoma:        "54a494a88ea8cfae72eeed6b9dd25723679791394e3a99d134fa1618f0dc1a1f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "72b0317d54776f81736c6945ad9b15d17783fc9b5811f05cb77d1ff4a077e00a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0eee2d4954c0ab34d5cc7706057adb1373a1e0c8bd6f1a271fe9b1fa91095eac"
   end
 
-  depends_on "certifi"
-  depends_on "cryptography"
+  depends_on "certifi" => :no_linkage
+  depends_on "cryptography" => :no_linkage
   depends_on "libyaml"
   depends_on "python@3.14"
 
@@ -35,8 +35,8 @@ class OciCli < Formula
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/dd/cf/706c1ad49ab26abed0b77a2f867984c1341ed7387b8030a6aa914e2942a0/click-8.0.4.tar.gz"
-    sha256 "8458d7b1287c5fb128c90e23381cf99dcde74beaf6c7ff6384ce84d6fe090adb"
+    url "https://files.pythonhosted.org/packages/42/e1/4cb2d3a2416bcd871ac93f12b5616f7755a6800bccae05e5a99d3673eb69/click-8.1.2.tar.gz"
+    sha256 "479707fe14d9ec9a0757618b7a100a0ae4c4e236fac5b7f80ca68028141a1a72"
   end
 
   resource "jmespath" do
@@ -45,8 +45,8 @@ class OciCli < Formula
   end
 
   resource "oci" do
-    url "https://files.pythonhosted.org/packages/83/a4/ea2c6b3586b01036b77582226d8b07361b1c81f29f3a19f6bab12a2b3b64/oci-2.167.3.tar.gz"
-    sha256 "e3abf32c52b6d73bcfd33423da014e0f473afc052934a010c79428d2a9b82ea2"
+    url "https://files.pythonhosted.org/packages/a8/a0/aa6dc0477cab7d977042c245b4014d787c3d9c287c23a51bd58b3d5c79c0/oci-2.175.0.tar.gz"
+    sha256 "a2c0f7a61e26a430cb5d2f611226eca6ee49f113ba6326ca97c8608be54f168c"
   end
 
   resource "prompt-toolkit" do
@@ -55,8 +55,8 @@ class OciCli < Formula
   end
 
   resource "pyopenssl" do
-    url "https://files.pythonhosted.org/packages/04/8c/cd89ad05804f8e3c17dea8f178c3f40eeab5694c30e0c9f5bcd49f576fc3/pyopenssl-25.1.0.tar.gz"
-    sha256 "8d031884482e0c67ee92bf9a4d8cceb08d92aba7136432ffb0703c5280fc205b"
+    url "https://files.pythonhosted.org/packages/1a/51/27a5ad5f939d08f690a326ef9582cda7140555180db71695f6fb747d6a36/pyopenssl-26.2.0.tar.gz"
+    sha256 "8c6fcecd1183a7fc897548dfe388b0cdb7f37e018200d8409cf33959dbe35387"
   end
 
   resource "python-dateutil" do
@@ -65,8 +65,8 @@ class OciCli < Formula
   end
 
   resource "pytz" do
-    url "https://files.pythonhosted.org/packages/3a/31/3c70bf7603cc2dca0f19bdc53b4537a797747a58875b552c8c413d963a3f/pytz-2024.2.tar.gz"
-    sha256 "2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a"
+    url "https://files.pythonhosted.org/packages/ff/46/dd499ec9038423421951e4fad73051febaa13d2df82b4064f87af8b8c0c3/pytz-2026.2.tar.gz"
+    sha256 "0e60b47b29f21574376f218fe21abc009894a2321ea16c6754f3cad6eb7cdd6a"
   end
 
   resource "pyyaml" do
@@ -90,13 +90,18 @@ class OciCli < Formula
   end
 
   resource "tzdata" do
-    url "https://files.pythonhosted.org/packages/5e/a7/c202b344c5ca7daf398f3b8a477eeb205cf3b6f32e7ec3a6bac0629ca975/tzdata-2025.3.tar.gz"
-    sha256 "de39c2ca5dc7b0344f2eba86f49d614019d29f060fc4ebc8a417896a620b56a7"
+    url "https://files.pythonhosted.org/packages/ba/19/1b9b0e29f30c6d35cb345486df41110984ea67ae69dddbc0e8a100999493/tzdata-2026.2.tar.gz"
+    sha256 "9173fde7d80d9018e02a662e168e5a2d04f87c41ea174b139fbef642eda62d10"
+  end
+
+  resource "urllib3" do
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/35/a2/8e3becb46433538a38726c948d3399905a4c7cabd0df578ede5dc51f0ec2/wcwidth-0.6.0.tar.gz"
-    sha256 "cdc4e4262d6ef9a1a57e018384cbeb1208d8abbc64176027e2c2455c81313159"
+    url "https://files.pythonhosted.org/packages/2c/ee/afaf0f85a9a18fe47a67f1e4422ed6cf1fe642f0ae0a2f81166231303c52/wcwidth-0.7.0.tar.gz"
+    sha256 "90e3a7ea092341c44b99562e75d09e4d5160fe7a3974c6fb842a101a95e7eed0"
   end
 
   def install

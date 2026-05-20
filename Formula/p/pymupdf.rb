@@ -1,18 +1,17 @@
 class Pymupdf < Formula
   desc "Python bindings for the PDF toolkit and renderer MuPDF"
   homepage "https://pymupdf.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/1b/0c/40dda0cc4bd2220a2ef75f8c53dd7d8ed1e29681fcb3df75db6ee9677a7e/pymupdf-1.27.1.tar.gz"
-  sha256 "4afbde0769c336717a149ab0de3330dcb75378f795c1a8c5af55c1a628b17d55"
+  url "https://files.pythonhosted.org/packages/22/32/708bedc9dde7b328d45abbc076091769d44f2f24ad151ad92d56a6ec142b/pymupdf-1.27.2.3.tar.gz"
+  sha256 "7a92faa25129e8bbec5e50eeb9214f187665428c31b05c4ef6e36c58c0b1c6d2"
   license "AGPL-3.0-only"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "acad5b7f5a4e3c1df83bca955a281aa395470c78c6e3e53091f97e96f3367c48"
-    sha256 cellar: :any,                 arm64_sequoia: "b2d139168b96a7fa1518baa923c3d6283cd4ea93e35df58cddd5ad674db779e6"
-    sha256 cellar: :any,                 arm64_sonoma:  "7e108eca9cf88df0771d698cf54cbe61742b5ee18ffa6b774c199b1e0a14bd48"
-    sha256 cellar: :any,                 sonoma:        "9e454a704d14a3d123cc123bbd756a1a608e89d3e074fcc9b1ea2e3c797a8365"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "471d590a246127266aa862df82580ea51cff2cda8904c20afbf59c1c86d23827"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "027cb3becedb7ad42e9a51842aa8dc8fda1c62abe0eb130dd997f7b23ecc882f"
+    sha256 cellar: :any,                 arm64_tahoe:   "05889f7a1307899408eddf9b8822d91428cb1e4df32cc8b854c83b35234ab270"
+    sha256 cellar: :any,                 arm64_sequoia: "c4152bb0d18556ddbbd66b8715643be564b37fb52d065b6759f0e37479ff18da"
+    sha256 cellar: :any,                 arm64_sonoma:  "55689a970e4245e551cc3dfe16296124b9d86ef8312df8bb5e3d0e39e6715f1d"
+    sha256 cellar: :any,                 sonoma:        "78624b43fbaa4f66aab09d86940e4a110b02b8842f3c2409c39b5359dfcb75fc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0b3eae3d4420c1a84de8e30e4fe668491257e5fd7518eed5b0a0595acc8e7ee1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8b23f30aeb8215a6d6c45507614d6336973cbd06aa45c7acb86cd1c8662e772f"
   end
 
   depends_on "freetype" => :build
@@ -30,12 +29,13 @@ class Pymupdf < Formula
     # https://github.com/pymupdf/PyMuPDF/blob/1.20.0/setup.py#L447
     ENV["PYMUPDF_SETUP_MUPDF_BUILD"] = ""
     ENV["PYMUPDF_INCLUDES"] = "#{Formula["mupdf"].opt_include}:#{Formula["freetype"].opt_include}/freetype2"
+    ENV["PYMUPDF_SETUP_SWIG"] = Formula["swig"].opt_bin/"swig"
 
     mupdf_libpath = Formula["mupdf"].opt_lib.to_s
     ENV["PYMUPDF_MUPDF_LIB"] = mupdf_libpath
     ENV.append "LDFLAGS", "-Wl,-rpath,#{mupdf_libpath}" if OS.mac?
 
-    system python3, "-m", "pip", "install", *std_pip_args, "."
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
   end
 
   test do

@@ -1,6 +1,10 @@
 class Qttools < Formula
   desc "Facilitate the design, development, testing and deployment of applications"
   homepage "https://www.qt.io/"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qttools-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qttools-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qttools-everywhere-src-6.11.1.tar.xz"
+  sha256 "8e61835a679c93fa9c6065b142353c2071ba68e297898937c32a03777fcaf50d"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
@@ -9,30 +13,17 @@ class Qttools < Formula
   ]
   head "https://code.qt.io/qt/qttools.git", branch: "dev"
 
-  stable do
-    url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qttools-everywhere-src-6.10.2.tar.xz"
-    mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qttools-everywhere-src-6.10.2.tar.xz"
-    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qttools-everywhere-src-6.10.2.tar.xz"
-    sha256 "1e3d2c07c1fd76d2425c6eaeeaa62ffaff5f79210c4e1a5bc2a6a9db668d5b24"
-
-    # Backport fix for build on Linux
-    patch do
-      url "https://github.com/qt/qttools/commit/b676278a24eb880eeeed35bbf203a76950a9ab4e.patch?full_index=1"
-      sha256 "36740336b401055ca1699787921d474377ec65f0b041351141b158b9ced7ef42"
-    end
-  end
-
   livecheck do
     formula "qtbase"
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "1bb2951b965ac91201b28aa2060fb88c3784478baea5bd86395fe17b23618539"
-    sha256 cellar: :any,                 arm64_sequoia: "863ae193ac3ee1539c737f1df645e908c692ca5a9f2a5eac8b61857cd0af6f00"
-    sha256 cellar: :any,                 arm64_sonoma:  "4ac4c5c004064b5c526ca8a0cc862392cc5eced81bf0c35d45fd5c5a60a6560f"
-    sha256 cellar: :any,                 sonoma:        "9d1cda0f05a6415afbafe2c8072b607d6b3f5b1c147803bd179292c221627c17"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4036fe0f58be98de7b5f6f5e49b7cd496a7e322fc58f30723e1c5e30efab7e4e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "242c56b484d044f863a6c8d5b8e3c890d6e6ffeb35c5085bd602e922c16dea1f"
+    sha256 cellar: :any,                 arm64_tahoe:   "20aecfa9eb080d4f211b712ea9615fff4402f88c1fcdd1502f19cb762aa334f3"
+    sha256 cellar: :any,                 arm64_sequoia: "462a076f64329011cbbec6812e4c591f80eb81739449fd8a5eb9e03771200b89"
+    sha256 cellar: :any,                 arm64_sonoma:  "fe241aac196a66f1506d8f30048f8ebd248095fc29963b5cd4d1820eab77ffc9"
+    sha256 cellar: :any,                 sonoma:        "9f20463c84fd13541159c9020b552629eaf328d4ae42c593f1251f552c83db47"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bc8fa63b4cc8e2ae11b3df94f6db5852e28863fda4832cb793df9b5a5e2c9961"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3dcfd3c8fe73c6cb04ed8b85c6bf1d4b0b73e2b53c37cc96dcce15a9c6af17df"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -54,11 +45,7 @@ class Qttools < Formula
     # Modify Assistant path as we manually move `*.app` bundles from `bin` to `prefix`.
     # This fixes invocation of Assistant via the Help menu of apps like Designer and
     # Linguist as they originally relied on Assistant.app being in `bin`.
-    assistant_files = %w[
-      src/designer/src/designer/assistantclient.cpp
-      src/linguist/linguist/mainwindow.cpp
-    ]
-    inreplace assistant_files, '"Assistant.app/Contents/MacOS/Assistant"', '"Assistant"'
+    inreplace "src/shared/helpclient/assistantclient.cpp", '"Assistant.app/Contents/MacOS/Assistant"', '"Assistant"'
 
     # We disable clang feature to avoid linkage to `llvm`. This is how we have always
     # built on macOS and it prevents complicating `llvm` version bumps on Linux.

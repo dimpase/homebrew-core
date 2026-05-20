@@ -1,18 +1,17 @@
 class TerraformDocs < Formula
   desc "Tool to generate documentation from Terraform modules"
   homepage "https://terraform-docs.io/"
-  url "https://github.com/terraform-docs/terraform-docs/archive/refs/tags/v0.21.0.tar.gz"
-  sha256 "e8180d74662707b2643930aee7ba012a29ad767ef55fd3321d6a9f3ce7fa79b8"
+  url "https://github.com/terraform-docs/terraform-docs/archive/refs/tags/v0.24.0.tar.gz"
+  sha256 "e3c971a1f2a02732d964e19e65c901b4e02cca62c4b748c05d22e9690d055540"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "e0d3dc055f2dec3731d78b46495b133ff703f1552380f32020ab8efcc59f6f82"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2d35e1bb260d8ec2fd27135ffddaa6d59a41b7fba788c99f4fdd9f7f9157b82b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "efbfbfdbad330848c4b3e1f7165765aed9616a65a438fb90de41af9243f97eda"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e1b1e387eb27ef167275c66f73dc3019c082777c333ef8c03f93372594394c7f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "728494fc61676afd9396d470988588a9961c4609820bb2028194864f37f2ed1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ef78dd170f5f0e90ab3b71116d50949545fb6b5c7de883749f9f9fc151f2c3ac"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fa2cc1277c6cc50f860807570e9bc88868fd24e99e6d68a9d5b4a47ba25dc3cc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "42b365054923bac534510d13e6b06e7066dae1a431d0d88b67587ad70bb52077"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8305233ffe535dc775e5bbd8d8a00c2dc2a5a3133ec719e920ae65bc54d9e1af"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d23f09b9c5ff28efc122d3ef26dfc768aa58d92bc40a13fe291c0a7815901426"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "1a52f38be0c6f3af1b3dad3c7e13026b20f3ee6ace1b9e5ca9be6d5dfc826f84"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "21e204b1283a4e3de6fb2aaf6e95edb7486aa6f3424cd0493bbd1ec396ac6997"
   end
 
   depends_on "go" => :build

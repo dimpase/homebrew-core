@@ -1,18 +1,18 @@
 class OsctrlCli < Formula
   desc "Fast and efficient osquery management"
   homepage "https://osctrl.net"
-  url "https://github.com/jmpsec/osctrl/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "239be17d3eb05cd9b9630d20bf151c4e12184c1f451a336468e17067c3362ac5"
+  url "https://github.com/jmpsec/osctrl/archive/refs/tags/v0.5.2.tar.gz"
+  sha256 "0104c25a1a08c5cee4db3ee070fdded7d35bbde9b9296eab6e035fe2a4d3ceac"
   license "MIT"
   head "https://github.com/jmpsec/osctrl.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a072f936507390bb64aa7a9f51d37e8fa3f6a8c70b5afab370f1d886c108f21d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e31be1ecc821c6f666d11b17f04fd65b5eda665f5241eebe729873ec16f677ea"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dc6f01f3eee32294a57e7d722051754df0b1810ba88a80751a00c676b1f3879b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "fd0d7f382100a1d1aa624da878bb71acc509bec18b5cd5250569e8cfd0e43d1d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c40ca5841e215c3efc3e98f2586436b804a92ea3786aef7e131e70fdabd39ba"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "881de821567b42067b7bf79e1068d4806441154d2ae54e911423a55321474aa1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2fddbaf663a1018dc9fddbb2ccd3c47d7beab026d30f697cceeb7f48edecb006"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e2ac3ee42a006f169c442a54cdf6a318ce488b7dda81c76b5b07c0404780bf7e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ae05e0e391c51c2bb66f397a178557d4dd08ece01318781ca562f3a311691d69"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6a329b69ade5aae1f27a52cce940812a9de933c3005fa4b363a1824cdc3c352c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0aa3ec60592ea221443c666ea782d83da29480303ef9effebd5bb267c0ca416f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "174076558ae8a1b307c5f8a46301f6fa1b989db61b2ea65136bbac7b06d13c53"
   end
 
   depends_on "go" => :build

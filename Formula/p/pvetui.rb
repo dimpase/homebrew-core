@@ -1,18 +1,18 @@
 class Pvetui < Formula
   desc "Terminal UI for Proxmox VE"
   homepage "https://github.com/devnullvoid/pvetui"
-  url "https://github.com/devnullvoid/pvetui/archive/refs/tags/v1.0.19.tar.gz"
-  sha256 "361946962a5b7ab70bb7c5983b96e762ece507c623b4d50e728a58ac639d3551"
+  url "https://github.com/devnullvoid/pvetui/archive/refs/tags/v1.3.3.tar.gz"
+  sha256 "4c0afa6edec859335ff01eed42e9ec0d763a5ee4dd3d22c862575c823472a1a9"
   license "MIT"
   head "https://github.com/devnullvoid/pvetui.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "8125b355d79f56aeee66f463bef1eac8d81a6394c38b601adba43cd7cbdc024a"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8125b355d79f56aeee66f463bef1eac8d81a6394c38b601adba43cd7cbdc024a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8125b355d79f56aeee66f463bef1eac8d81a6394c38b601adba43cd7cbdc024a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9abeea182abdd5b052b599d6f785dd5f25d87db5cd2586e58a1a7549a37791ad"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b0db494bba9bc90412af5e613bf2398f819d06f396c0a0ec1211634d52720b2d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c7f5d09220235abfe7a2125e0643780a2e33ba54f59873f1bad3510071bd2916"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9956bc790bbee8a9fa74baff7593c91738508c0e315f3002fc79c16b4c5c9781"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9956bc790bbee8a9fa74baff7593c91738508c0e315f3002fc79c16b4c5c9781"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9956bc790bbee8a9fa74baff7593c91738508c0e315f3002fc79c16b4c5c9781"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d70ec0f635232656a5328e6002eb26a7d09fc4a96d4dc38b291dc890e0d92b10"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c0f46a4f154463af48db0ddc280ed2b3a25a33eda9ad207bfbded4c2d220c96e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "04187d0af9e083a543cdedfb7fc707275db6681c51e141ff87ce2fc71ff68edc"
   end
 
   depends_on "go" => :build

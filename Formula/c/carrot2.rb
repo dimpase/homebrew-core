@@ -2,17 +2,18 @@ class Carrot2 < Formula
   desc "Search results clustering engine"
   homepage "https://search.carrot2.org/"
   url "https://github.com/carrot2/carrot2.git",
-      tag:      "release/4.8.4",
-      revision: "0f03127e58a6a10a8d0f5f0a0c4807f0f9e5b6cd"
+      tag:      "release/4.8.6",
+      revision: "fa471b2f70b2f54afa594fa23f170f3bb6435c6a"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "42fba9ccb181cbecc379c25e36212abbe2ceb0a3c2a5dc931874f50c76e3e83a"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "119098d2b7b04c96ed7f0853671d9bd9913a5181fea3176c0e16c5780aeecd63"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1a917893929339e7fe46e84e895f6c45f4b128dad85d2863cb8d10080692f8b2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a96c3308d3758c16b4ec0819ae66bde55503e69620f2ce56ee9054d8f7e34e7d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6b71e7f3e5a5b9adcaf46e0f69d6251b00daf2fdd461b2c76047d505a120d675"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "92af6e592c552ba28bbe9397ff5e6036e0aad737cc5538f1d1c938d915e41e76"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "720bd31764fe52b13d33727474aeae8f136f39dafd7b2be3ca9a4ba718fbd884"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5f941098d23ac4e09831cc6307de3612db0f68c98b1299420ca578aa9429f01d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c1a19b526779bd5765316dd2bb421d51f8089cfa5047ff9e49df23ec8845a4b2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "679edda4a31c922485d3dd3365740318440a7b64b0bc5485674a93c57ac7eac8"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a3e195a47608eff28e3d4845590073f46945c2c6fa066a7b861bb4d6952d2ed2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "26902c74d9cdf96d37051cc3872edc8d7b4cbd7e6c80e2073dea616146bd97d1"
   end
 
   depends_on "gradle" => :build
@@ -28,7 +29,7 @@ class Carrot2 < Formula
 
   def install
     # Make possible to build the formula with the latest available in Homebrew gradle
-    inreplace "gradle/wrapper/gradle-wrapper.properties", "gradle-9.2.1", "gradle-#{Formula["gradle"].version}"
+    inreplace "gradle/wrapper/gradle-wrapper.properties", "gradle-9.3.1", "gradle-#{Formula["gradle"].version}"
 
     # Use yarn and node from Homebrew
     inreplace "gradle/node/yarn-projects.gradle", "download = true", "download = false"
@@ -56,8 +57,11 @@ class Carrot2 < Formula
 
   test do
     port = free_port
-    spawn bin/"carrot2", "--port", port.to_s
+    pid = spawn bin/"carrot2", "--port", port.to_s
     sleep 20
     assert_match "Lingo", shell_output("curl -s localhost:#{port}/service/list")
+  ensure
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

@@ -1,20 +1,23 @@
 class Devcockpit < Formula
   desc "TUI system monitor for Apple Silicon"
   homepage "https://devcockpit.app/"
-  url "https://github.com/caioricciuti/dev-cockpit/archive/refs/tags/v1.0.8.tar.gz"
-  sha256 "a1ce6d16d46da379d88ca579f24d9d16c542b047c6dd3005637c2d45cf7c49e7"
+  url "https://github.com/caioricciuti/dev-cockpit/archive/refs/tags/v2.1.0.tar.gz"
+  sha256 "feb16115caf94b63b71a5c86ab47b10bee5009207790c99df52443fe4cdd4873"
   license "GPL-3.0-only"
   head "https://github.com/caioricciuti/dev-cockpit.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0a25af8b7c4bd01d8a57740d3cde4bf7d414875fabee82094bc775ffc2a15e78"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f144344e18802921f1086c3e12a4fc2c36d5acfe5e10d00b18d488978d8a3750"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "156101ae088f57254b78ef3d8e48f94da079eedf3e7a9d04713aa8e727d56532"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a78c8abb5c2445639be83fe271a6cbc0d2888272bca1554826de924a166e1b3e"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c219068bdf25afb8b35eec889ca9904a71bab68eb877d74037a1bd53f0a7f443"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ba82bc26988600c8291347d23446a3aa3ac854f12a12059d47a5dd1b47676686"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "30b27277a81e21bb38aa937dada422adbad94ed6ea91eab3e34cb7981d619111"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "fa8f5a921bb8f92fe91226b0fba5b679ab9ba28e8832140bfd70794ead6f8bd3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5d4501f7e77eababad97ccc88b68baaf3f93aae146bbbd5409669c48bc201512"
   end
 
   depends_on "go" => :build
-  depends_on arch: :arm64
+  on_macos do
+    depends_on arch: :arm64
+  end
 
   def install
     ENV["CGO_ENABLED"] = "1"

@@ -1,8 +1,8 @@
 class PythonGdbmAT314 < Formula
   desc "Python interface to gdbm"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.14.3/Python-3.14.3.tgz"
-  sha256 "d7fe130d0501ae047ca318fa92aa642603ab6f217901015a1df6ce650d5470cd"
+  url "https://www.python.org/ftp/python/3.14.5/Python-3.14.5.tgz"
+  sha256 "9c22bfe9939a6c5418fc74b289a5f1cc41859ae82ac6b163016b5844bd0a86bc"
   license "Python-2.0"
 
   livecheck do
@@ -10,12 +10,13 @@ class PythonGdbmAT314 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "69e7e5faf2ce879d0c29a5d28716f94c2c4301fc1eb0012bffb58e5b44249d2b"
-    sha256 cellar: :any, arm64_sequoia: "ef64a5b1aeccecb3262930bab62a30061e514008e490aabd0beb22da453a3335"
-    sha256 cellar: :any, arm64_sonoma:  "3e0fa3b7b807ef03abaa60ab316c50e0255702b0fdc64e446c508e66a6cd3781"
-    sha256 cellar: :any, sonoma:        "88f4034267c9fd249fb3180145e5946b9e4ea7c739b71a0a2c97c8921c18e340"
-    sha256               arm64_linux:   "0037e048b183aedd3436c771a1f4c80841617c080d93c78f449281359445cea4"
-    sha256               x86_64_linux:  "251e611096b158aaf897d49c73aa87b8b71a6ec354003c1fbaf19e2e4f2e4ed2"
+    sha256 cellar: :any, arm64_tahoe:   "cf49f66901e213fdf25ce56dfe662f9f33675ef49394ad249af7fa20a392b9f8"
+    sha256 cellar: :any, arm64_sequoia: "853fed0807d3b90d109c7ba8343742c53bbd73e202975031cff80c0ebd902a0e"
+    sha256 cellar: :any, arm64_sonoma:  "12f58903cbcf47f7420ba2023885b7eb59d682d2c941883586c573b12f42a3a2"
+    sha256 cellar: :any, sequoia:       "dc238052db1ae479329d9be9d589c3811cb74c8226063c13d381c3c0f82510b1"
+    sha256 cellar: :any, sonoma:        "511e111f0cc9d8def1b72cbcd1db817bef5b5aa31d9c74a9b9a09ac744968c1b"
+    sha256               arm64_linux:   "92618372f2370c9b570d516573719e81ba008a3880901a26b07a8a400ed38c0d"
+    sha256               x86_64_linux:  "0f8f044aa01ae183d89ec6e6c2ebb29c673b405e76f16a57273c32fd6af63fb8"
   end
 
   depends_on "gdbm"
@@ -33,25 +34,36 @@ class PythonGdbmAT314 < Formula
       Formula["python@#{xy}"].opt_include/"python#{xy}"
     end
 
-    cd "Modules" do
-      (Pathname.pwd/"setup.py").write <<~PYTHON
-        from setuptools import setup, Extension
+    (buildpath/"Modules/pyproject.toml").write <<~TOML
+      [project]
+      name = "gdbm"
+      version = "#{version}"
+      description = "#{desc}"
 
-        setup(name="gdbm",
-              description="#{desc}",
-              version="#{version}",
-              ext_modules = [
-                Extension("_gdbm", ["_gdbmmodule.c"],
-                          include_dirs=["#{Formula["gdbm"].opt_include}", "#{python_include}/internal"],
-                          libraries=["gdbm"],
-                          library_dirs=["#{Formula["gdbm"].opt_lib}"])
-              ]
-        )
-      PYTHON
-      system python3, "-m", "pip", "install", *std_pip_args(prefix: false, build_isolation: true),
-                                              "--target=#{libexec}", "."
-      rm_r libexec.glob("*.dist-info")
-    end
+      [tool.setuptools]
+      packages = []
+
+      [[tool.setuptools.ext-modules]]
+      name = "_gdbm"
+      sources = ["_gdbmmodule.c"]
+      include-dirs = ["#{Formula["gdbm"].opt_include}", "#{python_include}/internal"]
+      libraries = ["gdbm"]
+      library-dirs = ["#{Formula["gdbm"].opt_lib}"]
+    TOML
+
+    (buildpath/"Modules/pyproject.toml").append_lines <<~TOML if OS.linux?
+      [[tool.setuptools.ext-modules]]
+      name = "_dbm"
+      sources = ["_dbmmodule.c"]
+      include-dirs = ["#{Formula["gdbm"].opt_include}", "#{python_include}/internal"]
+      libraries = ["gdbm_compat"]
+      library-dirs = ["#{Formula["gdbm"].opt_lib}"]
+      extra-compile-args = ["-DUSE_GDBM_COMPAT", "-DHAVE_GDBM_DASH_NDBM_H"]
+    TOML
+
+    system python3, "-m", "pip", "install", *std_pip_args(prefix: false, build_isolation: true),
+                                            "--target=#{libexec}", "./Modules"
+    rm_r libexec.glob("*.dist-info")
   end
 
   test do
@@ -65,5 +77,19 @@ class PythonGdbmAT314 < Formula
       with dbm.gnu.open("#{testdb}", "r") as db:
         assert db["testkey"] == b"testvalue"
     PYTHON
+
+    return unless OS.linux?
+
+    (testpath/"dbm_test.py").write <<~PYTHON
+      import dbm
+
+      with dbm.ndbm.open("test", "c") as db:
+        db[b"foo \\xbd"] = b"bar \\xbd"
+      with dbm.ndbm.open("test", "r") as db:
+        assert list(db.keys()) == [b"foo \\xbd"]
+        assert b"foo \\xbd" in db
+        assert db[b"foo \\xbd"] == b"bar \\xbd"
+    PYTHON
+    system python3, "dbm_test.py"
   end
 end

@@ -1,15 +1,15 @@
 class Nb < Formula
   desc "Command-line and local web note-taking, bookmarking, and archiving"
   homepage "https://xwmx.github.io/nb"
-  url "https://github.com/xwmx/nb/archive/refs/tags/7.25.1.tar.gz"
-  sha256 "2d958f38cd1ffd32f658e3d4ee0a59ccb4806705221486745a09f76a20a05f7a"
+  url "https://github.com/xwmx/nb/archive/refs/tags/7.25.4.tar.gz"
+  sha256 "0d4d2423f56ab765a934d5770a8f84b52fd83801759813bbb92e916ca4cb8dcb"
   license "AGPL-3.0-or-later"
   head "https://github.com/xwmx/nb.git", branch: "master"
 
   no_autobump! because: :bumped_by_upstream
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "c277c3ccde45d0375d9d947950d9f9a3185765e5a7124cbc96464beb22d04fc9"
+    sha256 cellar: :any_skip_relocation, all: "2d6087e2f6625ada9f8fe04935df42051be5d8d0cf6c784929412e2432cd4816"
   end
 
   depends_on "bat"
@@ -18,8 +18,6 @@ class Nb < Formula
   depends_on "ripgrep"
   depends_on "tig"
   depends_on "w3m"
-
-  uses_from_macos "bash"
 
   def install
     bin.install "nb", "bin/bookmark"

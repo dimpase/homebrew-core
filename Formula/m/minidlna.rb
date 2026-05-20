@@ -6,8 +6,6 @@ class Minidlna < Formula
   license "GPL-2.0-only"
   revision 2
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     rebuild 1
     sha256 cellar: :any,                 arm64_tahoe:   "9fc0ed3ac5675b3dbfe74a361c9b43f7d82a29a65a12abc56ac1b9efd30d1258"
@@ -25,19 +23,22 @@ class Minidlna < Formula
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
-    depends_on "gettext" => :build
     depends_on "libtool" => :build
   end
 
+  depends_on "gettext" => :build
   depends_on "ffmpeg"
   depends_on "flac"
-  depends_on "gettext"
   depends_on "jpeg-turbo"
   depends_on "libexif"
   depends_on "libid3tag"
   depends_on "libogg"
   depends_on "libvorbis"
   depends_on "sqlite"
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   # Apply Fedora's patch to support newer FFmpeg. This has an open merge request:
   # https://sourceforge.net/p/minidlna/git/merge-requests/58/

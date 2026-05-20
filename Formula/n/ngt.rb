@@ -1,8 +1,8 @@
 class Ngt < Formula
   desc "Neighborhood graph and tree for indexing high-dimensional data"
-  homepage "https://github.com/yahoojapan/NGT"
-  url "https://github.com/yahoojapan/NGT/archive/refs/tags/v2.6.0.tar.gz"
-  sha256 "6c3cb11fb62f4ab52a3b6c47ea057a444e2d71506114fbaac83fd8fa3db5f193"
+  homepage "https://github.com/NGT-labs/NGT"
+  url "https://github.com/NGT-labs/NGT/archive/refs/tags/v2.7.4.tar.gz"
+  sha256 "0faad6f5185e5c66868c8907c4dd91f8776782aa81ba1abaeefe3b0774d6e170"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class Ngt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "3f96824a9cf45270fd9e239582c5033b5c0b5577591fe2b8e0367f7084193202"
-    sha256 cellar: :any,                 arm64_sequoia: "27d97eaa69a854fb329e5d3588b3bf2cfd661af1593b57d54c35a670bfb2e148"
-    sha256 cellar: :any,                 arm64_sonoma:  "9939521d4c748e85c4126950a476947f70b733db2052573d804d7e065c170283"
-    sha256 cellar: :any,                 sonoma:        "1d6ba107a62a6df04d776860ca9e12aa48356a08f66d5d3268b2007e94fb87b1"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "07e78a9ba2d08e7c477d6841b9cf901b85f2a1c87731133142490ffb1344921b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0d78c262b4baf0078ddbf14783945d1adddf4b75dc19de7bc0795dbc49d6fb31"
+    sha256 cellar: :any,                 arm64_tahoe:   "95e86a836368dd32b795b28cdcb5deaa4e3e70fd03649d8313c8e738fd245aaf"
+    sha256 cellar: :any,                 arm64_sequoia: "674e2a599257266ead781e3d9a9a6a7ac0ddeb516852e8d99e2799ed91530e2b"
+    sha256 cellar: :any,                 arm64_sonoma:  "44bafbfe3d2cd2ed9c24e1e050364488226c8cefccbd0c3dfcf8e1e24569d58f"
+    sha256 cellar: :any,                 sonoma:        "c485400757cb3d361c86393c1f696e8b89f7d80bc4ac3d99606cd1a73b46280d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "6c38b28dc90ca9400c5c688ae188b1b0e0a9df4ceecbfc54c22402235d3f27f4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6fef73a749fca9d0d24fe2200a9f7c0f1d46a4cf1c4f679e97d255fae0b7fcc8"
   end
 
   depends_on "cmake" => :build
@@ -29,12 +29,18 @@ class Ngt < Formula
     depends_on "openblas"
   end
 
+  patch do
+    url "https://github.com/NGT-labs/NGT/commit/ddb97ff021bab08b3bae6144d5971a1616e1477c.patch?full_index=1"
+    sha256 "3d622749ca18e34c11bb3ef3ffe61e4b534231937e4c0a321b62dec6cf21a3a0"
+  end
+
   def install
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
       -DNGT_BFLOAT_DISABLED=ON
+      -DNGT_MARCH_NATIVE_DISABLED=ON
     ]
+
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

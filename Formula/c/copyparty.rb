@@ -3,22 +3,25 @@ class Copyparty < Formula
 
   desc "Portable file server"
   homepage "https://github.com/9001/copyparty"
-  url "https://files.pythonhosted.org/packages/62/f7/634581e256d1a01f6871da4e7dc5ee6819d5fa3f198437b93c8146dd5f2d/copyparty-1.20.10.tar.gz"
-  sha256 "f725380f1ca6aea04a6fc14da71a3687a2eb53b7d68b8b35d9bd281dc0a8a8b5"
+  url "https://files.pythonhosted.org/packages/4f/0e/81965fdccef8dbd6d0ab22c421df3bc50e0bb27a5b8eaa79f046f208a4e1/copyparty-1.20.14.tar.gz"
+  sha256 "a662935f75eb67232b16624621886325b26afeb0b860af506ad6f3ff2af161c6"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "9f64fccbd7b72288aa74a1513f659f94dc501b867131dd5630b950757b138b20"
-    sha256 cellar: :any,                 arm64_sequoia: "202457a64a62a105f0ff8f7410e01a5d1e41f6c50701f9716e00c867d5735ec9"
-    sha256 cellar: :any,                 arm64_sonoma:  "a9e814b61b16c2af0d37eb369fc8fb346babc62ee332ca18d2f366037815f6aa"
-    sha256 cellar: :any,                 sonoma:        "fa4c5c66297270acd26c3ecd9a4c917f6978e61c769c7dc0eee8c287d38f7cd4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "bd421f58dc2b8102fad0a8c0a90aeb716084a2a9c7320d8a30f22f83c7496954"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8bae7e12f69ad27378ec1297eac7231f74607be640ec7cf68ff96dbdad4ff999"
+    sha256 cellar: :any,                 arm64_tahoe:   "6789199516279685ae0a653de087cc4cc02ba888094bc15148892b1e08a9146e"
+    sha256 cellar: :any,                 arm64_sequoia: "fd57b8db23351efca10b7324232740d84f55f1e09d9baf930934fa12e5dbb91f"
+    sha256 cellar: :any,                 arm64_sonoma:  "aa37262549571fbddf28e5008dcd90aa98f9c90398ca620e5005eb44074af27d"
+    sha256 cellar: :any,                 sonoma:        "17090702f04b5925342afa5201d869641e9ee8ed1e47468deb29a4c9ec325338"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "62d8be327c071dc4c745445997d537e7533108784d8e9790f0b0dedc0f9cf2ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8f1ede8091160886d25a719998382b1c54be7596aa20071c2107e1afdcd7b671"
   end
 
+  # `pkgconf` and `rust` are for bcrypt
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "rust" => :build # for bcrypt
+  depends_on "pkgconf" => :build
+  depends_on "rust" => :build
   depends_on "cryptography" => :no_linkage
   depends_on "libsodium"
   depends_on "pillow" => :no_linkage
@@ -50,8 +53,8 @@ class Copyparty < Formula
   end
 
   resource "invoke" do
-    url "https://files.pythonhosted.org/packages/de/bd/b461d3424a24c80490313fd77feeb666ca4f6a28c7e72713e3d9095719b4/invoke-2.2.1.tar.gz"
-    sha256 "515bf49b4a48932b79b024590348da22f39c4942dff991ad1fb8b8baea1be707"
+    url "https://files.pythonhosted.org/packages/33/f6/227c48c5fe47fa178ccf1fda8f047d16c97ba926567b661e9ce2045c600c/invoke-3.0.3.tar.gz"
+    sha256 "437b6a622223824380bfb4e64f612711a6b648c795f565efc8625af66fb57f0c"
   end
 
   resource "jinja2" do
@@ -65,8 +68,8 @@ class Copyparty < Formula
   end
 
   resource "paramiko" do
-    url "https://files.pythonhosted.org/packages/1f/e7/81fdcbc7f190cdb058cffc9431587eb289833bdd633e2002455ca9bb13d4/paramiko-4.0.0.tar.gz"
-    sha256 "6a25f07b380cc9c9a88d2b920ad37167ac4667f8d9886ccebd8f90f654b5d69f"
+    url "https://files.pythonhosted.org/packages/62/93/dcc25d52f49022ae6175d15e6bd751f1acc99b98bc61fc55e5155a7be2e7/paramiko-5.0.0.tar.gz"
+    sha256 "36763b5b95c2a0dcfdf1abc48e48156ee425b21efe2f0e787c2dd5a95c0e5e79"
   end
 
   resource "partftpy" do
@@ -95,8 +98,8 @@ class Copyparty < Formula
   end
 
   resource "pyopenssl" do
-    url "https://files.pythonhosted.org/packages/80/be/97b83a464498a79103036bc74d1038df4a7ef0e402cfaf4d5e113fb14759/pyopenssl-25.3.0.tar.gz"
-    sha256 "c981cb0a3fd84e8602d7afc209522773b94c1c2446a3c710a75b06fe1beae329"
+    url "https://files.pythonhosted.org/packages/1a/51/27a5ad5f939d08f690a326ef9582cda7140555180db71695f6fb747d6a36/pyopenssl-26.2.0.tar.gz"
+    sha256 "8c6fcecd1183a7fc897548dfe388b0cdb7f37e018200d8409cf33959dbe35387"
   end
 
   resource "pyzmq" do

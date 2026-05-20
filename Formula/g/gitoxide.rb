@@ -1,8 +1,8 @@
 class Gitoxide < Formula
   desc "Idiomatic, lean, fast & safe pure Rust implementation of Git"
   homepage "https://github.com/GitoxideLabs/gitoxide"
-  url "https://github.com/GitoxideLabs/gitoxide/archive/refs/tags/v0.51.0.tar.gz"
-  sha256 "22da356497d22eabb598233cfba61db3674e234792df1def55212ea7d2793e5d"
+  url "https://github.com/GitoxideLabs/gitoxide/archive/refs/tags/v0.53.0.tar.gz"
+  sha256 "81d99c6b60cc93a01dc7539c310e3e8737fe88dd86ee8887cf203ba7b76aca59"
   license "Apache-2.0"
   head "https://github.com/GitoxideLabs/gitoxide.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Gitoxide < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "15c127485e5f8955d33827e2121befb81ead4101744b44ff2c13b9ef8efe30da"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "795777e6bf2b2a850221bc1a488e8fda61b789ae0e4456828dd9b794511e4a1f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c5485f9ebbe11dd1b1de5f5cb28a83dca2f8408e62d09b69ba0426cd20ea515b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "666d8a86eec3ca298010b45126bbd13cf63b6e494edd8f252fbf155775b337de"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5df20fd3cab9d910947b35a143d55c3977cdeb7f5122051f53a3c1e1db52a98e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "548ccfdaaecd13e50ced33fe924531519535947f8eb58122086a6d53752226b1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9c7f0a1d78e7300b276464d40387610becd9cf50d396b680cf51d57e2c834441"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e7e7a14c02bbef4a610d9181f578b78d8a2f1492408861abb0b869b1dbac4727"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7539bdef763875e0efe0f6cf1740e9f5cb41afc02da746b45a4d02ea43988e02"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a0ba7e0c765ee5ac1451f32b449bc68c8ca19f85885429ceaf89171f34672d13"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "6fca26bd86396904ef6794cc2ce6fdb3e7c9acf0e48002693c065fccf3172ece"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "df1731cda13cdf4294bf9af42ff9ddfea88651e2af30e57988cb7f267eb6955c"
   end
 
   depends_on "pkgconf" => :build
@@ -29,7 +29,7 @@ class Gitoxide < Formula
   end
 
   def install
-    features = %w[max-control gitoxide-core-blocking-client http-client-curl]
+    features = %w[max-control gitoxide-core-blocking-client http-client-curl hashes]
     system "cargo", "install", "--no-default-features", *std_cargo_args(features:)
     generate_completions_from_executable(bin/"gix", "completions", "-s")
     generate_completions_from_executable(bin/"ein", "completions", "-s")

@@ -1,19 +1,18 @@
 class Gittuf < Formula
   desc "Security layer for Git repositories"
   homepage "https://gittuf.dev/"
-  url "https://github.com/gittuf/gittuf/archive/refs/tags/v0.12.0.tar.gz"
-  sha256 "7411dbcf69122633e3ee140e76fead29abf7cd5e688a8481bfe20520965c34be"
+  url "https://github.com/gittuf/gittuf/archive/refs/tags/v0.14.1.tar.gz"
+  sha256 "4b6647429beed2f688fc51add387e285afd80e075a1c47cec5441c6dbaa17cb4"
   license "Apache-2.0"
-  revision 1
   head "https://github.com/gittuf/gittuf.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5bdfafe9dd168d157b38b7c508fa6990845112327615b73ab60445a7698d018b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5bdfafe9dd168d157b38b7c508fa6990845112327615b73ab60445a7698d018b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5bdfafe9dd168d157b38b7c508fa6990845112327615b73ab60445a7698d018b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "121f520f3c0110619cb4a6da7607dd6aa4d056f7c590477ec0c51a6ba549e380"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "66ea0d6fd8733e464327915f04cfe1a19c7a4c84c90e2a7a9be74dcd819cc927"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6c92d23a6095a5054d947ea9e5468825b001f027c4af35946c285ec5707d1bd3"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "69612a277842fa0f7e81ad6250cc3909df1fa13be0f21aed996460160eee681a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "69612a277842fa0f7e81ad6250cc3909df1fa13be0f21aed996460160eee681a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "69612a277842fa0f7e81ad6250cc3909df1fa13be0f21aed996460160eee681a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e0f99d5fe5bbb44cba8da7650344e90cceb98e857a17cd5bf024187be960195e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8b5a3521f4adb525293e2a5b16ea7563f654030412c435078768801fb8fcd6df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "deae800e44d61d5231621dabb38900b78c4fd9bf921b087357bec9bbf81da485"
   end
 
   depends_on "go" => :build
@@ -27,11 +26,17 @@ class Gittuf < Formula
   end
 
   test do
+    system "git", "init"
+
     output = shell_output("#{bin}/gittuf policy init 2>&1", 1)
-    assert_match "Error: required flag \"signing-key\" not set", output unless OS.linux?
+    assert_match(
+      /Error: (required flag "signing-key" not set|signing key not specified in Git configuration)/,
+      output,
+    )
 
     output = shell_output("#{bin}/gittuf sync 2>&1", 1)
-    assert_match "Error: unable to identify git directory for repository", output
+    assert_match "Error:", output
+    assert_match(/(unable to identify git directory for repository|No such remote 'origin')/, output)
 
     output = shell_output("#{bin}/git-remote-gittuf 2>&1", 1)
     assert_match "usage: #{bin}/git-remote-gittuf <remote-name> <url>", output

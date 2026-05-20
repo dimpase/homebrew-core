@@ -1,20 +1,20 @@
 class FzfMake < Formula
   desc "Fuzzy finder with preview window for various command runners including make"
   homepage "https://github.com/kyu08/fzf-make"
-  url "https://github.com/kyu08/fzf-make/archive/refs/tags/v0.67.0.tar.gz"
-  sha256 "c545efe9155aea1d01966a455a3478a1cdd4348701e06fe8be2c2bae545ebf68"
+  url "https://github.com/kyu08/fzf-make/archive/refs/tags/v0.69.0.tar.gz"
+  sha256 "b4eb620296363f3e4674d14a31f0ac5ec2a44e4b8c6c1ee024d0399c49e31a8b"
   license "MIT"
   head "https://github.com/kyu08/fzf-make.git", branch: "main"
 
   no_autobump! because: :bumped_by_upstream
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a382a32a1f95ded17f8bc120c9c4609103aa6927d51097f01abfe639b6efaa85"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "20a815ebe812643b6c9530e5385c17543656e841a2bf4bee1ef811408c274bd7"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0d6438ea11020ae65f8a90b5815a8f6a08707d5a43af003895c536ad0e021845"
-    sha256 cellar: :any_skip_relocation, sonoma:        "839942db45ac44308970bafe34cf99391b7227f1afa167cc8bc7b3f0c32e23a2"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "de118f89a8ef64e3ccac6c14658416f31f0cfbc02240d35c2de7ace924d1c57c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4e398ac0827b41f2847baaa4910e813264a8444346869b6f119f523924672a8b"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1891dc04506f171d01cffcf6ff48c2f3444ba694bb38b5afbcf4f4f509cc54cd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7e70340965fbb33f19f7dc8de3d177a60ff5b4f8890f93712872879168236e62"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a03af1545620f5361e5ad56bc7f51b1d318391d48f4b1ba8bfb4ac4c2ddb0a6f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b661eadfc76d881f6d3ca59671845557a6250f97ac3df64652c262b65f9f6bb7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d596bd5dc007c2dfd4f8f66b4600a0499b5f074e2affc9949d3ec724d1ef8b97"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3d455a312c0cfd90dbe6370d14d9d243ccfd494b233091305e77f1c90a6945bf"
   end
 
   depends_on "rust" => :build

@@ -3,18 +3,18 @@ class B4 < Formula
 
   desc "Tool to work with public-inbox and patch archives"
   homepage "https://b4.docs.kernel.org/en/latest/"
-  url "https://files.pythonhosted.org/packages/70/99/2b34c8451ad6599090f7d9045adb9f19270c2ed8cef4d52c179b297f8e37/b4-0.14.3.tar.gz"
-  sha256 "31a4927b8dfbb5c97edfc9569cda3b6737bbfd8430881e8cc48a0b088ced6147"
+  url "https://files.pythonhosted.org/packages/c3/34/7f17fce52acb992d7b70aaa956e6dec4dc432ce8d195a176f232fcd6315c/b4-0.15.2.tar.gz"
+  sha256 "b815f2aed2288718cfe2a14c76421a00bc4f0918ea32b45dd1645c999fdda69d"
   license "GPL-2.0-or-later"
-  revision 3
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "226178f28760b3e75b93ad075d7cba47415807704747091f0f9936bae9cebb77"
-    sha256 cellar: :any,                 arm64_sequoia: "3a1458c9fecd965d519219cc0bf2b2118f0197ace563f85b6e111ca353da081d"
-    sha256 cellar: :any,                 arm64_sonoma:  "bbc146f6f134b8bf3b4b35f10bd3bcd90a71e7bb6440ec62ca20379a38b563c2"
-    sha256 cellar: :any,                 sonoma:        "7cabca1836d799761cb89839cb54f9f610c99f3477647c62b9ed065a3bf8238f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5cfccc9296b18d132f87b4fd52cdb677fcc629396cbd817195d1b81d88f580ce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d856f2ab7a98f6eb09662cae0a4a52fc638a5250bea634dda33d0e8f7e809854"
+    sha256 cellar: :any,                 arm64_tahoe:   "e35e9bcf7da47891d673e85c6c425c5ae67a4cede872e99be1309fac93336225"
+    sha256 cellar: :any,                 arm64_sequoia: "5ae1f5564a87b9eac662bca7687e108b61a5f329ec293b22304424b00c059525"
+    sha256 cellar: :any,                 arm64_sonoma:  "4acd5fa15095f7efd74b0c160338c9453ab652c19f9563f068176e295418060f"
+    sha256 cellar: :any,                 sonoma:        "615edc0412ac2da021633f2d6b9257ef67adc23913118cb8c4a7dd36bcd6f5b4"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0c061b27b458e12faf4a5507e711e9d9e8fe8296912de58f9d4b8fdc6ba2fe8f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e5932989bb4539a3037735929a897d1fe4d8b631bc462a5c28b684df3c949c54"
   end
 
   depends_on "certifi" => :no_linkage
@@ -25,8 +25,8 @@ class B4 < Formula
   pypi_packages exclude_packages: ["certifi", "cffi"]
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "dkimpy" do
@@ -45,8 +45,8 @@ class B4 < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "patatt" do
@@ -60,13 +60,13 @@ class B4 < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz"
+    sha256 "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   def install

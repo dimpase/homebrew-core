@@ -1,18 +1,18 @@
 class Qshell < Formula
   desc "Shell Tools for Qiniu Cloud"
   homepage "https://github.com/qiniu/qshell"
-  url "https://github.com/qiniu/qshell/archive/refs/tags/v2.18.0.tar.gz"
-  sha256 "fae782559275e2da0bffd2c874897cb34db102e73d7a3120d52c536582d4688e"
+  url "https://github.com/qiniu/qshell/archive/refs/tags/v2.19.7.tar.gz"
+  sha256 "9ed3f5da59291af41200ba124c4fc15ba996182c1617f64ef3920a344651d1c4"
   license "MIT"
   head "https://github.com/qiniu/qshell.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4654e40c4b523f7dfe0d1e94877bb6a2cd14012bc96d8f134762e7bac46530c4"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4654e40c4b523f7dfe0d1e94877bb6a2cd14012bc96d8f134762e7bac46530c4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4654e40c4b523f7dfe0d1e94877bb6a2cd14012bc96d8f134762e7bac46530c4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0aa8d4f3b4e253fb48ae90dae1d82f541cd47e30c8653c8ff9c2b93ba65ce829"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e99dba31317d201b718340766f382d3187ac823a9b6a71af84706f94a7717a39"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4ee4f843548a80b09efff872644392339d847ee8e70d9ca916b2a367ea9850b3"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "89175f20d38eb8bb3e700f23215456797029aae6d6110e3cd0c0bc46534edf59"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "89175f20d38eb8bb3e700f23215456797029aae6d6110e3cd0c0bc46534edf59"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "89175f20d38eb8bb3e700f23215456797029aae6d6110e3cd0c0bc46534edf59"
+    sha256 cellar: :any_skip_relocation, sonoma:        "364bb72c22d2939840d813fb87400d999c83bde839b45eb4bb62389654c8c667"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d8ccd01c6299ad8e3cb28bac4c1a60d6e2f8f25f4ec7f02733ed3268bb572132"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "709e76134ec6e82ee64fd111415692968a14424da9082f20dee85aa99260f54b"
   end
 
   depends_on "go" => :build

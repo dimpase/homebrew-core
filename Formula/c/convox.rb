@@ -1,8 +1,8 @@
 class Convox < Formula
   desc "Command-line interface for the Convox PaaS"
   homepage "https://convox.com/"
-  url "https://github.com/convox/convox/archive/refs/tags/3.23.3.tar.gz"
-  sha256 "975ad6932cb0134f9c096114b58632951df7ef018fbdeef8d00e85b73f4fbbdd"
+  url "https://github.com/convox/convox/archive/refs/tags/3.24.6.tar.gz"
+  sha256 "d0e5d43b7aaed4206918e43f98ca0524079c47eff38beb666b3422011fcf0e4c"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/convox/convox.git", branch: "master"
@@ -13,12 +13,12 @@ class Convox < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f3fe951da5d03bdf5f1514dce65817b717fd4cfb9810682f591cac20b04fa809"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e6898911b5a6961b9b98fe54ae0196e9ed42c53b153e9c3fa52cc79ecca7e471"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5604668bcc38f9b9481cc1853b8df999e51a6b1dc2238e6af3ee61754fab3fbc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0f3005e790a517cdb41ddd294701924da22a4dfae557db4942ad653fcb83c9f5"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d283e7e8886f5ace2872e8c2dca1e25b9785e9adb840c6925c55b9b2ea5bf830"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9c3632f8722af63454f1b39eadeec94553da0f28db1ed99aaccfd3523ec9b9a9"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4df48eca1e4dccc70f446d1c001b9281eeaa941a93d230ef9e7a9cd277e0ccd2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "04df2f2327bf8fccfad88e7806bb9494ef02b82426060ba78596388dc65d4fc5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "928715b9048b4cb9a12b83d904e5e00ab5508b835182215dbb68b1adac97910e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e179d3da8db252b3aa7d1393852f04d589247ec6be94615dbe68645f5ae0fc6a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3b0ac4cd46fdca058fdbfdcccf74bd61dd3a5d820bb4d042e9ade4983ff6cfe4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "462155242c27d653cd53f6b1caaa2bf64fe44f9d51a9bf63a3e06a645845c96b"
   end
 
   depends_on "go" => :build

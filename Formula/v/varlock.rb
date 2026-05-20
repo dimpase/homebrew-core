@@ -1,12 +1,17 @@
 class Varlock < Formula
   desc "Add declarative schema to .env files using @env-spec decorator comments"
   homepage "https://varlock.dev"
-  url "https://registry.npmjs.org/varlock/-/varlock-0.2.3.tgz"
-  sha256 "d83a2e7390024690e8c90bbd2825cde0b63d68a4a3416a1deedafd0f43d04493"
+  url "https://registry.npmjs.org/varlock/-/varlock-1.2.0.tgz"
+  sha256 "5c0479cd8990ff4d13ec315999b0fc1333b2475d8eb047bb99f29e0e765957ce"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "713c03874ab22c55073b4ec9ca00b3d726f40f1a7474bc588ee2e97e51f1894c"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "591a031c63a128e5a8fcb933e3a590baddbce790d826f91871bcd9dabe36c41a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4ebdee9273329f951387fc3e27bd1ae1e2e19894655ec6d1cf4af6a45871c6e1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4ebdee9273329f951387fc3e27bd1ae1e2e19894655ec6d1cf4af6a45871c6e1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8fa44cdfd4e09f12fe351d2db066ac0eb2cff73a7c30886e512cc5fd1e5f2310"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "518ad40144fdaf01564b9f160df5cf2746bf528641b70f9b91f38a7fdfccf95d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "06a94ff9d8affa5d57d9a19e2c6d16686c06c5f121495664c458651dd9547cd9"
   end
 
   depends_on "node"
@@ -14,6 +19,14 @@ class Varlock < Formula
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink libexec.glob("bin/*")
+
+    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    mac_bin = "VarlockEnclave.app/Contents/MacOS/varlock-local-encrypt"
+    libexec.glob("lib/node_modules/varlock/native-bins/*").each do |dir|
+      basename = dir.basename.to_s
+      rm_r(dir) if OS.linux? && basename != "linux-#{arch}"
+      deuniversalize_machos dir/mac_bin if OS.mac? && basename == "darwin"
+    end
   end
 
   test do

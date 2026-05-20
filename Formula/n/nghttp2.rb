@@ -1,20 +1,18 @@
 class Nghttp2 < Formula
   desc "HTTP/2 C Library"
   homepage "https://nghttp2.org/"
-  url "https://github.com/nghttp2/nghttp2/releases/download/v1.68.0/nghttp2-1.68.0.tar.gz"
-  mirror "http://fresh-center.net/linux/www/nghttp2-1.68.0.tar.gz"
-  sha256 "2c16ffc588ad3f9e2613c3fad72db48ecb5ce15bc362fcc85b342e48daf51013"
+  url "https://github.com/nghttp2/nghttp2/releases/download/v1.69.0/nghttp2-1.69.0.tar.gz"
+  mirror "http://fresh-center.net/linux/www/nghttp2-1.69.0.tar.gz"
+  sha256 "c866b7477cbb7512ab6863a685027adbb1bb8da8fc3bab7429ed43d3281d5aa9"
   license "MIT"
-  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "a2d1e55d45369690662a1c729ee2e0261b373f3afc4954666d8c5b6a9898acbc"
-    sha256 cellar: :any,                 arm64_sequoia: "5f1406f8602d219785670c46b8b8426f0bd0d3056e196132ef7cdcdd839c1170"
-    sha256 cellar: :any,                 arm64_sonoma:  "1680f9e557ce6ab597e6ba797c64af7b3d810471334ac83f570bee189c488b20"
-    sha256 cellar: :any,                 sonoma:        "58b8610ecbbf4e5c7e376334b86228a3d80551f275972730a76153cdd3928ff7"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "66278dfee59169e7e2054e4490884d2593f3e22b5ab02479c7d4edd05762648e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b398fcfab78f81b200b70dc2b0320694a99e73c50777379f309fa287b4c7bd15"
+    sha256 cellar: :any,                 arm64_tahoe:   "b2e05c11cc4a132f3b38c5cc1a724f3c7db34fb28f99f0ed5220c849d815119e"
+    sha256 cellar: :any,                 arm64_sequoia: "4cb7547b401741b6f3d908f3e8cd15546ad6f79bd08c30682eba5a7a775e8a53"
+    sha256 cellar: :any,                 arm64_sonoma:  "69224a4a6f324e65af2d5ff259af6ec30702ad1e1abd61c1f9489d6d6f91c26b"
+    sha256 cellar: :any,                 sonoma:        "7a700d492e5f10c3af5fdc8231000247095b9c24a889de40f772744b6835123c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ebf951646a2bf3ae5357eb28b1eff1814557ca1eb05f33533846d4032127af8a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "888926049373d180eedbad78d96728728d3a9901b8750de8bec18240c4c5e4f6"
   end
 
   head do
@@ -30,13 +28,13 @@ class Nghttp2 < Formula
   depends_on "jemalloc"
   depends_on "libev"
   depends_on "libnghttp2"
-  depends_on macos: :sonoma # Needs C++20 features not available on Ventura
   depends_on "openssl@3"
 
   uses_from_macos "libxml2"
 
   on_macos do
     depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1500
+    depends_on macos: :sonoma # Needs C++20 features not available on Ventura
   end
 
   on_linux do

@@ -1,18 +1,18 @@
 class Recc < Formula
   desc "Remote Execution Caching Compiler"
   homepage "https://buildgrid.gitlab.io/recc"
-  url "https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/1.3.53/buildbox-1.3.53.tar.gz"
-  sha256 "cae712f9f4661b5051c8ffea262a808bca792de3ac122ffe20b51c38c87b13f2"
+  url "https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/1.4.6/buildbox-1.4.6.tar.gz"
+  sha256 "22a3862356e8384db624d4872b91e9f399920d077554e1d41a6bb8a6bcf094a2"
   license "Apache-2.0"
   head "https://gitlab.com/BuildGrid/buildbox/buildbox.git", branch: "master"
 
   bottle do
-    sha256 arm64_tahoe:   "b15e548d32c5ae79c6d5866a934474fc0edf7f73e9157870193c98c239fbd36d"
-    sha256 arm64_sequoia: "c14e58503d2e8a0cc5233fbdb7c9450c6cf071699449781232f4bf64fdd39f28"
-    sha256 arm64_sonoma:  "270e11a7a53590fd5849d6aec1fffd592d3861b71697e4a49842d3ba839551ab"
-    sha256 sonoma:        "4d1b839071f264be9785675f8da85cadf84063b53371485545539eedccad83f2"
-    sha256 arm64_linux:   "55c3b9ccf7e5160aaf03ea293495a34cbabd054108a74a9c9200fee9f18eb805"
-    sha256 x86_64_linux:  "bbfc449accd5085db1a5538b4b836addf1f71ff36b69914afaa934f7870251de"
+    sha256 arm64_tahoe:   "581dbc8fe57e051351f585b46e064faae07b7b31aecdf4008c890e9c3501d980"
+    sha256 arm64_sequoia: "5cacec2cfcc0b242dd4457f8cec43528ddf1fc1a9669460896e242963a82bcec"
+    sha256 arm64_sonoma:  "13f1c047d39c5f73eccde403fbc499a10befb88f192fb3c44fbc1eab7aafcae3"
+    sha256 sonoma:        "2b4a90817d318eebb8cb802a2d8b718e2cb790bc8a453c14f587b04d32bfad3a"
+    sha256 arm64_linux:   "5c06d2fa977282f94d3e7efa09aca5a19661b25d36a866debb8d0eb629ed0778"
+    sha256 x86_64_linux:  "38edef34d28974f47d03f664349d5c2b47da338e7fc869947e6a9cf94ed40baf"
   end
 
   depends_on "cmake" => :build
@@ -22,9 +22,7 @@ class Recc < Formula
   depends_on "tomlplusplus" => :build
   depends_on "abseil"
   depends_on "c-ares"
-  depends_on "glog"
   depends_on "grpc"
-  depends_on macos: :sonoma # Needs C++20 features not in Ventura
   depends_on "openssl@3"
   depends_on "protobuf"
   depends_on "re2"
@@ -32,7 +30,7 @@ class Recc < Formula
   uses_from_macos "curl"
 
   on_macos do
-    depends_on "gflags"
+    depends_on macos: :sonoma # Needs C++20 features not in Ventura
   end
 
   on_linux do

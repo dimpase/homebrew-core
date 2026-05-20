@@ -1,8 +1,8 @@
 class Electric < Formula
   desc "Real-time sync for Postgres"
   homepage "https://electric-sql.com"
-  url "https://github.com/electric-sql/electric/archive/refs/tags/@core/sync-service@1.4.6.tar.gz"
-  sha256 "4e34579724136a47aecd59f620e287b5bbe487aed6fe6ddf0745fb0b68227128"
+  url "https://github.com/electric-sql/electric/archive/refs/tags/@core/sync-service@1.6.6.tar.gz"
+  sha256 "f40bb3277bfa68c727d8788410422f96bfa91bb22538fbb52aaf218a86d84be1"
   license "Apache-2.0"
 
   livecheck do
@@ -11,16 +11,16 @@ class Electric < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "b2f6fe2d8140c60a21a6b5368011ce4354371fb273f48ca28299febbc48ad5b6"
-    sha256 cellar: :any,                 arm64_sequoia: "0c7614a5f44ee4e58141fce50746ef95dcd948aaacdc9f806fa325d2ac28782b"
-    sha256 cellar: :any,                 arm64_sonoma:  "62e454b6ea6aa3eadbfc7f0f3463c615bf6c25a7de0c8226ea93ebc5017d8063"
-    sha256 cellar: :any,                 sonoma:        "bae94d71607d001a5c7aa3791ed8e2250d3701d91c566e580b85df8101b560d0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d313f5eb4dfc36a51bf88af6ce296f0783007fe5d045a82abc84866c7373a7e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3d178abf35a03192d854dd437fa4ce9b7f81099bc935248c3302c8fe46d33397"
+    sha256 cellar: :any, arm64_tahoe:   "f5d09563224160c1040b59cda9ea61227ac575789ca71c165bcc0dd8b9fc076c"
+    sha256 cellar: :any, arm64_sequoia: "b9d2c129a4046dd849b5aee435900ec5d90025a13f393ced332032671bda3a9a"
+    sha256 cellar: :any, arm64_sonoma:  "d885c6b2c4f82fdc63491a13f7c64db8baa86cef6c2cd1d1caf00f7bb91ea650"
+    sha256 cellar: :any, sonoma:        "90b3b767df8beac9a80fe540901e7e608a9d8632da0a2ea7fa6f624038afcc0b"
+    sha256               arm64_linux:   "608debaac90baef43ebeb0943042d907ef34332a3c58f7cdc778908cbdfed6b6"
+    sha256               x86_64_linux:  "55146f98da7d6c190ca09132c1d69f1ed02234527d78dd511b9bcdab6fcb7b84"
   end
 
   depends_on "elixir" => :build
-  depends_on "postgresql@17" => :test
+  depends_on "postgresql@18" => :test
   depends_on "erlang"
   depends_on "openssl@3"
 
@@ -41,38 +41,50 @@ class Electric < Formula
       libexec.install Dir["_build/application_prod/rel/electric/*"]
       bin.write_exec_script libexec.glob("bin/*")
     end
+
+    # Remove non-native libraries
+    os = OS.kernel_name.downcase
+    arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch
+    libexec.glob("lib/ex_sqlean-0.8.8/priv/*").each do |f|
+      rm_r(f) unless f.basename.to_s.match?("#{os}-#{arch}")
+    end
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/electric version")
 
-    ENV["LC_ALL"] = "C"
-
-    postgresql = Formula["postgresql@17"]
+    postgresql = Formula["postgresql@18"]
     pg_ctl = postgresql.opt_bin/"pg_ctl"
     port = free_port
 
-    system pg_ctl, "initdb", "-D", testpath/"test"
-    (testpath/"test/postgresql.conf").write <<~EOS, mode: "a+"
-      port = #{port}
-      wal_level = logical
-    EOS
-    system pg_ctl, "start", "-D", testpath/"test", "-l", testpath/"log"
+    ENV["DATABASE_URL"] = "postgres://#{ENV["USER"]}:@localhost:#{port}/postgres?sslmode=disable"
+    ENV["ELECTRIC_INSECURE"] = "true"
+    ENV["ELECTRIC_PORT"] = free_port.to_s
+    ENV["LC_ALL"] = "C"
+    ENV["PGDATA"] = testpath/"test"
+
+    system pg_ctl, "initdb", "--options=-c port=#{port} -c wal_level=logical"
+    system pg_ctl, "start", "-l", testpath/"log"
 
     begin
-      ENV["DATABASE_URL"] = "postgres://#{ENV["USER"]}:@localhost:#{port}/postgres?sslmode=disable"
-      ENV["ELECTRIC_INSECURE"] = "true"
-      ENV["ELECTRIC_PORT"] = free_port.to_s
-
-      mkdir_p testpath/"persistent/shapes/single_stack/.meta/backups/shape_status_backups"
+      (testpath/"persistent/shapes/single_stack/.meta/backups/shape_status_backups").mkpath
 
       spawn bin/"electric", "start"
       sleep 5 if OS.mac? && Hardware::CPU.intel?
 
-      output = shell_output("curl -s --retry 5 --retry-connrefused localhost:#{ENV["ELECTRIC_PORT"]}/v1/health")
-      assert_match "active", output
+      tries = 0
+      begin
+        output = shell_output("curl -s --retry 5 --retry-connrefused localhost:#{ENV["ELECTRIC_PORT"]}/v1/health")
+        assert_match "active", output
+      rescue Minitest::Assertion
+        # https://github.com/electric-sql/electric/blob/main/website/docs/guides/deployment.md#health-checks
+        raise if !output&.match?(/starting|waiting/) || (tries += 1) >= 3
+
+        sleep 10
+        retry
+      end
     ensure
-      system pg_ctl, "stop", "-D", testpath/"test"
+      system pg_ctl, "stop"
     end
   end
 end

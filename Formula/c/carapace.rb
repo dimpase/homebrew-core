@@ -1,18 +1,18 @@
 class Carapace < Formula
   desc "Multi-shell multi-command argument completer"
   homepage "https://carapace.sh"
-  url "https://github.com/carapace-sh/carapace-bin/archive/refs/tags/v1.6.3.tar.gz"
-  sha256 "226907d1df5a0ceabbf4ec511019cb46e4649f42642a1d1d9618a9768efb56ed"
+  url "https://github.com/carapace-sh/carapace-bin/archive/refs/tags/v1.6.6.tar.gz"
+  sha256 "f2e4081a6bacd3fb0b9811f8851e9b21b07ae0c986050d8b915ce765d9f43217"
   license "MIT"
   head "https://github.com/carapace-sh/carapace-bin.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "355ca0a1ad88f739b1fa8986f9736aa3e57902e4efd3df7fdf4e58f2f11e46bf"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "355ca0a1ad88f739b1fa8986f9736aa3e57902e4efd3df7fdf4e58f2f11e46bf"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "355ca0a1ad88f739b1fa8986f9736aa3e57902e4efd3df7fdf4e58f2f11e46bf"
-    sha256 cellar: :any_skip_relocation, sonoma:        "783ab8e35494c1015c9efca20abfd0698279a58ab2bbf8cc852eef40a7565085"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d3048723fcdaf7f8baaf461edfc74ff0e58931475a1f55d9468625dd9e3eabf4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d77abc2434339f1174f5ce9f814d87eded2218eb621153775c647e31ca6000c5"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "bd294927a3419d5a07f132a5dd3ad594d9c2aaee7ae30e2ed1adacfcc4c7ec78"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd294927a3419d5a07f132a5dd3ad594d9c2aaee7ae30e2ed1adacfcc4c7ec78"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bd294927a3419d5a07f132a5dd3ad594d9c2aaee7ae30e2ed1adacfcc4c7ec78"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e76d649e19c3ee6ab3e8ebe58ee829cd74709219353ba0efe2d95b9d8ed08716"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d0515f75c020bbdb372659a2d99994c4c0d6a656417c1b0e500e7426652a6078"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "74fd01998030963474607d1efad352e957f71d4aea83ab1704781878023f3ea4"
   end
 
   depends_on "go" => :build

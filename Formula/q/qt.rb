@@ -1,11 +1,11 @@
 class Qt < Formula
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/md5sums.txt"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/md5sums.txt"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/md5sums.txt"
-  version "6.10.2"
-  sha256 "5e889d6d63de08abfa1b11d41370c2bb5d3818f68e5d8e8ed763ddc937116397"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/md5sums.txt"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/md5sums.txt"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/md5sums.txt"
+  version "6.11.1"
+  sha256 "9e6bcc7f14c6776eb9dd480ec3df75a5bb458ab76cfb3b91b14e999968a62e73"
   license all_of: [
     "BSD-3-Clause",
     "GFDL-1.3-no-invariants-only",
@@ -19,12 +19,12 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2d3329fa20b8937612d7a46d53c8072d149a3b3647bd25ef2b50c034efab357d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2d3329fa20b8937612d7a46d53c8072d149a3b3647bd25ef2b50c034efab357d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2d3329fa20b8937612d7a46d53c8072d149a3b3647bd25ef2b50c034efab357d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2d3329fa20b8937612d7a46d53c8072d149a3b3647bd25ef2b50c034efab357d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7bdd7a873a7356ec9f51fac69ccb3c52ed7e4d69e4b379792497649895234e04"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3a5cde97696f618ef2c5d20f8b0557425aff7cc4ba68abf81c3c0e11f5bcebcd"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "18d5da47996c56cc8c026aa6d565327c8adb0ab38f3eb75bb16c56a7d6dd1187"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "18d5da47996c56cc8c026aa6d565327c8adb0ab38f3eb75bb16c56a7d6dd1187"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "18d5da47996c56cc8c026aa6d565327c8adb0ab38f3eb75bb16c56a7d6dd1187"
+    sha256 cellar: :any_skip_relocation, sonoma:        "18d5da47996c56cc8c026aa6d565327c8adb0ab38f3eb75bb16c56a7d6dd1187"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "81393ac2960afa9d4531de2c96a80ad991ad7956afe032f738682b90cf423f48"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f4a84e5ac98cddf7bec9875bf85571c99dc59d8efdc0a5d04b40b842e5f8ec50"
   end
 
   depends_on "cmake" => :test
@@ -34,6 +34,7 @@ class Qt < Formula
   depends_on "qt3d"
   depends_on "qt5compat"
   depends_on "qtbase"
+  depends_on "qtcanvaspainter"
   depends_on "qtcharts"
   depends_on "qtconnectivity"
   depends_on "qtdatavis3d"
@@ -60,6 +61,7 @@ class Qt < Formula
   depends_on "qtshadertools"
   depends_on "qtspeech"
   depends_on "qtsvg"
+  depends_on "qttasktree"
   depends_on "qttools"
   depends_on "qttranslations"
   depends_on "qtvirtualkeyboard"
@@ -101,6 +103,7 @@ class Qt < Formula
       submodules.delete("qtwayland") unless OS.linux?
       submodules.delete("qtactiveqt") # Windows-only
       submodules.delete("qtdoc") # skip HTML documentation
+      submodules.delete("qtopenapi") # TODO: add in follow up PR
 
       dep_names = deps.reject(&:test?).to_set(&:name)
       missing = submodules - dep_names

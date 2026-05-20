@@ -1,26 +1,27 @@
 class CargoSort < Formula
   desc "Tool to check that your Cargo.toml dependencies are sorted alphabetically"
   homepage "https://github.com/devinr528/cargo-sort"
-  url "https://github.com/DevinR528/cargo-sort/archive/refs/tags/v2.0.2.tar.gz"
-  sha256 "3f0352b8d1ae0f6b778c50103a6877e98772f91783d776643f74041eaee376f5"
+  url "https://github.com/DevinR528/cargo-sort/archive/refs/tags/v2.1.4.tar.gz"
+  sha256 "89c1727bed54379ed112aa6ade693abd86beeeb106c6d043520d6b210b3ff685"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/devinr528/cargo-sort.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b141007885bd48b29b95d520568ef6530cf2b5f1b12240c37db72f99761bbdb5"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e21317972556371a52e8f2b036339baf8055e9b11a5c49c686809926991eb197"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "68e849f0b7dc34ee5ff08c25bd5c8ea7859317be046f89d3780dd277d922883b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8378775a5403d57969dcf037d9ac0061cc5c3dad764f3b39a971105f19ed7117"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7fe8639d02e0a7f56f36bdd0542be2dec4f4fe2d510d6a056cb00898496f926f"
-    sha256 cellar: :any_skip_relocation, ventura:       "22f6daf72369124d93eecc42301be82a47a9eeebbebba9dce6c0f6a59bf1779f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a66361ce4f11824e8bbdf8414fb391310b59165e73d88a5b773656587da08c54"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "861e0677aea3b39d64cf6b6b783d0ca05be27b3f56a5db8cc39f478c925ae0bb"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "df861e29826b8ee2bf78fe393e94faec334fb4a00fce0a758ab06526c9ff467a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8c772b46cbb769968e9ca5288b549dba3bd878df8a296dbf7090a5ffa6dfbbaf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "db9c4885731925a77eb80b6c07968f965f4e239245c29c2dd5a0c69f19d1ab53"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a9a094f98f54b4cc8549383c1f12a011b0cbbd70a24efcc507d3fd374ea63ab6"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0f2c5e9e4aad86ba0486d8e63770aa013de9e47296ec093a2a12d4fe4f3a3f39"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8118e20d05e6fb779da46488fbed176def155a64fb74d4859ad936f97d1ae459"
   end
 
   depends_on "rust" => :build
   depends_on "rustup" => :test
 
   def install
+    # Fix version string, should remove in next release
+    inreplace "Cargo.toml", "version = \"2.1.3\"", "version = \"#{version}\""
+
     system "cargo", "install", *std_cargo_args
   end
 

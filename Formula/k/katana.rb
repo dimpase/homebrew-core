@@ -1,26 +1,38 @@
 class Katana < Formula
   desc "Crawling and spidering framework"
   homepage "https://github.com/projectdiscovery/katana"
-  url "https://github.com/projectdiscovery/katana/archive/refs/tags/v1.4.0.tar.gz"
-  sha256 "707d355be6a288a96262197a2ed28f041d789f4cda8463637954e4a9fb0830ce"
+  url "https://github.com/projectdiscovery/katana/archive/refs/tags/v1.6.1.tar.gz"
+  sha256 "81ce8b6047e9463c37e9cf7dd3bdcd30d8a61e2da9cf6c960ccd409b99c896ee"
   license "MIT"
   head "https://github.com/projectdiscovery/katana.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "07698689720828c1e3e486f3cb1ea60521c7e9dcf0bf89ba9c0fbaa8a3d1bd10"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "755c6ef7d8920aa7fc767cd4d710d3e3a4f4043962ae43859073b8167f329cdc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bbfb395c8681d88dcc8aafd24517bbc1bca568fe1f528c9399f8f44199a8c159"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d32d4fa493fe8d4564bb74224a208677efd322d7410bbeb4bd07c3541f8539e2"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d2248ad149e4e23be064480b29168237386c0d799a1380d9be1ba495d0037cb5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22e87001d78e97c78c790a94396b7660c4051853f1a2d99cca36c548d0b7dd09"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1bfc078d79780ccac057959f0558f5ddeb24c8a17a86872a2ff9ec581391175c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1bfc078d79780ccac057959f0558f5ddeb24c8a17a86872a2ff9ec581391175c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1bfc078d79780ccac057959f0558f5ddeb24c8a17a86872a2ff9ec581391175c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "09717b46491071ddc0cccc5181c497df3af7819003490fdc66dacaa9332d137c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bacfb589d573b6287c94dac6bd10e9b76916ea2fbdba38f75e2327ece83b0f90"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "db408c751c35b942a42d54203495eb1cd348e53a0618e181a248afea1add8660"
   end
 
   depends_on "go" => :build
 
   def install
-    ENV["CGO_ENABLED"] = "1" if OS.linux? && Hardware::CPU.arm?
+    ENV["CGO_ENABLED"] = "0"
 
-    system "go", "build", *std_go_args(ldflags: "-s -w"), "./cmd/katana"
+    # Replace self-update with a notice; brew manages updates.
+    inreplace "internal/runner/banner.go" do |s|
+      s.gsub! 'updateutils "github.com/projectdiscovery/utils/update"',
+              '_ "github.com/projectdiscovery/utils/update"'
+      s.gsub! 'updateutils.GetUpdateToolCallback("katana", version)()',
+              'gologger.Info().Msgf("Run `brew upgrade katana` to update.")'
+    end
+
+    ldflags = %W[
+      -s -w
+      -X github.com/projectdiscovery/katana/internal/runner.version=v#{version}
+    ]
+    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/katana"
   end
 
   test do

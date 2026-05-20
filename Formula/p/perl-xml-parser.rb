@@ -1,41 +1,44 @@
 class PerlXmlParser < Formula
   desc "Perl module for parsing XML documents"
   homepage "https://github.com/cpan-authors/XML-Parser"
-  url "https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.47.tar.gz"
-  sha256 "ad4aae643ec784f489b956abe952432871a622d4e2b5c619e8855accbfc4d1d8"
+  url "https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.59.tar.gz"
+  sha256 "a358fd7c49f5e27717a644a9102bd21dc7fc25a415983279c59b1580e2b62a58"
   license "Artistic-2.0"
-  revision 1
-  head "https://github.com/cpan-authors/XML-Parser.git", branch: "master"
-
-  no_autobump! because: :requires_manual_review
+  head "https://github.com/cpan-authors/XML-Parser.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fee3b040b53302d6739156e3fe6ec3d20d4a68976db97596fbc69ae67ca6f478"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5aaad7520178860c8af99e458d36f34aad602ae20d27321cc87c9d5519ea5bd8"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a9126a812628a6ea471ee771981701176e78c67800e2a122682498e0ec1e1ce8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "437584b3bca0bcb6e71124509c92f2b68e9011d3f663105f0f251c697aa43871"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "373a53aa2f3d1a8e0de097dc8766f7e5c30212fc2f48a1ac2829aa5de41e54b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b9b950e9fe9030de2638c912c2325831376ec6be4a485eb72c76cf9e909f3253"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c57352fbabcea8144c0016fe0e5efe605f62973b471e3a353ab80859d75bf235"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b00c4634cb1610f5f72b5c19724fd909999d7fdd01fcd7d430d831bb9b70d86c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b8cb9abec7c27e96e3adfb7328fefa2c718682b497f065a6b98b41a81f17b666"
+    sha256 cellar: :any_skip_relocation, sonoma:        "953c075a6311b82f184e2bb1fa93f8a1eea4641382c41b34c2c7b75cc36938d1"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f259ec7e84a5e4df245a9550ba594dfbe9c2bb68f235efc45529f3313c7e5d0f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7f621416e0df9289a64074f9885d1c89da47d299a21d3d6077de89f452cf02a7"
   end
 
-  # macOS Perl already has the XML::Parser module
-  depends_on "perl"
+  depends_on "perl" # macOS Perl already has the XML::Parser module
   uses_from_macos "expat"
 
+  resource "File::ShareDir::Install" do
+    url "https://cpan.metacpan.org/authors/id/E/ET/ETHER/File-ShareDir-Install-0.14.tar.gz"
+    sha256 "8f9533b198f2d4a9a5288cbc7d224f7679ad05a7a8573745599789428bc5aea0"
+  end
+
   def install
-    system "perl", "Makefile.PL", "INSTALL_BASE=#{prefix}"
+    resource("File::ShareDir::Install").stage buildpath/"File-ShareDir-Install"
+    ENV.prepend_path "PERL5LIB", buildpath/"File-ShareDir-Install/lib"
+
+    # Homebrew vendors the new configure-time helper but does not package
+    # File::ShareDir at runtime, so keep XML::Parser's legacy @INC fallback.
+    inreplace "Expat/Expat.pm",
+              "use File::ShareDir ();",
+              ""
+    inreplace "Expat/Expat.pm",
+              "eval { $_share_dir = File::ShareDir::dist_dir('XML-Parser') };",
+              "eval {\n    require File::ShareDir;\n    $_share_dir = File::ShareDir::dist_dir('XML-Parser');\n};"
+
+    system "perl", "Makefile.PL", "INSTALLDIRS=vendor", "PREFIX=#{prefix}"
     system "make"
     system "make", "install"
-
-    share.install prefix/"man"
-    perl_version = Formula["perl"].version.major_minor.to_s
-    site_perl = lib/"perl5/site_perl"/perl_version
-    (lib/"perl5").find do |pn|
-      next unless pn.file?
-
-      subdir = pn.relative_path_from(lib/"perl5").dirname
-      (site_perl/subdir).install_symlink pn
-    end
   end
 
   test do

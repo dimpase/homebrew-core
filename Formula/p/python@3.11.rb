@@ -1,24 +1,25 @@
 class PythonAT311 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.11.14/Python-3.11.14.tgz"
-  sha256 "563d2a1b2a5ba5d5409b5ecd05a0e1bf9b028cf3e6a6f0c87a5dc8dc3f2d9182"
+  url "https://www.python.org/ftp/python/3.11.15/Python-3.11.15.tgz"
+  sha256 "f4de1b10bd6c70cbb9fa1cd71fc5038b832747a74ee59d599c69ce4846defb50"
   license "Python-2.0"
-  revision 3
+  revision 1
+  compatibility_version 1
 
   livecheck do
-    url "https://www.python.org/ftp/python/"
-    regex(%r{href=.*?v?(3\.11(?:\.\d+)*)/?["' >]}i)
+    url "https://www.python.org/downloads/source/"
+    regex(%r{href=.*?/Python[._-]v?(3\.11(?:\.\d+)*)\.t}i)
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "fed2b3ed4d9d3fcea16463c90c0013aa1c04d9db87a9bfd471929e3b01722a9c"
-    sha256 arm64_sequoia: "bc54d850de370ab35d7c4bdae6e2f3097cd27f60476845bfc075f84642ada1f6"
-    sha256 arm64_sonoma:  "7c9056f5c00e584942ff383317f2fd11d75fe45c127f0b5c7dd652f7bed2d24b"
-    sha256 sonoma:        "9978bcd2f88a32115ff248eddb441e202f0901d1dd20a1494e3f14ef7d67de52"
-    sha256 arm64_linux:   "8b16337097b4404d5fa2c57dccaca267d5aa7e6ce8c40b845b2dbd9bfafa2918"
-    sha256 x86_64_linux:  "d0d8b6f24b872780d1802ad7823d5cb1b8717f52397027d581ade00d26efa41b"
+    sha256 arm64_tahoe:   "abaacb2e82e32b769740e858730428b002cee22ae504f843d73a04cd8beb630e"
+    sha256 arm64_sequoia: "62f553d780355491bae1947d400cba7e507a32635775a04f814ad2280fa73dbe"
+    sha256 arm64_sonoma:  "aca94837020f9e365ea7a91c95317f589c883bb08d0777643640fcb5846d9bb4"
+    sha256 sequoia:       "efa4ff7214ed3d6ded539b4b178a73d21070e87fc017505d4ea497055554299b"
+    sha256 sonoma:        "ad1368aa265328d053233afea65c1c77ab84a76c7398fc0a033b19bded91e791"
+    sha256 arm64_linux:   "5a7a0da63d7a3f71dbdb483b317917a32ec019aef328f6cab2d9c2d9cc16fde3"
+    sha256 x86_64_linux:  "df042532f7a65999e50c38536f00d5dc628afdc7d81ded658258a66c4efa0658"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -32,7 +33,7 @@ class PythonAT311 < Formula
   depends_on "xz"
 
   uses_from_macos "bzip2"
-  uses_from_macos "expat"
+  uses_from_macos "expat", since: :sequoia
   uses_from_macos "libedit"
   uses_from_macos "libffi"
   uses_from_macos "libxcrypt"
@@ -56,23 +57,23 @@ class PythonAT311 < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz"
-    sha256 "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/44/c2/65686a7783a7c27a329706207147e82f23c41221ee9ae33128fc331670a0/pip-26.0.tar.gz"
-    sha256 "3ce220a0a17915972fbf1ab451baae1521c4539e778b28127efa79b974aff0fa"
+    url "https://files.pythonhosted.org/packages/73/7e/d2b04004e1068ad4fdfa2f227b839b5d03e602e47cdbbf49de71137c9546/pip-26.1.tar.gz"
+    sha256 "81e13ebcca3ffa8cc85e4deff5c27e1ee26dea0aa7fc2f294a073ac208806ff3"
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/76/95/faf61eb8363f26aa7e1d762267a8d602a1b26d4f3a1e758e92cb3cb8b054/setuptools-80.10.2.tar.gz"
-    sha256 "8b0e9d10c784bf7d262c4e5ec5d4ec94127ce206e8738f29a437945fbc219b70"
+    url "https://files.pythonhosted.org/packages/4f/db/cfac1baf10650ab4d1c111714410d2fbb77ac5a616db26775db562c8fab2/setuptools-82.0.1.tar.gz"
+    sha256 "7d872682c5d01cfde07da7bccc7b65469d3dca203318515ada1de5eda35efbf9"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/89/24/a2eb353a6edac9a0303977c4cb048134959dd2a51b48a269dfc9dde00c8a/wheel-0.46.3.tar.gz"
-    sha256 "e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803"
+    url "https://files.pythonhosted.org/packages/39/62/75f18a0f03b4219c456652c7780e4d749b929eb605c098ce3a5b6b6bc081/wheel-0.47.0.tar.gz"
+    sha256 "cc72bd1009ba0cf63922e28f94d9d83b920aa2bb28f798a31d0691b02fa3c9b3"
   end
 
   # Modify default sysconfig to match the brew install layout.

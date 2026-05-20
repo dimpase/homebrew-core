@@ -1,18 +1,18 @@
 class LivekitCli < Formula
   desc "Command-line interface to LiveKit"
   homepage "https://livekit.io"
-  url "https://github.com/livekit/livekit-cli/archive/refs/tags/v2.13.2.tar.gz"
-  sha256 "8734636fe0a9c395c9a688aaf3f3b441e8e37e0fe23ff05f9099ad3f6b872ae3"
+  url "https://github.com/livekit/livekit-cli/archive/refs/tags/v2.16.3.tar.gz"
+  sha256 "56a840b975097582e3d9b996eed58664909e0e3ac457261f2f004dd3be77ed4d"
   license "Apache-2.0"
   head "https://github.com/livekit/livekit-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "625426a2003bfce8fcace74794af92ff115f3d0df47b08f628f1e428d83172bd"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8c5cfd440959aed9f2e3bd6d4abf13af5f3b3d18472c3f86057473bfb114e392"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1620f8d845c6258dcf6781b50daa52a7214fbf448b2c258e1192a1099b837177"
-    sha256 cellar: :any_skip_relocation, sonoma:        "cc1b29b70d66fbbb578c4808c38704c789476baa8c8fc3472a90cafdf8d5a70d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8ce4c1ea594604032c49e1ed47556ab9d8402cef9064c0a6065d4e1244a60141"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fdb5a8f5c60f7a35cbb39229e7e2164c1c06728c4845d55caaafd3a22f65595c"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "658fe263e9e8aafe4d5a87c2e5a411621d057ad52b8eb3fb28b508e0fcf2c2f3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1c72ce9b9c7c6057af3657838afc7bc9b137d5057f41ae4da1234a9649c27dd5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6739b429214bdfbbc2eeae8d5ee60e6f227c9f7307fcfac6760180b5047d00c0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d7f9682c63fde83afbcb9a7b8c9393c95666bd9753d8ae99263e81e98993d26f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f352e3ba10aa30a7a838ebcbc594e467586e424509988d10beb2779e11096429"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "415d3fb1c90b38262e49bd800f00d617be866132f28fbcd0eb5fc2d2f2a664f1"
   end
 
   depends_on "go" => :build
@@ -29,8 +29,8 @@ class LivekitCli < Formula
   end
 
   test do
-    output = shell_output("#{bin}/lk token create --list --api-key key --api-secret secret")
-    assert_match "valid for (mins):  5", output
+    output = shell_output("#{bin}/lk token create --list --api-key key --api-secret secret 2>&1")
+    assert_match "valid for (mins): 5", output
     assert_match "lk version #{version}", shell_output("#{bin}/lk --version")
   end
 end

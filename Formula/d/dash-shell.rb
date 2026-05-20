@@ -1,9 +1,9 @@
 class DashShell < Formula
   desc "POSIX-compliant descendant of NetBSD's ash (the Almquist SHell)"
   homepage "http://gondor.apana.org.au/~herbert/dash/"
-  url "https://cdn.netbsd.org/pub/pkgsrc/distfiles/dash-0.5.13.1.tar.gz"
-  mirror "http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.13.1.tar.gz"
-  sha256 "d9271bce09c127d9866e25c011582ddc75ab988958a04bc4d8553a3b8f30e370"
+  url "https://cdn.netbsd.org/pub/pkgsrc/distfiles/dash-0.5.13.3.tar.gz"
+  mirror "http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.13.3.tar.gz"
+  sha256 "a83727c1299ac4c3d9d43979393b3a4eb00275d5636ae02526e7979d51d6fbd1"
   license "BSD-3-Clause"
   head "https://git.kernel.org/pub/scm/utils/dash/dash.git", branch: "master"
 
@@ -13,12 +13,12 @@ class DashShell < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b9d493aa8aa6589e372227e67dbb93708fdcf992d9064e75009f3917ab7b3e0d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6dfc2b72fdef57ba537e5fcf2e83e0d66a33f60043ec3f47a21a58249da4971d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b51e19b98c71255053e593f7b7879699e84fd38672d68dc6093de6f3061b29fd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4eaea3dee21db06c3b043fd6db4a100ccf760a06a0c96477b74c514a4b4167a4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "f50cf54fb40c64c35822a9190e5336ae9c3b59d4923c18ebc82ea68cb4294a0d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "25031c85030fc02517ad9872f31804b6b4d03af43b4672c2a901c01dcc7cdc84"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "65e1f9e282e54b309f98da5b920471b4dde8e1f7a16d30ea97aff9eeaf23003f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a2f9fa078bc85fc0ec14a431572dead40a38e8d43c19f66fd5abfaac6ff8b2ee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0a570c8f3c3d594ca585cfbe9d1c396463c5095d22fc30b8aec3512e1836ede1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "69d63acdc95189907326ae70aae49b7ead0d9872720f8d91dca0f10e4d58b006"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2aebd91e2ef38afab388ea46a50c25862f4522bdfa3eb1ff94d1bd915644cedb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d4fb8e6d7e162426021414329950aef5dfa0da7de0be5c4d3418e55b11dc0d3f"
   end
 
   depends_on "autoconf" => :build

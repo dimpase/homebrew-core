@@ -1,8 +1,8 @@
 class Kraftkit < Formula
   desc "Build and use highly customized and ultra-lightweight unikernel VMs"
   homepage "https://unikraft.org/docs/cli"
-  url "https://github.com/unikraft/kraftkit/archive/refs/tags/v0.12.5.tar.gz"
-  sha256 "72ae21a2b20e4d3d85e22977c5025a6c7349acc96ad596fe6b66a3d5d94b547c"
+  url "https://github.com/unikraft/kraftkit/archive/refs/tags/v0.12.11.tar.gz"
+  sha256 "25eff0cbe79527a3ccb792d238a7df8a76c4d505db6015f16b27be1d8be40e51"
   license "BSD-3-Clause"
   head "https://github.com/unikraft/kraftkit.git", branch: "staging"
 
@@ -12,22 +12,15 @@ class Kraftkit < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4460e2412f7ea04f7c54620fc216d2003e52ec18105c7d6bc5f31fde127f308f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "288353d2c31c6790592b148ddf832e5938cc493357573f728e3dc295731afa2e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b2cc8d32fd996e0f334f914bb9251f57573d8ec4255218740f736ce089d4c614"
-    sha256 cellar: :any_skip_relocation, sonoma:        "780657ed9827075fb1c6e8ce48505e82c5ff042d348d864579f80b80eb585102"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b38b10881e0648a3a369a5f5c15d46ee5d8016ab695aa319fa44c4d13a6e8d00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cce0e5b120ca6b93221ee7f940f72fc080ff4c5034bb5268b56f08aeecf6368a"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fa76637f084c45dce2a0c02389e8c9beb333587664f5e779d8cc16cee7c2f1c3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "65f4f4f24b07ee417c8b96ab0b8e3712cbe78537e595ad898ea850c2d60868d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9c53916d5576bca5553a24fcc56a6b2d5a2249374bede73fd1485911b2ddd60f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "46bf368d7a9ff9381ba4b329377594334bda8ea90ef22313c4dc4f58ad33183e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e472f1bbbf79857f32c7893c4b815b6ee953d5b498075dcd5198c6f211f68bfe"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "25ae0c93927fdd73e40d0921b5b25b418d215b04fdb08a696c04a16de8d0fa99"
   end
 
   depends_on "go" => :build
-  depends_on "pkgconf" => :build
-  depends_on "gpgme"
-
-  on_linux do
-    depends_on "btrfs-progs"
-  end
 
   def install
     ENV["CGO_ENABLED"] = "1"

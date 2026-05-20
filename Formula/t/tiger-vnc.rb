@@ -1,9 +1,10 @@
 class TigerVnc < Formula
   desc "High-performance, platform-neutral implementation of VNC"
   homepage "https://tigervnc.org/"
-  url "https://github.com/TigerVNC/tigervnc/archive/refs/tags/v1.16.0.tar.gz"
-  sha256 "10512fc0254ae3bde41c19d18c15f7ebd8cd476261afe0611c41965d635d46e8"
+  url "https://github.com/TigerVNC/tigervnc/archive/refs/tags/v1.16.2.tar.gz"
+  sha256 "b107c0c8b8a962594281690366c24186e95c2ea4a169acbc0076aa62ed01f467"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,13 +12,12 @@ class TigerVnc < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_tahoe:   "11e3ff190f0c4c0ef6dc463548f4f008017a945915683ae3f47db655596fe6aa"
-    sha256 cellar: :any, arm64_sequoia: "d76e50a41017f22462257503cb212f4fd3ffd051054af4de10bb856f19f150c2"
-    sha256 cellar: :any, arm64_sonoma:  "e821c79d04c568b188ce0cb1f2ec9a960c900f70d5124d6ace0bdbfdef8005db"
-    sha256 cellar: :any, sonoma:        "1bc16cfe957b118c7ab360b557830df9095ce073a2c26d949cf03cac32f35c60"
-    sha256               arm64_linux:   "321ac5c0240b6f714bd35fa76fdb9660576f4eb3de6430a994cd12bca77baecb"
-    sha256               x86_64_linux:  "5bfe19fa4c9024d64cc4e7b40c5e762df20b1acc9cc7c04c4bab469c684b12fe"
+    sha256 cellar: :any, arm64_tahoe:   "8d12a23c7b45cb2e6e0378d10e8eb6204e53e122c12c242c8980e942ac4f0281"
+    sha256 cellar: :any, arm64_sequoia: "e7f98cddf036ea8f48b3201b7cdd2865e5c31650ce2b42e350d54005cf255e7f"
+    sha256 cellar: :any, arm64_sonoma:  "a939e8096df31cc5bb02489ca4ad161d69f1cc5557dbbef82a9fb43cc173cdcb"
+    sha256 cellar: :any, sonoma:        "62bb1dc72ab89cd10ae5b6b54c36cfb888b7e4a2fbc28cc2930edc276c294e09"
+    sha256               arm64_linux:   "3986dbe4aa17163342747900c597a676b2b30a63cda679cf0b9d519c3d1dd636"
+    sha256               x86_64_linux:  "c17bcd2d90aa9083be69775a866a6be8f68f66548cd181399f1a37fc4d2cf49f"
   end
 
   depends_on "cmake" => :build
@@ -47,6 +47,13 @@ class TigerVnc < Formula
     depends_on "libxtst"
     depends_on "linux-pam"
     depends_on "zlib-ng-compat"
+  end
+
+  # Apply Arch Linux patch to support Nettle 4. Remove in release with
+  # https://github.com/TigerVNC/tigervnc/commit/be6e25fca026ce715d5be1d7ba40ef49bebbde51
+  patch do
+    url "https://gitlab.archlinux.org/archlinux/packaging/packages/tigervnc/-/raw/3acb330ccb03832085c20b0f1bedec665c9a886f/nettle-4.patch"
+    sha256 "5d290368a537a0d354773a06c096c1c1b36fd2de4d03860a5d82456f0b527a9b"
   end
 
   def install

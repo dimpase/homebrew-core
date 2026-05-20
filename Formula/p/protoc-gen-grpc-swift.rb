@@ -1,8 +1,8 @@
 class ProtocGenGrpcSwift < Formula
   desc "Protoc plugin for generating gRPC Swift stubs"
   homepage "https://github.com/grpc/grpc-swift-protobuf"
-  url "https://github.com/grpc/grpc-swift-protobuf/archive/refs/tags/2.2.0.tar.gz"
-  sha256 "b8b1b7ab4cfaa538b217c55b9a5010e89f5104125886b36303eae45c275d1bc2"
+  url "https://github.com/grpc/grpc-swift-protobuf/archive/refs/tags/2.4.0.tar.gz"
+  sha256 "f4f35648d1055319bd6caad1b7894017c9c546727968b8e9f3b4357fcb809d23"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/grpc/grpc-swift-protobuf.git", branch: "main"
@@ -13,19 +13,22 @@ class ProtocGenGrpcSwift < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "24b9717bcfca989ba93137144897c9d4626cc46cae7d444a7f11f67239ad6f82"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a28f0b4aaea8f49fa50c2b9d5c7e3c815043619ff660bc4d99e72bc60fa5744c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9d4b7924a83b94f7e1f1dfba2721a6f6fe61eea90e8c3bb089f4e22438a33e61"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "548bfe6b88bcf7eecdf7fa2ac27b1576a135d4fa676164a6235c989fa7691289"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3367f57af6aacc55a89eff8326363caf4a18d2b7f4fe4432f87543ac9508e23e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "39f2f2c3afcd2de0277269ef6791461ca8156de7d81e4617680f230c089b2756"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "169044473695b6a062f1568c51313ff57ad22fcc67443189224cbb17c55791aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3ce18aa9cb49311aef00f7568edf746a0ad492b763e7dff69a199a0a96095fb6"
   end
 
   depends_on xcode: ["15.0", :build]
-  # https://swiftpackageindex.com/grpc/grpc-swift/documentation/grpccore/compatibility#Platforms
-  depends_on macos: :sequoia
   depends_on "protobuf"
   depends_on "swift-protobuf"
 
   uses_from_macos "swift" => :build
+
+  on_macos do
+    # https://swiftpackageindex.com/grpc/grpc-swift/documentation/grpccore/compatibility#Platforms
+    depends_on macos: :sequoia
+  end
 
   def install
     args = if OS.mac?

@@ -1,18 +1,18 @@
 class Fedify < Formula
   desc "CLI toolchain for Fedify"
   homepage "https://fedify.dev/cli"
-  url "https://github.com/fedify-dev/fedify/archive/refs/tags/2.0.2.tar.gz"
-  sha256 "c9a6bd5b3f07a05069880b004a68c653cfd6b0c306dbb93e97bea6227f31b9bd"
+  url "https://github.com/fedify-dev/fedify/archive/refs/tags/2.2.3.tar.gz"
+  sha256 "7711c3f92ca5e6712e78dc5062bf35a9079227370d40fbfdc2130411416ea691"
   license "MIT"
   head "https://github.com/fedify-dev/fedify.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "76f96e44001914570f5196511a038c1b26daed6e749516da4a9b3f9a75864b83"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a5d1441c0bf726c5503d8709d84cdde9da6186a441708ab0320b5cc90784020d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "20de3f2f3c7ef5a0da1fe372eb5609262ed02f9142a062091b2d2a08f33055d4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c4ed9170b738f3394876683652e724ebc197b8e299c82761e1ee5a5eaf73a89a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "642efd7130192408f0ecea791148d2f478feba0a5d29d5fa781246fe07e56a4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b6185a64c98acfd1d231b6b8de9e7056502fc9be3db88471b60b362740f9c695"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "bed00a7971079c383034bb6b5e574ce01e065b1527521dcf7b9c4d7d016c01f1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "faeb08f4f2157445331d04003b89f19081492efe766ff9255d6064b4712081ad"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e5150e473f199d1d6e56c8ac59a6d532a3cc636ec1314e2c4591ba0f99e18417"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d714b90d3c0108fe19d8144f323c27dec92efcabb25067ae8012ecb6811af448"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "03d7e6094303ac64f79dedd87e886cc28bd2f3c9d7a977eff3cbce49ba17b75d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "871ca573d36f1cadc0272e1e358c2b1cd081909760511f0c5ccdf52e1bc638c9"
   end
 
   depends_on "deno" => :build

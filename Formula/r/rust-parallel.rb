@@ -1,17 +1,17 @@
 class RustParallel < Formula
   desc "Run commands in parallel with Rust's Tokio framework"
   homepage "https://github.com/aaronriekenberg/rust-parallel"
-  url "https://github.com/aaronriekenberg/rust-parallel/archive/refs/tags/v1.21.0.tar.gz"
-  sha256 "81f932a61b0b0f1092064abe5c009e127e41db03ccd30f5f8a7bb560cc613f74"
+  url "https://github.com/aaronriekenberg/rust-parallel/archive/refs/tags/v1.23.0.tar.gz"
+  sha256 "cc46ed110c3150d797ffbb3aa50209b93390beaef44f3b7c8fbd4adca46724ff"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9b684350fccdb692f878dde5f410096c216f75dc033d597cf1ff3360c209e764"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e8a775c541e5372f1156ac8eb18ff868bd055aa373bb02b5dba462412bb5cdb8"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "eff64d362e6f0d25846ce0fb9dd162c9b8dca820c85912befd4a7fc68a8d5358"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d1207ff552b2d0af03ba0bda91cdd23f887503911b438a6a39cc830676cd4ef0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "387eb5be2ec26d07ae997a2ba6ed1cd978b5778b9c2f93f7487ee7c0cc279c20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d408fd9a56f1830181231658449305374186aebbf1340a2dc2fee64c69ae7a60"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "465dbbc9008598094a1369048b09b67cf86a3261f3cd2cb17e5cd451687b023f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bb83a9b4281d7988b17a34ad74d2d854ed36442e06c4f211b1336a7b5060c365"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ab4f7a740ede946626f962a501ecf9ff40e4b0bb020e03e765520a79cc5834c8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "20ed463f327f83aca5eb4932eaf75b257921ac860d3ee5d9bcc1d606245da308"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "be8a523ad79ccf15adc622ff13b46352e9ad5462ad80911e1b275d606e2a2ad8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0366106a5adefbb4d0f04b9b928cf01f0e93239391d174e788396ef3e564aeb6"
   end
 
   depends_on "rust" => :build

@@ -1,8 +1,8 @@
 class Rubyfmt < Formula
   desc "Ruby autoformatter"
   homepage "https://github.com/fables-tales/rubyfmt"
-  url "https://github.com/fables-tales/rubyfmt/archive/refs/tags/v0.12.0.tar.gz"
-  sha256 "6972f8083a199bee4825ba03805baebd6e4203c543b5f96b716d6964f5628a87"
+  url "https://github.com/fables-tales/rubyfmt/archive/refs/tags/v0.14.0.tar.gz"
+  sha256 "9cf70038b8e2773c119dfee342575249b3c1e111cc1947b3388921f2588f064e"
   license "MIT"
   head "https://github.com/fables-tales/rubyfmt.git", branch: "trunk"
 
@@ -15,13 +15,12 @@ class Rubyfmt < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c1ae4924754e4f83c5911314dec2ec3ff4dd4c1cfdf5257223e86742e9c3f842"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4ae3190fb8ad78610482263d7c3ae7b3b5b8377aded523633a9a9a2237ccb977"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c7aef931acdfdf3e26dc32a5cbe679d51d8e291011d05b2c6089b34445202d17"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3c4a05cd5fc646ad2fdf873a63fff26b14b4b2299157065691e881445a5bc4e3"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a2637212bf431afef2a0ae70cea03375fa53cb6602f39b7d88a9deb0f4c2dd7a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "de56de3073592a683d1f8b29dd696eb723b8a818ee57fc2d237052fdd3133e4b"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "245aea3ebcb5ec7a9c55295165d6ead56f604b00e83bf632a9d0317aa4ffb54c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "41a7c95226ef73450cdb2568220874bd89f5bc374c7a147de26cea4906115ec7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6324fb3c64bfa9f3515bedca3682e54d9f462d7f423355e960c3abfe84397e52"
+    sha256 cellar: :any_skip_relocation, sonoma:        "21eb8703efeaa4b947845bf26b900699c30694667c65c756e6d4d9cb7d0cf705"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "707a455e8b162629f11dfef054c546d472bdaf2b7df222f0b02e39643a784d4b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3dc1ff36c88b6d3e3dc7bc90bd2f04b76844f4009b60659e58fae09d09ce49c9"
   end
 
   depends_on "rust" => :build

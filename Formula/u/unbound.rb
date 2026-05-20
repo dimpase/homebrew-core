@@ -1,9 +1,10 @@
 class Unbound < Formula
   desc "Validating, recursive, caching DNS resolver"
   homepage "https://www.unbound.net"
-  url "https://nlnetlabs.nl/downloads/unbound/unbound-1.24.2.tar.gz"
-  sha256 "44e7b53e008a6dcaec03032769a212b46ab5c23c105284aa05a4f3af78e59cdb"
+  url "https://nlnetlabs.nl/downloads/unbound/unbound-1.25.1.tar.gz"
+  sha256 "0fe8b6277b0959cfd17562debac0aa5f71e0b02dc4ffa9c60271c583edab586f"
   license "BSD-3-Clause"
+  compatibility_version 1
   head "https://github.com/NLnetLabs/unbound.git", branch: "master"
 
   # We check the GitHub repo tags instead of
@@ -15,12 +16,12 @@ class Unbound < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "6c59b63075d8b30aa313d5b24a81e3654201c757b62a59605a7985372e88c210"
-    sha256 arm64_sequoia: "df3c8215fc595feb7c384a959b9e5dfbf38b123749626544c7f096db347ff9f4"
-    sha256 arm64_sonoma:  "223d64d8ff9545d24257ef8231d9301b5116b8f33e4aeec15d60474b4a884096"
-    sha256 sonoma:        "211b54d6d74bc64552ddddad1e2a1d5799026177d1b17abc7cff8da77db56f3a"
-    sha256 arm64_linux:   "b603481910ad8c62e18000618401de4511228fb837c86b7dc59382dce974996a"
-    sha256 x86_64_linux:  "4dca3d86d32cd14d33167b2d0cc21df1a306b0050581cb614a1f88249781a237"
+    sha256 arm64_tahoe:   "e70af9383d71c712ef5b32dcd38d2a49650e27e4f0159d4f0b48feb8270b12a2"
+    sha256 arm64_sequoia: "240384c7f32948f485565940a73a5e4a724c8c6a381f40c56a6f0cbdc31a8645"
+    sha256 arm64_sonoma:  "a72e00a0af995e8c5cf003f241fa70e616dfbd3613439e9c37d409fc847d0d95"
+    sha256 sonoma:        "9b23b437d3d41d269b8c49488209126aa615e67eaffc672f698a4600fdd64eb9"
+    sha256 arm64_linux:   "545b8ae4cd36a4f51ed41235c834e4facbb7b4528fa8bd3d780531e50da53584"
+    sha256 x86_64_linux:  "bc33286a98306d040db92f0c2187b098119ce3ced6f70c5a19c4e718f2b0cbd1"
   end
 
   depends_on "libevent"

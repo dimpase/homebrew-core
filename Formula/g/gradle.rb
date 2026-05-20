@@ -1,8 +1,8 @@
 class Gradle < Formula
   desc "Open-source build automation tool based on the Groovy and Kotlin DSL"
   homepage "https://www.gradle.org/"
-  url "https://services.gradle.org/distributions/gradle-9.3.1-all.zip"
-  sha256 "17f277867f6914d61b1aa02efab1ba7bb439ad652ca485cd8ca6842fccec6e43"
+  url "https://services.gradle.org/distributions/gradle-9.5.1-all.zip"
+  sha256 "c72fb9991f6025cbe337d52ba77e531b3faf62bdd3e348fe1ccee9f51c71adb0"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Gradle < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "b56225b887e66271c2c2a3ef959903f47e6104a4bc8d24c992254471c179dcaf"
+    sha256 cellar: :any_skip_relocation, all: "a050a64f8d8db63b62d07e2d2eaa97e4d316abf5421153a6f979ea998bda8867"
   end
 
   depends_on "gradle-completion"
@@ -20,7 +20,7 @@ class Gradle < Formula
 
   def install
     rm(Dir["bin/*.bat"])
-    libexec.install %w[bin docs lib src]
+    libexec.install %w[bin lib src] # excluding 300MB+ of docs
     env = Language::Java.overridable_java_home_env
     (bin/"gradle").write_env_script libexec/"bin/gradle", env
   end

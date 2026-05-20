@@ -1,18 +1,18 @@
 class Kagent < Formula
   desc "Kubernetes native framework for building AI agents"
   homepage "https://kagent.dev"
-  url "https://github.com/kagent-dev/kagent/archive/refs/tags/v0.7.18.tar.gz"
-  sha256 "32f63bce77db8315041175d42433df2f2049d8dca3a5dcdb98765d5fa62b3841"
+  url "https://github.com/kagent-dev/kagent/archive/refs/tags/v0.9.4.tar.gz"
+  sha256 "e5a83ca07025b6428fa79b9b664cbf83dcca67013073074bc044f289adedaab4"
   license "Apache-2.0"
   head "https://github.com/kagent-dev/kagent.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "087692ebb39c1368f38733918730262e63e11276c4977724eab3757bbcde1e9f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "087692ebb39c1368f38733918730262e63e11276c4977724eab3757bbcde1e9f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "087692ebb39c1368f38733918730262e63e11276c4977724eab3757bbcde1e9f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b8738ffc69b09f44b956c98d520a0272a7f57d281bb34e1ae2bc443a23333940"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "103c9bdc47dbf553cf471f4de2b317e8f791ccd72921fe32a7268a6346819453"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7c807cbe89595fa23b3373ec7d6f889c1a25671d5fae03e395f48e354156c243"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a53707e09776c97d944967324e45686166f996e486faa93cb5efb234ecc98e03"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a53707e09776c97d944967324e45686166f996e486faa93cb5efb234ecc98e03"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a53707e09776c97d944967324e45686166f996e486faa93cb5efb234ecc98e03"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8ba0a714c11da30e39e98b7135b04d8bb6e601adedfcd09829e8ce70e249a3fb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "6c2f28864b6f1c26f4da7d63572b19a470aafc759788d837d1a4e1e9748c5b81"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "14ec6115d2315cf0af906643d98db77cf2d2e994e9891a1e5b73d162914e12d4"
   end
 
   depends_on "go" => :build
@@ -21,11 +21,11 @@ class Kagent < Formula
   def install
     cd "go" do
       ldflags = %W[
-        -X github.com/kagent-dev/kagent/go/internal/version.Version=#{version}
-        -X github.com/kagent-dev/kagent/go/internal/version.GitCommit=#{tap.user}
-        -X github.com/kagent-dev/kagent/go/internal/version.BuildDate=#{Time.now.strftime("%Y-%m-%d")}
+        -X github.com/kagent-dev/kagent/go/core/internal/version.Version=#{version}
+        -X github.com/kagent-dev/kagent/go/core/internal/version.GitCommit=#{tap.user}
+        -X github.com/kagent-dev/kagent/go/core/internal/version.BuildDate=#{time.strftime("%Y-%m-%d")}
       ]
-      system "go", "build", *std_go_args(ldflags:), "./cli/cmd/kagent"
+      system "go", "build", *std_go_args(ldflags:), "./core/cli/cmd/kagent"
     end
 
     generate_completions_from_executable(bin/"kagent", shell_parameter_format: :cobra)

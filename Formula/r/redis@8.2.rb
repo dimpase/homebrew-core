@@ -1,8 +1,8 @@
 class RedisAT82 < Formula
   desc "Persistent key-value database, with built-in net interface"
   homepage "https://redis.io/"
-  url "https://download.redis.io/releases/redis-8.2.5.tar.gz"
-  sha256 "68de6b8c7665ac7f5ddea026745515ea027a1e233d3ed413f67134333c0e611b"
+  url "https://download.redis.io/releases/redis-8.2.6.tar.gz"
+  sha256 "78dd7326c5c959202c6c3849d3ea9c61896d78d647c20f6542b52c0917f96eac"
   license all_of: [
     "AGPL-3.0-only",
     "BSD-2-Clause", # deps/jemalloc, deps/linenoise, src/lzf*
@@ -17,17 +17,18 @@ class RedisAT82 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "98dc91477160c0076ecf6f93f3ff2a7d03738838fb4e27aecebed92ce3e91859"
-    sha256 cellar: :any,                 arm64_sequoia: "152bc3912ec0ea39058032fd6315ef6a87c03077276102a997d72d2a1380392b"
-    sha256 cellar: :any,                 arm64_sonoma:  "20c76d7eafbb04762e8c405220786ff87dea7f3f84c5edee7828e942e2da2f8a"
-    sha256 cellar: :any,                 sonoma:        "3038cf858b7ddb8ce320e5ee8acec1e63c789539765575670d4c26a460061679"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b613fe46b6da065b5c5b3bee18d5f3597197d12c91d39a7d7a067eb1ca5bf715"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "752002b1aa5a779970903a2849d29d4e16bc205db89b107d45adf8400d3e77a5"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_tahoe:   "cd4eb1b96b016ccd7523220dfbb54d2ec43a6353f1d5e6a37b69a3d5826b862d"
+    sha256 cellar: :any,                 arm64_sequoia: "ba77d3318b97296371305f5d86483f6df37a53eadb6cefaa376e978cd0ba60ab"
+    sha256 cellar: :any,                 arm64_sonoma:  "9232f49d3f05f9d29f7b2f249f321fbea058f9b1dc975911b8feb93b08f70483"
+    sha256 cellar: :any,                 sonoma:        "d0c41543bd1793e73ce558c9a562d038afe9c9fb73e2e0648a867e29d66225ca"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "124f3979fad86b60148a68312f19a3c5d86f392e76419dcb34d1ea28fa5b77f7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e0049cf89efab45893c62e3ef076c19dece57d7b25d3b0ca1679b4af2a6c5cfd"
   end
 
   keg_only :versioned_formula
 
-  depends_on "openssl@3"
+  depends_on "openssl@4"
 
   def install
     system "make", "install", "PREFIX=#{prefix}", "CC=#{ENV.cc}", "BUILD_TLS=yes"

@@ -1,11 +1,10 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-26.02.0.tar.xz"
-  sha256 "dded8621f7b2f695c91063aab1558691c8418374cd583501e89ed39487e7ab77"
-  license "GPL-2.0-only"
-  revision 1
-  compatibility_version 1
+  url "https://poppler.freedesktop.org/poppler-26.04.0.tar.xz"
+  sha256 "b0955163114af96bc0106f68cb24daf973a629462453d8b82775f81b0d4e0693"
+  license any_of: ["GPL-2.0-only", "GPL-3.0-only"] # see README-XPDF
+  compatibility_version 3
   head "https://gitlab.freedesktop.org/poppler/poppler.git", branch: "master"
 
   livecheck do
@@ -14,12 +13,13 @@ class Poppler < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "97ea906fa3b4fd5a0b98b8762c41a1e9b12194f25b64bdbaa7bb239959b07b28"
-    sha256 arm64_sequoia: "d4cbf5ea2b8cceae9fc0580e4c41f8ba8ddcfb1f04b2da523e70720447b7171e"
-    sha256 arm64_sonoma:  "025187d9872c655fece1274db85a2cb0b8f1a9e6fb087cb602523ea55bacc74b"
-    sha256 sonoma:        "626a5bff735d2106176e7304ce9f2940ab4ece7f14d6ee064699ce0202a58249"
-    sha256 arm64_linux:   "4477bd6dfa5b3e9b17687e99fe4f5b8a8ba417d5aa7b3140328b4698f650d1b3"
-    sha256 x86_64_linux:  "343c9781cee96df6b37cbbbe2f9f93305343a2a49930fd15807aeff3c36eeaad"
+    rebuild 1
+    sha256 arm64_tahoe:   "dc47afa401538297b7afd6914363501443d832031434a2f0d3fde4aa3d75810e"
+    sha256 arm64_sequoia: "17eab9fcc315f760a5092f6856d2385e10cba3787a8d61e36979d2a1c9fcc18b"
+    sha256 arm64_sonoma:  "c0828630e30e1216f7fb59adea4cefdc329ed8692e8aaeb059115cc54ac18f96"
+    sha256 sonoma:        "bbe9dff4184b7d629fdff43b540d8dfc53db559036f988daf752f02bf0714bd7"
+    sha256 arm64_linux:   "3bd08cb0df5ccee7aeed0a7529867c063beaa0fec303c79fd7dd84c1d66971e6"
+    sha256 x86_64_linux:  "e43a4677edf16c8af9f6e2b8fba9fec37ab610339a6d5a76eccac687b288d7b7"
   end
 
   depends_on "cmake" => :build
@@ -46,7 +46,6 @@ class Poppler < Formula
   on_macos do
     depends_on "gettext"
     depends_on "gpgme"
-    depends_on "libassuan"
   end
 
   on_linux do
@@ -70,7 +69,6 @@ class Poppler < Formula
     args = std_cmake_args + %W[
       -DBUILD_GTK_TESTS=OFF
       -DENABLE_BOOST=OFF
-      -DENABLE_CMS=lcms2
       -DENABLE_GLIB=ON
       -DENABLE_QT5=OFF
       -DENABLE_QT6=OFF
@@ -88,6 +86,9 @@ class Poppler < Formula
     lib.install "build_static/libpoppler.a"
     lib.install "build_static/cpp/libpoppler-cpp.a"
     lib.install "build_static/glib/libpoppler-glib.a"
+
+    # Add extra metafiles for licensing information
+    prefix.install "COPYING3", "README-XPDF"
 
     resource("font-data").stage do
       system "make", "install", "prefix=#{prefix}"

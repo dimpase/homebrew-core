@@ -1,10 +1,10 @@
 class Librist < Formula
   desc "Reliable Internet Stream Transport (RIST)"
   homepage "https://code.videolan.org/rist/"
-  url "https://code.videolan.org/rist/librist/-/archive/v0.2.11/librist-v0.2.11.tar.gz"
-  sha256 "84e413fa9a1bc4e2607ecc0e51add363e1bc5ad42f7cc5baec7b253e8f685ad3"
+  url "https://code.videolan.org/rist/librist/-/archive/v0.2.15/librist-v0.2.15.tar.gz"
+  sha256 "6025d19b11b6ab57c5e8a00df68cbfc72ef83444afefd2bdcc81ce592884cb87"
   license "BSD-2-Clause"
-  revision 1
+  compatibility_version 1
   head "https://code.videolan.org/rist/librist.git", branch: "master"
 
   livecheck do
@@ -13,22 +13,20 @@ class Librist < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "a3ec6f80dbc0c4a2f462a6e1485383684404cbc2cf0bef1e8893a847cf40cbc0"
-    sha256 cellar: :any,                 arm64_sequoia: "bad9e900548801c915eb830471b6c77e87a9dc98b813625c81de70fbbed0432f"
-    sha256 cellar: :any,                 arm64_sonoma:  "a7b306a05984387478ebd318c5eadd09303bec36d67cc9830d49d85a1b2e9938"
-    sha256 cellar: :any,                 sonoma:        "de3c3d22ff646e823a60df6e77fee66031de804e73dc7580fc6ba89972acdf27"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "18175c43e2082dfff0edb5f4a0d9c3558d792995bf9985fb0bf4aa059cd0cc9c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1f293ec4fefab0d33b17e43019ad4593e764506d5fdb336d1884d829ba9fe531"
+    sha256 cellar: :any, arm64_tahoe:   "595ed1ce8182609029503f55ddb47f6be9778150c5241a49545073c459eac795"
+    sha256 cellar: :any, arm64_sequoia: "e98357da7ded0831f62e7ab8cdee56a3e982b71eba8891cf85c897b506f5dbf4"
+    sha256 cellar: :any, arm64_sonoma:  "0bef8f02970e42d789657f48dfcefee0c412d99e0acf38d7f929153e4a3827f5"
+    sha256 cellar: :any, sonoma:        "ea80c5cdae9207d83233312fb441fa80dbbd2cc3651e44b78fc837f2c54bdb3f"
+    sha256               arm64_linux:   "8a9c190e59ebd3927c14bf8465513992fe93e8d2be7d56238954f850fc10a74a"
+    sha256               x86_64_linux:  "63ddb30fee65c8bb4ce6fe1eeadde01753fcb803f60c056eff0c554a20463be7"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
+  depends_on "pkgconf" => :build
   depends_on "cjson"
   depends_on "libmicrohttpd"
   depends_on "mbedtls@3"
-
-  # remove brew setup
-  patch :DATA
 
   def install
     ENV.append "LDFLAGS", "-Wl,-rpath,#{rpath}"
@@ -42,21 +40,3 @@ class Librist < Formula
     assert_match "Starting ristsender", shell_output("#{bin}/ristsender 2>&1", 1)
   end
 end
-
-__END__
-diff --git a/meson.build b/meson.build
-index 05d00b3..254d0ab 100755
---- a/meson.build
-+++ b/meson.build
-@@ -39,11 +39,6 @@ deps = []
- platform_files = []
- inc = []
- inc += include_directories('.', 'src', 'include/librist', 'include', 'contrib')
--if (host_machine.system() == 'darwin')
--	r = run_command('brew', '--prefix', check: true)
--	brewoutput = r.stdout().strip()
--	inc += include_directories(brewoutput + '/include')
--endif
-
- #builtin_lz4 = get_option('builtin_lz4')
- builtin_cjson = get_option('builtin_cjson')

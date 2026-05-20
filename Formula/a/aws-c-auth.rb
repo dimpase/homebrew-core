@@ -1,17 +1,18 @@
 class AwsCAuth < Formula
   desc "C99 library implementation of AWS client-side authentication"
   homepage "https://github.com/awslabs/aws-c-auth"
-  url "https://github.com/awslabs/aws-c-auth/archive/refs/tags/v0.9.6.tar.gz"
-  sha256 "2448e939d924731a891bec34f6da764d3a34afd52b9f5a3e614bb1bf96e6452d"
+  url "https://github.com/awslabs/aws-c-auth/archive/refs/tags/v0.10.2.tar.gz"
+  sha256 "832d2ae61ccd408ef001dd14eb909cc9551a5724211a817688bbb898a60457a7"
   license "Apache-2.0"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "6106e4003be5b3fab6629f7e8ff265d919fdc73857cf59629c5cec87185b9c9c"
-    sha256 cellar: :any,                 arm64_sequoia: "f740b568eccea313e0857efa9eb189de96dd4a9575c13a4f8dac949f7d892c47"
-    sha256 cellar: :any,                 arm64_sonoma:  "05553dbc1405d1b05ee2a95207eb41ba3aab80414e5ea72268b7e8b849fd7677"
-    sha256 cellar: :any,                 sonoma:        "f5b6746e6ff042c8fcd805c469564e8b9593e5d23dc91f217f430c9c50f837f5"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b5f973dd7836ca13bca6f0919b4e6d8873dc0510c0857148990e0452879a3af0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b50f2b7f80a0465e1392cdceafa539254cf8e1cf17633b878e08b50227365b12"
+    sha256 cellar: :any,                 arm64_tahoe:   "b49b0450e5cfd7d45cfc7c99c789bcfcece77c628a870ed7ae289002432c6807"
+    sha256 cellar: :any,                 arm64_sequoia: "bc07b21fb770258e58e5e298519900edf2704fcd40093ca28465a2bdebac3d18"
+    sha256 cellar: :any,                 arm64_sonoma:  "5910c8e65b9977ab4bbf0d57e09406cad59962ba7ccad08b15e2ce13dbfc8732"
+    sha256 cellar: :any,                 sonoma:        "d2872c8746cfe85bf01f0c8e0f250610351696438e7c924d2b7a9de66f895f50"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a0475be5fdce1a65a11491b9a4f22750bf65f05aa36e3690ab1a8950c7f3e0cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cc44e214d4b690faef071d1766deed3bf5141a5c0c31f9666ac546335fdc51cf"
   end
 
   depends_on "cmake" => :build

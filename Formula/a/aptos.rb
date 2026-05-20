@@ -1,8 +1,8 @@
 class Aptos < Formula
   desc "Layer 1 blockchain built to support fair access to decentralized assets for all"
   homepage "https://aptosfoundation.org/"
-  url "https://github.com/aptos-labs/aptos-core/archive/refs/tags/aptos-cli-v8.1.0.tar.gz"
-  sha256 "28ba2a5065011149dfb76518a3f48a5fec1da7a71acef4b4bcec2e49e6517e0c"
+  url "https://github.com/aptos-labs/aptos-core/archive/refs/tags/aptos-cli-v9.2.0.tar.gz"
+  sha256 "d53de81b88c5fb7f190901b7be3e570609f2bcccfd91eb0280bdd9cc2ec4ca6e"
   license "Apache-2.0"
   head "https://github.com/aptos-labs/aptos-core.git", branch: "main"
 
@@ -14,12 +14,12 @@ class Aptos < Formula
   no_autobump! because: :bumped_by_upstream
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f5484791aaa8b146a2eede6933c79f981136cbf30bf86163fd5045549575912e"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eea006ed074627cfc1000881a4cc685807a2ee6679d91159c9cd1d3c0e89afb2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "91286662c8444684f1530f6bc43d83acd3317c5b97776b37efd321f0458ab38f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "32faaf97acb487b6bbab5770185835cd263583c271989e360cd5d27457a529a1"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c1fef6ff1cca807bb631ffd06eaa08e0ade37cd7e5f16ea8e3c020d0c173a0a0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ecf7659c5c7940620fd655119a058e29b9cf6271875763b524cdf7c11b38b80e"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "da64b3ad497e803671c991353cf17a0f3431f8e300e40bd13fae93b5966df1c5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3d348028157bf0e08caf32435bd27da5a86094d53ed8abb5fd785155cfc5a4aa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "63c6d8ce67534640bc2e47519f08aa5c9c3a1057dffc7ceb19d05e6a45fcfed6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0b53dbbcd6bf787177324dd43d3f9182864b5b17e35fb7c12e24bf4e9c2eb4d3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "cee5f07e11ecf4032192f1af1d407ee43496d8ea579caf08353ef4e15e7c3011"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5ccc5d5caddae373d448d8620c9f8881d589c1ca3d187a2c313b02e546a3d842"
   end
 
   depends_on "cmake" => :build
@@ -44,6 +44,15 @@ class Aptos < Formula
     inreplace ".cargo/config.toml", /,\s*"-C",\s*"target-cpu=x86-64-v3"/, ""
 
     system "cargo", "install", *std_cargo_args(path: "crates/aptos"), "--profile=cli"
+
+    # stdout is not supported, so install manually
+    %w[bash zsh fish powershell].each do |shell|
+      system bin/"aptos", "config", "generate-shell-completions", "--shell", shell, "--output-file", "aptos.#{shell}"
+    end
+    bash_completion.install "aptos.bash" => "aptos"
+    zsh_completion.install "aptos.zsh" => "_aptos"
+    fish_completion.install "aptos.fish"
+    pwsh_completion.install "aptos.powershell" => "_aptos.ps1"
   end
 
   test do

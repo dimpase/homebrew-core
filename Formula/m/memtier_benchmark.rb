@@ -1,20 +1,21 @@
 class MemtierBenchmark < Formula
   desc "Redis and Memcache traffic generation and benchmarking tool"
   homepage "https://github.com/RedisLabs/memtier_benchmark"
-  url "https://github.com/RedisLabs/memtier_benchmark/archive/refs/tags/2.2.2.tar.gz"
-  sha256 "0a022f6d54b718b69c9d1342dbe7a2590d187575a22f5d13810bc8a0ac3ba215"
+  url "https://github.com/RedisLabs/memtier_benchmark/archive/refs/tags/2.3.1.tar.gz"
+  sha256 "e278695435920c30203ceb0b561f2cbc08f6977935936a5f28c9864c0b76ddb0"
+  # https://github.com/redis/memtier_benchmark/blob/master/debian/copyright
   license all_of: [
-    "GPL-2.0-only",
-    any_of: ["CC0-1.0", "BSD-2-Clause"], # deps/hdr_histogram
+    "GPL-2.0-or-later" => { with: "cryptsetup-OpenSSL-exception" },
+    any_of: ["CC0-1.0", "BSD-2-Clause"], # deps/hdr_histogram/LICENSE.txt
   ]
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "cd330b2ee5b361831eb3f7db5967ac7a56c83d32226820dbf48153a9ca15c214"
-    sha256 cellar: :any,                 arm64_sequoia: "7aca5907a84936fa31953be1adaa91be5aae1bff706bca7a90b77a15e9cf9d60"
-    sha256 cellar: :any,                 arm64_sonoma:  "d21e93cfda824aa217ea2f7b82ed7fb6c7b53660820f4a9d8ecfdb60d874442f"
-    sha256 cellar: :any,                 sonoma:        "23541ae391f3bc4d61fe99b0b2d18aca23be0df01c489ab6fd55d8fcc4299e6b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8e06c30cbd3b096ba8e7942fc41357636e4473daa9f971f552befea05ca91705"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "44c04faf18845e81f48fe29fb5c1ced7cbf3889d542b88ac847f09c5302df9dd"
+    sha256 cellar: :any,                 arm64_tahoe:   "ce08831abdd10ddc2cb1561006fbbbca6354be54a0677b7dbb094e4548bdbd1e"
+    sha256 cellar: :any,                 arm64_sequoia: "dbc93842e4c09136bcfaa56de091071ceab0392f806fba60fe009f4f9acdfa2b"
+    sha256 cellar: :any,                 arm64_sonoma:  "f3d3f5685f902e5e48787cb9175723648fdfd3fc39cb30b261137af58cc1f5c3"
+    sha256 cellar: :any,                 sonoma:        "fea16c0d730681376799a7de3057f2fe6dcadd519dac8eb5bc00b1f243d675c9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3748336d1da7af83430aa694e7cbff85b3054d1a1b297c9d181b63fcd556ecaf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a7c70e85800beb9da78f6b89851d7d251c25f5cfd980417a178b6b7fbc9d33d9"
   end
 
   depends_on "autoconf" => :build

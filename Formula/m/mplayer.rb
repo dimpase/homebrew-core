@@ -5,13 +5,12 @@ class Mplayer < Formula
   sha256 "650cd55bb3cb44c9b39ce36dac488428559799c5f18d16d98edb2b7256cbbf85"
   license all_of: ["GPL-2.0-only", "GPL-2.0-or-later"]
   revision 2
+  compatibility_version 1
 
   livecheck do
     url "https://mplayerhq.hu/MPlayer/releases/"
     regex(/href=.*?MPlayer[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
-
-  no_autobump! because: :requires_manual_review
 
   bottle do
     rebuild 1
@@ -32,7 +31,6 @@ class Mplayer < Formula
   end
 
   depends_on "pkgconf" => :build
-  depends_on "yasm" => :build
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "jpeg-turbo"
@@ -45,6 +43,10 @@ class Mplayer < Formula
 
   on_linux do
     depends_on "zlib-ng-compat"
+  end
+
+  on_intel do
+    depends_on "nasm" => :build
   end
 
   def install
@@ -72,6 +74,8 @@ class Mplayer < Formula
       --enable-freetype
       --disable-libbs2b
     ]
+    args << "--yasm=nasm" if Hardware::CPU.intel?
+
     system "./configure", *args
     system "make"
     system "make", "install"

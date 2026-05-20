@@ -1,18 +1,18 @@
 class NovaFairwinds < Formula
   desc "Find outdated or deprecated Helm charts running in your cluster"
   homepage "https://github.com/FairwindsOps/nova"
-  url "https://github.com/FairwindsOps/nova/archive/refs/tags/v3.11.11.tar.gz"
-  sha256 "d238a9e3f5a872b472295253c5c2d62f8f7a29786f1e67436bddf086ef90e42b"
+  url "https://github.com/FairwindsOps/nova/archive/refs/tags/v3.12.0.tar.gz"
+  sha256 "49a150a769f64894a5f91fc641ef7d491a1bb3433a63716d8ca7e2cc7d274f36"
   license "Apache-2.0"
   head "https://github.com/FairwindsOps/nova.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "88f5d41ada41956bef24e1159c07ea45616dc0b5ce610c81962f2129fc985237"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "88f5d41ada41956bef24e1159c07ea45616dc0b5ce610c81962f2129fc985237"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "88f5d41ada41956bef24e1159c07ea45616dc0b5ce610c81962f2129fc985237"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1135c8692cada34603d8f9c6682ead80b44de167a6a62a605d262df6e2200e7a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "79c6a88677c10c86882fd451f3b1ed9723cd312e13ab7cfd8d414ac33b931117"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1908a0616d6b9b8fe109d2e0b77f68d1e4b7a43533cde1996a4bbe4b974237b1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b6a71a7529095aa9c812aea57685bd8686a84373d71a949dc169bba6d8b3e624"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b6a71a7529095aa9c812aea57685bd8686a84373d71a949dc169bba6d8b3e624"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b6a71a7529095aa9c812aea57685bd8686a84373d71a949dc169bba6d8b3e624"
+    sha256 cellar: :any_skip_relocation, sonoma:        "42aaffdb24071f954e982ddc11c5381e228b0e18af65f32792a801af3486327b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e6ec73e30b1ebe49471ae51a848ad074742f90721910ef84007636e7cac7e97d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b53ff509779a2d8f105abe9f10e2325640585ccf9b648d7c280ec4ac5fd6b36f"
   end
 
   depends_on "go" => :build

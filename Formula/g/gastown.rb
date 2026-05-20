@@ -1,18 +1,18 @@
 class Gastown < Formula
   desc "Multi-agent workspace manager"
   homepage "https://github.com/steveyegge/gastown"
-  url "https://github.com/steveyegge/gastown/archive/refs/tags/v0.8.0.tar.gz"
-  sha256 "821026116293fdf27ec33c89995672ba3473115d3111773d6be780f49e42b5a2"
+  url "https://github.com/steveyegge/gastown/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "ddfaf8e774e9f3a281239c04592d04aee10afe621cbfa5df3e29310c9838d753"
   license "MIT"
   head "https://github.com/steveyegge/gastown.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "44d7086735b1b1ea600e897eef3a86f04a5fd800fb4e7073a98e72a3a09c5da8"
-    sha256 cellar: :any,                 arm64_sequoia: "b3bcf415c80a39d14c53233f5d431c7c90522df8117e1025b6983adc1200d5d8"
-    sha256 cellar: :any,                 arm64_sonoma:  "517391d9603643d2fb0529d28e8db532ef5e62a9f64bd457de200830c3a0dc50"
-    sha256 cellar: :any,                 sonoma:        "e3968e7a408d03b7d45a1cd191e287529b0cbdadd7329e73641d0789aae6d082"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c0c258e7e10ca2de04751a5cb3dfb97e89c0d15846d06b3b9d1bfc4130e45b4b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "14cf5cafe62fb192425d52fb0635b0f803df16d62d8ef747fff715d9f55f1b13"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "d22e1b8dfd9ddc572dc95278f322f58440873e0489b412f028b9d9c595f2cbd9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d22e1b8dfd9ddc572dc95278f322f58440873e0489b412f028b9d9c595f2cbd9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d22e1b8dfd9ddc572dc95278f322f58440873e0489b412f028b9d9c595f2cbd9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "43185d214231cb9b775e2c4931c2a9614561b5e6fd432f582720fb6a6df2d1d5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "361f7e4997fb48a94df7af73132ba5af3c69b13f0ccc66d7da995ce6defcf26f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "65c96bcb23693122ac7327608779305c37f9978cf4530e060807bb4209e85932"
   end
 
   depends_on "go" => :build
@@ -37,6 +37,9 @@ class Gastown < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/gt version")
+
+    system "dolt", "config", "--global", "--add", "user.name", "BrewTestBot"
+    system "dolt", "config", "--global", "--add", "user.email", "BrewTestBot@test.com"
 
     system bin/"gt", "install"
     assert_path_exists testpath/"mayor"

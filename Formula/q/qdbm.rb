@@ -10,8 +10,6 @@ class Qdbm < Formula
     regex(/href=.*?qdbm[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     rebuild 3
     sha256 cellar: :any,                 arm64_tahoe:   "8758b4bbc07fe322baf1aeb4815956e31dfe20720429254f6e78a2e6c500acbe"
@@ -21,6 +19,10 @@ class Qdbm < Formula
     sha256 cellar: :any_skip_relocation, arm64_linux:   "8063229ce3fc0aac1e402f27c5f9c9ab27f7e1101006887aedc8047844b69fee"
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "4f532caae96d2ab1726eb1fd9196db93dd0b4511f9b407b209c545a801449877"
   end
+
+  # Last release on 2007-12-22. Succeeded by tokyo-cabinet -> kyoto-cabinet -> tkrzw
+  deprecate! date: "2026-04-18", because: :unmaintained
+  disable! date: "2027-04-18", because: :unmaintained
 
   on_linux do
     depends_on "zlib-ng-compat"

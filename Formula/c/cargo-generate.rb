@@ -1,18 +1,18 @@
 class CargoGenerate < Formula
   desc "Use pre-existing git repositories as templates"
   homepage "https://github.com/cargo-generate/cargo-generate"
-  url "https://github.com/cargo-generate/cargo-generate/archive/refs/tags/v0.23.7.tar.gz"
-  sha256 "7f6dceb0ede61122684d4852092331c7179a5ea236247688e5074be68c1d9e4d"
+  url "https://github.com/cargo-generate/cargo-generate/archive/refs/tags/v0.23.9.tar.gz"
+  sha256 "c02da6b831aa5b80eb7b3b23589664db41037dbf487aaef989db6e8a2044af26"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/cargo-generate/cargo-generate.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "34791473078f76879f23bfa46b602f9bc861fdd9dd33bb2af4f3672ba5d0ca3f"
-    sha256 cellar: :any,                 arm64_sequoia: "7715d55f9ce8322e500573d731a09560242cc008d79fd9915037271c270bb923"
-    sha256 cellar: :any,                 arm64_sonoma:  "64aad8d85e1a3ef8d26fb88f1325cf1d795efe4a4c6db43009af4af5b289260f"
-    sha256 cellar: :any,                 sonoma:        "96eeba249472831404dd4a494e368ec236301647294a993d02ea5f51aa91e369"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3897578d246b7f1fbff2f9594a6f7f2832086dc0a26575d7dd2ef8ce7b4f5329"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bfd95c9ae28e6dd897a42f4dce961cc4589e25d78034b2363b5a21c8422b6531"
+    sha256 cellar: :any,                 arm64_tahoe:   "2aa914b3aa8fb66d7f7901402d1063d417a587c42ce5fd76e3c539e37eb491cf"
+    sha256 cellar: :any,                 arm64_sequoia: "0a61c0ee158b06020418e804c5328c9a1c198f08946dc0c1d8fc0581f1f50a21"
+    sha256 cellar: :any,                 arm64_sonoma:  "c632bbaf644fbe5e0d6aacf95a4730f02dee6796d86cf3522c7bd3c51716ba6c"
+    sha256 cellar: :any,                 sonoma:        "2a6bff9c66c505651dcce00dc8ec8be4f94f7935e3c3638d48d7ec8b3a8c193c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e264007dd9432106ce7ceac3c29c43d47ebf5c59e2aa3f74d01139fa28b70126"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fea1903b4e2dbe113512791adf90b3ec11952953143336de15b0fc3f1c0ff4d5"
   end
 
   depends_on "pkgconf" => :build
@@ -26,7 +26,6 @@ class CargoGenerate < Formula
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
     # Ensure the correct `openssl` will be picked up.
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
 
     system "cargo", "install", "--no-default-features", *std_cargo_args
   end

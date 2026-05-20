@@ -2,25 +2,24 @@ class Odin < Formula
   desc "Programming language with focus on simplicity, performance and modern systems"
   homepage "https://odin-lang.org/"
   url "https://github.com/odin-lang/Odin.git",
-      tag:      "dev-2026-02",
-      revision: "b942f72cb085f79b214a596c0628984298358eaa"
-  version "2026-02"
+      tag:      "dev-2026-05",
+      revision: "ea5175d865c2034b033ebf5653d83638f10bba54"
+  version "2026-05"
   license "Zlib"
-  revision 1
   head "https://github.com/odin-lang/Odin.git", branch: "master"
 
   bottle do
-    sha256                               arm64_tahoe:   "71371bb5a630ff67e002784dd17ade7b106884c8c1eebf88058008b4cca8e858"
-    sha256                               arm64_sequoia: "5b1c31c16efe5baab8e72ad0e074deb359c062ec611e1db0977b2e5b6f55a8bf"
-    sha256                               arm64_sonoma:  "3081a4a1ba6d8b9a976727e372a14d9279cf2829376cfbc763a929729c14f33b"
-    sha256 cellar: :any,                 sonoma:        "38808a738ad295fc0a82e86184c5a7de8c5bd3a71082de4e5b7f0e2f9c1a9358"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "0286a416dd61df807d4d018364e0eb1ef8918f1ce69f1a76b8b6a214fe559a29"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6a90c0d1e7517f10b61d69f5727e033304ffe5834e8de6b176999ec2d4711949"
+    sha256                               arm64_tahoe:   "4d69ba3ed64310b3458b1792204c246bc627793de21dc08cb2388583deb06af2"
+    sha256                               arm64_sequoia: "6c5c368d2ef2b74cabb6a64401c05fca66ea38cd4ba5ebeeb478e2a82c6af6f5"
+    sha256                               arm64_sonoma:  "016aa9dee55093b8641b46d19186684c6c2152f509d5b085bbb9c9cf8e438004"
+    sha256 cellar: :any,                 sonoma:        "4492bbd6b23da0b0b1e529ad702b6ece2432ad9e8e14c8d01b7fe1a42a829ddc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ede27443b9c8adb5e16c8fe194aa94f6eb3b036f21e857f57b412fc6c25b821f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c7d5741924b1dbed92b9773e80de4c7bf741a13b3234d4764780a5b30a46bba9"
   end
 
   depends_on "glfw" => :no_linkage
-  depends_on "lld@21"
-  depends_on "llvm@21"
+  depends_on "lld"
+  depends_on "llvm"
   depends_on "raylib"
 
   fails_with :gcc do

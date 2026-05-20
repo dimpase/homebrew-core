@@ -1,9 +1,9 @@
 class Wireshark < Formula
   desc "Network analyzer and capture tool - without graphical user interface"
   homepage "https://www.wireshark.org"
-  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.6.4.tar.xz"
-  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.6.4.tar.xz"
-  sha256 "fbeab3d85c6c8a5763c8d9b7fe20b5c69ca9f9e7f2b824bedc73135bdca332e2"
+  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.6.6.tar.xz"
+  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.6.6.tar.xz"
+  sha256 "27e7ff780cd68a7466082be82ca26c06a002e74a71646ef3a6e4683e444c1a86"
   license "GPL-2.0-or-later"
   head "https://gitlab.com/wireshark/wireshark.git", branch: "master"
 
@@ -15,12 +15,12 @@ class Wireshark < Formula
   end
 
   bottle do
-    sha256                               arm64_tahoe:   "856feb0442323323f6c199eac422d2abef1affe792e485706e47e76a29da2c93"
-    sha256                               arm64_sequoia: "9d985723fc20fa9747b321367124e239a6d10f3b97aa9f4a82159722d2d16250"
-    sha256                               arm64_sonoma:  "cd2cc3714bd7e05f131a27f29171afd2cd455f780f24223ac770f24be79380e8"
-    sha256                               sonoma:        "2a5ece67e8ae1bf4aa4dfdee0cd5a6bbc562485700079b58231417ba7e31cdb8"
-    sha256                               arm64_linux:   "915bccc1accd9740258d76a999f4f543a7526fbb9f2835426c9165bbfc6f98ee"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "03f7cd7ed66bea5ac32d1a510f853a4c2c293280f3b1026025423b625daabdcb"
+    sha256                               arm64_tahoe:   "16a49732b7f7ad5d7cef84850e0bcbbd66b9d3585d5f480ee79f38f973ec7019"
+    sha256                               arm64_sequoia: "1eae1f40bd16867c28f95b18298b9d672faa84edb55989074051e0d49d1f718d"
+    sha256                               arm64_sonoma:  "cc27241ed03a3f2c6c8f0259e51f6b661d53d1d8bdad3ef721e8bff4123f7ba8"
+    sha256                               sonoma:        "f92c00882a44a65f7012dc905d8f060f05f6b3e371b4602aad4ba2e1b36f79ec"
+    sha256                               arm64_linux:   "4bf37e2719d88b937eb350715c7a4d1929996dfefc016cfc4c23b7a01b121b55"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c4c7aab67f538a5b2d8969cc3f7f5314690eb9739feedf4437f536ddaf927b5b"
   end
 
   depends_on "cmake" => :build
@@ -57,12 +57,13 @@ class Wireshark < Formula
   conflicts_with cask: "wireshark-app"
 
   def install
+    lua = Formula["lua"]
     plugindir = lib/"wireshark/plugins/#{version.major}-#{version.minor}"
     args = %W[
       -DENABLE_BROTLI=OFF
       -DENABLE_SNAPPY=OFF
-      -DLUA_INCLUDE_DIR=#{Formula["lua"].opt_include}/lua
-      -DLUA_LIBRARY=#{Formula["lua"].opt_lib/shared_library("liblua")}
+      -DLUA_INCLUDE_DIR=#{lua.opt_include}/lua
+      -DLUA_LIBRARY=#{lua.opt_lib/shared_library("liblua")}
       -DCARES_INCLUDE_DIR=#{Formula["c-ares"].opt_include}
       -DGCRYPT_INCLUDE_DIR=#{Formula["libgcrypt"].opt_include}
       -DGNUTLS_INCLUDE_DIR=#{Formula["gnutls"].opt_include}

@@ -1,8 +1,8 @@
 class Massdriver < Formula
   desc "Manage applications and infrastructure on Massdriver Cloud"
   homepage "https://www.massdriver.cloud/"
-  url "https://github.com/massdriver-cloud/mass/archive/refs/tags/1.13.9.tar.gz"
-  sha256 "052673412c109cf3010f8299868acdc0529e16282179fb657de6ff3e1b6ad741"
+  url "https://github.com/massdriver-cloud/mass/archive/refs/tags/2.1.0.tar.gz"
+  sha256 "95fd39d3d0c5241dfe920b1814d33dec9870f993dd9f5ac37e736f8a3cbc0414"
   license "Apache-2.0"
   head "https://github.com/massdriver-cloud/mass.git", branch: "main"
 
@@ -15,12 +15,12 @@ class Massdriver < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "86374ad7a7abac985a5fc985a26864ccb7ca8ac9df57c27b34ef44f8d660c0a9"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "86374ad7a7abac985a5fc985a26864ccb7ca8ac9df57c27b34ef44f8d660c0a9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "86374ad7a7abac985a5fc985a26864ccb7ca8ac9df57c27b34ef44f8d660c0a9"
-    sha256 cellar: :any_skip_relocation, sonoma:        "01c0c32d809c5d9a5df1af4c1e2d99706160e4754a78619210a6ec9fa9fe173f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "af1534340368ec341af3b0a7f65bf0eed24613e9e9c8d116f4e0ed4a257a64ce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8d27f6d0c6c58756270d753a05be55b4d4bf49514adaf874d05af32d08853037"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1f8743fedf505263a55b743f3d37d9f0b7aca82031c5b809d2d22e1e730c7884"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1f8743fedf505263a55b743f3d37d9f0b7aca82031c5b809d2d22e1e730c7884"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1f8743fedf505263a55b743f3d37d9f0b7aca82031c5b809d2d22e1e730c7884"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8c2b919ab78e509781e24deada045de856401b039c25ae221b89932d649715e7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7a1c89c66cad50e5b63fef544dc6be489efe5f46c25f093154667c797d7236aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "926d3a5740c6d57846dac7644881ae665885dbb311725ae6a1e9f9971804a7ff"
   end
 
   depends_on "go" => :build
@@ -28,8 +28,8 @@ class Massdriver < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/massdriver-cloud/mass/pkg/version.version=#{version}
-      -X github.com/massdriver-cloud/mass/pkg/version.gitSHA=#{tap.user}
+      -X github.com/massdriver-cloud/mass/internal/version.version=#{version}
+      -X github.com/massdriver-cloud/mass/internal/version.gitSHA=#{tap.user}
     ]
     system "go", "build", *std_go_args(ldflags:, output: bin/"mass")
 

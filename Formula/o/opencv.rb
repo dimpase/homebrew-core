@@ -2,7 +2,8 @@ class Opencv < Formula
   desc "Open source computer vision library"
   homepage "https://opencv.org/"
   license "Apache-2.0"
-  revision 3
+  revision 11
+  compatibility_version 1
 
   stable do
     url "https://github.com/opencv/opencv/archive/refs/tags/4.13.0.tar.gz"
@@ -24,13 +25,12 @@ class Opencv < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "b389b86870c2e9732ddb357493035589945666e4065546bc3e610273bf88f008"
-    sha256 arm64_sequoia: "252a384d566f3781df2e3517eabe91a03f2cf372d5ade117ee43757f849990dd"
-    sha256 arm64_sonoma:  "a223315ca70b678fba04eeb40487480e82610d5503fb2ccb6830c05e11c77b96"
-    sha256 sonoma:        "e70f475c1d60ef8b3b68d832128bf48b2b540f604d9aa8ab0f86a7cfa002eac1"
-    sha256 arm64_linux:   "3cd0c38ad37d46e57172514e6d8e51d70e2dde4b613b5111fb1e366b8d87b86f"
-    sha256 x86_64_linux:  "12a205362ee78560b219409443be72c83d9e2d3e0379c40455aa1451f2de3a23"
+    sha256 arm64_tahoe:   "dfcd380f9673bf5f04301d86ce78508e504d9657e8d2dd2ca8c6393158d5bd63"
+    sha256 arm64_sequoia: "aa524e481c1e5468fe9fd649870f3352d28091dd86d43f308e328fd35f1635fe"
+    sha256 arm64_sonoma:  "28879bff5ffd2e0909b831b537b20ab5fa9cbd1ef5ade797cc23730ab5a8765d"
+    sha256 sonoma:        "12df532502582186cd15aa0bf94b99e17971c66eab9cc63502ba54bb4c1d99d2"
+    sha256 arm64_linux:   "e06abeb46d4b8869cad3e5acd0caf04984a16a58efbbccd391d4e630b204800a"
+    sha256 x86_64_linux:  "09858a72984cfa84278189551ac77f3b29dd254d852c01f747f4c8e7e7861252"
   end
 
   head do
@@ -95,6 +95,20 @@ class Opencv < Formula
     # Remove bundled libraries to make sure formula dependencies are used
     libdirs = %w[ffmpeg libjasper libjpeg libjpeg-turbo libpng libtiff libwebp openexr openjpeg protobuf tbb zlib]
     libdirs.each { |l| rm_r(buildpath/"3rdparty"/l) }
+
+    # Fix OpenVINO 2026 Tensor::data() constness mismatch, upstream bug report, https://github.com/opencv/opencv/issues/28586
+    inreplace "modules/dnn/src/op_inf_engine.cpp",
+              "return Mat(size, type, blob.data());",
+              "return Mat(size, type, const_cast<void*>(blob.data()));"
+
+    # VTK 9.6 stopped transitively including <iostream>;
+    # viz uses std::cout/endl directly.
+    # PR refs: https://github.com/opencv/opencv_contrib/pull/4085
+    inreplace "opencv_contrib/modules/viz/src/vtk/vtkVizInteractorStyle.cpp" do |s|
+      s.sub! '#include "../precomp.hpp"', "#include <iostream>\n\\0"
+      s.gsub!(/^(\s*)cout (<<.* )endl;$/, "\\1std::cout \\2std::endl;")
+    end
+    inreplace "opencv_contrib/modules/viz/src/widget.cpp", '#include "precomp.hpp"', "#include <iostream>\n\\0"
 
     args = %W[
       -DCMAKE_CXX_STANDARD=17

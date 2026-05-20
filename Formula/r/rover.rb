@@ -1,8 +1,8 @@
 class Rover < Formula
   desc "CLI for managing and maintaining data graphs with Apollo Studio"
   homepage "https://www.apollographql.com/docs/rover/"
-  url "https://github.com/apollographql/rover/archive/refs/tags/v0.37.2.tar.gz"
-  sha256 "d93856caec7d0886b46ba34a44d0784b63980cb170cbce66f81b08057026754a"
+  url "https://github.com/apollographql/rover/archive/refs/tags/v0.39.1.tar.gz"
+  sha256 "102556dc988356967a91f278139aa5bf793d26c104e61468918334275a56a491"
   license "MIT"
   head "https://github.com/apollographql/rover.git", branch: "main"
 
@@ -12,27 +12,21 @@ class Rover < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "98e2d9ad561d1a16b2f91c1259c5c793a9c26a292c7da254ece29877622ac7b0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f98a2d429fc13478a5e9826b96f5f9931eb5fc87a03f2c4bdd607d5f0e384851"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1508a4138bcda8541e7c62bc7ad9595f10b64bc5177c27099c9d3933930d6e49"
-    sha256 cellar: :any_skip_relocation, sonoma:        "aab791df636a3fe728b35287a972ff2ee3c255257e0dc9025a6e84cd9cbe5bcf"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b1bbb95c462ea62cc91a1866b91211f3f4ed403c2fb1c0079109079bb20f3e7d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "67bde9ee55f25f7ad4c3a0ab72cf67fe2970e254e6b3677c90e42f47bff81d79"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "74c0540c67e54c94cce28cff4459445495aac27e722c78dfd5367463634b0d45"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b75d03475e07d6ca5b1415b5ca631a119df72089372dbdbebcb1465e3ad4a5ed"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6e8ecb097436a8c7b91a4a31fd5ea4455dd02a710ce99f7e4bc0f2d2aecac832"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5975cbd4a86a0de9f1f7cc76e72875bf6de8585e74ff1f8b2e191911bd6ef215"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5a28d77f0d2d80202432e72a65c5eea3f799e95f048fd6ec4a8621bb6018821f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a170dbcae13f74149c49d70205c6eba2b81b07fab4ea6a247a165d0c6b3b382f"
   end
 
   depends_on "rust" => :build
-  depends_on "openssl@3"
 
   on_linux do
     depends_on "zlib-ng-compat"
   end
 
   def install
-    # Ensure that the `openssl` crate picks up the intended library.
-    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
-
     system "cargo", "install", *std_cargo_args
 
     generate_completions_from_executable(bin/"rover", "completion", shells: [:bash, :zsh])

@@ -1,8 +1,8 @@
 class Werf < Formula
   desc "Consistent delivery tool for Kubernetes"
   homepage "https://werf.io/"
-  url "https://github.com/werf/werf/archive/refs/tags/v2.57.2.tar.gz"
-  sha256 "12285214b47c87d1837009310dc4baec62cf20d3289aebffea42db58da54d13c"
+  url "https://github.com/werf/werf/archive/refs/tags/v2.68.2.tar.gz"
+  sha256 "eafaffda35843e9407a7db71ce9bf2a6ecc79bfc3193765cbf6a67b6f3b47d98"
   license "Apache-2.0"
   head "https://github.com/werf/werf.git", branch: "main"
 
@@ -15,39 +15,28 @@ class Werf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5d33496e3b3e657afe33c6ffbfe4c5545cec8d216ac3e1e590729c0d2387e28b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fdc73df385e3b28208306537b8358725e68b150f268d128efa1492af9c4f1f3a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "75090bfeda04d18f734914b67738387fd3dba4a7040b7840aa67baf6a80d7243"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8bfc6e01c3a023127510520eb5904904daae8b19c3b93237a811573ebc22454b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a870fe4584de27cedbc710cd5c093196e5d221b07be506d6a884eb4209fd7b0c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec0d25a21168a455eb2b309e5378238f1f497c90bba4301fe02df4fde9747e0c"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1f3e62001a1920a8a99bed1661af1fe90a899b815221f887a653bec56ad7fe61"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c57458278fd44f3854322e19943afedbeb46e864080858fbd77c187c1dfe8da8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9ae2386fd79e3d0292770deb19e76a349f46b1817ee3f1d77b82463b0b74c9c2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "dd1ea3fdea008966d287c4ec82a2da214aa003c28aa7a0f239e735204dcae050"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "76576eb8f728c9eb9b0ff40a44d45d8463436fee30f5570da623fc85ee6dfcab"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "91236ebc11a0601249199806240165e27ac0cc518d241d2b315389d660afc56f"
   end
 
   depends_on "go" => :build
-  depends_on "pkgconf" => :build
 
   on_linux do
-    depends_on "btrfs-progs"
-    depends_on "device-mapper"
+    depends_on "btrfs-progs" => :build
   end
 
   def install
     ENV["CGO_ENABLED"] = "1"
 
+    ldflags = %W[-s -w -X github.com/werf/werf/v2/pkg/werf.Version=#{version}]
+    tags = %w[dfrunsecurity dfrunnetwork dfrunmount dfssh containers_image_openpgp]
     if OS.linux?
-      ldflags = %W[
-        -linkmode external
-        -extldflags=-static
-        -s -w
-        -X github.com/werf/werf/v2/pkg/werf.Version=#{version}
-      ]
-      tags = %w[
-        dfrunsecurity dfrunnetwork dfrunmount dfssh containers_image_openpgp
-        osusergo exclude_graphdriver_devicemapper netgo no_devmapper static_build
-      ]
-    else
-      ldflags = "-s -w -X github.com/werf/werf/v2/pkg/werf.Version=#{version}"
-      tags = "dfrunsecurity dfrunnetwork dfrunmount dfssh containers_image_openpgp"
+      ldflags += %w[-linkmode external -extldflags=-static]
+      tags += %w[osusergo exclude_graphdriver_devicemapper netgo no_devmapper static_build]
     end
 
     system "go", "build", *std_go_args(ldflags:, tags:), "./cmd/werf"

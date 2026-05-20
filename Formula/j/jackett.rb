@@ -1,18 +1,22 @@
 class Jackett < Formula
   desc "API Support for your favorite torrent trackers"
   homepage "https://github.com/Jackett/Jackett"
-  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.24.1218.tar.gz"
-  sha256 "dfc32bc7e9bc6e8dc2df6d8ec9290004da65bb914140b399f82d8f1c0703557c"
+  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.24.1905.tar.gz"
+  sha256 "cc247a1be76915e0ab3533ae8f0278e636fc47e664e707774603ea1698807331"
   license "GPL-2.0-only"
   head "https://github.com/Jackett/Jackett.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "821936fe9f8ee8e1a85b523a31d3cd22e8874545e21992af6ca89914ea412f10"
-    sha256 cellar: :any,                 arm64_sequoia: "3f896a22b4de603f94216e8281d1f70cb9d76b44089829dbb0c5432a8551fe85"
-    sha256 cellar: :any,                 arm64_sonoma:  "59e56d8d719a5d852d88b3d9773bb345028e22a446a2d9c264399413de808522"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c91e412465022018db43b3db29fa81cbd0510b19f6dbd1dc461ab18704199cb2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "16e728ee93ff995797edbc268f5ef85cb3092da57c7162e9ad909eb18e638a2b"
+    sha256 cellar: :any,                 arm64_tahoe:   "a7d5e248d5b0924c3a330324ec80ff1bf8d7da7df8f4e73f2ac37225cfb7b8b8"
+    sha256 cellar: :any,                 arm64_sequoia: "474c461fc93180ffb02c78af07ac006f16513db9c5beca9f384e14698d7ecc18"
+    sha256 cellar: :any,                 arm64_sonoma:  "056acfc6b9f328d135a6eb5dd0aee8de3a14267164a3effcdbe93c674d7474ea"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7de783a916e66c35a3f4cea68658309320b0d39e5a44e3f5cd8ab2edad3da633"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d5cb3e0391df199d62d66612b461b925d4fea995e6966ca31228d7b67818f16b"
   end
+
+  # Aligned to .NET dependency. Can remove if updated to latest .NET
+  deprecate! date: "2026-11-10", because: "needs end-of-life .NET 9"
+  disable! date: "2027-11-10", because: "needs end-of-life .NET 9"
 
   depends_on "dotnet@9"
 

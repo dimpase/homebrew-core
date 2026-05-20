@@ -1,8 +1,8 @@
 class CargoC < Formula
   desc "Helper program to build and install c-like libraries"
   homepage "https://github.com/lu-zero/cargo-c"
-  url "https://github.com/lu-zero/cargo-c/archive/refs/tags/v0.10.20.tar.gz"
-  sha256 "9bdf7c10b44466a7c01dc4ed152da5031793cca9e0c8009d73223a32522cf2c3"
+  url "https://github.com/lu-zero/cargo-c/archive/refs/tags/v0.10.22.tar.gz"
+  sha256 "a7b00539437932f2a17a72b97d9c2142367a2d70ee20f9f1692a8b13c7255332"
   license "MIT"
 
   livecheck do
@@ -11,13 +11,12 @@ class CargoC < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "8681512c46461c387c5509d6634e20c685352b700ee1d3a3f7fd7f510ea2af69"
-    sha256 cellar: :any,                 arm64_sequoia: "62138b153f97787013a63243e8fa78c2acc46567644ccfe0fd10b0e49b284a58"
-    sha256 cellar: :any,                 arm64_sonoma:  "0b0679425b368b3017cd2ecb5792d19038d53db027a21e23481516b859f3d655"
-    sha256 cellar: :any,                 sonoma:        "d255268040c0d723ac2a1cbcc7185da717e445479f85b0abf5977f2f96ae3899"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "935cca7212c22017a699e5fb8fdecebd03c5990a19c94df869c5a91bb77bf242"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7228f50abd22ea3892e11bb518b07cca2e5fb39124541c4b69333404447798d0"
+    sha256 cellar: :any,                 arm64_tahoe:   "43cd29ac3cee0d98bd2289d1c1e9594270aa3026b910faa38bf3817f9256f833"
+    sha256 cellar: :any,                 arm64_sequoia: "e6adb4dc49172dc8d06a336f4befe8113dfaa6bb1645b7cac86a90837f07104b"
+    sha256 cellar: :any,                 arm64_sonoma:  "c0ec8f43d146cd43444593d566608fddd5eb4124c4678cb2ee923f8fac143f05"
+    sha256 cellar: :any,                 sonoma:        "c1c919200669a7814098c7c9d9ff7fa7a3a9d82c49fb1123e0a53bdaf2d5c8ff"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2c680d77013aaaf0236f971125f32a9fe2d3acbfd4c9ebc46d5ab1bca47c86d9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "06884e195b37521169fff8db4154f057454e57b4458fa8c12cbac238f8be4890"
   end
 
   depends_on "pkgconf" => :build
@@ -40,7 +39,6 @@ class CargoC < Formula
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
     # Ensure the correct `openssl` will be picked up.
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
 
     system "cargo", "install", *std_cargo_args
   end

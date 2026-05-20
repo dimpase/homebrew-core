@@ -1,10 +1,9 @@
 class Faust < Formula
   desc "Functional programming language for real time signal processing"
   homepage "https://faust.grame.fr"
-  url "https://github.com/grame-cncm/faust/releases/download/2.83.1/faust-2.83.1.tar.gz"
-  sha256 "6ca3d749296191c41e9fd24ce7e5b37f58022d4320acb1c7343fec2df82d5551"
+  url "https://github.com/grame-cncm/faust/releases/download/2.85.5/faust-2.85.5.tar.gz"
+  sha256 "fc18bc2b1b31044d0bd2c35ee92d80d4428c9008ac6a03acf4163109803941d7"
   license "GPL-2.0-or-later"
-  revision 1
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
   # labeled as "pre-release" on GitHub before the version is released, so it's
@@ -15,19 +14,19 @@ class Faust < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "23fd223a04bb0bcaa8f267ede0c4d6fdb1e652397630a4884819c315a826f945"
-    sha256 cellar: :any,                 arm64_sequoia: "daa6e2b0b2cf00b94ab1c9425f5f0574644587f1db4f74ea91c0139ba914e842"
-    sha256 cellar: :any,                 arm64_sonoma:  "f902b3f47ffff01283038b634ea8dedc0358e1d8f55658e1d7cd7cd5355d8736"
-    sha256                               sonoma:        "6fb6edd3547409c296ad3094449e67c8ca5bd43bc10f83be3f676eda8abc2718"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "29e2ad51550d125bc9a66a19e5e2303b19c184e551361aa88628c3fccf23b2eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "566dd33a528deba71d0bdda151bcb37d4bc4bf3a0da53780f8527bfa93ff1dbf"
+    sha256 cellar: :any,                 arm64_tahoe:   "8b056c2bc65491e5201e807fc1068b20856aed0c1a2288222cd0628ca59f1561"
+    sha256 cellar: :any,                 arm64_sequoia: "1f222ea71a90754b65e294132396043de98c09c3462bbbf1ce739a8cc6bfe73b"
+    sha256 cellar: :any,                 arm64_sonoma:  "acef8556f507ae249fafbac1fb2efc0ff61df80babc7c661cf3320bb49af4bc4"
+    sha256                               sonoma:        "eed422c744529cc75081832c154a680a9d5936aa709c307c174b091207659a77"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2b4fafd59d91c273d7fb8fdb58889e29db4074507731c1a531384d6f304c97fe"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bf90179239a5644b25a1720b8adce225393e83b9957498bd398243dfb1bfc3ab"
   end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
   depends_on "libmicrohttpd"
   depends_on "libsndfile"
-  depends_on "llvm@21"
+  depends_on "llvm"
 
   def install
     # `brew linkage` doesn't like the pre-built Android libsndfile.so for faust2android.
@@ -76,10 +75,10 @@ class Faust < Formula
   end
 
   test do
-    (testpath/"noise.dsp").write <<~EOS
+    (testpath/"noise.dsp").write <<~FAUST
       import("stdfaust.lib");
       process = no.noise;
-    EOS
+    FAUST
 
     system bin/"faust", "noise.dsp"
   end

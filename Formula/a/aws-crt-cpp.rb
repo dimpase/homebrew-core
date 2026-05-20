@@ -1,17 +1,18 @@
 class AwsCrtCpp < Formula
   desc "C++ wrapper around the aws-c-* libraries"
   homepage "https://github.com/awslabs/aws-crt-cpp"
-  url "https://github.com/awslabs/aws-crt-cpp/archive/refs/tags/v0.37.3.tar.gz"
-  sha256 "8cbe1dbfa0aac9fae835f2fb1f36617c39f618f3d69445e9f504ba56ef2e8df1"
+  url "https://github.com/awslabs/aws-crt-cpp/archive/refs/tags/v0.38.7.tar.gz"
+  sha256 "5d0010af3e072f1a2712d3ee6a94363a48e5e5f1d9c6f35c1f8d6cd4f53b50c6"
   license "Apache-2.0"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "3b3409e029b35460f93634bbb9845cb381f93d649ee975114a8efa900f81ad7f"
-    sha256 cellar: :any,                 arm64_sequoia: "ea35c3896698142286f3ad5370616345d9fb69308536a9569749cdc3856441fd"
-    sha256 cellar: :any,                 arm64_sonoma:  "02e4b9b803bee9247c1aa8eb6df682ad1d33173e6a2cbb7b14310166b16e7435"
-    sha256 cellar: :any,                 sonoma:        "ca89b7d8f9c2e35bde2dacb756c5c6f6222bc42ab521f2b62e284663b9c9066d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8b787070ca8d5477f935db1a91ad33240a670de01877f1f5a54ce14e860fd916"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "484373a5b5fab08a206feca4cf4cf1dd927d3b1c6f548348f877897d0fa238dd"
+    sha256 cellar: :any,                 arm64_tahoe:   "cf568a08aff3b1bc260075ded58f32020c9323bdb5834aa41b42176dba2aa841"
+    sha256 cellar: :any,                 arm64_sequoia: "4678054c721e46b6a450484946e96dc9897ab02c227588567c4b9bbb1b0c96e2"
+    sha256 cellar: :any,                 arm64_sonoma:  "71a32315417cd21f1e7138fa485134ea0c1ccc382a80b6c2327033eabbfdf5b6"
+    sha256 cellar: :any,                 sonoma:        "39e07fe7b47d884ca919b048a3558fd56670204c610725c3a49033beff162b91"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "956157d2d7a3eeb899604c3a8458243a31e7c6b1d194b097a61c56c334b7886d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "edf2cef77b3ea7986ce0b8bab624714f6789ee99fb522fe259cfce86d969f2ec"
   end
 
   depends_on "cmake" => :build

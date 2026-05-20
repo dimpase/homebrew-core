@@ -1,8 +1,8 @@
 class Thorvg < Formula
   desc "Lightweight portable library used for drawing vector-based scenes and animations"
   homepage "https://www.thorvg.org"
-  url "https://github.com/thorvg/thorvg/archive/refs/tags/v1.0.1.tar.gz"
-  sha256 "061343ed560f08ef2f7b48a7f6b684ae6bfd50b7904599d8581e466b2531844f"
+  url "https://github.com/thorvg/thorvg/archive/refs/tags/v1.0.5.tar.gz"
+  sha256 "e25f23c0698c739affd1a092f77d0e56d4888deafa05da37ba1eb0f3031fa5cc"
   license "MIT"
   head "https://github.com/thorvg/thorvg.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Thorvg < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "e2d6bbaef2d44857ee10e04b8cdef4181378f16495bf934431017fe33616caf7"
-    sha256 cellar: :any,                 arm64_sequoia: "bf507d64b82cce95df0890fd89fe8e9c8ef60317cb5c0ea73f9e2c7e85abf4a0"
-    sha256 cellar: :any,                 arm64_sonoma:  "29a288e9a939e872d978d5c794097ef1035be761b5360e56805c0b7c27f54030"
-    sha256 cellar: :any,                 sonoma:        "f3120164f30377e309a1649e623091393eddea76a05f8078b13f44280ff63a14"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e7da32b612dba76ae26837527dc1ef78552a61b713a4e8314970ca62d34b5a4c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9034ea438c681c3317640249c36bb9bb37e8cf7841f337771f638550fa32baa4"
+    sha256 cellar: :any,                 arm64_tahoe:   "9a8e3f24a8d9f951a6cb6d2427919cb0af4bdbb30722e6389d3620c5a5cad772"
+    sha256 cellar: :any,                 arm64_sequoia: "33d04b9b52fbd73afbd63e3cb71129db2ad9b6225b25a129c75840578f168dcc"
+    sha256 cellar: :any,                 arm64_sonoma:  "a2f990b9f004bbc284c61658e1d0b21c48c9798dede4e10e7048d40a2b4a06b5"
+    sha256 cellar: :any,                 sonoma:        "51ee0ae71e9e8b1814f80efa9d7a4b10db5958a02b984ab43649c347b5eab9b2"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bb1aa2ac2f32ab691d38f04535e95d43fd66952e9bf35494c7d2e030d4e91efb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9607cd92bba86c1da23c0ae565c8c227e147f2ba67abdc7a14e1d4a08024cf45"
   end
 
   depends_on "meson" => :build
@@ -30,7 +30,7 @@ class Thorvg < Formula
 
   def install
     args = %w[
-      -Dengines=sw
+      -Dengines=cpu
       -Dloaders=all
       -Dsavers=all
       -Dbindings=capi

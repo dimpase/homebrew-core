@@ -1,8 +1,8 @@
 class Bozohttpd < Formula
   desc "Small and secure http version 1.1 server"
   homepage "https://pkgsrc.se/www/bozohttpd"
-  url "https://cdn.netbsd.org/pub/pkgsrc/distfiles/LOCAL_PORTS/bozohttpd-20240126.tar.bz2"
-  sha256 "576267bc5681c52b650294c3f2a85b8c8d8c239e75e71aaba7973771f852b56d"
+  url "https://cdn.netbsd.org/pub/pkgsrc/distfiles/LOCAL_PORTS/bozohttpd-20260503.tar.bz2"
+  sha256 "2a2e6d62b68d219434973937a8febd17741f22e98c741f6c922b22f13f7523cd"
   license "BSD-2-Clause"
 
   livecheck do
@@ -11,32 +11,17 @@ class Bozohttpd < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "f071d5d2e28bc3a4ccef5b81d780fbd3995a5cca9d508356ffa860ede9737bf6"
-    sha256 cellar: :any,                 arm64_sequoia: "f91adb497f96847759c3427e7b14b81889547273bc078266abdcc0087e6f1c8f"
-    sha256 cellar: :any,                 arm64_sonoma:  "ad727b862019134b028cc9d5ee6893755dc001ab87ebc3625eca39779be2d65a"
-    sha256 cellar: :any,                 arm64_ventura: "5269de6704ed5507508a2bfba45dfb714d0a077bb86682cc013762a3e05dbaba"
-    sha256 cellar: :any,                 sonoma:        "58b534558d746a783487067bcb393d6908c9961f1e8e82e2c8ff0e2790e5c7aa"
-    sha256 cellar: :any,                 ventura:       "282ae1e2332c2dc426187b193fc943141bfd838b00818aa867da2eac281144c0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5ddfe6c1eedfc12b72ce6175e8bb8621d3c5b2cd946d5f35de76cf555c1dcd5e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c8f662a5761fcd610221da12ac4476496fe39bb5254c0192a05e6170b495c988"
+    sha256 cellar: :any,                 arm64_tahoe:   "a4226ca0417b3a42426e8b9c66e35c27e5b33cde093b72b6367bd4e9af8bf3f5"
+    sha256 cellar: :any,                 arm64_sequoia: "a8bbb72a39b43114431d8fe63bb84828f3c07d1f3874642bde1d7e60ae84777d"
+    sha256 cellar: :any,                 arm64_sonoma:  "867d0c4eac9ad4783a5c137d51dbeaa069c632cf0103e6e16a108dcff3fff849"
+    sha256 cellar: :any,                 sonoma:        "798fb50a66dfd8336989103f0dfd6b238421a71d3b8741252c0c247c90d5d8e3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "89de2d92f7e7e9b270ec5df6c83802901c70ddf5db3153f653cc2a10e70a02ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3c755a16e29068de4b39e08aece48a14ac58d95252e205d428b794ae26fad71a"
   end
 
-  depends_on "pkgconf" => :build
-  depends_on "lua"
-  depends_on "openssl@3"
+  depends_on "openssl@4"
 
   def install
-    # Both `cflags` are explained at http://www.eterna.com.au/bozohttpd/bozohttpd.8.html
-    cflags = [
-      # Disable NetBSD blocklistd support, which is enabled by default (see section "BLOCKLIST SUPPORT")
-      "-DNO_BLOCKLIST_SUPPORT",
-      # Enable basic authentication, which is disabled by default (see section "HTTP BASIC AUTHORIZATION")
-      "-DDO_HTPASSWD",
-    ]
-    cflags << Utils.safe_popen_read("pkg-config", "--libs", "--cflags", "lua").chomp
-    cflags << Utils.safe_popen_read("pkg-config", "--libs", "--cflags", "libcrypto").chomp
-
-    ENV.append "CFLAGS", cflags.join(" ")
     system "make", "-f", "Makefile.boot", "CC=#{ENV.cc}"
     bin.install "bozohttpd"
   end
@@ -48,8 +33,6 @@ class Bozohttpd < Formula
     (testpath/"index.html").write expected_output
 
     spawn bin/"bozohttpd", "-b", "-f", "-I", port.to_s, testpath
-    sleep 3
-
-    assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
+    assert_match expected_output, shell_output("curl --silent --retry 5 --retry-connrefused 127.0.0.1:#{port}")
   end
 end

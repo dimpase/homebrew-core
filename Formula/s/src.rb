@@ -1,8 +1,8 @@
 class Src < Formula
   desc "Simple revision control: RCS reloaded with a modern UI"
   homepage "http://www.catb.org/~esr/src/"
-  url "https://gitlab.com/esr/src/-/archive/1.41/src-1.41.tar.bz2"
-  sha256 "12f22af9e3d3d8f9f43f0255bac117aed512752adf8799c66af6ec988e51f08d"
+  url "https://gitlab.com/esr/src/-/archive/1.45/src-1.45.tar.bz2"
+  sha256 "05cc35c83dc84fbf72b83d2b4bfd7ed8c7eef0f9059e69a0de99247e3f451528"
   license "BSD-2-Clause"
   head "https://gitlab.com/esr/src.git", branch: "master"
 
@@ -14,7 +14,7 @@ class Src < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "56096c026d4c1de4b67f49b8cff61aa96ba2e29265b548b2f31561624b363c22"
+    sha256 cellar: :any_skip_relocation, all: "e758817a02405ef96de9f6b941ca748f60c320a682c1963488c91fd002daeabb"
   end
 
   depends_on "asciidoctor" => :build
@@ -23,20 +23,16 @@ class Src < Formula
   uses_from_macos "python"
 
   def install
-    system "make", "install", "prefix=#{prefix}"
+    system "make"
+    bin.install "src"
+    man1.install "src.1"
   end
 
   test do
-    require "pty"
     (testpath/"test.txt").write "foo"
-    PTY.spawn("sh", "-c", "#{bin}/src commit -m hello test.txt; #{bin}/src status test.txt") do |r, _w, _pid|
-      output = ""
-      begin
-        r.each_line { |line| output += line }
-      rescue Errno::EIO
-        # GNU/Linux raises EIO when read is done on closed pty
-      end
-      assert_match(/^=\s*test.txt/, output)
-    end
+    ENV["COLUMNS"] = "80"
+    system bin/"src", "commit", "-m", "hello", "test.txt"
+    output = shell_output("#{bin}/src status test.txt")
+    assert_match(/^=\s*test.txt/, output)
   end
 end

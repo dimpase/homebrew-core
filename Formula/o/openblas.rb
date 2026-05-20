@@ -1,15 +1,15 @@
 class Openblas < Formula
   desc "Optimized BLAS library"
   homepage "https://www.openblas.net/"
-  url "https://github.com/OpenMathLib/OpenBLAS/archive/refs/tags/v0.3.31.tar.gz"
-  sha256 "6dd2a63ac9d32643b7cc636eab57bf4e57d0ed1fff926dfbc5d3d97f2d2be3a6"
+  url "https://github.com/OpenMathLib/OpenBLAS/archive/refs/tags/v0.3.33.tar.gz"
+  sha256 "6761af1d9f5d353ab4f0b7497be2643313b36c8f31caec0144bfef198e71e6ab"
   # The main license is BSD-3-Clause. Additionally,
   # 1. OpenBLAS is based on GotoBLAS2 so some code is under original BSD-2-Clause-Views
   # 2. lapack-netlib/ is a bundled LAPACK so it is BSD-3-Clause-Open-MPI
   # 3. interface/{gemmt.c,sbgemmt.c} is BSD-2-Clause
   # 4. relapack/ is MIT but license is omitted as it is not enabled
   license all_of: ["BSD-3-Clause", "BSD-2-Clause-Views", "BSD-3-Clause-Open-MPI", "BSD-2-Clause"]
-  revision 1
+  compatibility_version 1
   head "https://github.com/OpenMathLib/OpenBLAS.git", branch: "develop"
 
   livecheck do
@@ -18,12 +18,12 @@ class Openblas < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "86be8c9ee5070d3b4e940ab72cd89998dcf59ece4691d7b3bc2a9549f3999d31"
-    sha256 cellar: :any,                 arm64_sequoia: "fcde181971556b1ef2febf3051c4365c2138e5be4b81c44b14ebf642a7aa0bd2"
-    sha256 cellar: :any,                 arm64_sonoma:  "a29ae64872e453f299745202b9cdcad7d9479b00af47528d80d3ce068b0bb80d"
-    sha256 cellar: :any,                 sonoma:        "b44311b4806a899fb976c6e7f9369ef1a8f913324f32b2b631dd7bcac2dd93fe"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "dcaadf5e964f6c0de691cf40697b9a0981926396a8fd5a2253db7fe4dd006a3c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "df4ff7c931ea08422354e0d8dcd1efb84144b91393ec58572434483a154f6bbf"
+    sha256 cellar: :any,                 arm64_tahoe:   "7e308979f08a28be401712b746ce51642c4027c1bd638dc40c6faa636cc75f76"
+    sha256 cellar: :any,                 arm64_sequoia: "71a07baa0f1a4adebb3d23a13949a5ec86fe38db357571071200f0bd3c6b43af"
+    sha256 cellar: :any,                 arm64_sonoma:  "54c462531e9335cb4c5a8391e59a78357e38d0e2afeec29afcc733ab98ad87fe"
+    sha256 cellar: :any,                 sonoma:        "67ad998c289b0be14631f94fe6e0617554fd45c503dbd352b54693e6d81ac2a6"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "85600720d9ea271290ce7af7cfa191f0a8c8dc8e2d7fff194b7c9f49b4b3bfc6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "44756438b701c2ec082c9f1f6f0e690aeb0e38e582de1a0fcdd42c0219a3cce2"
   end
 
   keg_only :shadowed_by_macos, "macOS provides BLAS in Accelerate.framework"
@@ -33,13 +33,6 @@ class Openblas < Formula
 
   on_macos do
     depends_on "libomp"
-  end
-
-  # Fix configuration header on Linux Arm with GCC 12
-  # https://github.com/OpenMathLib/OpenBLAS/pull/5606
-  patch do
-    url "https://github.com/OpenMathLib/OpenBLAS/commit/c077708852c7262b6bc0da6bc094b447e7ba7b3c.patch?full_index=1"
-    sha256 "e59596a7bec1fa6c22c4bee20c8040faa15fa57aa6486acd99b9688aef15f4da"
   end
 
   def install

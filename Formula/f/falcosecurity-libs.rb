@@ -1,8 +1,8 @@
 class FalcosecurityLibs < Formula
   desc "Core libraries for Falco and Sysdig"
   homepage "https://falcosecurity.github.io/libs/"
-  url "https://github.com/falcosecurity/libs/archive/refs/tags/0.23.1.tar.gz"
-  sha256 "38c580626b072ed24518e8285a629923c8c4c6d6794b91b3b93474db7fd85cf7"
+  url "https://github.com/falcosecurity/libs/archive/refs/tags/0.25.1.tar.gz"
+  sha256 "fdd41357003fc8cd25dd1af03afb3a9b93b52978aef9ea7b5f242941bca11a70"
   license all_of: [
     "Apache-2.0",
     { any_of: ["GPL-2.0-only", "MIT"] }, # driver/
@@ -15,13 +15,12 @@ class FalcosecurityLibs < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "31f62d0a6b6cdc47caec9b91fa4344eccf60778c5b6fc681f266cc80d302ed46"
-    sha256 cellar: :any,                 arm64_sequoia: "75f2505e66679c29ddd5d171739d99f2eff81739c760fe951db0021f6bed04db"
-    sha256 cellar: :any,                 arm64_sonoma:  "c3c2795a01629343ea81a28c6f0502037efd78a96c95a7e213814329ed4aaded"
-    sha256 cellar: :any,                 sonoma:        "8bfbd2ec9a25200b49ee9605009b3c18c9ced86c8414139b04d71c8702ef73d1"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "f873cefe2aadfb5ab5d30b3af09749ce904d23f177d88d3d12a1c9b54f06b860"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c609f76a4680fa60080ae7360f80a69b0ec4d62317cebf66edadffd76e674fc6"
+    sha256 cellar: :any,                 arm64_tahoe:   "41dbee226e045a46578c533ddb8345a616608b22436b268fd7be73549d289d98"
+    sha256 cellar: :any,                 arm64_sequoia: "7cdcf0f7e07208c5fe3d943e9aeb7e052ea2339831e15ec5495b3357a310dac7"
+    sha256 cellar: :any,                 arm64_sonoma:  "38728f4152fc02b71823da6ac325bbd65aea9e58e061c0ad479c3ff6e0c8e012"
+    sha256 cellar: :any,                 sonoma:        "c269e662560e1972255614b19e036815630885310870ba95a86224115e4b2c5f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2e73250139c32c5ef05b025ff09aa64e5b82596255a9b91c65370c755a31cc94"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c554082745be75f3e5894d2fc6c6b7307a3bb2fe5ddaa97309f434fa85827536"
   end
 
   depends_on "cmake" => :build
@@ -30,14 +29,10 @@ class FalcosecurityLibs < Formula
   depends_on "jsoncpp"
   depends_on "re2"
   depends_on "tbb"
-  depends_on "uthash" # headers needed for libscap/uthash_ext.h
+  depends_on "uthash" => :no_linkage # headers needed for libscap/uthash_ext.h
 
   on_linux do
-    depends_on "abseil"
-    depends_on "curl"
     depends_on "elfutils"
-    depends_on "grpc"
-    depends_on "protobuf"
     depends_on "zlib-ng-compat"
   end
 

@@ -1,9 +1,9 @@
 class Pyside < Formula
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
-  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.10.2-src/pyside-setup-everywhere-src-6.10.2.tar.xz"
-  mirror "https://cdimage.debian.org/mirror/qt.io/qtproject/official_releases/QtForPython/pyside6/PySide6-6.10.2-src/pyside-setup-everywhere-src-6.10.2.tar.xz"
-  sha256 "05eec38bb71bffff8860786e3c0766cc4b86affc72439bd246c54889bdcb7400"
+  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.11.1-src/pyside-setup-everywhere-src-6.11.1.tar.xz"
+  mirror "https://cdimage.debian.org/mirror/qt.io/qtproject/official_releases/QtForPython/pyside6/PySide6-6.11.1-src/pyside-setup-everywhere-src-6.11.1.tar.xz"
+  sha256 "6ffd9835bb0dd2c56f061d62f1616bb1707cfc0202b80e3165d6be087f3965e2"
   # NOTE: We omit some licenses even though they are in SPDX-License-Identifier or LICENSES/ directory:
   # 1. LicenseRef-Qt-Commercial is removed from "OR" options as non-free
   # 2. GFDL-1.3-no-invariants-only is only used by not installed docs, e.g. sources/{pyside6,shiboken6}/doc
@@ -13,7 +13,7 @@ class Pyside < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
   ]
-  revision 2
+  revision 1
 
   livecheck do
     url "https://download.qt.io/official_releases/QtForPython/pyside6/"
@@ -21,12 +21,13 @@ class Pyside < Formula
   end
 
   bottle do
-    sha256                               arm64_tahoe:   "1d31e4d4410de481977b89ba7fc1c57dece74cd4064bbc35486cac7e40c7957b"
-    sha256                               arm64_sequoia: "14b5da211c69305c1494aedba826d2237a3f85c4fa605c07c3dcd248079d18b3"
-    sha256                               arm64_sonoma:  "0d52dd47d88606f1ce919d446bb9f4790347e6a420fc93795daebd8567f30d30"
-    sha256 cellar: :any,                 sonoma:        "1e3394704be6e83f8d192f5d082e640d590a72bb32f55056f81b49ca672d0670"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6c68c71db54c96b7d1aad68214b422b5a14b0faf71847152a8c6b74896e339d3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9850022e3918536a2fb7896ff48db57e704cab0d8bd5e92017853105ce11000c"
+    rebuild 1
+    sha256                               arm64_tahoe:   "40ff0f1512616c63d6ff801cfc05e44f27363758b43c81f7cb01a20479ef7eb8"
+    sha256                               arm64_sequoia: "b7831da4844f001e7319dfe0851214cc0b72a4c12c996731062d0800953c2383"
+    sha256                               arm64_sonoma:  "bc985bbb691bde5fce6bcd8187acf16ce5039dbf04922cd58204d92c1c78499f"
+    sha256 cellar: :any,                 sonoma:        "f17ce084ece6ce84e3f0fc0cf3ba1a2ae98f23bbffaee3e8c9faa8d0e5606e79"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a116c536daafc08fdb8aa97083a9899d589a469d9d15bb40a9a2c0f04e91374f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e6ed1e8f3b82c4cf92ecbdba2efd968c546d0f1f93144224cba37a8622ab217f"
   end
 
   depends_on "cmake" => :build
@@ -40,6 +41,7 @@ class Pyside < Formula
   depends_on "python@3.14"
   depends_on "qt3d"
   depends_on "qtbase"
+  depends_on "qtcanvaspainter"
   depends_on "qtcharts"
   depends_on "qtconnectivity"
   depends_on "qtdatavis3d"
@@ -102,7 +104,7 @@ class Pyside < Formula
     inreplace "sources/pyside-tools/CMakeLists.txt", "DESTINATION bin", "DESTINATION #{pkgshare}"
 
     # Avoid shim reference
-    inreplace "sources/shiboken6/ApiExtractor/CMakeLists.txt", "${CMAKE_CXX_COMPILER}", ENV.cxx
+    inreplace "sources/shiboken6_generator/ApiExtractor/CMakeLists.txt", "${CMAKE_CXX_COMPILER}", ENV.cxx
 
     shiboken6_module = prefix/Language::Python.site_packages(python3)/"shiboken6"
 

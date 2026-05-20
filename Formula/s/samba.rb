@@ -4,9 +4,10 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.23.5.tar.gz"
-  sha256 "593a43ddd0d57902237dfa76888f7b02cb7fc7747111369cb31e126db4836b9f"
+  url "https://download.samba.org/pub/samba/stable/samba-4.24.2.tar.gz"
+  sha256 "ac24583f271a82ac324f7c6fad7327f65b591ad3492e1dccfee988e2c1c81dd1"
   license "GPL-3.0-or-later"
+  compatibility_version 1
 
   livecheck do
     url "https://www.samba.org/samba/download/"
@@ -14,13 +15,12 @@ class Samba < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "77a12b2418f840ce5e05ea2ff9d6f65448e133351c03b281dea736473407be7b"
-    sha256 arm64_sequoia: "8157b50f197bf6c46eb2a57e9a49c81628bd1e416219c355858281197ca0afcb"
-    sha256 arm64_sonoma:  "aca5c189628f2ab49c3d89fc323bd3d556112d1f6e9bc37acb69e8c3c743257c"
-    sha256 sonoma:        "bff6fb3e5c8e803091b109fb34a658e90d7e4b5e0bc020b439fa7ff5255e4630"
-    sha256 arm64_linux:   "14b1aed9a2828af48ba6ffd0736dbd2daa1b0a84028aebfd3a041bd04302b48a"
-    sha256 x86_64_linux:  "cbed8ca67ea5b9589acb45432fc6dd36b4b56e0b4aeb7198473a9112164707c6"
+    sha256 arm64_tahoe:   "17b3d6c364f5d98fd759b676c5f4440d588f96c02b7dfbd5669499a4a50f5e82"
+    sha256 arm64_sequoia: "c477b5ba04dbeab76526c4da26eb83852a4517f8b6d4ab48014b3d3b58ddc960"
+    sha256 arm64_sonoma:  "a396aae292ee99e0067cb4ddaa40cf2b0a8ac3f20793e8c90c60bbed00911f6a"
+    sha256 sonoma:        "3d39e6c1016f82cf4f1e403e187f754c936ad0ace9cbb98503056290bd2ede44"
+    sha256 arm64_linux:   "121ee977b2de2c60203cd15267818fcc68071a5579c8ab93a61317045b345466"
+    sha256 x86_64_linux:  "2e63e25edf3c05197be7fdbae619d44b6fdc3dcaa9263fc3cf9d453d5935bede"
   end
 
   depends_on "bison" => :build

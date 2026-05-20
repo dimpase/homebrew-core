@@ -5,8 +5,6 @@ class Openslp < Formula
   sha256 "924337a2a8e5be043ebaea2a78365c7427ac6e9cee24610a0780808b2ba7579b"
   license "BSD-3-Clause"
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     rebuild 1
     sha256 arm64_tahoe:   "03318a808866a33ea675a2520d6d889c9aa74f6817b9a30bed9bbc0cf4a6938d"
@@ -17,6 +15,14 @@ class Openslp < Formula
     sha256 arm64_linux:   "7f3de41c36959025ce20d867cfa90c065fba46d872b055d0b7c2a2e6a631b44d"
     sha256 x86_64_linux:  "aa1988503f1e9688dfd80e0331392ab29a053e62197b60653e933ee1bc681efb"
   end
+
+  # Last release on 2013-06-08 which has CVEs:
+  # * CVE-2016-4912
+  # * CVE-2016-7567
+  # * CVE-2017-17833
+  # * CVE-2019-5544
+  deprecate! date: "2026-05-09", because: :unmaintained
+  disable! date: "2027-05-09", because: :unmaintained
 
   # Fix -flat_namespace being used on Big Sur and later.
   patch do

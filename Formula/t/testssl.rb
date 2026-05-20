@@ -7,10 +7,11 @@ class Testssl < Formula
   head "https://github.com/testssl/testssl.sh.git", branch: "3.3dev"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "6f6a96cacd2d34621cb61a355004e5d9af4686bcb5e693df3b2f2863258a7561"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, all: "9e385c68f0225f517f2aac0a60f28a3caa6516c726e228e28dac60e5d1b0d1e9"
   end
 
-  depends_on "openssl@3"
+  depends_on "openssl@4"
 
   on_linux do
     depends_on "bind" => :test # can also use `drill` or `ldns`
@@ -22,7 +23,7 @@ class Testssl < Formula
     man1.install "doc/testssl.1"
     prefix.install "etc"
     env = {
-      PATH:                "#{Formula["openssl@3"].opt_bin}:$PATH",
+      PATH:                "#{Formula["openssl@4"].opt_bin}:$PATH",
       TESTSSL_INSTALL_DIR: prefix,
     }
     bin.env_script_all_files(libexec/"bin", env)

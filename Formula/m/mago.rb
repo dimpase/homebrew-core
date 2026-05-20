@@ -1,17 +1,17 @@
 class Mago < Formula
   desc "Toolchain for PHP to help developers write better code"
   homepage "https://github.com/carthage-software/mago"
-  url "https://github.com/carthage-software/mago/releases/download/1.13.1/source-code.tar.gz"
-  sha256 "a98429f9c45cfc12f8d1329e35a4044e6d9d290591d6f5b2586697e40c81971a"
+  url "https://github.com/carthage-software/mago/releases/download/1.28.0/source-code.tar.gz"
+  sha256 "27437b27e96a31f65d2b4fb515427aa8cc4852388729df61ac147d1a7afae111"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "45d975993a408e92a5dc370ba089a65eab3cca4c644675f70222c69624ef9ef1"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1f3fd33d1d3caccabc819c236bcd196091ea1980c7682a171ac1949b9bd5ad99"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7a7b9a611fd701c1aafde166291bb6c58d955085f8a4d9de2e449ed6ad56fc1b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "055362a7ca984cdde7c4041b71f76bb9c6213309069197fc7f0d666a21192506"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8732f26f415be1897809e21c60626d2bb0e44cf9007222cd2b055e7b65fc1b9e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe5d71e183352a98d10970662c5c914b06ea933bc90f6ba94d0b698b9b7e28e2"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "bd716f8053529e979b430adf721c440ad57260907da9d06fa650ae62b56761f9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8666d7c2b0d430877756cd1dd0a8757c7bd01ddfd03d66d034f86916dcb12eb1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b0ec9f2e8a79e7653df52fa4fee3038d8204683ad77e7e175a1fceb4ec21c536"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b886820b7667b1f4aaba10acc0f4f8c363cdbc6c2be427f52ef81c0e39435182"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c78e541361ec612a815e2d859283dc24ddc64816f97c745893e92eefb79b53c4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "57cae74934e1612970ef5086d8b23327749576f254b5982835d79f440bb6ae8f"
   end
 
   depends_on "pkgconf" => :build
@@ -30,7 +30,7 @@ class Mago < Formula
 
     (testpath/"example.php").write("<?php echo 'Hello, Mago!';")
     output = shell_output("#{bin}/mago lint . 2>&1")
-    assert_match " Missing `declare(strict_types=1);` statement at the beginning of the file", output
+    assert_match "Missing `declare(strict_types=1);` statement at the beginning of the file", output
 
     (testpath/"unformatted.php").write("<?php echo 'Unformatted';?>")
     system bin/"mago", "fmt"

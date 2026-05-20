@@ -1,9 +1,10 @@
 class Kokkos < Formula
   desc "C++ Performance Portability Ecosystem for parallel execution and abstraction"
   homepage "https://kokkos.org"
-  url "https://github.com/kokkos/kokkos/releases/download/5.0.2/kokkos-5.0.2.tar.gz"
-  sha256 "188817bb452ca805ee8701f1c5adbbb4fb83dc8d1c50624566a18a719ba0fa5e"
+  url "https://github.com/kokkos/kokkos/releases/download/5.1.1/kokkos-5.1.1.tar.gz"
+  sha256 "8bdbee0f0ac383436743ad8a9e3e928705b34b31a25a92dc5179c52a3aa98519"
   license "Apache-2.0"
+  revision 1
   head "https://github.com/kokkos/kokkos.git", branch: "develop"
 
   livecheck do
@@ -12,12 +13,12 @@ class Kokkos < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3df9280f1d6263c84962cdf9ae4f82f404c71d2881477adc1dcb894b84ebd2b9"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8b538877780df9026ae5cf8b679b8cc1abba90fca1bcbdcddfd5ec29045e7c62"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a0acc835618515c9d62098f1e672d08bfe5598477d46c1b7f46ecd45c5303fe1"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c9aa45a9c304a9969aa2f64d1a6e7fab71829188d732d3d0b0f8c5cc59520b55"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5b6ae931661a41fb12af97d3283d501b6c8c5e0497fcba76a01e83015fd4195b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3c1239687728a7746ca3d8319acbc931a9ae203a8616d7ed5e18289982b17a5f"
+    sha256 cellar: :any,                 arm64_tahoe:   "67df6bee45072b72e93fd0558234bff4e761f8205921c7213460c82167ad1f24"
+    sha256 cellar: :any,                 arm64_sequoia: "f95bda78be3db9f757a285a7b83dfa4d562438e9f4d7d388bb0e1fbefa1cd183"
+    sha256 cellar: :any,                 arm64_sonoma:  "45a5269e3b68ef17296a4f02d31e31fac57bac302407692cabb69c57609b6278"
+    sha256 cellar: :any,                 sonoma:        "4ad47a155b302b6c3740cf88273cb000fdd9da93673b90dd1bcdca8fbb06a9ef"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e991ab7077e883453986fdf5b95539c3626abc77da9d3a3cabae7483ebe1150f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7418f122faf85fff6bc17a369cb11f24bbd747fd33570545d42f9eac2f21d68b"
   end
 
   depends_on "cmake" => :build
@@ -27,11 +28,13 @@ class Kokkos < Formula
   end
 
   def install
-    args = %w[
+    args = %W[
       -DKokkos_ENABLE_OPENMP=ON
       -DKokkos_ENABLE_TESTS=OFF
       -DKokkos_ENABLE_EXAMPLES=OFF
       -DKokkos_ENABLE_BENCHMARKS=OFF
+      -DBUILD_SHARED_LIBS=ON
+      -DCMAKE_INSTALL_RPATH=#{rpath}
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args

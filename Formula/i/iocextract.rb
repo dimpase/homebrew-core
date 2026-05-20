@@ -6,16 +6,16 @@ class Iocextract < Formula
   url "https://files.pythonhosted.org/packages/ad/4b/19934df6cd6a0f6923aabae391a67b630fdd03c12c1226377c99a747a4f1/iocextract-1.16.1.tar.gz"
   sha256 "ec1389a76a5083f643652579610e8313d27ed5821fc57e7b046c23ddec181d44"
   license "GPL-2.0-only"
-  revision 10
+  revision 12
   head "https://github.com/InQuest/iocextract.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "27199db6095174f2ea46eb9c8b4dcf9350e0942d04be5a7cbc6d6d90e11c4a9e"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6f7fbec7d7e7d21f1b66e8cc82842d95ce241389a0a090d199a4cab38fe34374"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "800461737f4f453f8cd3714ffce4596c4afeca62198b74f806235b31b98548b0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4f5f9afeb4eaad0594e16641c014d03234e8b3debcf98a0980d15436a2d470ff"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8083f95ff0960405e34b51d951bd854a5d24145569bc15d5ffc06df8d4c96b58"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d6ae84fa1aeee11f531a93b3ba14b51babb6bad0bb43bf3e17115c61447abfef"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f03ba0b32a33f7d7ff7fab111ce7a5d2b01b77f811c63681a7408fd85869e3c8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5a98beab58fb5b82b234c225094ae229255652f5427acd45dc1073a633ba6b3a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5d7da28b1dc8a4b40499ba05b4b88395b54f341f392c0d1f109b1cb70192309f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e48cce6e41b10514c61ec89f008574e1daf7a091faed131cb714146c7f5956d6"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c2c68bf6aaab19009a72c5eb1e6c07a26f489a9c58943b4d72c8da05ce786e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "acba31762b7b7b1107997837b36610b3009cd90eeb50839f1a58e04082d7450a"
   end
 
   depends_on "certifi" => :no_linkage
@@ -25,28 +25,28 @@ class Iocextract < Formula
                 extra_packages:   "requests"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/05/b1/efac073e0c297ecf2fb33c346989a529d4e19164f1759102dee5953ee17e/idna-3.14.tar.gz"
+    sha256 "466d810d7a2cc1022bea9b037c39728d51ae7dad40d480fc9b7d7ecf98ba8ee3"
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/cc/a9/546676f25e573a4cf00fe8e119b78a37b6a8fe2dc95cda877b30889c9c45/regex-2025.11.3.tar.gz"
-    sha256 "1fedc720f9bb2494ce31a58a1631f9c82df6a09b49c19517ea5cc280b4541e01"
+    url "https://files.pythonhosted.org/packages/dc/0e/49aee608ad09480e7fd276898c99ec6192985fa331abe4eb3a986094490b/regex-2026.5.9.tar.gz"
+    sha256 "a8234aa23ec39894bfe4a3f1b85616a7032481964a13ac6fc9f10de4f6fca270"
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/43/b8/7a707d60fea4c49094e40262cc0e2ca6c768cca21587e34d3f705afec47e/requests-2.34.0.tar.gz"
+    sha256 "7d62fe92f50eb82c529b0916bb445afa1531a566fc8f35ffdc64446e771b856a"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   def install

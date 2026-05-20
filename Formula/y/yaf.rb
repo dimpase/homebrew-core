@@ -1,8 +1,8 @@
 class Yaf < Formula
   desc "Yet another flowmeter: processes packet data from pcap(3)"
   homepage "https://tools.netsa.cert.org/yaf/"
-  url "https://tools.netsa.cert.org/releases/yaf-2.18.2.tar.gz"
-  sha256 "b2324e6c5468e4748e59d9f33312decc8e72cc9ee51e927cd7e77b3d3584d909"
+  url "https://tools.netsa.cert.org/releases/yaf-2.19.2.tar.gz"
+  sha256 "dbe9413ce366c0ea2a104d45d86b21f5518f0d3b5c210c9a5c0d109642fea6a7"
   license "GPL-2.0-only"
 
   # NOTE: This should be updated to check the main `/yaf/download.html`
@@ -13,13 +13,12 @@ class Yaf < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_tahoe:   "756afdea15655c6538c81f170dd9db318293eefa96ab01663530151fb5292536"
-    sha256 cellar: :any,                 arm64_sequoia: "d8c644685f9c5e24e5d66b5678044314cf1c9ebce0910f1cc6c7b39ba8360d88"
-    sha256 cellar: :any,                 arm64_sonoma:  "d7c935cb32c72ea3e7d5e59cc998cc4c2fca92010447110dc6a7bede3e290f6d"
-    sha256 cellar: :any,                 sonoma:        "4b4a407d6be6b4e06a9a2e6ed3d282761d8ee2e41ec0521deecdae25537fc705"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4020382f47f691a4c43be0767d52e1be8bff6cec7cef443b5d1bab204d48092f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b884b07695ba889516f481a2025328b2f11b94529f4c608288e1da05bc3b1309"
+    sha256 cellar: :any,                 arm64_tahoe:   "857af8c365b6df50253cbaa33a171163d75b65f7288135b7feca78046668ea1c"
+    sha256 cellar: :any,                 arm64_sequoia: "8213e61b11aac042a590f406aa078d79e1be1812762d1fc9b8c8d76590b9afac"
+    sha256 cellar: :any,                 arm64_sonoma:  "9f87db599efaa28d5fbda5713dabf77f927b50ddd0470e7b1f644cd4f922ff9c"
+    sha256 cellar: :any,                 sonoma:        "9f5415b6a828e01373aa6adf935b74bf58896b4c30cfe34af7761202436ac695"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "fd6664df5db554d69483be286dda7e839a9739ec81c8b2c3fc5e81deb4fb3044"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc7e1a17a370433768ebc8ae49d815b9be288e6cae36bfa5722ed91ad87c29ed"
   end
 
   depends_on "pkgconf" => :build
@@ -31,7 +30,7 @@ class Yaf < Formula
 
   on_macos do
     depends_on "gettext"
-    depends_on "openssl@3"
+    depends_on "pcre2"
   end
 
   on_linux do
@@ -39,17 +38,20 @@ class Yaf < Formula
   end
 
   def install
-    system "./configure", *std_configure_args
+    # OpenSSL is disabled as Apache-2.0 is not compatible with GPL-2.0-only
+    # Ref: https://www.gnu.org/licenses/license-list.html#apache2
+    system "./configure", "--without-openssl", *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    input = test_fixtures("test.pcap")
-    output = pipe_output("#{bin}/yafscii", shell_output("#{bin}/yaf --in #{input}"), 0)
+    # FIXME: yafscii 2.19.1 segfaults when reading stdin or writing stdout
+    system bin/"yaf", "--in", test_fixtures("test.pcap"), "--out", testpath/"flow.ipfix"
+    system bin/"yafscii", "--in", testpath/"flow.ipfix", "--out", testpath/"flow.txt"
     expected = "2014-10-02 10:29:06.168497 - 10:29:06.169875 (0.001378 sec) tcp " \
                "192.168.1.115:51613 => 192.168.1.118:80 71487608:98fc8ced " \
                "S/APF:AS/APF (7/453 <-> 5/578) rtt 451 us"
-    assert_equal expected, output.strip
+    assert_equal expected, (testpath/"flow.txt").read.strip
   end
 end

@@ -2,8 +2,8 @@ class Nexus < Formula
   desc "Repository manager for binary software components"
   homepage "https://www.sonatype.com/"
   url "https://github.com/sonatype/nexus-public.git",
-      tag:      "release-3.80.0-06",
-      revision: "74aa87dcd43439ef2b69d0a5e49d5522b7944261"
+      tag:      "release-3.92.2-01",
+      revision: "5ad938934e0c4e2158dba9294539964695d52b13"
   license "EPL-1.0"
 
   # As of writing, upstream is publishing both v2 and v3 releases. The "latest"
@@ -14,37 +14,44 @@ class Nexus < Formula
     regex(/^(?:release[._-])?v?(\d+(?:[.-]\d+)+)$/i)
   end
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "cbdb021da2cc6066138e09589e806d1a07ca47626d99c9f4a3ae2f6fb0c778e7"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c64a1a99d2afc641dde2157e425fe1a1480af05863156d042425e2eb46de3d82"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "502879f5c9432a298e842d0b81f38f1f8bb7fadbb6b07f21acac20c5645a0e9d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b9a7a7083af570c7bc74eb35ecf4685fe113f1bcace468f15e49bac4b51d2593"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5d76c559159d879f391d5b7811adebcfab467c93f0f2c43e7a6eef9a50d742d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ebbcd5d02c9ace245c37de557a8e814aa5242fd5eefaba4cb1d94c12014e3006"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2d3c87834f4e795b88f2039ec30b05db3b53480333d7ad08868fd49c37e20b26"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29e4b8f32bc641ec8567fe254167437a61520b25540af5fca6e6559a17378c1a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b86cd6fc32b1b9bba3e2fc14523dfd35fb60497aee885fa8f910efc4a79009c6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4886e2f0807670765d881e78fc145e79a8ce95b174d65aeeb1e0c559f043739c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "188d80969e44a7aaab67338e37c8839cb28782d0177c22f2cd0e44322d8f5d8c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b2f7615af12aa170131d6085a9da55c7778146b0addd53cb0f8b6073c3a09649"
   end
 
   depends_on "maven" => :build
   depends_on "node" => :build
   depends_on "yarn" => :build
-  depends_on "openjdk@17"
+  depends_on "openjdk"
 
   uses_from_macos "unzip" => :build
 
-  # Avoid downloading copies of node and yarn
+  # 1. Avoid downloading copies of node and yarn
+  # 2. To avoid non-FIPS provider loads bc-fips classes, use isolated classloader.
+  # 3. Add NoopRecoveryModeService to avoid recovery mode that is implemented by private module.
+  # 4. Add NoopRepositoryMetricsService to satisfy DI in OSS-only build.
   patch :DATA
 
   def install
     # Workaround build error: Couldn't find package "@sonatype/nexus-ui-plugin@workspace:*"
     # Ref: https://github.com/sonatype/nexus-public/issues/417
     # Ref: https://github.com/sonatype/nexus-public/issues/432#issuecomment-2663250153
-    inreplace ["components/nexus-rapture/package.json", "plugins/nexus-coreui-plugin/package.json"],
+    inreplace "public/common/components/nexus-coreui-plugin/package.json",
               '"@sonatype/nexus-ui-plugin": "workspace:*"',
               '"@sonatype/nexus-ui-plugin": "*"'
 
-    java_version = "17"
+    inreplace "package.json" do |s|
+      # Drop core-js@^3 resolution (yarn 1.x cannot parse range selector).
+      s.gsub!(/^\s*"core-js@\^3":.*\n/, "")
+      # Remove platform-locked e2e binding that breaks cross-platform install.
+      s.gsub!(%r{^\s*"@rspack/binding-darwin-arm64":.*\n}, "")
+    end
+
+    java_version = Formula["openjdk"].version.major.to_s
     ENV["JAVA_HOME"] = Language::Java.java_home(java_version)
     java_env = Language::Java.overridable_java_home_env(java_version)
     java_env.merge!(KARAF_DATA: "${NEXUS_KARAF_DATA:-#{var}/nexus}",
@@ -58,7 +65,7 @@ class Nexus < Formula
 
     system "mvn", "install", "-DskipTests", "-Dpublic"
 
-    assembly = "assemblies/nexus-repository-core/target/assembly"
+    assembly = "public/selfhosted/assemblies/nexus-repository-core/target/assembly"
     rm(Dir["#{assembly}/bin/*.bat"])
     libexec.install Dir["#{assembly}/*"]
     chmod "+x", libexec.glob("bin/*")
@@ -87,39 +94,11 @@ class Nexus < Formula
 end
 
 __END__
-diff --git a/plugins/nexus-coreui-plugin/pom.xml b/plugins/nexus-coreui-plugin/pom.xml
-index 9b8325fd98..2a58a07afe 100644
---- a/plugins/nexus-coreui-plugin/pom.xml
-+++ b/plugins/nexus-coreui-plugin/pom.xml
-@@ -172,7 +172,7 @@
-         <artifactId>karaf-maven-plugin</artifactId>
-       </plugin>
-
--      <plugin>
-+      <!--plugin>
-         <groupId>com.github.eirslett</groupId>
-         <artifactId>frontend-maven-plugin</artifactId>
-
-@@ -212,12 +212,12 @@
-             </goals>
-             <phase>test</phase>
-             <configuration>
--              <arguments>test --reporters=jest-junit --reporters=default</arguments>
-+              <arguments>test -reporters=jest-junit -reporters=default</arguments>
-               <skip>${npm.skipTests}</skip>
-             </configuration>
-           </execution>
-         </executions>
--      </plugin>
-+      </plugin-->
-     </plugins>
-   </build>
-
 diff --git a/pom.xml b/pom.xml
-index 6647497628..d99148b421 100644
+index 6207634..aff32c4 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -877,7 +877,7 @@
+@@ -284,7 +284,7 @@
            </executions>
          </plugin>
 
@@ -127,8 +106,8 @@ index 6647497628..d99148b421 100644
 +        <!--plugin>
            <groupId>com.github.eirslett</groupId>
            <artifactId>frontend-maven-plugin</artifactId>
-           <version>1.11.3</version>
-@@ -932,7 +932,7 @@
+           <version>1.15.1</version>
+@@ -329,7 +329,7 @@
                </configuration>
              </execution>
            </executions>
@@ -137,3 +116,163 @@ index 6647497628..d99148b421 100644
 
          <plugin>
            <groupId>com.mycila</groupId>
+diff --git a/public/common/components/nexus-coreui-plugin/pom.xml b/public/common/components/nexus-coreui-plugin/pom.xml
+index 1fc5b81..f5591eb 100644
+--- a/public/common/components/nexus-coreui-plugin/pom.xml
++++ b/public/common/components/nexus-coreui-plugin/pom.xml
+@@ -181,17 +181,6 @@
+         <artifactId>frontend-maven-plugin</artifactId>
+
+         <executions>
+-          <execution>
+-            <id>js-unit-test</id>
+-            <goals>
+-              <goal>corepack</goal>
+-            </goals>
+-            <phase>test</phase>
+-            <configuration>
+-              <arguments>yarn test --silent --reporters=jest-junit --reporters=default</arguments>
+-              <skip>${npm.skipTests}</skip>
+-            </configuration>
+-          </execution>
+         </executions>
+       </plugin>
+     </plugins>
+diff --git a/public/common/components/nexus-ui-plugin/pom.xml b/public/common/components/nexus-ui-plugin/pom.xml
+index 1ce0a5f..9072bdd 100644
+--- a/public/common/components/nexus-ui-plugin/pom.xml
++++ b/public/common/components/nexus-ui-plugin/pom.xml
+@@ -51,17 +51,6 @@
+         <artifactId>frontend-maven-plugin</artifactId>
+
+         <executions>
+-          <execution>
+-            <id>js-unit-test</id>
+-            <goals>
+-              <goal>corepack</goal>
+-            </goals>
+-            <phase>test</phase>
+-            <configuration>
+-              <arguments>yarn test --silent --reporters=jest-junit --reporters=default</arguments>
+-              <skip>${npm.skipTests}</skip>
+-            </configuration>
+-          </execution>
+         </executions>
+       </plugin>
+
+@@ -132,17 +121,6 @@
+                   See: NEXUS-52614
+                 -->
+                 <!-- Use test-no-lint to avoid arch-specific native modules -->
+-                <execution>
+-                  <id>js-unit-test</id>
+-                  <goals>
+-                    <goal>corepack</goal>
+-                  </goals>
+-                  <phase>test</phase>
+-                  <configuration>
+-                    <arguments>yarn test-no-lint --silent --reporters=jest-junit --reporters=default</arguments>
+-                    <skip>${npm.skipTests}</skip>
+-                  </configuration>
+-                </execution>
+               </executions>
+             </plugin>
+         </plugins>
+diff --git a/public/common/components/nexus-crypto/src/main/java/org/sonatype/nexus/crypto/internal/CryptoHelperImpl.java b/public/common/components/nexus-crypto/src/main/java/org/sonatype/nexus/crypto/internal/CryptoHelperImpl.java
+index dfeb6f0..38e067c 100644
+--- a/public/common/components/nexus-crypto/src/main/java/org/sonatype/nexus/crypto/internal/CryptoHelperImpl.java
++++ b/public/common/components/nexus-crypto/src/main/java/org/sonatype/nexus/crypto/internal/CryptoHelperImpl.java
+@@ -87,8 +87,25 @@ public class CryptoHelperImpl
+   }
+ 
+   private static void loadNonFipsProvider() {
+-    // BouncyCastleProvider must be set as the last provider
+-    Security.addProvider(new BouncyCastleProvider());
++    try {
++      Class<?> providerClass =
++          getNonFipsClassLoader().loadClass("org.bouncycastle.jce.provider.BouncyCastleProvider");
++      Provider provider = (Provider) providerClass.getConstructor().newInstance();
++      // BouncyCastleProvider must be set as the last provider
++      Security.addProvider(provider);
++    }
++    catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
++        | InstantiationException | IllegalAccessException e) {
++      throw new RuntimeException("Failed to initialize non-FIPS provider", e);
++    }
++  }
++
++  private static URLClassLoader getNonFipsClassLoader() {
++    // Load bcprov and bcutil in an isolated classloader to prevent bc-fips classes
++    // (which share org.bouncycastle.crypto.* package names) from interfering.
++    URL bcprovUrl = BouncyCastleProvider.class.getProtectionDomain().getCodeSource().getLocation();
++    URL bcutilUrl = org.bouncycastle.util.Arrays.class.getProtectionDomain().getCodeSource().getLocation();
++    return new URLClassLoader(new URL[]{bcprovUrl, bcutilUrl}, null);
+   }
+ 
+   private static void loadFipsProvider() {
+diff --git a/public/common/components/nexus-scheduling/src/main/java/org/sonatype/nexus/scheduling/internal/NoopRecoveryModeService.java b/public/common/components/nexus-scheduling/src/main/java/org/sonatype/nexus/scheduling/internal/NoopRecoveryModeService.java
+new file mode 100644
+index 0000000..9279594
+--- /dev/null
++++ b/public/common/components/nexus-scheduling/src/main/java/org/sonatype/nexus/scheduling/internal/NoopRecoveryModeService.java
+@@ -0,0 +1,26 @@
++package org.sonatype.nexus.scheduling.internal;
++
++import org.sonatype.nexus.scheduling.RecoveryModeService;
++import org.springframework.stereotype.Component;
++
++@Component
++public class NoopRecoveryModeService
++    implements RecoveryModeService
++{
++  @Override
++  public boolean isRecoveryMode() {
++    return false;
++  }
++
++  @Override
++  public void enableRecoveryMode() {
++  }
++
++  @Override
++  public void disableRecoveryMode() {
++  }
++
++  @Override
++  public void ensureNotInRecoveryMode(final String taskName) {
++  }
++}
+diff --git a/public/common/components/nexus-repository-services/src/main/java/org/sonatype/nexus/repository/rest/internal/api/NoopRepositoryMetricsService.java b/public/common/components/nexus-repository-services/src/main/java/org/sonatype/nexus/repository/rest/internal/api/NoopRepositoryMetricsService.java
+new file mode 100644
+index 0000000..0aa21ae
+--- /dev/null
++++ b/public/common/components/nexus-repository-services/src/main/java/org/sonatype/nexus/repository/rest/internal/api/NoopRepositoryMetricsService.java
+@@ -0,0 +1,28 @@
++package org.sonatype.nexus.repository.rest.internal.api;
++
++import java.util.Collections;
++import java.util.List;
++import java.util.Optional;
++
++import org.sonatype.nexus.repository.rest.api.RepositoryMetricsDTO;
++import org.sonatype.nexus.repository.rest.api.RepositoryMetricsService;
++import org.springframework.stereotype.Component;
++
++@Component
++public class NoopRepositoryMetricsService
++    implements RepositoryMetricsService
++{
++  @Override
++  public Optional<RepositoryMetricsDTO> get(final String repositoryName) {
++    return Optional.empty();
++  }
++
++  @Override
++  public List<RepositoryMetricsDTO> list() {
++    return Collections.emptyList();
++  }
++
++  @Override
++  public void runUpdate() {
++  }
++}

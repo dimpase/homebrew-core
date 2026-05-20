@@ -1,23 +1,22 @@
 class Libdpp < Formula
   desc "C++ Discord API Bot Library"
   homepage "https://github.com/brainboxdotcc/DPP"
-  url "https://github.com/brainboxdotcc/DPP/archive/refs/tags/v10.1.4.tar.gz"
-  sha256 "f11b6d3fc5cc8febcf672b573ca74293ead6c6ea48a66ac0316ab9a5cbd09441"
+  url "https://github.com/brainboxdotcc/DPP/archive/refs/tags/v10.1.5.tar.gz"
+  sha256 "0446993c2bca5fc40882386804598b33652fc7ee466fa237f7846f2be0cb8a1e"
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "c5022345a6b7fc9c4518698d511ad1487e53a295707b89368032cd9590ad32cc"
-    sha256 cellar: :any,                 arm64_sequoia: "f179deb074f4384b8ae185ee2e6f6b05bbd63679838d65f8114595890bdf615d"
-    sha256 cellar: :any,                 arm64_sonoma:  "babee221f0768dfd793918335a1d4fd7a862151cdc7c45d6a17d911cc448d833"
-    sha256 cellar: :any,                 sonoma:        "183dff2ab83799bc9ca38c00af58bebd310959ee13912a529d2615163152bea1"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "051ebf325593da2a5c1940348c1d5b2ffc5228f87402b3a4899c8a0e35b919e1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "77e3dfffd350f286e85ac0fd66648f92ea0a6aaaf2d5dc9136821c8f637248c3"
+    sha256 cellar: :any,                 arm64_tahoe:   "52721d668fe65274b79c71fcba6b77ede190f532b2858ab6bcc72b929db97f78"
+    sha256 cellar: :any,                 arm64_sequoia: "2a34e475d821eee082988e14d8e8f1494018718b5af4804331977ce0062fd2f2"
+    sha256 cellar: :any,                 arm64_sonoma:  "174111ad5af6951d8f57663c55320fff08961394e0701857cc5db2b30d5441d1"
+    sha256 cellar: :any,                 sonoma:        "31178f47a6a9c68dc541b281c3b9cee3873192482338682ad9cfc21f317709dd"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "169f138525e538ae77dd3a5bbaf97b0c80eb2e72b2f4e829df680144ebcfbb9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4d822ac5d4a864aa85d87f17070cae0e8e1da12668540398648fd6746ad64fa8"
   end
 
   depends_on "cmake" => :build
   depends_on "nlohmann-json" => :build
-  depends_on "openssl@3"
+  depends_on "openssl@4"
   depends_on "opus"
   depends_on "pkgconf"
 

@@ -1,10 +1,10 @@
 class QtPostgresql < Formula
   desc "Qt SQL Database Driver"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtbase-everywhere-src-6.10.2.tar.xz"
-  sha256 "aeb78d29291a2b5fd53cb55950f8f5065b4978c25fb1d77f627d695ab9adf21e"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtbase-everywhere-src-6.11.1.tar.xz"
+  sha256 "d9594a31228aa23ad6b531719a29b45f0f3989fe6c136d45767ea179f233c1ac"
   license any_of: ["GPL-2.0-only", "GPL-3.0-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -12,12 +12,12 @@ class QtPostgresql < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "397ee750019d64de8ca91856298505e2f6dde0b143ebea6bef615fccc8e62f68"
-    sha256 cellar: :any,                 arm64_sequoia: "9614ccbf5c95ed42d7d09d695d499462d664aee3c87908345990c28566d9eb2f"
-    sha256 cellar: :any,                 arm64_sonoma:  "c5f13c142d4d1beddd19a6a300ffa1fc9b6bc75ff19a452d030eeb3eb0cb6342"
-    sha256 cellar: :any,                 sonoma:        "3bf4d676b3e0162d277980e8da64dd98840f7030478fb05dd33d29f691f4cb82"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "87f20d59d0a3320ac84c1cc8173410d3fd5fa69f2f403d02fa61cbb50889d1f7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "452d30780d933500f3be2ef68dce1fcb8fae1e02a67e418c30a28ad9b67abd1f"
+    sha256 cellar: :any,                 arm64_tahoe:   "358329ce890d6637122a978489d4aa7987f2899a0a8534b9c0c9debc8228ca32"
+    sha256 cellar: :any,                 arm64_sequoia: "b0dad38994460eb6bc94b856f8d50eb07109f5eb379d50331136d8d4be2d3516"
+    sha256 cellar: :any,                 arm64_sonoma:  "1b8b02735097961b9269c171871f6bf4ac261733f121180c5e495b338a304947"
+    sha256 cellar: :any,                 sonoma:        "88c47b96dff9ef681b762b06f4eb3f6f13698e9e2fc54561837862a8d5f03860"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "93f9162a529b90973c5a23ae8d9623dced7d03f9d348e566d7c5e6659928a525"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a39b1346c99ceca70ae50bfae7a6450f5f5cde1edc8e5371a77de0c0e2be6d8"
   end
 
   depends_on "cmake" => [:build, :test]

@@ -1,8 +1,8 @@
 class Kapp < Formula
   desc "CLI tool for Kubernetes users to group and manage bulk resources"
   homepage "https://carvel.dev/kapp/"
-  url "https://github.com/carvel-dev/kapp/archive/refs/tags/v0.65.1.tar.gz"
-  sha256 "b3052206113574e32a4f2f84985139ca2ece1ce81ab714b5b8f802ae902659d0"
+  url "https://github.com/carvel-dev/kapp/archive/refs/tags/v0.65.3.tar.gz"
+  sha256 "ef9ddd75f1b77dc87e285fba47bac094543060a1b463aafcb37faf8536d17c07"
   license "Apache-2.0"
   head "https://github.com/carvel-dev/kapp.git", branch: "develop"
 
@@ -12,12 +12,12 @@ class Kapp < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fe73d8448578e9c25d2d8d4796f8324ebc7128f92c19f676a897badebaf37009"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fe73d8448578e9c25d2d8d4796f8324ebc7128f92c19f676a897badebaf37009"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fe73d8448578e9c25d2d8d4796f8324ebc7128f92c19f676a897badebaf37009"
-    sha256 cellar: :any_skip_relocation, sonoma:        "18ccb02f72f8fde9f6f795da1d7761f3ce93f80fad9c9f49e8d0296dea9ac52c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7c006f6de59bcb6d47d1ae1cbf1beeb15bdd7798fe7573f220fbbdafd5fd5931"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd605a305a77e35c7bf97f2afb2f3a982181167a23be08dee14528e850b9374f"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "576db089f2de933d95db8353fc668c54dddd8ff5e5f3a1514ee6c00942c65708"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "576db089f2de933d95db8353fc668c54dddd8ff5e5f3a1514ee6c00942c65708"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "576db089f2de933d95db8353fc668c54dddd8ff5e5f3a1514ee6c00942c65708"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f9ef388ddcafbb44e07edfc635884e820d5dad61c4b422b97fcdc9948efb9b67"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d46915f1571cde23ca182513551d0545de6d8a5245eb2fec7cda394cb439c985"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6a46570ac3f6c48999438d06cd78d01e212ba9fefea2e644ff15e19f85b619fa"
   end
 
   depends_on "go" => :build

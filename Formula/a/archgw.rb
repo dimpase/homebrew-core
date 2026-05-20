@@ -6,15 +6,15 @@ class Archgw < Formula
   url "https://files.pythonhosted.org/packages/a4/76/79f9d1fab003cf58703ac6db13f8f84f75fd9135c57e4937ae363aaf37fb/archgw-0.3.22.tar.gz"
   sha256 "809a97dfe33e797616b4e039d21c2a9bee8fc3af8e45e98724155e6702d32cdb"
   license "Apache-2.0"
-  revision 1
+  revision 4
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "cde4cde267e77b58d5caeb355625111fe5ef351a9d42eb0c525be2b83dcb9498"
-    sha256 cellar: :any,                 arm64_sequoia: "37204b2d2ccc58945598122060c0697f2b60359d429b4a395b9ce23844f741e3"
-    sha256 cellar: :any,                 arm64_sonoma:  "fe67a825df3ff36122d40c1a831687e24189572484e544ea7d7a3db2805e1682"
-    sha256 cellar: :any,                 sonoma:        "ab8d8237720e64ac024e29b5add8f33a88417afbcfd706576b569e974c65b352"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c8e5e612c9bb8cd939e9e54458d3227ecb19a9c03fe99dbd9369edeec2bda1fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "85566a740218450e7f0df93ce7923e05881c5cd18cce76f684e90216642bbf19"
+    sha256 cellar: :any,                 arm64_tahoe:   "788b4196ec4a3b5f5dad3906682c670db7159d0aa3c494f8094af81d0ff3ffe3"
+    sha256 cellar: :any,                 arm64_sequoia: "4289a228e5d4d3abe652dd30884e9d41c6284b176e5ae8ba0da9f303cb06fbc5"
+    sha256 cellar: :any,                 arm64_sonoma:  "21b1365b7080b35c4edf63bc6e6e5f34c99334e7a3f75b7afbfbe779b0c4a1c5"
+    sha256 cellar: :any,                 sonoma:        "88a80c4dd1bd14d078d1a33ab81932b865a5f48fc9ef60a82d09a802f6f8ac48"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8926ecbef23fb545ec2aa0ef6714754cd11b4cc73a609256510193a0180d9ca7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "874c5c9bebe68573365e167647479fa5df592fe84083d4edc5895ad60a3000a0"
   end
 
   depends_on "certifi" => :no_linkage
@@ -25,23 +25,23 @@ class Archgw < Formula
   pypi_packages exclude_packages: %w[certifi rpds-py]
 
   resource "attrs" do
-    url "https://files.pythonhosted.org/packages/6b/5c/685e6633917e101e5dcb62b9dd76946cbb57c26e133bae9e0cd36033c0a9/attrs-25.4.0.tar.gz"
-    sha256 "16d5969b87f0859ef33a48b35d55ac1be6e42ae49d5e853b597db70c35c57e11"
+    url "https://files.pythonhosted.org/packages/9a/8e/82a0fe20a541c03148528be8cac2408564a6c9a0cc7e9171802bc1d26985/attrs-26.1.0.tar.gz"
+    sha256 "d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz"
-    sha256 "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"
+    url "https://files.pythonhosted.org/packages/23/e4/796662cd90cf80e3a363c99db2b88e0e394b988a575f60a17e16440cd011/click-8.4.0.tar.gz"
+    sha256 "638f1338fe1235c8f4e008e4a8a254fb5c5fbdcbb40ece3c9142ebb78e792973"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "jinja2" do
@@ -75,13 +75,13 @@ class Archgw < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz"
+    sha256 "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   def install

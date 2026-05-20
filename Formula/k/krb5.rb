@@ -24,6 +24,7 @@ class Krb5 < Formula
     "OpenVision",
     any_of: ["BSD-2-Clause", "GPL-2.0-or-later"],
   ]
+  compatibility_version 1
 
   livecheck do
     url :homepage
@@ -44,7 +45,6 @@ class Krb5 < Formula
   depends_on "openssl@3"
 
   uses_from_macos "bison" => :build
-  uses_from_macos "libedit"
 
   on_linux do
     depends_on "keyutils"

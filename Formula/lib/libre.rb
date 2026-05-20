@@ -1,29 +1,29 @@
 class Libre < Formula
   desc "Toolkit library for asynchronous network I/O with protocol stacks"
   homepage "https://github.com/baresip/re"
-  url "https://github.com/baresip/re/archive/refs/tags/v4.5.0.tar.gz"
-  sha256 "be6bc1adb74bac8ea866e7fff655f9c9bcd9dbceebf7337649c7ac834c7028dd"
+  url "https://github.com/baresip/re/archive/refs/tags/v4.8.0.tar.gz"
+  sha256 "34a6061bbfbcc70f9af7e9732fd5588e4b1288a9d04ce1369c49dece46502e38"
   license "BSD-3-Clause"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "b518ed44afbdaa37daa04f240c4be3e0e505e5589781d3c18d9da0e64cd73f39"
-    sha256 cellar: :any,                 arm64_sequoia: "60959942a578bab8cc5232f3d682621c6f5b940521b57ccd9c9f1d584bbdc54a"
-    sha256 cellar: :any,                 arm64_sonoma:  "16c9765bd2ff85b33b109a768b705dfbeff5247409d2c075451b38e19e401a8b"
-    sha256 cellar: :any,                 sonoma:        "049fdad9327623dc477a3ba297cd85b6e51d59048e19aa81a79f45b592e8ca05"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e41770d8e0635911c6d837ff71b7134795c4b6b7a984d145e03fca44dbafcfaa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e1675c3c544dcd00fae0667a438761a7835d93f088cb785bbe1ad734f68b1af"
+    sha256 cellar: :any,                 arm64_tahoe:   "16d4d005c638f6cbb34f4481c8e4d952fe868e6633465d915265cca126a481be"
+    sha256 cellar: :any,                 arm64_sequoia: "71953001f6328485ee71e6ae9fd0ff2da5307cff2392d7e477854e08e08ecd2c"
+    sha256 cellar: :any,                 arm64_sonoma:  "55a88b72ae863c98a292da62c2ed2ed6458047b3f5f8ed2bc348fd7afb1c2b7a"
+    sha256 cellar: :any,                 sonoma:        "cd2dd2c9a91e7a974818ba0ab5e59d05b0beca3a326bdd32b6c3e0c987672684"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "cc15c0506ad2a6a909acfcb00a859f880312d7af20700845bf7ec778609e9959"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ee605805e7a8bc175adcb3015ce521c371f2a6023d75dc0fbf4669e3c2e269a9"
   end
 
   depends_on "cmake" => :build
-  depends_on "openssl@3"
+  depends_on "openssl@4"
 
   on_linux do
     depends_on "zlib-ng-compat"
   end
 
   def install
-    system "cmake", "-B", "build", *std_cmake_args
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
@@ -36,6 +36,7 @@ class Libre < Formula
         return libre_init();
       }
     C
-    system ENV.cc, "-I#{include}", "-I#{include}/re", "test.c", "-L#{lib}", "-lre"
+    system ENV.cc, "test.c", "-o", "test", "-I#{include}", "-I#{include}/re", "-L#{lib}", "-lre"
+    system "./test"
   end
 end

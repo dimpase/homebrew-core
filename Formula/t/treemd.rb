@@ -1,18 +1,18 @@
 class Treemd < Formula
   desc "TUI and CLI dual pane markdown viewer"
   homepage "https://github.com/epistates/treemd"
-  url "https://github.com/Epistates/treemd/archive/refs/tags/v0.5.6.tar.gz"
-  sha256 "40b01caa9792416cee17ed44e9511eb36689ca3c792881170378e283c1d1ddfb"
+  url "https://github.com/Epistates/treemd/archive/refs/tags/v0.5.11.tar.gz"
+  sha256 "87bee07aa427a8d48b91cf8f6309a83863094de7b8a19b694a052816595b8b0b"
   license "MIT"
   head "https://github.com/epistates/treemd.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "eb7879add17ffe677185f39c857031dc1f257fe373cc4f59dc1e3e29d655bd80"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "05ffc207eda98099d22794403e790fbc641cfb9fe75e86c8ce9ce5f6ede83055"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6b9fe76f8387055c7da177af3963e43a1fe512c3be07e8f3f1336e39eec049ad"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c7abb931c098670144f1c898c077d4f0c59cefe8333921b3c59ec8e3cf27d947"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "52fbe2ce801bf84a569d2a5af3cc010220b6252f4976c17c70b7dec822d77547"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d78667f128a291707bf7a9e052175111a3675b59be18e2a152cb691b8184efbb"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c410c9cf55f1fd3c7569d6da838f7a1d6b244f0f050da925d7fbc961e39d31ea"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d14f3d03f3561e47a19f91cd44aed859f08aa2a72c8d373d4523546d41aa3cb2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2ff5012f3e28b292f2fcc6926eade9f904a66eb3feac5c5f8c4e230b4b0e794e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4f1b0dd73d75cc92323e802983663321d9f21494518d99c4eb36e55083848058"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f0bcdbb0cccab5a498ac644e5a96190a531fa773dbd7ddb603429bfa19f69925"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9fcb8544237de119133c15b89134237fcfdd998e5f4867e1a84029c0120316c6"
   end
 
   depends_on "rust" => :build

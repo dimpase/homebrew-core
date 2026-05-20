@@ -1,8 +1,8 @@
 class Buf < Formula
   desc "New way of working with Protocol Buffers"
   homepage "https://github.com/bufbuild/buf"
-  url "https://github.com/bufbuild/buf/archive/refs/tags/v1.66.0.tar.gz"
-  sha256 "afbe924144f3c229a1167a82e805a481f5def88cd31071e4ef7e812daeb06e27"
+  url "https://github.com/bufbuild/buf/archive/refs/tags/v1.69.0.tar.gz"
+  sha256 "b5d662379d597a3010b9fde72d6102642d83b192b61138002a9a4a788e40806a"
   license "Apache-2.0"
   head "https://github.com/bufbuild/buf.git", branch: "main"
 
@@ -15,12 +15,12 @@ class Buf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "d0920066a1d4a6c1e8a0decd394bf4c397a8e72b9d020fbb422faf7fe1a3c500"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d0920066a1d4a6c1e8a0decd394bf4c397a8e72b9d020fbb422faf7fe1a3c500"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d0920066a1d4a6c1e8a0decd394bf4c397a8e72b9d020fbb422faf7fe1a3c500"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4a64f672475aa6ecded31c64f51539dd4c0f935f9eb8ea006afc627a1297a7ba"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e5fdfa4f4e4cd165935df8b093541c8329478239716cd565db73fa623d6a26c0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d8dfb20e9067737fe0f7b09ec5c8a0c498778732440e8117901c28dfe28146ea"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c640f8f287678dc8730a27a8c7c1fb936b37c0c38b34329308fbed2a06fc2ccc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c640f8f287678dc8730a27a8c7c1fb936b37c0c38b34329308fbed2a06fc2ccc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c640f8f287678dc8730a27a8c7c1fb936b37c0c38b34329308fbed2a06fc2ccc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "80eff4f1e1e9bc08e3e05213b68d14a210a965de90923266ea453ed96e19f064"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9e8244a13769b6661d41fb295551cb8249b89fecd4cc281614295979ea6b5274"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "095f02f59e6ad0f5603fbf7705eb4f52353f238ea60b233f056279b49a05d42a"
   end
 
   depends_on "go" => :build

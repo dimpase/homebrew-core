@@ -3,9 +3,11 @@ class Pytorch < Formula
 
   desc "Tensors and dynamic neural networks"
   homepage "https://pytorch.org/"
-  url "https://github.com/pytorch/pytorch/releases/download/v2.10.0/pytorch-v2.10.0.tar.gz"
-  sha256 "fa8ccbe87f83f48735505371c1c313b4aa6db400b0ae4f8a02844d1e150c695f"
+  # TODO: Restore pybind11 dependency after https://github.com/pytorch/pytorch/pull/175115
+  url "https://github.com/pytorch/pytorch/releases/download/v2.12.0/pytorch-v2.12.0.tar.gz"
+  sha256 "7cc1deb309f402ad67e9f45bbe311a40def4db19d66fddb9b01950f9bfc5ccb1"
   license "BSD-3-Clause"
+  compatibility_version 2
 
   livecheck do
     url :stable
@@ -13,12 +15,12 @@ class Pytorch < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "1fdb982bd44569c59eee93c00b077f176faf85fc34c5d6ff139a3619c843fce9"
-    sha256 cellar: :any, arm64_sequoia: "e35118ea4fd3d74157f5aa9572809e3129c79cec5f3220294893891a9612189c"
-    sha256 cellar: :any, arm64_sonoma:  "7ae1f37acbb2c43e1b8f21eb8325f4bd68bbdca58ce5d9a51bbe5372138ef8c2"
-    sha256 cellar: :any, sonoma:        "619c5aabd0994910640f9657de0c3be693af529081db9fcb578e157b8654ce8a"
-    sha256               arm64_linux:   "b2d6d3495d201287fa31984f4b2c5b0f7413b9edbcc26f860051216707be41f8"
-    sha256               x86_64_linux:  "b14466e5f1aa3de2b11cc726556472d49edb3085a8dd8b6158f95881b36abc95"
+    sha256 cellar: :any,                 arm64_tahoe:   "1d90df9d6cfdf952763645777adaa0fe5eb845f5ef6505f76a6722d705ec2cbf"
+    sha256 cellar: :any,                 arm64_sequoia: "5214ce93ee1ffaca1f9914d4471e1a2a2d992e1cb0627281c3b4d929d1e009ef"
+    sha256 cellar: :any,                 arm64_sonoma:  "90ba86c09419544a80d96f1e11073d9a4eb81874d0f0b5e47f16f560557d5015"
+    sha256 cellar: :any,                 sonoma:        "13d68a2299b9ca8c6c10c584a5db88d1df96c93f5f00c956d479b6e9d5734f9e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "70d4b37a17cff0ecb35389785a19a7a34654678685ce7848bdaabcf848b6ca6a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f6dfa216b31eb24f0bbdcc2f755cd55a940e2f901fa49bb48e51a5e69935601"
   end
 
   depends_on "cmake" => :build
@@ -29,15 +31,16 @@ class Pytorch < Formula
   depends_on "eigen"
   depends_on "libuv"
   depends_on "libyaml"
-  depends_on macos: :monterey # MPS backend only supports 12.3 and above
   depends_on "numpy"
+  depends_on "onnx"
   depends_on "openblas"
   depends_on "protobuf"
-  depends_on "pybind11"
+  # TODO: depends_on "pybind11"
   depends_on "sleef"
 
   on_macos do
     depends_on "libomp"
+    depends_on macos: :monterey # MPS backend only supports 12.3 and above
   end
 
   pypi_packages package_name:     "torch[opt-einsum]",
@@ -45,13 +48,13 @@ class Pytorch < Formula
                 exclude_packages: "numpy"
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/1d/65/ce7f1b70157833bf3cb851b556a37d4547ceafc158aa9b34b36782f23696/filelock-3.20.3.tar.gz"
-    sha256 "18c57ee915c7ec61cff0ecf7f0f869936c7c30191bb0cf406f1341778d0834e1"
+    url "https://files.pythonhosted.org/packages/b5/fe/997687a931ab51049acce6fa1f23e8f01216374ea81374ddee763c493db5/filelock-3.29.0.tar.gz"
+    sha256 "69974355e960702e789734cb4871f884ea6fe50bd8404051a3530bc07809cf90"
   end
 
   resource "fsspec" do
-    url "https://files.pythonhosted.org/packages/d5/7d/5df2650c57d47c57232af5ef4b4fdbff182070421e405e0d62c6cdbfaa87/fsspec-2026.1.0.tar.gz"
-    sha256 "e987cb0496a0d81bba3a9d1cee62922fb395e7d4c3b575e57f547953334fe07b"
+    url "https://files.pythonhosted.org/packages/d5/8d/1c51c094345df128ca4a990d633fe1a0ff28726c9e6b3c41ba65087bba1d/fsspec-2026.4.0.tar.gz"
+    sha256 "301d8ac70ae90ef3ad05dcf94d6c3754a097f9b5fe4667d2787aa359ec7df7e4"
   end
 
   resource "jinja2" do
@@ -80,8 +83,8 @@ class Pytorch < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz"
-    sha256 "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "pyyaml" do
@@ -90,8 +93,8 @@ class Pytorch < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/86/ff/f75651350db3cf2ef767371307eb163f3cc1ac03e16fdf3ac347607f7edb/setuptools-80.10.1.tar.gz"
-    sha256 "bf2e513eb8144c3298a3bd28ab1a5edb739131ec5c22e045ff93cd7f5319703a"
+    url "https://files.pythonhosted.org/packages/0d/1c/73e719955c59b8e424d015ab450f51c0af856ae46ea2da83eba51cc88de1/setuptools-81.0.0.tar.gz"
+    sha256 "487b53915f52501f0a79ccfd0c02c165ffe06631443a886740b91af4b7a5845a"
   end
 
   resource "sympy" do
@@ -109,11 +112,6 @@ class Pytorch < Formula
 
     # Avoid building AVX512 code
     inreplace "cmake/Modules/FindAVX.cmake", /^CHECK_SSE\(CXX "AVX512"/, "#\\0"
-
-    # Disable SVE support as it requires enabling support in `sleef` formula.
-    # This is not recommended as SLEEF is moving SVE support to unmaintained status:
-    # https://github.com/shibatch/sleef/discussions/673#discussioncomment-12610711
-    inreplace "cmake/Modules/FindARM.cmake", /^\s*CHECK_COMPILES\(CXX "SVE256"/, "#\\0"
 
     # Avoid bundling libomp
     inreplace "setup.py", /^(\s*)self\._embed_libomp\(\)$/, "\\1pass"
@@ -134,10 +132,13 @@ class Pytorch < Formula
     ENV["USE_NNPACK"] = "OFF"
     ENV["USE_OPENMP"] = "ON"
     ENV["USE_SYSTEM_EIGEN_INSTALL"] = "ON"
-    ENV["USE_SYSTEM_PYBIND11"] = "ON"
+    ENV["USE_SYSTEM_ONNX"] = "ON"
+    ENV["USE_SYSTEM_PYBIND11"] = "OFF"
     ENV["USE_SYSTEM_SLEEF"] = "ON"
     ENV["USE_MPS"] = "ON" if OS.mac?
     ENV["USE_KLEIDIAI"] = "OFF"
+    # Linuxbrew GCC 12 cannot compile PyTorch's SVE+BF16 path; needs GCC 14+
+    ENV["BUILD_IGNORE_SVE_UNAVAILABLE"] = "1" if OS.linux? && Hardware::CPU.arch == :arm64
 
     # Workaround for
     # error: a template argument list is expected after a name prefixed by the template keyword
@@ -156,7 +157,7 @@ class Pytorch < Formula
 
     # Expose C++ API
     torch = venv.site_packages/"torch"
-    include.install_symlink ((torch/"include").children - [torch/"include/fmt"])
+    include.install_symlink ((torch/"include").children - [torch/"include/fmt", torch/"include/pybind11"])
     lib.install_symlink (torch/"lib").children
     (share/"cmake").install_symlink (torch/"share/cmake").children
   end

@@ -10,8 +10,6 @@ class Proctools < Formula
     regex(%r{url=.*?/proctools/[^/]+/proctools[._-]v?(\d+(?:\.\d+)+(?:pre\d+)?)\.t}i)
   end
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_tahoe:    "a04c37c6e995cbce8ff70386029b5b3a00c61cbd1e9c7399cbb177670035df8d"
     sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f9cc18c0b6d9837cad062ce69de2544bf534d4bcc7380230b81ac126dc2ca4be"
@@ -25,6 +23,10 @@ class Proctools < Formula
     sha256 cellar: :any_skip_relocation, big_sur:        "3a8ffd535edba47371a0617666b6eced7b0b13c4b27b4303b483d71f07de2e04"
     sha256 cellar: :any_skip_relocation, catalina:       "f0fe70530d22c270ac3d5a105f2dbbbb0dc6a664acd03f3ad7da3f86255fd548"
   end
+
+  # Last release on 2003-12-07. macOS has included pgrep/pkill since OS X Mountain Lion 10.8
+  deprecate! date: "2026-05-17", because: :unmaintained
+  disable! date: "2027-05-17", because: :unmaintained
 
   depends_on "bsdmake" => :build
   depends_on :macos

@@ -1,8 +1,8 @@
 class Envoy < Formula
   desc "Cloud-native high-performance edge/middle/service proxy"
   homepage "https://www.envoyproxy.io/index.html"
-  url "https://github.com/envoyproxy/envoy/archive/refs/tags/v1.37.0.tar.gz"
-  sha256 "5cf3a5342bdffe8c1cc28c0afa61a24654d1f781480d3dcc226c81fe41a1e713"
+  url "https://github.com/envoyproxy/envoy/archive/refs/tags/v1.38.0.tar.gz"
+  sha256 "dfc86489802788f053956d9d1ad5c1fef5d982eddf7a9df69a0184a3a1ac4184"
   license "Apache-2.0"
   head "https://github.com/envoyproxy/envoy.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Envoy < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3b661c2acf15cb1dc0175c7f033e93e7c3c4971c1f5a9325aca5b82bbb4d3627"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "621dd10933fb76427aa66a2c8133258ce24cb2d17ea1f482fa5fdace325445eb"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "17769c2ccf4a6d2379b2c9dcdaf36b4af8819dfe529b171bce4a2b53c311767b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "818a6c6540418e54904fc7760127ff5e6e6fda32544b351d4a18354547ca8ed4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "52388099e15009b4895557874b65009e71639b28f606adcc1e6681e8f05c3f62"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "69affc72258e9cd3256e4f661511305a3c98541ab483d7d00a4744fd62e7dcc5"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c5a42a61bf6e211b7391bb79d66c4b72a759b113b2b5568d60cf7feb2bce4097"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9d8ff9b7ad9edee2ef92144328cf697f69373ab022a178c21eef511db424b6e0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a4c8fbce8679ed2728a36428a35db4d6fd118de84e1ce8ea919bf147385c42e0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "da740563a4a283764bfce68f22c8887834a0f8c0f926bf90a31d0a1015763457"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e4c48997c3e784e8132a2514c329c20b7b93520e55ed4941b45f76132bf00b8a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "74283a702e21898ea8fcb816a81d2c90b9cfa7a04294096e4ddef3c18b7087c7"
   end
 
   depends_on "autoconf" => :build
@@ -61,6 +61,12 @@ class Envoy < Formula
     # against Envoy's configured sysroot/toolchain. Keep clang/llvm tools but drop binutils.
     ENV.remove "PATH", ":#{Formula["binutils"].opt_bin}" if OS.linux?
     env_path = ENV["PATH"]
+
+    # Drop hickory DNS: its rust SDK pulls in mockall (incompatible with macOS)
+    # and references `@llvm_toolchain_llvm` labels that aren't registered when
+    # LLVM is injected via `BAZEL_LLVM_PATH`.
+    inreplace "source/extensions/extensions_build_config.bzl",
+              /^\s*"envoy\.network\.dns_resolver\.hickory":.*\n/, ""
 
     args = %W[
       --noenable_bzlmod

@@ -1,8 +1,8 @@
 class Moon < Formula
   desc "Task runner and repo management tool for the web ecosystem, written in Rust"
   homepage "https://moonrepo.dev/moon"
-  url "https://github.com/moonrepo/moon/archive/refs/tags/v2.0.3.tar.gz"
-  sha256 "bc1cdf8f65e697dd06e6cfab5b9d767d666dac40e40635bec9162677fb7f70a4"
+  url "https://github.com/moonrepo/moon/archive/refs/tags/v2.2.4.tar.gz"
+  sha256 "04137bc23258427f0dca0852001582936e98c3a49ab1fa3c2837ca1389e33222"
   license "MIT"
   head "https://github.com/moonrepo/moon.git", branch: "master"
 
@@ -12,15 +12,16 @@ class Moon < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "8516f662ffcebcb1061aac567e7be44adcdbada60c3633c427711a75ba9da402"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2ed2019abc7e29cd33da30e779139004a5ea7377a285cc93be84f192fc71937c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d394b48d9721c3ae8c0f8505ab7b76ba5c931dd4894bb95a0b5e21ab71ea9d53"
-    sha256 cellar: :any_skip_relocation, sonoma:        "64f210d855e545468d98921e190f4426b4596ba7fab6f86d0e1674e37e146cca"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "80ccfcac83f9bcad0772827f98becf43a848d2cae630a63c5038dc5ed9456a52"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f9ff0479f785a4947bbca4798ba49c4100a19779879ff60140e7b1cd1df2bdb5"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "376caf3ce9dff45109cd6597101487cb76714a0158475b7aea435a70e6852a71"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b640fba38ef02c890e7b0da25d33786fa209f7a27a6e47de2dfa19c7b01ea9bb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b1544209d274ce25f6b3eb527d5cfc21f6214400e0a4acc16c85edc9fce3c0a9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c7f2d4174392deb2a4fa6e08f430dc2589bea7cf6d1cb6cc3deb97ecc4bd9e83"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bb6fc27d7fff5c3259a94dd22597e0b90cb7decec1bd8df18f4196c27fda0af5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe0aac5618c5cb935cdc9526e5cc636e1c3073725c282f67c5eaf9f0c3a3d79b"
   end
 
   depends_on "pkgconf" => :build
+  depends_on "protobuf" => :build
   depends_on "rust" => :build
 
   uses_from_macos "bzip2"

@@ -4,12 +4,11 @@ class Libmagic < Formula
   url "https://astron.com/pub/file/file-5.47.tar.gz"
   sha256 "45672fec165cb4cc1358a2d76b5d57d22876dcb97ab169427ac385cbe1d5597a"
   license all_of: ["BSD-2-Clause-Darwin", "BSD-2-Clause", :public_domain]
+  compatibility_version 1
 
   livecheck do
     formula "file-formula"
   end
-
-  no_autobump! because: :requires_manual_review
 
   bottle do
     sha256 arm64_tahoe:   "f7aa29830da3062c82a1573bcadb35df0951de214d908543db23f89d55fdb831"

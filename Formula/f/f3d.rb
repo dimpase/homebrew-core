@@ -1,10 +1,10 @@
 class F3d < Formula
   desc "Fast and minimalist 3D viewer"
   homepage "https://f3d.app"
-  url "https://github.com/f3d-app/f3d/archive/refs/tags/v3.4.1.tar.gz"
-  sha256 "a0e17eb352c32aa2f8e7123cf75ec5633d25e230112d4dc2ba2b7024011e2615"
+  url "https://github.com/f3d-app/f3d/archive/refs/tags/v3.5.0.tar.gz"
+  sha256 "033845b5d49af3ae60fcc3fe85d82c841d990d3534638a4472123f84b3e82795"
   license "BSD-3-Clause"
-  revision 1
+  revision 2
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
   # labeled as "pre-release" on GitHub before the version is released, so it's
@@ -15,13 +15,12 @@ class F3d < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "932e823218e860da4df03979774137bbf8bcb0e6af3eeedc49b258a5c95cdea7"
-    sha256 cellar: :any,                 arm64_sequoia: "241a838de1fc94e9ac0b41ed03a3740f2eea2351a3a5eea62c9bb60b468781f0"
-    sha256 cellar: :any,                 arm64_sonoma:  "c459ee84b067a309e9e5a4036910990f3fa8002245d447ba0ebf5bde37f222a5"
-    sha256 cellar: :any,                 sonoma:        "ec6d5c537ff25dfd3e55b5db28ca0b1b523bd8bf836950c42b382f2a5e452bfc"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "666a640c9aa10f5ba3f2900780ee8e17f6339fe8012febdc2cc2b602a8853ebb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e94147ecb681078ef6ae85697378809065f2778a2902ecc50c809ba4d4a23c63"
+    sha256 cellar: :any,                 arm64_tahoe:   "2355894746eb1ea5b18f5944ea09fb6a5cc33295a0c2401bca5a6e92890153f2"
+    sha256 cellar: :any,                 arm64_sequoia: "bfa9fbf715b40d88ac02de0597be5a6048d723ad6e6171e546d79b0b6acf6be6"
+    sha256 cellar: :any,                 arm64_sonoma:  "782c075b1f292869c35cd672c77479d397a206241aeca6d2742fc96416359468"
+    sha256 cellar: :any,                 sonoma:        "eaa1c0a8ad18e38d3cc056d28381c986bbed34d1eac3c810bea1ee7e05fa5c94"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "24ee295cdd7f263103cd9cefb6c2261e87ea18294c934aa155d8f75d3fe834cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "070bca57f87dade19b402cc8b5a3dfb06b4b418fcdf8230e2e3ba4730b287798"
   end
 
   depends_on "cmake" => :build

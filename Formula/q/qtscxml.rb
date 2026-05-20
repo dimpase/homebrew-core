@@ -1,15 +1,16 @@
 class Qtscxml < Formula
   desc "Provides functionality to create state machines from SCXML files"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtscxml-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtscxml-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtscxml-everywhere-src-6.10.2.tar.xz"
-  sha256 "0f9c178db3f1b1b06d20172aaaa4d7f5513bcb99de01f880c29e23b5ffdd236a"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtscxml-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtscxml-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtscxml-everywhere-src-6.11.1.tar.xz"
+  sha256 "8e495245e5d1fe75de612c8a07e4043635407a1979bb1dd588f1751d1390203f"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } }, # qscxmlc
     "BSD-3-Clause", # *.cmake
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtscxml.git", branch: "dev"
 
   livecheck do
@@ -17,12 +18,12 @@ class Qtscxml < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "2b869d1f7717baa90b0d1a6331edd1f8cf5c87a871c54066e0246cb659d07191"
-    sha256 cellar: :any,                 arm64_sequoia: "e4fafc8f713f6ebb19a40083d9b7b488cf960959bc61f34a4af24558a584de3b"
-    sha256 cellar: :any,                 arm64_sonoma:  "fa210670a0846010df327a81a767e975f328074f3ecc067c1885b718d590ace8"
-    sha256 cellar: :any,                 sonoma:        "b598c56b0de80af53de2a4f418613681e0b3a4919d0d8ba17b014da8df71b5ec"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "5ff03b11dc64d6f0bb74d60bd87b7a62897619680df448caf22de1bd3418ba7a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8d1e8bcfa1cc8d21a56e3b2684269b4d5907c59ec403f01269ffd48e576f077b"
+    sha256 cellar: :any,                 arm64_tahoe:   "60d0280424a2e901869fcffb99ba99bac966c2ca4da32df15f541e06195a0636"
+    sha256 cellar: :any,                 arm64_sequoia: "aa0866441cceea9086cfb79d73c312932d2c56c4d395742f595030c0dcb5cf88"
+    sha256 cellar: :any,                 arm64_sonoma:  "25091bd29a1743a87072e37d1a91ff28d5e09b614b90e405acd74e4bbff27943"
+    sha256 cellar: :any,                 sonoma:        "28b5d7545f4d6c14f1eb3928ce0e76ef4ec9ba7d3a2c05ecc375de1aad2b7ef7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b1a1e62e347a76126f157285bd3ede9d067d6ea02bc8ef452b008a81fb366d9b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "091b04a37cb8bb3b18219ef2e975088834bbc260c9109a4263b16834703d4bd6"
   end
 
   depends_on "cmake" => [:build, :test]

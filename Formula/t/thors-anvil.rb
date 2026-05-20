@@ -2,18 +2,17 @@ class ThorsAnvil < Formula
   desc "Set of modern C++20 libraries for writing interactive Web-Services"
   homepage "https://github.com/Loki-Astari/ThorsAnvil"
   url "https://github.com/Loki-Astari/ThorsAnvil.git",
-      tag:      "9.0.16",
-      revision: "88d1bf13c87b8371bd1cbdb9b5b59f162f695df8"
-  license "GPL-3.0-only"
+      tag:      "10.1.1",
+      revision: "073c62d5082ee755993b3ceb9040151094091de1"
+  license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "aa4ad5afb6f88b6de673194e2c107f1fda57415b4700f22b596ed274688f6c68"
-    sha256 cellar: :any,                 arm64_sequoia: "99c8581e1a7941e66aec96d1c6da137cd3717079533d8c5db753eaf753559775"
-    sha256 cellar: :any,                 arm64_sonoma:  "72609ee5746a5631b60a58cf18a609a93ee3547a8ae1534d70ce4f1ff3d7c956"
-    sha256 cellar: :any,                 sonoma:        "e8732302e5a5fee528944b34703e904b0cde5e37da4472c2acae2ea214c86a43"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "09029eb539828376b66ea49added792f3e2914461529fe3f81424bb872d1ab3c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "641579bf11aa4c8c0e4636ac86856ee1e3b20ab3fcaf3634ff0595024d2f075b"
+    sha256 cellar: :any,                 arm64_tahoe:   "3a8ea97875ea6416f456e3a2b13eb07e97e5a957260d9206f3514dad0e725629"
+    sha256 cellar: :any,                 arm64_sequoia: "75adcec00f7e646ab615863bd98510586b690dd3d103e8b71de69460d0b777ba"
+    sha256 cellar: :any,                 arm64_sonoma:  "571e600376a7d7115ad68c5b7ab09b2d5c5d39a9cfd509aeb721d95fee7c7400"
+    sha256 cellar: :any,                 sonoma:        "b6230d8dbcbe0de4cecf4733f11ed21bcf1d1ae15ea9e911f04d9c9f62c3079c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f4de984031619969acb0e2469a7c0755ccf55cfdc017a25c5d15508cda438080"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "58c4f9c2a0fe31f6a9bde1e961ffb8b4cdde0d3cb661c5eac1bd76a87067d61f"
   end
 
   depends_on "cmake" => :build
@@ -42,8 +41,8 @@ class ThorsAnvil < Formula
                           "--disable-Mongo-Service",
                           "--disable-slacktest",
                           *std_configure_args
-    ENV.deparallelize
-    system "make"
+    ENV["DISABLE_CONTROL_CODES"] = "TRUE"
+    system "make", "-j", "1", "JOBS=" + ENV.make_jobs.to_s
     system "make", "install"
   end
 

@@ -1,18 +1,18 @@
 class Libpulsar < Formula
   desc "Apache Pulsar C++ library"
   homepage "https://pulsar.apache.org/"
-  url "https://dlcdn.apache.org/pulsar/pulsar-client-cpp-4.0.1/apache-pulsar-client-cpp-4.0.1.tar.gz"
-  mirror "https://archive.apache.org/dist/pulsar/pulsar-client-cpp-4.0.1/apache-pulsar-client-cpp-4.0.1.tar.gz"
-  sha256 "4eced48fe96639fb55a69673fb0eb62906d81d9e5dc924a0e7ca8e7c2fb9b978"
+  url "https://www.apache.org/dyn/closer.lua?path=pulsar/pulsar-client-cpp-4.1.0/apache-pulsar-client-cpp-4.1.0.tar.gz"
+  mirror "https://archive.apache.org/dist/pulsar/pulsar-client-cpp-4.1.0/apache-pulsar-client-cpp-4.1.0.tar.gz"
+  sha256 "e06120720dc40dd9daf05ad9c8aa1b27c1cf28f952a2905fed2641e749f33857"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "c3e54cb335c9b181a74975e7f24f6ed786731e6518385c92214488f647fee9eb"
-    sha256 cellar: :any,                 arm64_sequoia: "754f9a808a4519a308ca1ae6c24cf7cf234bb8c9842e3ae355772a7c7da2444b"
-    sha256 cellar: :any,                 arm64_sonoma:  "b6814f439023fa46ffe84e3529f0660021f5cb19fb2ba520316519c8d1ba55e7"
-    sha256 cellar: :any,                 sonoma:        "84538528c5c980252c6d285d0411fc7ab6af75d6d022caba4887b0ddb20101da"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a848c0d2d3e08dd9c889cf080e7180464624036c8dc35e086166be33093f6dc7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2902e66a53694ce8a972c7c59927309f8e8c4fd75c04218a067bdd1443702773"
+    sha256 cellar: :any,                 arm64_tahoe:   "387e10820be107d05aa3f298bcc0256131749798d2ddc7eb36f4954ba4afa3eb"
+    sha256 cellar: :any,                 arm64_sequoia: "d9ca742c87d4de90b3e20a2891cf62bdee8cbc73d32b454d079916ae51936d93"
+    sha256 cellar: :any,                 arm64_sonoma:  "ac0fa695219bf19abcab796ae5a726b1151cc9b1133ebdcb6981da8528dff6e9"
+    sha256 cellar: :any,                 sonoma:        "40886840fb331d76ddb1a2378761dac94ddeb8cd214124ec33ab701feec70eab"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "468ecfb427e717c18cf142f9c77d1baa38815e2f183e0ba18b5951d07dd00aa8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9a57367f1e2d370f75789fc01ed31e5c60a888672eee4f09c9b4b451352f991e"
   end
 
   depends_on "boost" => :build
@@ -30,13 +30,12 @@ class Libpulsar < Formula
     depends_on "zlib-ng-compat"
   end
 
-  # Backport fix for newer Boost
-  patch do
-    url "https://github.com/apache/pulsar-client-cpp/commit/b3edc60c5ca46c1df7e0090f7e418a684fd21553.patch?full_index=1"
-    sha256 "020877581ab90806d05ea2d443ca70e4bab9cebc68a640f8607b442b4ecc95fc"
-  end
-
   def install
+    # Fix build for apple, pr ref: https://github.com/apache/pulsar-client-cpp/pull/562
+    inreplace "CMakeLists.txt", "-mpclmul", "" if OS.mac? && Hardware::CPU.arm?
+    # Fix modern boost signature, pr ref: https://github.com/apache/pulsar-client-cpp/pull/561
+    inreplace "lib/AutoClusterFailover.cc", ".cancel(ignored)", ".cancel()"
+
     args = %W[
       -DBUILD_TESTS=OFF
       -DCMAKE_CXX_STANDARD=17

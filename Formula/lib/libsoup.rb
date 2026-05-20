@@ -4,6 +4,7 @@ class Libsoup < Formula
   url "https://download.gnome.org/sources/libsoup/3.6/libsoup-3.6.6.tar.xz"
   sha256 "51ed0ae06f9d5a40f401ff459e2e5f652f9a510b7730e1359ee66d14d4872740"
   license "LGPL-2.0-or-later"
+  compatibility_version 1
 
   bottle do
     rebuild 1
@@ -23,7 +24,6 @@ class Libsoup < Formula
 
   depends_on "glib"
   depends_on "glib-networking" => :no_linkage
-  depends_on "gnutls"
   depends_on "libnghttp2"
   depends_on "libpsl"
   depends_on "sqlite"

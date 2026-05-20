@@ -1,18 +1,18 @@
 class Ipget < Formula
   desc "Retrieve files over IPFS and save them locally"
   homepage "https://github.com/ipfs/ipget/"
-  url "https://github.com/ipfs/ipget/archive/refs/tags/v0.12.2.tar.gz"
-  sha256 "a0ea59e5847554ed9f9881d2da0e15a932cb10e5b3c0b8db8ce59e2f1b985aa8"
+  url "https://github.com/ipfs/ipget/archive/refs/tags/v0.13.1.tar.gz"
+  sha256 "2c13bc811c4ac4610bf3e6b7bb8586e877c458a8d2f0414b56e29a75a5d677a1"
   license "MIT"
   head "https://github.com/ipfs/ipget.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "923f13f411c0c39287b54de28592d3aabb61fe5d17233ff1c7d923ac77f0500b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dcada1f1081ce5b03656196925e3329c5bc438747961287065508dd9fa299b11"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1e1b5185d5069d07eb7850338f2a025bc1f4299db0be436ba2dbdcf286c412aa"
-    sha256 cellar: :any_skip_relocation, sonoma:        "341d791a4ac73a83042b64acc8778689b5c53115d64838ff6b4426fd2b98b578"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "c865bd7b7d38f0127ea8aca3d89dbdca91e06e3a2df4771c9a2a888834291deb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "af41d59456696e27ea85444a10b1b5df77ad6b47e61065d25f2f34d3fdf46b38"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "61d41d721f5d93799d5cb4422f3b44d09f602160c4cbcc4b8c974fb6a1c9eb68"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6d63e98d336bf8dc7f11680ad7ea1af775c13280d50d1b5fa911f5b20acc0ee9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c1556693bcd82e85ddf273f098ad2d7609ad6bb8cc439605a52151dde917dbcd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d2660824a7d3b97aa24936aa84ff595ca09f7e0c885cd698761674d45a8b0c31"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "00d6bfd3b6dea6292bafd8c7bc438d52681941dd52c5ee317ab7080b7921961c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd6dafc463b658a9d6db25cc3ed8ad20fbbac60736dfacc4b9da08425eeed1eb"
   end
 
   depends_on "go" => :build

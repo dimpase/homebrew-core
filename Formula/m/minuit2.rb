@@ -1,8 +1,8 @@
 class Minuit2 < Formula
   desc "Physics analysis tool for function minimization"
   homepage "https://root.cern.ch/doc/master/Minuit2Page.html"
-  url "https://root.cern.ch/download/root_v6.38.02.source.tar.gz"
-  sha256 "77d34d2bca0ea720acfd43798bcb5d09a28584013b4d0a2910823c867d4bfa42"
+  url "https://root.cern.ch/download/root_v6.40.00.source.tar.gz"
+  sha256 "676f8fde8926ce05902be7f44ce7d492a4a2060022fcab0e3d1c44f6dc0fbde8"
   license "LGPL-2.1-or-later"
   head "https://github.com/root-project/root.git", branch: "master"
 
@@ -11,12 +11,12 @@ class Minuit2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "db2f5fafc753ead3e5679f493e733c5d8d1190486e3eb6e38bf64c085972581c"
-    sha256 cellar: :any,                 arm64_sequoia: "437731ea195f65f9ef7806349db0b2efa14dd7b8adca245ec174ae9f020ca3e7"
-    sha256 cellar: :any,                 arm64_sonoma:  "42427e3423799813978f5b65153f59e0942c2302945073403189ec1ae0fc05df"
-    sha256 cellar: :any,                 sonoma:        "a9b92c8c50ae1fedef959c93430b2d69968cca1e0d8ba6bd73966ae39585dd9b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "00e37cba083d79910f84213200d9434c2b7228b5e3846749683f09a897fede5d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8431a7c9a3d2263327b3c4856b93d68d68779fc1d49787231356e3bc5cf6f913"
+    sha256 cellar: :any,                 arm64_tahoe:   "9aa7a1f85d57ca601a02436acb6a96e67bb9f4b6f7cc7baab8d5d077b7295382"
+    sha256 cellar: :any,                 arm64_sequoia: "2c107e35c37e5f8ca47462391111188a06b0d4fd522a2843c554823a332fd5cc"
+    sha256 cellar: :any,                 arm64_sonoma:  "5a288fc91edbff975b071f720513ecd5f1270cd909199ba1c1f5260b44a8fd0b"
+    sha256 cellar: :any,                 sonoma:        "804d9df81e3dde8a0552a49a97a715e02e48b727d912b7bc1bb3a45e9d670f07"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bb15a622b794c75f6f521003e8273f3c04cf819b9bd943e3ac4b91443ce6976d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "23d51c99791c20bf97c3e131c33f6dbc26fa102b1a741eabb73ce68b37e91dc6"
   end
 
   depends_on "cmake" => :build

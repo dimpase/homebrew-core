@@ -1,18 +1,18 @@
 class Falco < Formula
   desc "VCL parser and linter optimized for Fastly"
   homepage "https://github.com/ysugimoto/falco"
-  url "https://github.com/ysugimoto/falco/archive/refs/tags/v2.0.1.tar.gz"
-  sha256 "9f58c701ed27a30585ea85100c651e0a7c824da32a71d3f34cc9e42240c63e6a"
+  url "https://github.com/ysugimoto/falco/archive/refs/tags/v2.3.0.tar.gz"
+  sha256 "9a92e85dea65f1eebec5134f8921c21c98618e24966925a01c20dc6206b09519"
   license "MIT"
   head "https://github.com/ysugimoto/falco.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "aa56e8cf86a1a65bf5f97016cb35f3d482d546aabfa2858c0aa1841aa99445a4"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "aa56e8cf86a1a65bf5f97016cb35f3d482d546aabfa2858c0aa1841aa99445a4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "aa56e8cf86a1a65bf5f97016cb35f3d482d546aabfa2858c0aa1841aa99445a4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "abaeef9ec5555df7edd75fc9d93a52564d33de68793ab3ce057a35c2d7db0ed1"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "f8f7291bf7a25ce19f285c611b16d5eede6aeb81a58b9dd0bac6a228478b3f91"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f8f8e7daf73c9f0cf322278326d4299d09e9623a500ad483fce903f2e83476d0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "086b2b76fad2f0dd4b8ea6649e83bf0ef92993017af5a54ff8bc99767ce33b31"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "086b2b76fad2f0dd4b8ea6649e83bf0ef92993017af5a54ff8bc99767ce33b31"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "086b2b76fad2f0dd4b8ea6649e83bf0ef92993017af5a54ff8bc99767ce33b31"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d47997207c542444f842cd29eacb1e8640303c7f0567f406f7c4dd0c582d56e6"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "38ef3869019f89c1e828e7de5ef9edc49408d22d515c501e6858a4cca998cb1a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "25fb4c8711a5b526df05f7ad4d76f9a439c7fa9229c90c55d1ce6b1a9b0d94bb"
   end
 
   depends_on "go" => :build

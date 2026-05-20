@@ -1,18 +1,18 @@
 class CargoUpdate < Formula
   desc "Cargo subcommand for checking and applying updates to installed executables"
   homepage "https://github.com/nabijaczleweli/cargo-update"
-  url "https://github.com/nabijaczleweli/cargo-update/archive/refs/tags/v18.1.1.tar.gz"
-  sha256 "764cb9b6657fc0eca39479cd0c25c247e18c62e3bb278edec4dfcf2eda626c7c"
+  url "https://github.com/nabijaczleweli/cargo-update/archive/refs/tags/v20.0.0.tar.gz"
+  sha256 "7e9898ae686fe64c4cf75be5c4e9e6d5f6141371182a12e4bdaa806cfe321806"
   license "MIT"
   head "https://github.com/nabijaczleweli/cargo-update.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "5569dfa80bbe593fe7d57ec8606318172b7ff37069763b790be9f8185e62d126"
-    sha256 cellar: :any,                 arm64_sequoia: "8c87cd2c91339697c3f3bc7bebacc3a35734ce392079abcfcdde4974b5fc4c22"
-    sha256 cellar: :any,                 arm64_sonoma:  "390978799d026193d544e3bc3414228402f92c0b17919f0a5a6bc04841c77432"
-    sha256 cellar: :any,                 sonoma:        "0d055d98a8329702942537f5fd0b9a0682e00f3b775b753f20bded9f24303f63"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7226bf6277cd6bb74da2cb0bf3051314e89e223bdebe1b8e38d3a34a50ac4a70"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a7caf715ab9ce6a3bf47e55aeca020b658aa5c29ecea0d2b32b9851d194d8c36"
+    sha256 cellar: :any,                 arm64_tahoe:   "fe4438edd2b0ad384e385bfbb32f460ccad51413b7f80c0a1024ea194aaf31a5"
+    sha256 cellar: :any,                 arm64_sequoia: "4892acbd6dcb1f707c16d96e20c38bb99c5e58eedec66a3136cdb7e063247f26"
+    sha256 cellar: :any,                 arm64_sonoma:  "f2d8d6e3acd8dfcbaacae64d47c2f5c62a4d9c8ab56d714b58e34c147904ca17"
+    sha256 cellar: :any,                 sonoma:        "54b3b6fdffd16d8801b31091058a99f3868f824620686e7e875067744fc8951a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "983090fde7ee534126ef080f10eac11643ca76b4ff40d4422c5bd809d22265c4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cd00fe026dc90276e90e94c76c7e7e2bcd3f5cc361e3321f72bfa67eed3ce9cf"
   end
 
   depends_on "pkgconf" => :build
@@ -34,7 +34,6 @@ class CargoUpdate < Formula
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
     # Ensure the correct `openssl` will be picked up.
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
 
     system "cargo", "install", *std_cargo_args
   end

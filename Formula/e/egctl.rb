@@ -1,24 +1,26 @@
 class Egctl < Formula
   desc "Command-line utility for operating Envoy Gateway"
   homepage "https://gateway.envoyproxy.io/"
-  url "https://github.com/envoyproxy/gateway/archive/refs/tags/v1.7.0.tar.gz"
-  sha256 "a6796b3c9fa7020fca7bc62a030162958bba10a82112166f2d0bc55c53484ff9"
+  url "https://github.com/envoyproxy/gateway/archive/refs/tags/v1.8.0.tar.gz"
+  sha256 "3b00403aa99eda90cc4d1194648640a71aff416a9447eae983278b0df04948e0"
   license "Apache-2.0"
   head "https://github.com/envoyproxy/gateway.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "6b94c37f45ef996bff37cd86407b4407959959d208afad4507f7487e81154b14"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "962c5112ad45902f39793c5e7afe7e955937892b86d9adf5816bec1a84c781d1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2438e25b32efcddf0c003cf08232a6a61ae262be847d08b8780a4cee8cd97980"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8f598b68ff7e2b02009cefb20dac05448b194e4816459ed2ed4aa06aab2f71ec"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "15db997264ffdf2fdea3814c84de6b0ea3fcb1b25375a82fecb336965067af3a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6e7ae1580ab2e9001bef9b3ac40196e255be2a76e122acd12bb8da73388aa03d"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "57a8dd3f8378ff0313e9521cb44b1a19555966c8b28632db414ed35911739b0f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "920d64ef2005f038408c65ac121c90d257cc936db7026cd954e512293dbd9588"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2a401f82c348ade9f327afb5be8d284eb5bf5733b266d389434cbb1e04471b85"
+    sha256 cellar: :any_skip_relocation, sonoma:        "62f07e4ad23f1c73a9c840dc15bb9817b97118be9f8d3619212ce139a45dc6be"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2527a8e853ff28a31b47657f306eb960c49ccd3ae34ab7fb83e1fc986afcc899"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "40710f01cb3ce90790f0aa00da1425cfeaa56b697e806146ba17397fe6b48ab2"
   end
 
   depends_on "go" => :build
 
   on_linux do
-    depends_on "btrfs-progs"
+    on_intel do
+      depends_on "btrfs-progs" => :build
+    end
   end
 
   def install

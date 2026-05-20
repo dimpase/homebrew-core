@@ -3,18 +3,18 @@ class CodecovCli < Formula
 
   desc "Codecov's command-line interface"
   homepage "https://cli.codecov.io/"
-  url "https://files.pythonhosted.org/packages/8d/61/a9fb6cd8b44671d078f86893985b8f430c1796b5f0c63a0e1d1929c0fe75/codecov_cli-11.2.6.tar.gz"
-  sha256 "fcd87c0af11809fd17c52638f16243b35be2e067011f916a04d0f1115bed39ef"
+  url "https://files.pythonhosted.org/packages/5d/a6/7de4ab8ac19a3ab83b1844173c5dc4a819c55f7fa6c2dc7aa7c47ada6075/codecov_cli-11.2.8.tar.gz"
+  sha256 "39daded2fe9f618fdd7e249891d5cb1e4fb413c203b8a83d5d0f79c18b674ac4"
   license "Apache-2.0"
-  revision 1
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "ff68612624b256edcce4620bd2abc969f32c49d6943412ef536d0dbd7d2544b5"
-    sha256 cellar: :any,                 arm64_sequoia: "3c682a905b6fbdccb30b933ea79eea61c76eee166cd477bd2db31a0270ce0848"
-    sha256 cellar: :any,                 arm64_sonoma:  "d3a443fd75f81d3c4527be2e9cbe571d8eb2e62a149141de59827b9f1d3f43a3"
-    sha256 cellar: :any,                 sonoma:        "6620b3869eddee239e14b4a419f518acc61a10ad15cf3d3618892e3bf69ebf74"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e61efd7c3e31ad16cb0e8d887615fec9f18593d1e963e1e742f7b35566b019fa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "65cb7ef07968850b7c26c1f5e689aca2da5741dcc93e18997305c4c853148425"
+    sha256 cellar: :any,                 arm64_tahoe:   "e2b15a939a4b42cf2e0568f81180b7f6fef45fe9a05ef673b8336e2e6606c1c4"
+    sha256 cellar: :any,                 arm64_sequoia: "3ec3c437f4f200c09a9e912aa2bcfa74926e91919e465b964e5558604429aad0"
+    sha256 cellar: :any,                 arm64_sonoma:  "454f4dfb81de213a2f15fc2c589c466780af23eb7c33323f0b4c36758a29b580"
+    sha256 cellar: :any,                 sonoma:        "607e95ca77409c7d6db8baf1d7ecdab29cc796b13c3c8926f6878c6c7cd76e95"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "09bc194013aefdd3f1a8577808bd75795b3ec4a6f00876d2e278fd9a4d17884a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "33fec18c637e4f92c143f8da1658851b5c82acef5ae80cf42b1f5d9bd765483d"
   end
 
   depends_on "rust" => :build
@@ -25,8 +25,8 @@ class CodecovCli < Formula
   pypi_packages exclude_packages: "certifi"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "click" do
@@ -35,13 +35,13 @@ class CodecovCli < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "ijson" do
-    url "https://files.pythonhosted.org/packages/2d/30/7ab4b9e88e7946f6beef419f74edcc541df3ea562c7882257b4eaa82417d/ijson-3.4.0.post0.tar.gz"
-    sha256 "9aa02dc70bb245670a6ca7fba737b992aeeb4895360980622f7e568dbf23e41e"
+    url "https://files.pythonhosted.org/packages/f4/57/60d1a6a512f2f0508d0bc8b4f1cc5616fd3196619b66bd6a01f9155a1292/ijson-3.5.0.tar.gz"
+    sha256 "94688760720e3f5212731b3cb8d30267f9a045fb38fb3870254e7b9504246f31"
   end
 
   resource "pyyaml" do
@@ -50,18 +50,13 @@ class CodecovCli < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
-  end
-
-  resource "responses" do
-    url "https://files.pythonhosted.org/packages/6d/db/b949a6bf2a75c64caea0a6b39d05e433aa2e51bea78ae9d5dda1110b31a5/responses-0.21.0.tar.gz"
-    sha256 "b82502eb5f09a0289d8e209e7bad71ef3978334f56d09b444253d5ad67bf5253"
+    url "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz"
+    sha256 "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed"
   end
 
   resource "sentry-sdk" do
-    url "https://files.pythonhosted.org/packages/40/f0/0e9dc590513d5e742d7799e2038df3a05167cba084c6ca4f3cdd75b55164/sentry_sdk-2.48.0.tar.gz"
-    sha256 "5213190977ff7fdff8a58b722fb807f8d5524a80488626ebeda1b5676c0c1473"
+    url "https://files.pythonhosted.org/packages/54/a2/2e6c090db384cc515069f4f85542bd5baf6786852073020ea73d4a76d3ea/sentry_sdk-2.60.0.tar.gz"
+    sha256 "0bd25e54e78ca02d0be512529fa644bbbf9e8470d7b26371294012d4ca93c978"
   end
 
   resource "test-results-parser" do
@@ -70,8 +65,8 @@ class CodecovCli < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
-    sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+    url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
+    sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
   end
 
   def install
@@ -97,6 +92,6 @@ class CodecovCli < Formula
 
     output = shell_output("#{bin}/codecovcli do-upload --commit-sha=mocksha --dry-run 2>&1")
     assert_match "Found 1 coverage files to report", output
-    assert_match "Process Upload complete", output
+    assert_match "Upload queued for processing complete", output
   end
 end

@@ -1,18 +1,18 @@
 class Kekkai < Formula
   desc "File integrity monitoring tool"
   homepage "https://github.com/catatsuy/kekkai"
-  url "https://github.com/catatsuy/kekkai/archive/refs/tags/v0.2.3.tar.gz"
-  sha256 "5d415a85c9aad979e03d713235f5645f6af3c20f6d97977d0a524cdfe5929a76"
+  url "https://github.com/catatsuy/kekkai/archive/refs/tags/v0.2.7.tar.gz"
+  sha256 "b07c132c6d478c388d3ef3c2601bc2b04917ed0c9732d37dd68587b5b460ba74"
   license "MIT"
   head "https://github.com/catatsuy/kekkai.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "069d916c86b2c551acfcfb1f63ff4b7fa29fa05a6226b5271615ba7937122800"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "069d916c86b2c551acfcfb1f63ff4b7fa29fa05a6226b5271615ba7937122800"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "069d916c86b2c551acfcfb1f63ff4b7fa29fa05a6226b5271615ba7937122800"
-    sha256 cellar: :any_skip_relocation, sonoma:        "62fe8b61a2d9bf094ed294705be8f651d35d9ff2c6c2f3d12bbb82ef2929e05d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "362f4b7975b61b945fa8562448a8efe7673828fb1523abe88c411caa4a0108d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9223b677d2ce3c8050ba6ecaabb4dd89e8004f43d5fa661df3d86b3bedc464a1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "54d2e7c252146a68b0a8cf26388ffab317bc80b9ae36d7ddc7f415e3d71bf39a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "54d2e7c252146a68b0a8cf26388ffab317bc80b9ae36d7ddc7f415e3d71bf39a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "54d2e7c252146a68b0a8cf26388ffab317bc80b9ae36d7ddc7f415e3d71bf39a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b3d91d7f52f339ff6dc783a21b6883a5f6b430e7f126bdb88c72ae27d40c5c61"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "76c30905742e5c0762be30d8b6e8f5327924f091f162bc6933c9249ff0dbfd4f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ccb1bdee3af1e45115ebd8010258d8426f24f41af9da6afec99a1c4b641f3142"
   end
 
   depends_on "go" => :build

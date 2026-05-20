@@ -2,21 +2,17 @@ class RaxmlNg < Formula
   desc "RAxML Next Generation: faster, easier-to-use and more flexible"
   homepage "https://cme.h-its.org/exelixis/web/software/raxml/"
   url "https://github.com/amkozlov/raxml-ng.git",
-      tag:      "1.2.2",
-      revision: "805318cef87bd5d67064efa299b5d1cf948367fd"
+      tag:      "2.0.1",
+      revision: "a7d61b56d2e0e6e263e4686bcbd0017659b37711"
   license "AGPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:    "c74c9931e040c4511002c51f6828473eb44842300ce6f4aab7052279d156b0ca"
-    sha256 cellar: :any,                 arm64_sequoia:  "4f7e500c5a3615a4c814bf38bd8720a745c4155827910f4cd5638113e129d2c6"
-    sha256 cellar: :any,                 arm64_sonoma:   "bd6bd94ccee20b21d5c9146a8bc4a484c261a11586224ec4303a2d269590b32f"
-    sha256 cellar: :any,                 arm64_ventura:  "6fcf4ec42def10fd485108f16f3d9c03f59f06ff72b663e469d7985332b99222"
-    sha256 cellar: :any,                 arm64_monterey: "a2e435fabdb95292270d576aa6fd6dceda14ad722cd12ccb916371b8aa01e0a4"
-    sha256 cellar: :any,                 sonoma:         "63100f2fe0b660b831fcb16cc08b299bf62a978d4c97949d87d5e09716b4670d"
-    sha256 cellar: :any,                 ventura:        "456c5f39dacdc8ce957c17d67f53410977c8217bc98ca45ba97c1df187442aa9"
-    sha256 cellar: :any,                 monterey:       "7bbd86f8a89f92287d21cab56e055333a5c5ec90e955b76f78d3c8a36cb9dda4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:    "9aa9f1417b9bf4ed64b5e690d2a6901d5c181cc9fd8e641589301b8118d2ab1b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "53e258a6db4cb2d05aa6013741ac3c2345a9d92da103a23d34dda647b8e8d532"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5a448506aeb79b7723b901babc8957c55ccd8f7140ed2cea884056b7c0cbaa41"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e7d87c78f2854133816e3df16ea36882138413ccab5c36933fa530c7897f9677"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3cf4a28e7921d618f72ef37ec17b9a22f159921468544873686b7656fa4091da"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e3cb8b87825f9482378ea6448b11c712bff87b5739428605b66ca2586ab1f2df"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a03b4f5f5f3df34d530934a4e3bd3e2097e73c76030c5c9fbc902d546340f822"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3df42702cd7ab6b0f56fa527b8c88e6431a9194261d779da62c7e6b707f7ffb0"
   end
 
   depends_on "bison" => :build # fix syntax error with `parse_utree.y`
@@ -33,6 +29,16 @@ class RaxmlNg < Formula
     args = %w[-DUSE_GMP=ON]
     # Workaround to build with CMake 4
     args << "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+    if Hardware::CPU.arm?
+      # `PORTABLE_BUILD=ON` still enables x86 SIMD paths on macOS arm64,
+      # upstream issue ref, https://github.com/amkozlov/raxml-ng/issues/226.
+      args << "-DPORTABLE_BUILD=ON"
+      args += %w[
+        -DCORAX_ENABLE_SSE=OFF
+        -DCORAX_ENABLE_AVX=OFF
+        -DCORAX_ENABLE_AVX2=OFF
+      ]
+    end
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
@@ -56,6 +62,9 @@ class RaxmlNg < Formula
     end
 
     testpath.install resource("homebrew-example")
-    system bin/"raxml-ng", "--msa", "dna.phy", "--start", "--model", "GTR"
+    # `--start` fails with missing `startTree` output on 2.0.0,
+    # upstream issue ref, https://github.com/amkozlov/raxml-ng/issues/227.
+    system bin/"raxml-ng", "--parse", "--msa", "dna.phy", "--model", "GTR"
+    assert_path_exists testpath/"dna.phy.raxml.rba"
   end
 end

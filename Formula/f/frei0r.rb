@@ -1,17 +1,18 @@
 class Frei0r < Formula
   desc "Minimalistic plugin API for video effects"
   homepage "https://frei0r.dyne.org/"
-  url "https://github.com/dyne/frei0r/archive/refs/tags/v2.5.4.tar.gz"
-  sha256 "e5536fe659682a3d0e7d98b759174ad8bf3e79bdda78d919d503d8c3d7fd35a0"
+  url "https://github.com/dyne/frei0r/archive/refs/tags/v3.1.3.tar.gz"
+  sha256 "dcf290cdfbe583d007c300aa7733c9350ed957a0e30ca897a5c098875b8aa5dc"
   license "GPL-2.0-or-later"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "83a704ab4dac3d6b9131f0dc07d5b7b24920cd66ecd04944bd5f1855d911cf9f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e0595e27076b86449411ea177aa1dff7fa16a0518a35417905d0c98ae6dab57f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "50a2a410e7278238b05203dab855b42eef28f1a508679a4d5680cafcd1f38b32"
-    sha256 cellar: :any_skip_relocation, sonoma:        "73a4e0d594d0fc5457ce573314418daa0d4d8ba562de4bbc919fb4e253e598c8"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "edad656a69181168df75cad299672ec9999f5a1965afd5c3a62b72704c341173"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c5a37bae2fdcc58f1bcd3ca60fbba703090986435b8bbd09f3cb738a5d256f71"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "cb1baea44ebcb0326f0dba61097f698ecff3e4f285fe762a2abe89e8c00f3686"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "335c72440b4b11ccde51af02d725619aa6575c55e030dbce2dd01064bb14d3a2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "78497853c70fc0008cd05b167286a8af83e407328a40ded6757a5e4809755a1f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e30e9aa5de02512b280e3759cb3c31a7950f54cfb2958ae8ed4267ec822f95f9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7e81d5aaa75f8af15983363ff563aa83206fff5eccc6a6aec922b817f6bdb859"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "142646aafd63ccbe84e942106a5697a470cd0a38837b9eab50670635eda1494e"
   end
 
   depends_on "cmake" => :build

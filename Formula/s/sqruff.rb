@@ -1,18 +1,18 @@
 class Sqruff < Formula
   desc "Fast SQL formatter/linter"
   homepage "https://github.com/quarylabs/sqruff"
-  url "https://github.com/quarylabs/sqruff/archive/refs/tags/v0.35.0.tar.gz"
-  sha256 "6a409100a292bb03b5c891c9ed42de39cc72f6dfcc788138e6b51f3b58c22241"
+  url "https://github.com/quarylabs/sqruff/archive/refs/tags/v0.38.0.tar.gz"
+  sha256 "1583ddfa25cb0e050788a4fc14dac5ede86eae60358337c9a5ac34b2ea059998"
   license "Apache-2.0"
   head "https://github.com/quarylabs/sqruff.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ed16860c96e33fc6b2c9cad858d6986b924c316a01bfc5d1ecdaac8b5ec6b589"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "958e0e2c5c18ff25252b437c2af241331a3803aab7ecf4e33986038865e908d4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f79792b438dbc25f3b851a6c2c5538b5978893cdf8cd7644af8106aa9ea19cd8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "05bb35786415fd019a9a97ca4303aa4d3d401a335b61fb5c7785d8baa7c4947b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b0b052176a4021cb95ce9aeb335252f2da78afd9b71968035bc39b10b073e5fa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0aae44016f8822a037c47efbbaa85e9c9f62444d0bc18e1af1c0daae95d36465"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2ab549ab645aabbb14466bddb3eda4374fb12b7de0418b20294f7792a72d9a56"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4694a98ad78b9d36a12c6d58510251f0f46e52161b8cebb171690f2e7c68ce25"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "693e56d035ec4b5bca30bab9b4144dc481ac87f0f87a8c928f8b69a373e37da7"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b400c50db746fc0037469a1306e3dc1d648afb4384100e57e520ce461616a60b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f94e0def5eea781a47f353bc4ee0daa33c238d93786a9cfa66837edcc1eb9709"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fc172f149f628abec76def7e4670d44fb0120d6e73b72c7bfb723592966b5fa8"
   end
 
   depends_on "rust" => :build

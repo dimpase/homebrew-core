@@ -1,17 +1,17 @@
 class Wuppiefuzz < Formula
   desc "Coverage-guided REST API fuzzer developed on top of LibAFL"
   homepage "https://github.com/TNO-S3/WuppieFuzz"
-  url "https://github.com/TNO-S3/WuppieFuzz/releases/download/v1.4.1/source.tar.gz"
-  sha256 "3bab829967b0998cab71ecb32c1bd5a7d5592a31ff0294097a172e62da8dcb71"
+  url "https://github.com/TNO-S3/WuppieFuzz/releases/download/v1.5.1/source.tar.gz"
+  sha256 "36fc2fade7e3a3901540c751f0e29c456ecb434dd171960e32a2d338731c09c9"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "88b347a48043a9fabed637be5f76981c331d097e060ef44cf3070c84cf7e96d7"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2e651f22d76f01e20450caa44a8fe62e62e8f81c4695cbbf8edc8f501df16c11"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a228bf77c3a643b39b536f39a9bd94c87ddc4f4ff86b2e5010182a1aed076a58"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f2d6b8dbde82e1d2a46c2db9eec1d2ee004b27483db72287a0b18c6692246d52"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "71fae217d613f5ef1948b7e531bca70a2229703cee391296e9676984a7ecc1e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6d75da71f6e2e2be6b0fac2cd7657442dfb755626dcbe7c5f329d46943435a07"
+    sha256 cellar: :any,                 arm64_tahoe:   "40403b648a9649ffa00439f8ff70cb50ac8b291a8ef133d96522523d74da0766"
+    sha256 cellar: :any,                 arm64_sequoia: "da82823caa0b43495e7d62a5f2f4c504873d51beaaa4cdfcdd88a8873e9ac660"
+    sha256 cellar: :any,                 arm64_sonoma:  "cd45177938db572afc15dd80364625f317f598804754d1407d530235ac8d9c55"
+    sha256 cellar: :any,                 sonoma:        "e020bd8b8d9a207cb8c6b82e8367fcfb036ca1f55151797528fda27fab7c0422"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7e3b32dabf15366d6b2d3115e3cbdc1163373eeab323a0e0d7c1ca8b8fcd8948"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8710a9684a8847af281a7cd362a1df61c182962a5860ee96c646a96bf4416f76"
   end
 
   depends_on "cmake" => :build
@@ -20,15 +20,16 @@ class Wuppiefuzz < Formula
   depends_on "z3"
 
   uses_from_macos "llvm" => :build # for libclang
+  uses_from_macos "sqlite"
 
   on_linux do
-    depends_on "openssl@3"
+    depends_on "openssl@4" => :build
   end
 
   def install
     ENV["Z3_LIBRARY_PATH_OVERRIDE"] = Formula["z3"].opt_lib
-    ENV["Z3_SYS_Z3_HEADER"] = Formula["z3"].opt_include
-    system "cargo", "install", *std_cargo_args
+    ENV["Z3_SYS_Z3_HEADER"] = Formula["z3"].opt_include/"z3.h"
+    system "cargo", "install", "--no-default-features", *std_cargo_args(features: ["std"])
   end
 
   test do

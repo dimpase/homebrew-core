@@ -1,8 +1,8 @@
 class Stackql < Formula
   desc "SQL interface for arbitrary resources with full CRUD support"
   homepage "https://stackql.io/"
-  url "https://github.com/stackql/stackql/archive/refs/tags/v0.9.339.tar.gz"
-  sha256 "bae69713e69ee7c80efff86dcb2ea3ec5564e7d1879ae5c4697aedec91910b09"
+  url "https://github.com/stackql/stackql/archive/refs/tags/v0.10.474.tar.gz"
+  sha256 "49b1f34aef5119bae13bfebde226af7dcc48db2823e993ebdd6a8cb9c9c724aa"
   license "MIT"
   head "https://github.com/stackql/stackql.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Stackql < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ad3d5d4e2be60590d1a5c2fbaf01772d437e35d423021f9acd9b7ac574ece899"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1d451913c26363af2eed45e4c3bf73c845137edf0785079ef1f2eb1a5e234091"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ecf8767b1629750556485b4e88b8786fd0b86594a34aaac0026c66f8d0223291"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f0dc33dda333c84d8b267b022b4c3c3bb0473fd381fb25337d3618d632582e56"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "75dd3bd12e669bda2f10a9374d38d41dc2064271ea01b3d3cbc357f869938f46"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bd2b0015ec92c6f444cd070d30c1415b84e1f2ab6d12e0c3982aa37969ae30eb"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0d01fd3485d536f05a90752b5e003a739f07c383548bc7810ac943d8356df2ca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "539091e9f5d38859552ca3426fd1b647d57a25db193d35b69352bf70b70ba37d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a452df40e3e2632f40777b2f5817c8e173fa68948b40109d2511294893735d56"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1576d501adc5e6bcf8daf4e893e6ab9371d11dffcc14ea29a09c299f3e29d5d5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "aae21ff1d0bd3bb6ba7079bdbfcb9ffb2c6c2d177027630a830e089dd5abd715"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "20c21e23f58d7509611a3f6046688edcf527e360f56cef209f6d67f77af63ede"
   end
 
   depends_on "go" => :build

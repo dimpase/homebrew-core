@@ -1,18 +1,18 @@
 class SlackMcpServer < Formula
   desc "Powerful MCP Slack Server with multiple transports and smart history fetch logic"
   homepage "https://github.com/korotovsky/slack-mcp-server"
-  url "https://github.com/korotovsky/slack-mcp-server/archive/refs/tags/v1.2.2.tar.gz"
-  sha256 "efac7f244c45250fd8165cd25c77559805d6c24dabaaa7d8f4e1b8ddc09f195b"
+  url "https://github.com/korotovsky/slack-mcp-server/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "815b7852124b33823bd33f9d505149b876cc3a220259e379687304a19957f916"
   license "MIT"
   head "https://github.com/korotovsky/slack-mcp-server.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0bb4eaa736ce2d4e036907b0e0c29e5106ddd8f96e3b078815348745bf448332"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0bb4eaa736ce2d4e036907b0e0c29e5106ddd8f96e3b078815348745bf448332"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0bb4eaa736ce2d4e036907b0e0c29e5106ddd8f96e3b078815348745bf448332"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e424325e147a2bb97d335e93ebfc653e25326b3096ed4c8653addc821909a1c9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3240e93fae2b81f8b7f52769663eee2b32f5e93364e30c1403697e08e01b7b27"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "32a60e7a7e1d7aaa740f2b9922219971747f910e78d4413427e800ff66b91b3a"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "15e366083bce32ec803d35696e78194e86ae63dba5feb887c7f401bce88b50b1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "15e366083bce32ec803d35696e78194e86ae63dba5feb887c7f401bce88b50b1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "15e366083bce32ec803d35696e78194e86ae63dba5feb887c7f401bce88b50b1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "793d25b798febe652e174a21738a0ec3e0ee9efe289b0c6eaac415d3ba92ecd8"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9f2faa5acbdb0475681164cc2e986b268ee66796c78a7f1c4fc472bcfc6c3257"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4420b5c9bf2461ad14b153eab81b039f407d1ec97a98db8916aaf3c81233c52"
   end
 
   depends_on "go" => :build

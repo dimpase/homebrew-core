@@ -1,8 +1,8 @@
 class LibvirtPython < Formula
   desc "Libvirt virtualization API python binding"
   homepage "https://www.libvirt.org/"
-  url "https://download.libvirt.org/python/libvirt_python-12.0.0.tar.gz"
-  sha256 "7b4de7d2dde2bc380cf4e108d1eeb8aad50beb3ae351ab9265a7fedc587742bc"
+  url "https://download.libvirt.org/python/libvirt_python-12.3.0.tar.gz"
+  sha256 "cc472e54c05a86db26e21358e1e8554bc85fea3cac6fe2b90e60e6a06e496a8d"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,12 +11,12 @@ class LibvirtPython < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "f414cfa15ca808ef01a40d3effec900bc597b210577760838efc168bb705f8b6"
-    sha256 cellar: :any,                 arm64_sequoia: "979fb783af4eac003e83974e3d2156fe453e786b05e45cb9760e64b1926021fe"
-    sha256 cellar: :any,                 arm64_sonoma:  "2d435ef923c48bbb1caa350f85216f20ce7c29ab37ca3caa787a00f1da8880b2"
-    sha256 cellar: :any,                 sonoma:        "17de2033b542a2cd04e0d5897dfa6bfd8b93d159538f466e72c4cfc65c8bae0a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "cdea3bced181acc35e4277250a0bdebd0d7f9bfb341e73256b6d39b6068db492"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "48db6a4c220d19b56f1b1495bfffec2d4c6830ca2d6f5844cbc5e00d508721bc"
+    sha256 cellar: :any,                 arm64_tahoe:   "c86cd5a04f8e4be668958fd8630e95906f75ff1b802400eb49c309556ccc966c"
+    sha256 cellar: :any,                 arm64_sequoia: "37dcc7dc9666c8b7b652751af32aecf7d28eecfea5de66a1731c1374f0a220d4"
+    sha256 cellar: :any,                 arm64_sonoma:  "f624d1053d9952e97e0afd60cb73e125f1b5c7d5e56f561993ecca240a23090f"
+    sha256 cellar: :any,                 sonoma:        "af5dc9881e66eb3611de34c68efb5d0df0c0d22261ccc04abd28cb4f87a7ab26"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "54845f7a2d96cfcc7f9cfe2342481d9b8aa0513cb525380c692c9b65d3c540cc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aaeb22eaa27aed209aba6495765b3d7057a0496ed2eea6fbc8d1eac2e59c3243"
   end
 
   depends_on "pkgconf" => :build

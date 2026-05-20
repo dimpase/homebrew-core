@@ -1,10 +1,9 @@
 class OsrmBackend < Formula
   desc "High performance routing engine"
   homepage "https://project-osrm.org/"
-  url "https://github.com/Project-OSRM/osrm-backend/archive/refs/tags/v6.0.0.tar.gz"
-  sha256 "369192672c0041600740c623ce961ef856e618878b7d28ae5e80c9f6c2643031"
+  url "https://github.com/Project-OSRM/osrm-backend/archive/refs/tags/v26.5.0.tar.gz"
+  sha256 "3e4f5ed09ac0c77158314ef99b5f8c9e336a80339b3f0e62da48abd06acafef9"
   license "BSD-2-Clause"
-  revision 2
   head "https://github.com/Project-OSRM/osrm-backend.git", branch: "master"
 
   livecheck do
@@ -13,30 +12,44 @@ class OsrmBackend < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "edfb58fb08cdb110fbe738784b979f256da6e7f34af49fc6d667669fc41d3f4a"
-    sha256 cellar: :any,                 arm64_sequoia: "99d0f1dd0fe21b15366c661cdbb8716fa5753a0b2b1e5473c485e80a372518a2"
-    sha256 cellar: :any,                 arm64_sonoma:  "7002b90376549c85c6b5d7beca1d1afa39cbe9cbdcb0f904cb825e611d0c1ca1"
-    sha256 cellar: :any,                 sonoma:        "a7df306403150d35d66ce2a2fa96a3ea12cbd9021468cbdefe6b30560398af46"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e68d7ae70beae95b5aeef1840affbac9d0774000bb6014791e4262b0eedf208e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2fed92de2c0585e16bb7a1c2d2cc8b9538d935b93814aa4f800732ca26a60062"
+    sha256 cellar: :any,                 arm64_tahoe:   "84138f03e657f278268fec3452528a0a16ae00d2bf1a379c0a36b00d291e0336"
+    sha256 cellar: :any,                 arm64_sequoia: "f304c8b3b0cf01f32755c7f472cd928ccbf1a49a7e8c4b30fa98a4f1646b39d0"
+    sha256 cellar: :any,                 arm64_sonoma:  "eeb8842755930eacd3d118fc2c063ab681bc6b4e6aa46d59c5fa560dab7540b3"
+    sha256 cellar: :any,                 sonoma:        "b31a1876ed038d5c877406d3c97a9886889e0966b166809f4e09e9c01f314efb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d055964b2f1e882312880082a475cc8c25bdf8297605e2a828b6f721964d005e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3bdece55d0dd9e5d1b482c0b309d9847f47dea5276320acd9649923541e22108"
   end
 
   depends_on "cmake" => :build
+  depends_on "flatbuffers" => :build
+  depends_on "fmt" => :build
+  depends_on "libosmium" => :build
   depends_on "pkgconf" => :build
+  depends_on "protozero" => :build
+  depends_on "rapidjson" => :build
+  depends_on "sol2" => :build
+  depends_on "vtzero" => :build
 
   depends_on "boost"
+  depends_on "libarchive"
   depends_on "lua"
   depends_on "tbb"
 
   uses_from_macos "bzip2"
   uses_from_macos "expat"
 
+  on_macos do
+    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1600
+  end
+
   on_linux do
     depends_on "zlib-ng-compat"
   end
 
-  conflicts_with "flatbuffers", because: "both install flatbuffers headers"
+  fails_with :clang do
+    build 1600
+    cause "Requires C+++20 support for `std::atomic_ref`"
+  end
 
   fails_with :gcc do
     version "11"
@@ -44,12 +57,6 @@ class OsrmBackend < Formula
       /usr/include/c++/11/type_traits:987:52: error: static assertion failed: template argument must be a complete class or an unbounded array
         static_assert(std::__is_complete_or_unbounded(__type_identity<_Tp>{}),
     CAUSE
-  end
-
-  # Fix build with Boost 1.89.0, pr ref: https://github.com/Project-OSRM/osrm-backend/pull/7220
-  patch do
-    url "https://github.com/Project-OSRM/osrm-backend/commit/5cea5057eb766a19fbecb68e7392e42589ce1d46.patch?full_index=1"
-    sha256 "51f4f089e6e29264e905661e8cf78e4707af6e004de4a2fba22c914d1c399ff5"
   end
 
   def install

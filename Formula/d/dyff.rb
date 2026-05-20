@@ -1,18 +1,18 @@
 class Dyff < Formula
   desc "Diff tool for YAML files, and sometimes JSON"
   homepage "https://github.com/homeport/dyff"
-  url "https://github.com/homeport/dyff/archive/refs/tags/v1.10.5.tar.gz"
-  sha256 "cdbf4aeb725e8134b2bf2e923fd192e599f57dd220f4f07ef48a0e7e76dc749d"
+  url "https://github.com/homeport/dyff/archive/refs/tags/v1.12.0.tar.gz"
+  sha256 "3edeb78b3166fc7ba4cdea1c9339eacbd57d768f27a77564adf58dc8819df75f"
   license "MIT"
   head "https://github.com/homeport/dyff.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "dd8444f9567cdd51eb68b4a2fdbd2637b49a04c7e10739466a7b0ba29045e5ca"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dd8444f9567cdd51eb68b4a2fdbd2637b49a04c7e10739466a7b0ba29045e5ca"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dd8444f9567cdd51eb68b4a2fdbd2637b49a04c7e10739466a7b0ba29045e5ca"
-    sha256 cellar: :any_skip_relocation, sonoma:        "06c1ff4710e1e70e556c2b8c755a7ca9a9e454eb968fa2655c681cfa4e6ad782"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "57371e02454e167edbbae1dcfc575f1723b097048982aa12192859a207d85a7f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d55443f246ca34d4a85d6fa6b2dd1a2c1a8f39e5e383b1c3a1e57c68a71ba465"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1da8f72c9d8bde308ad42399677949015c4e98b3aa5bff777ec120c1dd902974"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1da8f72c9d8bde308ad42399677949015c4e98b3aa5bff777ec120c1dd902974"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1da8f72c9d8bde308ad42399677949015c4e98b3aa5bff777ec120c1dd902974"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9fe6041d6fb91a7f4006cb9b43697580db1620c75bb34d4035a6f49daee610bc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "1fcf75f06d0b8faa6135bf9a00746193466cd33d7d181e4a25f6dd6fd0decee2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "952916e1820f70aae3a431bdfd2cc072822b9b488e9bc2ce1bcbda11471b9937"
   end
 
   depends_on "go" => :build

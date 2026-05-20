@@ -1,9 +1,8 @@
 class Wabt < Formula
   desc "Web Assembly Binary Toolkit"
   homepage "https://github.com/WebAssembly/wabt"
-  url "https://github.com/WebAssembly/wabt.git",
-      tag:      "1.0.39",
-      revision: "ad75c5edcdff96d73c245b57fbc07607aaca9f95"
+  url "https://github.com/WebAssembly/wabt/releases/download/1.0.41/wabt-1.0.41.tar.xz"
+  sha256 "ca9e69cc1de13b4633a3c74fd697319303b21108529d4f10960af4e1f4a65893"
   license "Apache-2.0"
 
   livecheck do
@@ -12,12 +11,12 @@ class Wabt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "0291da71b80bccf8fdef8e90dba77ed9b9224b979600be3b147991283d07a1de"
-    sha256 cellar: :any,                 arm64_sequoia: "64fa9dd1fdd02791106add72ebd733a5ffe62168403a0de3782085226969352f"
-    sha256 cellar: :any,                 arm64_sonoma:  "8a4313e460970d5917b1620ac72d5fdf8ebe46a10468c2341e15d0321315bc31"
-    sha256 cellar: :any,                 sonoma:        "eff82080d216c36405ed575b7ba8f117b5ea0c2c5a54069d66e421e2f39b3c94"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3762402996fb5c1148b09f78bf9cae956fe1b1c411f0523a3d7bc8e8be6dd395"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f0c0ca08d5ccfce51995c961ef4680d568ca98950adac3bb5af13724baf8afb6"
+    sha256 cellar: :any,                 arm64_tahoe:   "0c69784b6323ff4755c133fd21ef1c12f5ff2b389ddd55a163b4d46b84a74383"
+    sha256 cellar: :any,                 arm64_sequoia: "c0f0934c0ddbfca8923ed441c247426c43e532f0eada6c9fd80e89777e791428"
+    sha256 cellar: :any,                 arm64_sonoma:  "334b2517199cccd2d03e032c743c6221660ef3454b2926596f5a386fbebc2bce"
+    sha256 cellar: :any,                 sonoma:        "3e1fb5039b55bf2ec19fb20ef2d47ddca69429b4af37c1fc8405b4e1385fa24a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c7b2fea8041ace07a06069f591441f64776acb549eecfe793ae75c14355866b6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e2c1427ad7640607e8c7805656f7f8ab5f2ff32c0449a9025c0b590782deb69b"
   end
 
   depends_on "cmake" => :build
@@ -26,16 +25,12 @@ class Wabt < Formula
   uses_from_macos "python" => :build
 
   def install
-    ENV.append_to_cflags "-fPIC" if OS.linux?
-
     args = %w[
       -DBUILD_TESTS=OFF
       -DWITH_WASI=ON
-      -DFETCHCONTENT_FULLY_DISCONNECTED=OFF
       -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     ]
-
-    system "cmake", *args, *std_cmake_args
+    args << "-DCMAKE_POSITION_INDEPENDENT_CODE=ON" if OS.linux?
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"

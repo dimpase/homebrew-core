@@ -1,8 +1,8 @@
 class Logstash < Formula
   desc "Tool for managing events and logs"
   homepage "https://www.elastic.co/products/logstash"
-  url "https://github.com/elastic/logstash/archive/refs/tags/v9.3.1.tar.gz"
-  sha256 "323e9f399b863d96ac99154aef6796a5d1b55bc83716282100ca58073a105d45"
+  url "https://github.com/elastic/logstash/archive/refs/tags/v9.4.1.tar.gz"
+  sha256 "2e2876b8e0ce3aed1be13e0b06cd70ea7e45ebc1b7f393af7ab46e033b182674"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/elastic/logstash.git", branch: "main"
@@ -13,12 +13,12 @@ class Logstash < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0ac666a0fd5760cb2f0a00b4af95888dde04e3dfff76ff786753159e5c18454e"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "454d7331a6d2c2a055f3e98469e686aa1648c76c23d13723c27f7121a5bc1935"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7faaafee8f883c99f812c0eaca152269f0e1f386de40e134a0c7172e9dc94dd4"
-    sha256 cellar: :any,                 sonoma:        "4b441573f8657954e113b148571fe795a37bfe67606a7128864017fd9431522c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6ad07a814db24bf4a6f19feab2b7eff9a4880ac6a1a41d2392bf5de10abedba8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5e607efd3ae76c4a0d73c0a849546c122c1d4717d764088be9ff15f42288b8fb"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0ebf53b59c21e37f6824839c145caa75f68e6e0f824a550c020f151e7c1921f7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "13bba38cb75e7aea26fe607c8dd2efa2c44ccfeb2044889366ab62e8b425a7b7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "18124155d5fb074cf6640bbcde9577b7dfb9459452fc1fd05fb9ae0c849ce40f"
+    sha256 cellar: :any,                 sonoma:        "5558e11850e9cae3565bfd3200f50fa00e0e1030ef9e3b79f33685cceb2440ce"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "063d99d3ec703878f80f361f1d09dd9e1e37e025ee13d3ccb3f5a5fa0b492950"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fbb68245007d2b9b5e95aa54d4606ea6986cf77f627bf6b0bd36d5bf13731b5c"
   end
 
   depends_on "gradle@8" => :build # gradle 9 support issue, https://github.com/elastic/logstash/issues/16641

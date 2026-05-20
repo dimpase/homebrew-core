@@ -1,8 +1,8 @@
 class Azcopy < Formula
   desc "Azure Storage data transfer utility"
   homepage "https://github.com/Azure/azure-storage-azcopy"
-  url "https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v10.32.1.tar.gz"
-  sha256 "b1766cf6fbe798b4d57b51adaae86c442b5cf829e3ad8ef85b682b4acc239dec"
+  url "https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v10.32.4.tar.gz"
+  sha256 "7be97b7ebd84ca3bf80c1e158bf8f8b385745bc95468486b584f00e4a97897d8"
   license "MIT"
   head "https://github.com/Azure/azure-storage-azcopy.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Azcopy < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "58399f491b66ef2d86c62d04af516225d01da7579869d70164abac090aac8b06"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e734e0ec289211cc852d6d21b99e53324f45960b69ebfb950b8182440a856998"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62f8e7fd98945f45726eb7da105eb93c91cbb2e345842b90844035b79e1f8bb5"
-    sha256 cellar: :any_skip_relocation, sonoma:        "43d5701bf985abf9c2783aaa538732096ebb1a17e024a94d3cb0909ebcfcc7e0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "e172b2aceb629f26509208085e7f232ab44eed1e6b1cb5be19ab1d4bfa8de939"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f54b35681e16d7ad4b352e2fc245bb20ffaf78ba3cbccda7cf1a0d8803210c11"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5d1bf091bf97bee28207e94fb097fbbc8ff878efb42a55df80609a3e909102f3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2f2602bd20c5d1eae53fb7eca222f60c3ded53c068f04337c93af7d74d13ec12"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0a905266ceb80c5cf544f151ef0fb442578665f5b78a9a2c7378b0b3bb4f4ae8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "82802df3ad22b7e59e87290290c90e2e35a900b47034987c4158ef704404ec91"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f664673377ca06b69d241e91c82f7313183f73894b4af1b9a69af82a15e2bea8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3a283b4c781a7c2c270e1cf459fe3ff367ac35adc67e5c79aa512b37611b95a6"
   end
 
   depends_on "go" => :build

@@ -1,20 +1,18 @@
 class MagicWormholeRs < Formula
   desc "Rust implementation of Magic Wormhole, with new features and enhancements"
   homepage "https://github.com/magic-wormhole/magic-wormhole.rs"
-  url "https://github.com/magic-wormhole/magic-wormhole.rs/archive/refs/tags/0.7.6.tar.gz"
-  sha256 "1d76e80108291f0a31e1a0e2e1d6199decb55bec73bc725baacb93ea0ae06e5e"
+  url "https://github.com/magic-wormhole/magic-wormhole.rs/archive/refs/tags/0.8.1.tar.gz"
+  sha256 "90e8b1d7270a4c251f78376e10948c994df1a559152eca7eedd4aecbf70b70d9"
   license "EUPL-1.2"
   head "https://github.com/magic-wormhole/magic-wormhole.rs.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "39364a5af652c25322b8a54c683a2e79be6d37899841f8e233094bb3b529e874"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9a058269ba3e3e3c576f06dee4eb6a70314d3c0dd0719d515e6f56e33e111992"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a24e2037972109a21496b081c6fa088bb6b8b25f62f68a809f3a8d072a11560b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "94c8ee7bcc6387c3c52241a68a2477e615d39507720fe119d839b378274b09c8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d314198a3901d447399ad6ebd117abfec4ab8cd0f54baf6b5b3e9abcfff9175e"
-    sha256 cellar: :any_skip_relocation, ventura:       "9abb33389fee9aa69696240610c279ca352f31288734567abcab358b2d6f5316"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a29c5e0d8c9519a3d2ac5e19c27bcdd43cf9541f95a30c9610f71ccdd2fe586f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e782d1de02d84ac02c48447eaa78fca5a60b23d3131d3f661683f2ce41ec734"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fb6fc9ebd5dd3e8938121a9f5fe30a7f4da6761a6149aaa397815cfc55c4e730"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "13959efef8fb4cf5e870c1985756dd83b3ec84cda92716d23ca10495af073a58"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dae9b37b7d39c8b1cb28ce41a30e7dae0efcc83a7c83519bc868afe016087c73"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7816b8449b9c690c720d749c983c63daf3bd746ab332cd4673db098005b991b5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d5ac2b3ba20334153bab8f4360dc54576119c1ddb71306d2aa0c0e8bc7db79dc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "45aaddeca394e30d8e3e55fb4e9a707776dc37ecf146d79bcf15820741c99244"
   end
 
   depends_on "rust" => :build

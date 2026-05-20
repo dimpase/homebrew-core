@@ -1,17 +1,17 @@
 class Rtorrent < Formula
   desc "Ncurses BitTorrent client based on libtorrent-rakshasa"
   homepage "https://github.com/rakshasa/rtorrent"
-  url "https://github.com/rakshasa/rtorrent/releases/download/v0.16.6/rtorrent-0.16.6.tar.gz"
-  sha256 "94e8408a20332cedea45a4b5f09c69f0f0c54581e1b02e1d7f61f46fee3c41f2"
+  url "https://github.com/rakshasa/rtorrent/releases/download/v0.16.12/rtorrent-0.16.12.tar.gz"
+  sha256 "46e8b5e9b6daadaf5d3002a3bc5cbde25d6bdc0eb2f17177641cf47ce2d3ef86"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "256aabe0a7018e1fb00a457c8a3195e6912180eaff2737b760b7a6b3d2b3a1b7"
-    sha256 cellar: :any,                 arm64_sequoia: "77c8efaff4d31c57dee58509caa408cc48dd3b848a13bb0ccc07d99ad502e7f6"
-    sha256 cellar: :any,                 arm64_sonoma:  "dfdf509747ff9e5608382ab6cf87e0e7b7119ca191c7df6c758fa46c143e749d"
-    sha256 cellar: :any,                 sonoma:        "c30a5fd3e04cc54c1413f4718234dae0e4a967cbda0f048c419ace70ed6da8ae"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8d48dc3cfa9dd09b00a0c3fd48a578e9272513db3108e5bd0ead9932e50260fe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0f2022e6c4e8d22139a019b7007dce07d6b9105e5f6f81862ddd959e8196df3e"
+    sha256 cellar: :any,                 arm64_tahoe:   "db05d1872739eb1708a1546072c55520796acd3f6fc2d00b428a7c4e44952fbc"
+    sha256 cellar: :any,                 arm64_sequoia: "e909167183bebdc7fce846ed55885335f899896eb4a71965f2ebb54d09035121"
+    sha256 cellar: :any,                 arm64_sonoma:  "3b2c8c57d7d1a897f376c0ce072fa4837532267d58feab0135cab47ca8e2e614"
+    sha256 cellar: :any,                 sonoma:        "082798e2f2d3b7fce48691fe5bc0af7c7bac5a72fc26e0e245e682cdb77aef62"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7a12d46c2e59f95990f17e0e372b6a46b566f94b73e6b83daae36f7b96aafd49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "24411c938327c2ab403e2e2dbb197341712d0aa3d171431f7098754e58753712"
   end
 
   depends_on "autoconf" => :build
@@ -25,6 +25,10 @@ class Rtorrent < Formula
 
   uses_from_macos "curl"
   uses_from_macos "ncurses"
+
+  on_linux do
+    depends_on "zlib-ng-compat"
+  end
 
   def install
     system "autoreconf", "--force", "--install", "--verbose"

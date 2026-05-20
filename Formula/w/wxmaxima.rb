@@ -1,8 +1,8 @@
 class Wxmaxima < Formula
   desc "Cross platform GUI for Maxima"
   homepage "https://wxmaxima-developers.github.io/wxmaxima/"
-  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-26.01.0.tar.gz"
-  sha256 "1716c4f27636f909673f63ed0c7c30621683e35eb7bf05a5d5010fa67f0397f6"
+  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-26.05.0.tar.gz"
+  sha256 "1380c58d27e1b2e0eaee543936ca188658a829fc397cb9e064e8803209e3475f"
   license "GPL-2.0-or-later"
   head "https://github.com/wxMaxima-developers/wxmaxima.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Wxmaxima < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "9e270b833c8403d08a0aa85b14e9b0cf1e0827325a1dc12270f9badaf7ad8e61"
-    sha256 arm64_sequoia: "53bc46eeadfd5673a607207fb7168e1917668aa4a1df24567f4bf299095940fc"
-    sha256 arm64_sonoma:  "c1c38751311436cb37bfd701862e83a5efc75918cf8ed23c466d94965776747d"
-    sha256 sonoma:        "7f8d1081ad2c1e05c5a2e9ad0ca552f5d8ea9cea965fe220cadb0eeb1c450609"
-    sha256 arm64_linux:   "6eee61bbe356b373f5d8f5ceb80f2b76b8f3e38885fe9acba4da2ec50e6393e1"
-    sha256 x86_64_linux:  "53f774facb87ebf51f2b9a93c8b878494ee97fc297c58275b10686d6e4851867"
+    sha256 arm64_tahoe:   "487a4a3970f894abc5c7e2766375db3445313473d993a1d7929e9d20ae97fe9f"
+    sha256 arm64_sequoia: "2cb16cb63d785c755eb2b3571c408ea7bcefd4f4cc70684c64434469e7f7542c"
+    sha256 arm64_sonoma:  "1b95a2d51fab176ed2b7532c3bee3b790680e11b7c5f1438efe8e43df03b67f1"
+    sha256 sonoma:        "885684a65b93ee503798102ff582d5bef1709612aa7ab7102e8e3c367422aa3c"
+    sha256 arm64_linux:   "8779e84a95c34255c426ab52bc4092a92d519ea2dd2f7c7886f32c3e653ded7b"
+    sha256 x86_64_linux:  "7f2fb57364a90a49a59860f5dd6f08765a66e07ab131d641f6aafa0451e107a6"
   end
 
   depends_on "cmake" => :build
@@ -48,6 +48,9 @@ class Wxmaxima < Formula
   def install
     # Disable CMake fixup_bundle to prevent copying dylibs
     inreplace "src/CMakeLists.txt", "fixup_bundle(", "# \\0"
+
+    # We don't build wxWidgets with wxWebRequest; guard the upstream caller.
+    inreplace "src/wxMaxima.cpp", "#if wxCHECK_VERSION(3, 1, 5)", "\\0 && wxUSE_WEBREQUEST"
 
     # https://github.com/wxMaxima-developers/wxmaxima/blob/main/Compiling.md#wxwidgets-isnt-found
     args = OS.mac? ? [] : ["-DWXM_DISABLE_WEBVIEW=ON"]

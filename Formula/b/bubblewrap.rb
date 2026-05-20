@@ -1,14 +1,14 @@
 class Bubblewrap < Formula
   desc "Unprivileged sandboxing tool for Linux"
   homepage "https://github.com/containers/bubblewrap"
-  url "https://github.com/containers/bubblewrap/releases/download/v0.11.0/bubblewrap-0.11.0.tar.xz"
-  sha256 "988fd6b232dafa04b8b8198723efeaccdb3c6aa9c1c7936219d5791a8b7a8646"
+  url "https://github.com/containers/bubblewrap/releases/download/v0.11.2/bubblewrap-0.11.2.tar.xz"
+  sha256 "69abc30005d2186baf7737feacd8da35633b93cf5af38838ecff17c5f8e924f6"
   license "LGPL-2.0-or-later"
-  head "https://github.com/containers/bubblewrap.git", branch: "master"
+  head "https://github.com/containers/bubblewrap.git", branch: "main"
 
   bottle do
-    sha256                               arm64_linux:  "0b9837b33f5d2858266ca6eea7c436a43115cbd2cc322f45601862d4d0f00051"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "c6694f22b5343dc2dbb81adf6ff9fcd5a37ee6fe1757e96b4966367e766dcfe4"
+    sha256 arm64_linux:  "654879c969ae5a3b5f9a4b534396a062c884bc3f71c70fadb64921a9fd76d54b"
+    sha256 x86_64_linux: "8fe7e4992959171c1ba5872337de8a930e6142360c8164e737b3b3e6b818b01e"
   end
 
   depends_on "docbook-xsl" => :build

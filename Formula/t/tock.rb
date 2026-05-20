@@ -1,18 +1,18 @@
 class Tock < Formula
   desc "Powerful time tracking tool for the command-line"
   homepage "https://github.com/kriuchkov/tock"
-  url "https://github.com/kriuchkov/tock/archive/refs/tags/v1.7.9.tar.gz"
-  sha256 "6c5357ba4ebe00cd35f1f05685e1983e4f7f808a6f041dbf91302dbbfc9805f3"
+  url "https://github.com/kriuchkov/tock/archive/refs/tags/v1.9.8.tar.gz"
+  sha256 "436f536799abbd6d8b35a1bc33e3cd3a616126d2063f37d3a0e115470246a94a"
   license "GPL-3.0-or-later"
   head "https://github.com/kriuchkov/tock.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9eebf243363da36b745996240771fa6a299563bfe1a0236ec7f1ddd357d48467"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9eebf243363da36b745996240771fa6a299563bfe1a0236ec7f1ddd357d48467"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9eebf243363da36b745996240771fa6a299563bfe1a0236ec7f1ddd357d48467"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a47efcf7ffe1368c9aedba2b5430211d442bab5fd01b6035fdce97addb133007"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "ad01676072d8bd428448e33ba3efbb80846a84cb3343630552509f28b899af99"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "344302e1d8ff8d307fc1d2810a02f01237ce88a111c06eef3ee84fb5665b95e3"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "8704bf2409fa260cc1b27d52341706feae54729b229821376e7371ec832b16b5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "94ecee122c64308829360149f94b5e1f462e97fe96aef2e5131cba0a5ed27f78"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b20b05a4f2995c62eb2ea9b50cff204400d2ab434815568857d2f32be212595b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c2ed9b9e1efe28072ede58e281756d9c44f5935bed00bae1736e630d46d52dbc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c4afca974615c7092073efa5d92f5980ceb02686724be7e0161e003474f7077"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "af28987d8382106d04d619cf15c1a5b37cbc1b322a0183a7d87fd9daf9474534"
   end
 
   depends_on "go" => :build
@@ -20,9 +20,9 @@ class Tock < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/kriuchkov/tock/internal/adapters/cli.version=#{version}
-      -X github.com/kriuchkov/tock/internal/adapters/cli.commit=#{tap.user}
-      -X github.com/kriuchkov/tock/internal/adapters/cli.date=#{Date.today}
+      -X github.com/kriuchkov/tock/internal/app/commands.version=#{version}
+      -X github.com/kriuchkov/tock/internal/app/commands.commit=#{tap.user}
+      -X github.com/kriuchkov/tock/internal/app/commands.date=#{Date.today}
     ]
 
     system "go", "build", *std_go_args(ldflags:), "./cmd/tock"

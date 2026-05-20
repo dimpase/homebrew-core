@@ -2,19 +2,19 @@ class Uvicorn < Formula
   include Language::Python::Virtualenv
 
   desc "ASGI web server"
-  homepage "https://www.uvicorn.org/"
-  url "https://files.pythonhosted.org/packages/32/ce/eeb58ae4ac36fe09e3842eb02e0eb676bf2c53ae062b98f1b2531673efdd/uvicorn-0.41.0.tar.gz"
-  sha256 "09d11cf7008da33113824ee5a1c6422d89fbc2ff476540d69a34c87fab8b571a"
+  homepage "https://uvicorn.dev/"
+  url "https://files.pythonhosted.org/packages/f6/b1/8e7077a8641086aea449e1b5752a570f1b5906c64e0a33cd6d93b63a066b/uvicorn-0.47.0.tar.gz"
+  sha256 "7c9a0ea1a9414106bbab7324609c162d8fa0cdcdcb703060987269d77c7bb533"
   license "BSD-3-Clause"
   head "https://github.com/encode/uvicorn.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "a45ebbc34e6d788bbf1c91eb594962a419e92c739686db438cc57b60d4c90b36"
-    sha256 cellar: :any,                 arm64_sequoia: "7ba0957d8216c98119d294f151486a74b2b448fc6d7045c57c3791f4b2f26f97"
-    sha256 cellar: :any,                 arm64_sonoma:  "8f34fdfd7704883c84765f55b9844e62a7e51cf2972309db88f305bac3f2d55b"
-    sha256 cellar: :any,                 sonoma:        "4f057fb63cdb2cb4b92cd49af636411a60ba9abbb921009c496065a442a74c16"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b348c24ef14c76762fcc5f95d9d6b6c250463bea09550b064d9e84084aedfff1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f02a101bff832df1c2cc8eed0203a566f10fba6fcec07723e9226777ccb2a4f3"
+    sha256 cellar: :any,                 arm64_tahoe:   "a71205519f1760991f8ad27c8ace439c11491faffcec435d6227ceb3d66ecd4c"
+    sha256 cellar: :any,                 arm64_sequoia: "5836e18244d1507fe879433cbdc6ef3246d749d0eecce15da343bcc0ac81ddc9"
+    sha256 cellar: :any,                 arm64_sonoma:  "330505ba10d70c458bdf1eedd50b4074a454734435fe2c26579e8da2275e9290"
+    sha256 cellar: :any,                 sonoma:        "a08610ac9c4a8bf70a646b707eac7cd7d301e0424abc05bb16d9f4cd61cc94a5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "573603516689e2ad77a898316a2c5bbd821152e59b85ad3fdd41487c96206ee5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "90cc4ef959b5b0e0c31e6eb2b779dcfd2d2ce7c7196328ea36263985986f1571"
   end
 
   depends_on "rust" => :build
@@ -24,13 +24,13 @@ class Uvicorn < Formula
   pypi_packages package_name: "uvicorn[standard]"
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/96/f0/5eb65b2bb0d09ac6776f2eb54adee6abe8228ea05b20a5ad0e4945de8aac/anyio-4.12.1.tar.gz"
-    sha256 "41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703"
+    url "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz"
+    sha256 "334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz"
-    sha256 "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"
+    url "https://files.pythonhosted.org/packages/bb/63/f9e1ea081ce35720d8b92acde70daaedace594dc93b693c869e0d5910718/click-8.3.3.tar.gz"
+    sha256 "398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2"
   end
 
   resource "h11" do
@@ -44,13 +44,13 @@ class Uvicorn < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
+    sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
   end
 
   resource "python-dotenv" do
-    url "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz"
-    sha256 "42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6"
+    url "https://files.pythonhosted.org/packages/82/ed/0301aeeac3e5353ef3d94b6ec08bbcabd04a72018415dcb29e588514bba8/python_dotenv-1.2.2.tar.gz"
+    sha256 "2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3"
   end
 
   resource "pyyaml" do

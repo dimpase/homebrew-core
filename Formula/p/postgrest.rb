@@ -1,8 +1,8 @@
 class Postgrest < Formula
   desc "Serves a fully RESTful API from any existing PostgreSQL database"
   homepage "https://github.com/PostgREST/postgrest"
-  url "https://github.com/PostgREST/postgrest/archive/refs/tags/v14.5.tar.gz"
-  sha256 "ffdc596aaaa10254b0c92f9edadb54bdd83b2751efa2b8e05e0f2ae31f456c93"
+  url "https://github.com/PostgREST/postgrest/archive/refs/tags/v14.12.tar.gz"
+  sha256 "44728a5909511cdeadfffa1af4a5eb091c7a21c5edbc95993469d87e54396ae2"
   license "MIT"
   head "https://github.com/PostgREST/postgrest.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Postgrest < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "2e75c185ef1237b95628d3ca82dcdafc8ab14c629231106d9036cc9fb4137438"
-    sha256 cellar: :any,                 arm64_sequoia: "86832317b978599c2fa1fa8a019700a57edf0263285a337830823321bea7c902"
-    sha256 cellar: :any,                 arm64_sonoma:  "0d00459f941c960a98a4b5629c9276ad9c2abe68f334c5525fd7d2201bc08c95"
-    sha256 cellar: :any,                 sonoma:        "f2fbdd7fc20abd3517679701ad3646e5f81ba46999d82c07f7b42ce6133a6e06"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7bbf2306f812d5cd090be39dec1a35d03dd3c85a2fc816fb97aae479621cf052"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0bc6147bfe85295e6770c349cd6e2a62e3295d28c9f798d3c36fff420c46642b"
+    sha256 cellar: :any,                 arm64_tahoe:   "3d36359a7493f203d2a40a0cf621fc24a45fb1dfaa36687c6ebc4ade7923c1b9"
+    sha256 cellar: :any,                 arm64_sequoia: "a1f1ab204b6afe1ad1c0c1f24a4818d3748e521aad1a05ba2ae43048e9693a02"
+    sha256 cellar: :any,                 arm64_sonoma:  "126c0c8e41cd0ba67e73c8c10ec658153d50103375aca29fb366c12b8149e29e"
+    sha256 cellar: :any,                 sonoma:        "7cdcc3a9fefbff29cd6f843edcff6acdf5119cec6932e13431fc319acabebb4b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "eb327b540fa268eca8d83d064b7bbc6196018b23098ea35fce268057335a7ee2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "46897db591aab909dc4890cf6629b0f504fd261db84e7a2a7212bfe27eaed55a"
   end
 
   depends_on "cabal-install" => :build
@@ -34,6 +34,10 @@ class Postgrest < Formula
   def install
     # Workaround to build with GHC >= 9.10
     args = ["--allow-newer=base,fuzzyset:text"]
+    # Workaround for https://github.com/fimad/prometheus-haskell/issues/82
+    args << "--constraint=data-sketches<0.4"
+    # Workaround for newer crypton not working with memory
+    args << "--constraint=crypton<1.1"
 
     system "cabal", "v2-update"
     system "cabal", "v2-install", "--ignore-project", *args, *std_cabal_v2_args

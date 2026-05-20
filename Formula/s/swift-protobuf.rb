@@ -4,9 +4,10 @@ class SwiftProtobuf < Formula
   # We use a git checkout as swift needs to find submodule files specified
   # in Package.swift even though they aren't built for `protoc-gen-swift`
   url "https://github.com/apple/swift-protobuf.git",
-      tag:      "1.35.1",
-      revision: "5596511fce902e649c403cd4d6d5da1254f142b7"
+      tag:      "1.38.0",
+      revision: "f6506eaa86ed2e01cb0ae14a75035b7fdbf0918f"
   license "Apache-2.0"
+  compatibility_version 1
   head "https://github.com/apple/swift-protobuf.git", branch: "main"
 
   livecheck do
@@ -15,18 +16,18 @@ class SwiftProtobuf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9d904435c14a74f3bae452aae88b4568d83c9692c5bbac560b4a510e677baada"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "91ad36a547033d132820740dd3407b5f4448759d3c44ac8d0d016ad5a34e22e3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a30170126a1330c46e1c3058a699e99ac8e594e5d58ed8b0a49b34623c9db429"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6cedaae1c605e90efdd73ce02497a2a7595bebb5e4adf00d11f3c829312bc806"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3f59f8627a3eded13fe811529888de947e7a42ec6e9d44de0f9aff7a3579b5a0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a1360af0c771988b4660edbbc9ffbef30859b8c6d59e294ebf482d9977b6a33f"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "60ce603d56649b5288375363d9c043eef7114a03b2c572e266e5fa429ccaa242"
+    sha256 cellar: :any,                 arm64_sequoia: "35674b8dbabe16d36855723223fe423ab41e1ab3d610866b2e17fb308770c666"
+    sha256 cellar: :any,                 arm64_sonoma:  "8f436f74f92c474efea8aeb0ccd1be3965d00346018bffd5326e020b46562526"
+    sha256 cellar: :any,                 sonoma:        "e1b4ccd98127e8a9dfa07b72fd8acb3e36dd57f455ad68f49289fb73308838bc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b4b4f73cf4261eb1101f4b58dc728cd1fef54eb5600ef66c5108ea36a8a9901f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "32bc416171819a4f81f6edf393301c0d05e12ce76331f7a07d103ddbae4aaf1b"
   end
 
   depends_on xcode: ["15.3", :build]
   depends_on "protobuf"
 
-  uses_from_macos "swift" => :build
+  uses_from_macos "swift" => :build, since: :tahoe # swift 6.2+
 
   def install
     args = if OS.mac?

@@ -1,9 +1,16 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.53.0.tar.xz"
-  sha256 "5818bd7d80b061bbbdfec8a433d609dc8818a05991f731ffc4a561e2ca18c653"
-  license "GPL-2.0-only"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.54.0.tar.xz"
+  sha256 "f689162364c10de79ef89aa8dbf48731eb057e34edbbd20aca510ce0154681a3"
+  license all_of: [
+    "GPL-2.0-only",
+    "GPL-2.0-or-later",  # imap-send.c; trace.c; ...
+    "LGPL-2.1-or-later", # xdiff/
+    "BSD-3-Clause",      # xdiff/xhistogram.c; reftable/
+    "MIT",               # khash.h; sha1dc/
+  ]
+  compatibility_version 1
   head "https://github.com/git/git.git", branch: "master"
 
   livecheck do
@@ -12,28 +19,30 @@ class Git < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "822dc9a395af7f1977ae98bd584f76ccd7390381de71b5420a4b0d69b15665cf"
-    sha256 arm64_sequoia: "e54c3b8416ce766df9c6efa6f96f14c6fe43cd805e3da2706c258b5d9520c93b"
-    sha256 arm64_sonoma:  "90035e05c20b14efb12550b50431b53da8d857ccd5d29ac7fafe8ab0f959d16e"
-    sha256 sonoma:        "4831766b1d63c27c19f6c84e2f74a2c2b1131a69f818467fab6b84536ca26d90"
-    sha256 arm64_linux:   "f6946b453ca295f25ba4c855fe51e65c23b29983dc97e4f8b14c21a8b4854985"
-    sha256 x86_64_linux:  "d8c0fc6ac9824ad9c77d566018db78c252ac3c2ce0652c72d8b6d0b861867034"
+    sha256 arm64_tahoe:   "0907a55ddd94935d16e13351e3238892d7a57f4ccaa58e20ba2609c4f2a1c4c0"
+    sha256 arm64_sequoia: "d12f1bafed785a94c45d0bffb303c28cbc0aaec5ab9a8b4939c51f216de1f2d9"
+    sha256 arm64_sonoma:  "538bdc752f5a51e98124b0cdce5493339e5821a50a03fd3a78fe7754038ea1c4"
+    sha256 sonoma:        "7286fead4972e9e8374dd85a420d7e55da5bbba9e4b34fa90cb6c183d31663bb"
+    sha256 arm64_linux:   "67e05269b64b7cbcb24739519817b56a081696e350fe1913282b08bbfe90368e"
+    sha256 x86_64_linux:  "81874ce3bd63063dc77f6d1cc85e30c52108e172f32b232ae865f9b2e55001e1"
   end
 
+  depends_on "gettext" => :build
   depends_on "pkgconf" => :build
-  depends_on "gettext"
   depends_on "pcre2"
 
   uses_from_macos "curl"
   uses_from_macos "expat"
 
+  # Don't try to add a libiconv dependency without reading this PR first:
+  # https://github.com/Homebrew/homebrew-core/pull/258461
+
   on_macos do
-    depends_on "libiconv"
+    depends_on "gettext"
   end
 
   on_linux do
-    depends_on "openssl@3" # Uses CommonCrypto on macOS
+    depends_on "openssl@3" # for git-imap-send (GPL-2.0-or-later), uses CommonCrypto on macOS
     depends_on "zlib-ng-compat"
   end
 
@@ -43,8 +52,8 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.53.0.tar.xz"
-    sha256 "994b93cbf25a9c13f1206dcc1751f0559633d5152155e16fc025ab776af08e0d"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.54.0.tar.xz"
+    sha256 "7ff72bfdfed4f20563f34416cf27614fb9c35bfad590db0062f2a0a9636514e4"
 
     livecheck do
       formula :parent
@@ -52,8 +61,8 @@ class Git < Formula
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.53.0.tar.xz"
-    sha256 "957ffe4409eeb90c7332bff4abee8d5169d28ef5c7c3bf08419f4239be13f77f"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.54.0.tar.xz"
+    sha256 "292062d18f3a215213ea8317ed22b94f02ad9572520b9293164d7db3eb888953"
 
     livecheck do
       formula :parent
@@ -63,12 +72,6 @@ class Git < Formula
   resource "Net::SMTP::SSL" do
     url "https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Net-SMTP-SSL-1.04.tar.gz"
     sha256 "7b29c45add19d3d5084b751f7ba89a8e40479a446ce21cfd9cc741e558332a00"
-  end
-
-  # https://lore.kernel.org/git/pull.2046.v2.git.1770775169908.gitgitgadget@gmail.com/
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/homebrew-core/532a668f0f725a69342cbac3414475a28bd0575d/Patches/git/2.53.0-osxkeychain-top-level-makefile.patch"
-    sha256 "ef3f390f940e080548474950380edb008f31e5fd500c8ad1d470fc764b6e65ac"
   end
 
   def install
@@ -88,7 +91,6 @@ class Git < Formula
     perl_version = Utils.safe_popen_read("perl", "--version")[/v(\d+\.\d+)(?:\.\d+)?/, 1]
 
     if OS.mac?
-      ENV["ICONVDIR"] = Formula["libiconv"].opt_prefix
       ENV["PERLLIB_EXTRA"] = %W[
         #{MacOS.active_developer_dir}
         /Library/Developer/CommandLineTools

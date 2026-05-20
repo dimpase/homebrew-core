@@ -1,17 +1,17 @@
 class Graphqlite < Formula
   desc "SQLite graph database extension"
   homepage "https://colliery-io.github.io/graphqlite/"
-  url "https://github.com/colliery-io/graphqlite/archive/refs/tags/v0.3.5.tar.gz"
-  sha256 "0399cc6761523d52f004b892925f343e8bff20e91b676b01c6a1c03a367cc6f8"
+  url "https://github.com/colliery-io/graphqlite/archive/refs/tags/v0.4.4.tar.gz"
+  sha256 "f70840ab7fcf934c01ac13b6db6eee8b5511b8992abe350e898f618e12f94de9"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "6475d5b76f6053ba53b95712be08272e6551b5463aebe649992fe987c1ddaf62"
-    sha256 cellar: :any,                 arm64_sequoia: "02c07ec4b80bf4e48f21f2f6ff984cbcbe0ca3a8cbbef4cbb3c4d36009b5a78f"
-    sha256 cellar: :any,                 arm64_sonoma:  "38e5954ec6da08541e3a884c1fd963ac9c4bcc39e0824a7c143769564c1417c2"
-    sha256 cellar: :any,                 sonoma:        "91be83bef796b7e5ef0a5ddfe371e874f4471af341303db2a810e21170866220"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "cb1a89f7fdda6842d0d45aeb76a52634a9fe7bb8e3856e52dd93226b41e40819"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4fe96cb5993be9b91dade71ecd8074515713531f83c9a8af047b302fc977668"
+    sha256 cellar: :any,                 arm64_tahoe:   "4e68d851871d4adb0df91cfb644e16da7ba2bd81bc26b5288d17f5262f93adff"
+    sha256 cellar: :any,                 arm64_sequoia: "65ffe8aa1006828ff672175e753e3c5fe10e5c7e4c5b7570205ae8bb1e6d4ab8"
+    sha256 cellar: :any,                 arm64_sonoma:  "8a313647d5ccbb7fa139298d7d05eb96ff8141d0afa84e3eb9b053c5477d7526"
+    sha256 cellar: :any,                 sonoma:        "ed68b247267e5c614ff1abb9e88cef761c9c4eaac905d6e2d97d21f3675d34cd"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "982b76b216a5ab15f1453a7355399c4a973dfc26535296080f148e002399d7e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "30a9956131cd16edbec497d30682f43063c150f28901076fed6f138b98c16bd1"
   end
 
   depends_on "bison" => :build # macOS bison is too old

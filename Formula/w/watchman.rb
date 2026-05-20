@@ -3,25 +3,27 @@ class Watchman < Formula
 
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/refs/tags/v2026.01.12.00.tar.gz"
-  sha256 "5b6be267c159356a77511545b0608b0dcbd1dfa4c6277b0a5385fc221e85392a"
+  url "https://github.com/facebook/watchman/archive/refs/tags/v2026.05.18.00.tar.gz"
+  sha256 "de2080ec764a1f3b58655a49395a8a53ccbe19397e9e2e8c75d01b3b49e3730d"
   license "MIT"
-  revision 1
   head "https://github.com/facebook/watchman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "e8736dd3b9092eb68a6ef2aa774064f6583ca17528617477f106f3e8020f8554"
-    sha256 cellar: :any,                 arm64_sequoia: "7059f5d9723128bfee6d0192d222f25591bbc7ce6b05c0b8fe7f3d7e5f75cf1b"
-    sha256 cellar: :any,                 arm64_sonoma:  "5c2602095c42b8c91d06202f9183c603b4590161a4cca8620c393a4a998133ad"
-    sha256 cellar: :any,                 sonoma:        "10e9e856ae379b3a8f3c647b7ae6940cac6318b6d6e83ea6cd8489da075c9e8a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "19f6f44cdb927b22fd84628c69291de2ec1d68880a7f170bd19ff22baf9efaf2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ac52e0bcde511e8d9667a9dc3078694b12be035e997458c0e3b74cc8ec751285"
+    sha256 cellar: :any,                 arm64_tahoe:   "bcf86259dc02c1822f9e34dcbc69ab573d5429f0f0e3e72acf1099c9164760bf"
+    sha256 cellar: :any,                 arm64_sequoia: "33a578994f8e4dc0f11908ecd8f1bc2e4a584a532ee7fad354820f2abea92f9d"
+    sha256 cellar: :any,                 arm64_sonoma:  "f1bf584baebb1afad892c13eb1f8a3d61375ee36b20b3416cca19a96ffc466d2"
+    sha256 cellar: :any,                 sonoma:        "1d8d8ed128f9c7cbece6e0fb204bb06a2c113710967e887be28685507203a9fb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f0e8629bf41aaac15b832cc7909ff1c3686bd4fe1d7d4eadb109df23801a7af0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "94e54d2f473cc9407a14defa76f0b838341b21dcc5589f831da9014d38cbd989"
   end
 
   depends_on "cmake" => :build
   depends_on "cpptoml" => :build
+  depends_on "gflags" => :build
   depends_on "googletest" => :build
+  depends_on "libevent" => :build
   depends_on "mvfst" => :build
+  depends_on "openssl@4" => :build
   depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "rust" => :build
@@ -30,22 +32,17 @@ class Watchman < Formula
   depends_on "fbthrift"
   depends_on "fmt"
   depends_on "folly"
-  depends_on "gflags"
   depends_on "glog"
-  depends_on "libevent"
-  depends_on "openssl@3"
   depends_on "pcre2"
   depends_on "python@3.14"
 
   on_linux do
     depends_on "boost"
     depends_on "libunwind"
+    depends_on "openssl@4"
   end
 
   def install
-    # Workaround to build with glog >= 0.7 until fixed upstream
-    inreplace "CMakeLists.txt", "find_package(Glog REQUIRED)", "find_package(glog CONFIG REQUIRED)"
-
     # NOTE: Setting `BUILD_SHARED_LIBS=ON` will generate DSOs for Eden libraries.
     #       These libraries are not part of any install targets and have the wrong
     #       RPATHs configured, so will need to be installed and relocated manually

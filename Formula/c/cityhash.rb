@@ -5,8 +5,6 @@ class Cityhash < Formula
   sha256 "76a41e149f6de87156b9a9790c595ef7ad081c321f60780886b520aecb7e3db4"
   license "MIT"
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     sha256 cellar: :any,                 arm64_tahoe:    "a48224df147a6510be1f81144df6c5060ec5c053121bed9ff26e3bc0344585ed"
     sha256 cellar: :any,                 arm64_sequoia:  "ce559172129f8c960379c6cfc4f513d8dce917f386f4471f1a1ab5766a0acffd"
@@ -22,6 +20,9 @@ class Cityhash < Formula
     sha256 cellar: :any_skip_relocation, arm64_linux:    "729ba06d00e0929bb6e553259a22690423d14593d2b792695ec29ec80d21455e"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "f381c56f8063574fc86fa4eace73e99bf9be10155f90c1881362e70aea75826a"
   end
+
+  deprecate! date: "2026-05-13", because: :repo_archived
+  disable! date: "2027-05-13", because: :repo_archived
 
   on_linux do
     on_arm do

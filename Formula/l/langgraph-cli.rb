@@ -3,33 +3,34 @@ class LanggraphCli < Formula
 
   desc "Command-line interface for deploying apps to the LangGraph platform"
   homepage "https://www.github.com/langchain-ai/langgraph"
-  url "https://files.pythonhosted.org/packages/08/04/0764d07b1c5601cdb73f6949fab80ce867983684d024f3de48cce1d8aba2/langgraph_cli-0.4.12.tar.gz"
-  sha256 "7aa6ca37d6f60c75f2ea310f4cae233f59fe0026e5ef43dab34c04d1cb61c7a6"
+  url "https://files.pythonhosted.org/packages/5d/94/6864c94fcc998d7b72f60a4166222f003483426446a10979c0215220dd65/langgraph_cli-0.4.26.tar.gz"
+  sha256 "d81867e45bc198f4c61a4064e8f347aba9e6ffa256db387d8daae594c59bf0f6"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "6e086e899704421dc025c4406b7a56a42dff0b3ca62f550785cb745000afbb7d"
-    sha256 cellar: :any,                 arm64_sequoia: "f9b6838f85b9b5a3ac0eb545d439c38b9dc19c34ae9f5a3682ccdba01942d348"
-    sha256 cellar: :any,                 arm64_sonoma:  "532191a179fb40feffc343698578d801f5505539d387f4e8bf80232190d78207"
-    sha256 cellar: :any,                 sonoma:        "4368812c75eba029edd37ca8e0e26a646688ec083d7d88946a5e1b5a859f9316"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3c4ea5ce3891212aabdaee8b6c1b78ada0068ee752fb21c8e4f100c9607c23b9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0522212faec929604844b72fb1d9ac5a9b678e3080ab9752ea846e5cf8ce60b8"
+    sha256 cellar: :any,                 arm64_tahoe:   "5b4bd9fc5a1976e59e6f30f88b609510bd598e9588475cf45c90aa3349a3c3e9"
+    sha256 cellar: :any,                 arm64_sequoia: "fdfa0655d05b80d6266593ccfd3c38b73dba6bfa1b7cedc35cd9cf32c80c1025"
+    sha256 cellar: :any,                 arm64_sonoma:  "6055993cba9b73b41d32eacf6822409e98dfe61034de4cf02188c0d0e90f3276"
+    sha256 cellar: :any,                 sonoma:        "6bce3ebf9a8889d030a6ac54b5aa94137d61c426361e2cb88cf56eb21e831e57"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ef975cbcb9af6f0fd49076c40c790c3d5dc14c6954c5ae556a353f811b028db4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b0331d5713fc699f0b7e03f8b3c93f0a3e9137dfd043e5f22ac0954050f07ada"
   end
 
   depends_on "rust" => :build # for orjson
   depends_on "certifi" => :no_linkage
   depends_on "python@3.14"
 
-  pypi_packages exclude_packages: "certifi"
+  pypi_packages exclude_packages: "certifi",
+                extra_packages:   "typing-extensions" # TODO: Check it can be removed
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/96/f0/5eb65b2bb0d09ac6776f2eb54adee6abe8228ea05b20a5ad0e4945de8aac/anyio-4.12.1.tar.gz"
-    sha256 "41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703"
+    url "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz"
+    sha256 "334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz"
-    sha256 "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"
+    url "https://files.pythonhosted.org/packages/bb/63/f9e1ea081ce35720d8b92acde70daaedace594dc93b693c869e0d5910718/click-8.3.3.tar.gz"
+    sha256 "398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2"
   end
 
   resource "h11" do
@@ -48,18 +49,33 @@ class LanggraphCli < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz"
-    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
+    url "https://files.pythonhosted.org/packages/05/b1/efac073e0c297ecf2fb33c346989a529d4e19164f1759102dee5953ee17e/idna-3.14.tar.gz"
+    sha256 "466d810d7a2cc1022bea9b037c39728d51ae7dad40d480fc9b7d7ecf98ba8ee3"
   end
 
   resource "langgraph-sdk" do
-    url "https://files.pythonhosted.org/packages/c3/0f/ed0634c222eed48a31ba48eab6881f94ad690d65e44fe7ca838240a260c1/langgraph_sdk-0.3.3.tar.gz"
-    sha256 "c34c3dce3b6848755eb61f0c94369d1ba04aceeb1b76015db1ea7362c544fb26"
+    url "https://files.pythonhosted.org/packages/02/f1/134046c20bc4a4a15d410d1d21c9e298a3e9923777b4cc867b8669bc636b/langgraph_sdk-0.3.14.tar.gz"
+    sha256 "acd1674c538e97f3cdaa610f6dd7e34bc9bad30167f0ccc482dcd563325e81f5"
   end
 
   resource "orjson" do
-    url "https://files.pythonhosted.org/packages/04/b8/333fdb27840f3bf04022d21b654a35f58e15407183aeb16f3b41aa053446/orjson-3.11.5.tar.gz"
-    sha256 "82393ab47b4fe44ffd0a7659fa9cfaacc717eb617c93cde83795f14af5c2e9d5"
+    url "https://files.pythonhosted.org/packages/7e/0c/964746fcafbd16f8ff53219ad9f6b412b34f345c75f384ad434ceaadb538/orjson-3.11.9.tar.gz"
+    sha256 "4fef17e1f8722c11587a6ef18e35902450221da0028e65dbaaa543619e68e48f"
+  end
+
+  resource "pathspec" do
+    url "https://files.pythonhosted.org/packages/5a/82/42f767fc1c1143d6fd36efb827202a2d997a375e160a71eb2888a925aac1/pathspec-1.1.1.tar.gz"
+    sha256 "17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a"
+  end
+
+  resource "python-dotenv" do
+    url "https://files.pythonhosted.org/packages/82/ed/0301aeeac3e5353ef3d94b6ec08bbcabd04a72018415dcb29e588514bba8/python_dotenv-1.2.2.tar.gz"
+    sha256 "2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3"
+  end
+
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/72/94/1a15dd82efb362ac84269196e94cf00f187f7ed21c242792a923cdb1c61f/typing_extensions-4.15.0.tar.gz"
+    sha256 "0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"
   end
 
   def install

@@ -2,8 +2,8 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      tag:      "v5.2.0",
-      revision: "e84c0658e1dfff2fd1eaf0fc8ef338a2a99b8f67"
+      tag:      "v7.0.0",
+      revision: "7c70ffdfd9f71a654300a78b3b627782e6abe1b4"
   license "MIT"
   head "https://github.com/mas-cli/mas.git", branch: "main"
 
@@ -12,13 +12,11 @@ class Mas < Formula
     strategy :github_latest
   end
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "04aad750ca8ffcd7e7f5b6fe13788380ba7ca5bb7e2eb76371b406a2737f2131"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "059e622a8c2e1357d848b20e3588574ff6cba20cada084538a4ad100a319127e"
-    sha256 cellar: :any,                 arm64_sonoma:  "592f44233706e97cef40c4e90717a1bb47a5e44a48c13f93d7c34a7034a57e90"
-    sha256 cellar: :any,                 sonoma:        "13938399be5ecf773beb77258b39ac95af336a1bf9e84fc0ae750acad7f19d51"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "294b2bb9fa19e6b395129d792fc5880b326906268d4ad023259e9aa9dee85a93"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8e1586d7240b2e3bfada5528fc18da035adbafdda2a55d4b69a00a272eedf88c"
+    sha256 cellar: :any,                 arm64_sonoma:  "3a7a9c6e7042ac3db18357200989a9ee89f730b067593445ec4d556e425a3eca"
+    sha256 cellar: :any,                 sonoma:        "53be6dd8eb7dcb6f930653f901c48ceea0602aa4584681faf92ffa35679bd1db"
   end
 
   depends_on :macos
@@ -31,15 +29,17 @@ class Mas < Formula
 
   on_sonoma :or_older do
     depends_on "swift" => :build
+    depends_on "jq"
   end
 
   def install
     ENV["MAS_DIRTY_INDICATOR"] = ""
     system "Scripts/build", "homebrew/core/mas", "--disable-sandbox", "-c", "release"
-    bin.install ".build/release/mas"
+    (libexec/"bin").install ".build/release/mas"
+    bin.install "Scripts/mas"
     system "swift", "package", "--disable-sandbox", "generate-manual"
     man1.install ".build/plugins/GenerateManual/outputs/mas/mas.1"
-    bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
+    bash_completion.install "contrib/completion/mas.bash" => "mas"
     fish_completion.install "contrib/completion/mas.fish"
   end
 

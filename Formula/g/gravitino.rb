@@ -1,8 +1,8 @@
 class Gravitino < Formula
   desc "High-performance, geo-distributed, and federated metadata lake"
   homepage "https://gravitino.apache.org"
-  url "https://github.com/apache/gravitino/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "5b7da20629850440bfe221452d777815a429b68afc624cd49ac1b7aa70a8ebd6"
+  url "https://github.com/apache/gravitino/archive/refs/tags/v1.2.1.tar.gz"
+  sha256 "f0c788245f0d6ce0f31ecf53eae8af64add8e601c105cc65fc6eb34591cea3cb"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class Gravitino < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "63902e35657d833c4a83fbed47492a2c3966ac4d1bf0e5601072f4865562a060"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0d2a3bc0059143c009c4e9a603cc2bba88044a8b904f33ec74b6f4c18758ef38"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "82ca78e5790d1242b837dee99699aecbcc241701555f61dfaf64196bbcd3023a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "02a4dc8f6817eeee0cb4c058af06212566e4c0ee15f49046eeb69cb663e4e5ef"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7a1cf98112722089214cb985af489791a75c61a91f8aa4bac32e4a7023e17e59"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "63a87b9c06823465aedc68dac0d7ba0399a9ee140ba317f3716638dcb3f230c7"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "112c25e374e904df246e33eb0a0ff5d65195d466fbc77f81ffdd93d529061346"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "44767d2c12dcb60aa477eb6f4a2b2e02b3620fb83eff1988d99d6027a70f85f6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a5de05de794c047666e48b450b7ce61c7cdb1473f962866a74f39a8e9a0fc377"
+    sha256 cellar: :any_skip_relocation, sonoma:        "359d11ee0a917fbebffa1454104ccb3bc4e1e41eb1fff79ef5fc3ca945ff3efb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "17497e31968f86cd28620b035727b4960bdf9f137255d09f04017e55b1a901e9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1c1188ad8f1efc7dc453bf6f75f65044c77d8f77bce38745d33f417e7e40c183"
   end
 
   # Issue ref: https://github.com/apache/gravitino/issues/8571

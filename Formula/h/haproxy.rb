@@ -1,8 +1,8 @@
 class Haproxy < Formula
   desc "Reliable, high performance TCP/HTTP load balancer"
   homepage "https://www.haproxy.org/"
-  url "https://www.haproxy.org/download/3.3/src/haproxy-3.3.4.tar.gz"
-  sha256 "5063eccd818a0bb131a7529ca9824da952697fbf777de0c8376ad610a66173ac"
+  url "https://www.haproxy.org/download/3.3/src/haproxy-3.3.10.tar.gz"
+  sha256 "6aa919a13f3a575416ef0ae45da0ecb35f1a8d004641dd684fe9b53e646891f2"
   license "GPL-2.0-or-later" => { with: "openvpn-openssl-exception" }
 
   livecheck do
@@ -11,12 +11,12 @@ class Haproxy < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "1c2282c9b6b1c327ce7aaca383b89be3b1777681a2c57144e0dfbf9e66b09d8f"
-    sha256 cellar: :any,                 arm64_sequoia: "0de2b603ca48d990b2980c4375d8926bb2d3628d5f87938b5caffd0449edef5c"
-    sha256 cellar: :any,                 arm64_sonoma:  "febdf45ae66d1fa89de64d174a3e44624e9ca60e0b4fd4732e2553d6a32fbd50"
-    sha256 cellar: :any,                 sonoma:        "c333f80071fb587e85167a870cc92976c2178797c6f7ff8fd88445ae74a09a56"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "425ee555906a34702d0d86686dc4bd40b30cad964f21abe1f1173071e5c86fc2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d9700d93e54a5521264fa64ad0229707187d45e0a04cd2f6f4d6bad4b17554b3"
+    sha256 cellar: :any,                 arm64_tahoe:   "271aee42db7a6a6810b1be8290fc2fcc291cc0e2ce8f481337124201815e433c"
+    sha256 cellar: :any,                 arm64_sequoia: "9e0fdee9436f0a723d86ce0d01a4d4a7489f0fbe815517e1616c4ebeb90629e7"
+    sha256 cellar: :any,                 arm64_sonoma:  "7b26c71d5604b98c145b326fd3eb92d0f8565693642791885a278bc840fc62a4"
+    sha256 cellar: :any,                 sonoma:        "4e9f3d410c272da769ee9e8ac74d374f959b8fd42e423cecc8d008bddc13d286"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "eb30fe4a32cb9a59c51bf5495d43aee5cb7281ba888d40604f12260a19fccb34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "687dd3d5edf6bc71acb6b1d4b717aada67ea42813c12cf7577753fb6bc368aa5"
   end
 
   depends_on "openssl@3"
@@ -34,6 +34,7 @@ class Haproxy < Formula
       USE_PCRE2_JIT=1
       USE_OPENSSL=1
       USE_PROMEX=1
+      USE_QUIC=1
       USE_ZLIB=1
     ]
 

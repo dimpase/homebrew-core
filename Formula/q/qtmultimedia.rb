@@ -1,10 +1,10 @@
 class Qtmultimedia < Formula
   desc "Provides APIs for playing back and recording audiovisual content"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtmultimedia-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtmultimedia-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtmultimedia-everywhere-src-6.10.2.tar.xz"
-  sha256 "93f7ef0106fbd731165a2723f3e436c911fc5e6880f5bc987b55516c20833e2b"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtmultimedia-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtmultimedia-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtmultimedia-everywhere-src-6.11.1.tar.xz"
+  sha256 "390f8e52ddee3aca5c4de7eead900c84c4fa61ff6d1f0ebea9c7543365c09b0a"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     { all_of: ["MPL-2.0", "BSD-3-Clause"] }, # bundled eigen
@@ -13,6 +13,7 @@ class Qtmultimedia < Formula
     "GPL-3.0-only", # Qt6MultimediaTestLib
     "MIT",          # bundled signalsmith-stretch (Linux)
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtmultimedia.git", branch: "dev"
 
   livecheck do
@@ -20,12 +21,12 @@ class Qtmultimedia < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "573997b9213c6569c8b6d84e99efcea71761ec9b8e4cd5f3b9885fe17f56fd1c"
-    sha256 cellar: :any,                 arm64_sequoia: "4a7b55496b3e9a76e4302be6608c5714925bb36816e20d32a7a28fe7c4509d2e"
-    sha256 cellar: :any,                 arm64_sonoma:  "db172a13148042522b6f3861df0bee3f5342110e5ca1911f1762913fc9d90a8f"
-    sha256 cellar: :any,                 sonoma:        "3d9dd79b1198932bf20b86edababb6683326544bafc48e78d5cecd43b85407dd"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "fa73bd3ad4c203d3911e332e87fda147120065b51bed09e816cbad62ec60e28c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "10cc4d15f2a41d94c8cdeb726240fede279732dc76bd5ce66eb1228af4792af4"
+    sha256 cellar: :any,                 arm64_tahoe:   "2af68cbebbb2bb8babe819343cb284f3ff08587f69180d0f889c769f2e4f1eea"
+    sha256 cellar: :any,                 arm64_sequoia: "ed53cf4393ae04cc5dbcdf29e649cb8a966170c0200b9b1185dfdc64e2706c38"
+    sha256 cellar: :any,                 arm64_sonoma:  "99e1ae4a0ca5e8d7f8d1eb0fab56c86083d7d51c255bd9e41ccff0815dbfbe76"
+    sha256 cellar: :any,                 sonoma:        "614b3b3840f64968fc3a0bdb39936e92b26cb9311048cdad89e46ce1d313254e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "115c580ad70d0e64394d5cbb49c297c98cb61391a82419196a95a0521540abfd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2888625da63c9befe8e790d6ae6bbedd4282a9b3457c9500bb98fa2e50faa17f"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -33,13 +34,12 @@ class Qtmultimedia < Formula
   depends_on "qtshadertools" => :build
   depends_on "vulkan-headers" => :build
   depends_on "pkgconf" => :test
-
-  depends_on macos: :ventura
   depends_on "qtbase"
   depends_on "qtdeclarative"
   depends_on "qtquick3d"
 
   on_macos do
+    depends_on macos: :ventura
     depends_on "qtshadertools"
   end
 
@@ -51,6 +51,7 @@ class Qtmultimedia < Formula
     depends_on "ffmpeg"
     depends_on "glib"
     depends_on "gstreamer"
+    depends_on "libva"
     depends_on "libx11"
     depends_on "libxext"
     depends_on "libxrandr"

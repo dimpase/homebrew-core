@@ -1,8 +1,8 @@
 class Incus < Formula
   desc "CLI client for interacting with Incus"
   homepage "https://linuxcontainers.org/incus"
-  url "https://linuxcontainers.org/downloads/incus/incus-6.21.tar.xz"
-  sha256 "7908ec9bec2c2a811d822e1395e0958702f89de93de5bba3b12fa987ff3e2549"
+  url "https://linuxcontainers.org/downloads/incus/incus-7.0.0.tar.xz"
+  sha256 "fb72cc173a3703e45587ca59c9c512c21b0cb7662c8f683ead801812de266e87"
   license "Apache-2.0"
   head "https://github.com/lxc/incus.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Incus < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "406ce007a947338561603c947bd90b810c98e1a0ecc6035a9d065332c7634f7c"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "406ce007a947338561603c947bd90b810c98e1a0ecc6035a9d065332c7634f7c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "406ce007a947338561603c947bd90b810c98e1a0ecc6035a9d065332c7634f7c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "87f4dc1ebc0140430fd3fc8c44a746c2e6ae26bddb78061eb2f70178211797ea"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "91d02743734b833ed4bb84570d1816885ec66f7efaa3cef1c84e87cc9d0902bf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e0dff8efa3ec92b75424205575111012ef09cf30c34876fd41ec66511e7b4acd"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "94313fbc004abbf08eda3e1bc658e1b75000309ca45b9bf1ae297f718c983709"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "94313fbc004abbf08eda3e1bc658e1b75000309ca45b9bf1ae297f718c983709"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "94313fbc004abbf08eda3e1bc658e1b75000309ca45b9bf1ae297f718c983709"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7ae40b9ddc33ad080743fb22caafcc165a5b1d2fe8a1623ce6521cab7cbd6012"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "75cfcedd37b5f050b7c745ec81046f2a328385d1d2f56720d58b2c0cf285ebd9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "63a6fe5f48cc97c730062e14e426d1d14313970256faca0f38ab6600d8260238"
   end
 
   depends_on "go" => :build

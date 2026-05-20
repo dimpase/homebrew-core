@@ -4,15 +4,15 @@ class Fastnetmon < Formula
   url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.8.tar.gz"
   sha256 "d16901b00963f395241c818d02ad2751f14e33fd32ed3cb3011641ab680e0d01"
   license "GPL-2.0-only"
-  revision 24
+  revision 29
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "f5b7c181d7a0aa04b05889d36f080d2f75dc431d9283a0c4167b487ef2b0414a"
-    sha256 cellar: :any, arm64_sequoia: "f2b01c3b21495fedefbb834f93c05bc7569b0d43868470dd4139c75de77165d5"
-    sha256 cellar: :any, arm64_sonoma:  "6d9c2737de08cebec6caa56b21a5501a0af5c2975267d4d86ecc03479c00f8f5"
-    sha256 cellar: :any, sonoma:        "5c476f4b50aed363d262f3c6af19bb52f791411a8d427f18d3a7dff4314851f6"
-    sha256               arm64_linux:   "748b3e78fd91adffdea088139a4002b1c7cde39afbd3537a11a4258e5025c24a"
-    sha256               x86_64_linux:  "17651b2237c73146ceda932af1dbd0cf646999c49656580312d6665368a145d1"
+    sha256 cellar: :any, arm64_tahoe:   "ed66ea2870a5269531292472de2f9dc7a0ada19d2709f6df31194c1e90ab59f5"
+    sha256 cellar: :any, arm64_sequoia: "fe888feb95f112f8c2ca0a375ccf24b516850936a2c7f084a8b872fe262ff233"
+    sha256 cellar: :any, arm64_sonoma:  "cec5f64fa47f7803c278210a3abe9f438cf187cfdcf2b8b150f7ecaba9e17ce1"
+    sha256 cellar: :any, sonoma:        "f21c579b1a8179144a2a8fc75b008dda858666f86a6dd185366f779ba7aabc20"
+    sha256               arm64_linux:   "669ab7bb2b6e65bb559fcbb17c9c1cef137badda2eddb60288eef633e093e980"
+    sha256               x86_64_linux:  "b4ddd7f096ea723dd27ef52e0c02bb6b0c89d89eefb8e786eccf80b9414ca061"
   end
 
   depends_on "cmake" => :build
@@ -22,13 +22,16 @@ class Fastnetmon < Formula
   depends_on "grpc"
   depends_on "hiredis"
   depends_on "log4cpp"
-  depends_on macos: :big_sur # We need C++ 20 available for build which is available from Big Sur
   depends_on "mongo-c-driver"
   depends_on "openssl@3"
   depends_on "protobuf"
 
   uses_from_macos "libpcap"
   uses_from_macos "ncurses"
+
+  on_macos do
+    depends_on macos: :big_sur # We need C++ 20 available for build which is available from Big Sur
+  end
 
   on_linux do
     depends_on "elfutils"
@@ -68,6 +71,10 @@ class Fastnetmon < Formula
   end
 
   def install
+    # Vendored fmt 8.0.0 trips Apple Clang 21+ stricter consteval evaluation.
+    # Issue ref: https://github.com/fmtlib/fmt/issues/4740
+    inreplace "src/fmt/core.h", "#    define FMT_CONSTEVAL consteval", "#    define FMT_CONSTEVAL"
+
     system "cmake", "-S", "src", "-B", "build",
                     "-DCMAKE_CXX_STANDARD=20",
                     "-DLINK_WITH_ABSL=ON",

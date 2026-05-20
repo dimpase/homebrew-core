@@ -6,8 +6,6 @@ class Libgdata < Formula
   license "LGPL-2.1-or-later"
   revision 2
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     sha256 cellar: :any, arm64_tahoe:   "e14a620ed4e4745cdd03a4a29a8704eecfa725a8f1ea3807e8c2e2721573c165"
     sha256 cellar: :any, arm64_sequoia: "5768f5f98b620b962d800ec3eeac032546b5be0be8c78df288cec2a5b9e21d68"
@@ -23,6 +21,7 @@ class Libgdata < Formula
   # [^2]: https://gitlab.gnome.org/GNOME/libgdata/-/merge_requests/47#note_2030129
   # [^3]: https://gitlab.gnome.org/GNOME/gnome-build-meta/-/merge_requests/1854
   deprecate! date: "2025-09-05", because: :unmaintained
+  disable! date: "2026-09-05", because: :unmaintained
 
   depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build

@@ -1,9 +1,10 @@
 class Qemu < Formula
   desc "Generic machine emulator and virtualizer"
   homepage "https://www.qemu.org/"
-  url "https://download.qemu.org/qemu-10.2.1.tar.xz"
-  sha256 "a3717477d8e2c84d630bfffbc20f6cd3293eb45aa1e6dac6d0cc27689991c9e1"
+  url "https://download.qemu.org/qemu-11.0.0.tar.xz"
+  sha256 "c04ca36012653f32d11c674d370cf52a710e7d3f18c2d8b63e4932052a4854d6"
   license "GPL-2.0-only"
+  compatibility_version 1
   head "https://gitlab.com/qemu-project/qemu.git", branch: "master"
 
   livecheck do
@@ -12,19 +13,19 @@ class Qemu < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "033d2157dda25d3ec6ec98b0bffbc81d803b3a2a0d3a2e89c2fd7611454f73f6"
-    sha256 arm64_sequoia: "0be43d2a38948699ab3095502de37a4f55f368d01a188e468f7c71166d2d5dc8"
-    sha256 arm64_sonoma:  "a2083a7304601a5adcc8981cda2e8787515c06eedc6f13e8e0db4701f389d576"
-    sha256 sonoma:        "da5b6999f71b0bc28abf0b0baa08d7f98ea5b5f819ebeb2eae3298803f694c0e"
-    sha256 arm64_linux:   "6b2ed879ce16cd8ec1d76a79b76feb7002f998c0e4badc8fe7392dd3b2b7d11e"
-    sha256 x86_64_linux:  "b0fd9931793b9d15843dd2fba7dbcd21b739fc6d874a73bcc0e248791242c03b"
+    sha256 arm64_tahoe:   "a1a3f3bec0d8bbc6976822f8b38758486430809ceb1b6b8d9d98dacb8b961a3b"
+    sha256 arm64_sequoia: "469b7fe45e19e5c0516c5369bcba23890412f3e2c243f72690ac65fcb382fe67"
+    sha256 arm64_sonoma:  "0d80c35b4760cd5ba1da1c08c6a89511b6c31fba7d9b52f812d255d30ca6bf6e"
+    sha256 sonoma:        "a7bd0dd4d00305921af70c535ebd40f972ce6c9c4670fd3c93532da4de533f34"
+    sha256 arm64_linux:   "0a18129011938f3bde7689f42855f6f7b2ecea4eb278ed30341bbe0fb6042f15"
+    sha256 x86_64_linux:  "e8e6c18ad6782f533e82858b9e832ca2a05e0d641e1e99ae22e31531248dc489"
   end
 
   depends_on "libtool" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
+  depends_on "python-setuptools" => :build
   depends_on "python@3.14" => :build # keep aligned with meson
   depends_on "spice-protocol" => :build
 
@@ -69,8 +70,8 @@ class Qemu < Formula
 
     # Remove wheels unless explicitly permitted. Currently this:
     # * removes `meson` so that brew `meson` is always used
-    # * keeps `pycotap` which is a pure-python "none-any" wheel (allowed in homebrew/core)
-    rm(Dir["python/wheels/*"] - Dir["python/wheels/pycotap-*-none-any.whl"])
+    # * keeps `pycotap` and `qemu_qmp` which are pure-python "none-any" wheels (allowed in homebrew/core)
+    rm(Dir["python/wheels/*"] - Dir["python/wheels/{pycotap,qemu_qmp}-*-none-any.whl"])
 
     args = %W[
       --prefix=#{prefix}
@@ -117,7 +118,7 @@ class Qemu < Formula
     end
 
     archs = %w[
-      aarch64 alpha arm avr hppa i386 loongarch64 m68k microblaze microblazeel mips
+      aarch64 alpha arm avr hppa i386 loongarch64 m68k microblaze mips
       mips64 mips64el mipsel or1k ppc ppc64 riscv32 riscv64 rx
       s390x sh4 sh4eb sparc sparc64 tricore x86_64 xtensa xtensaeb
     ]

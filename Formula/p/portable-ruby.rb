@@ -3,8 +3,8 @@ require File.expand_path("../../Abstract/portable-formula", __dir__)
 class PortableRuby < PortableFormula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
-  url "https://cache.ruby-lang.org/pub/ruby/4.0/ruby-4.0.1.tar.gz"
-  sha256 "3924be2d05db30f4e35f859bf028be85f4b7dd01714142fd823e4af5de2faf9d"
+  url "https://cache.ruby-lang.org/pub/ruby/4.0/ruby-4.0.5.tar.gz"
+  sha256 "7d6149079a63f8ae1d326c9fa65c6019ba2dc3155eae7b39159817911c88958e"
   license "Ruby"
 
   # This regex restricts matching to versions other than X.Y.0.
@@ -14,10 +14,10 @@ class PortableRuby < PortableFormula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "643ad12da2e9265085a961d678f5b3219283fbc5a73cdf0615adc8609ba8539e"
-    sha256 cellar: :any_skip_relocation, catalina:      "09a5c468e76c2176c7a5a941831f28463f0035172f2fcf64f8a80f2dc1a31f01"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7cc511b5933ecb4e857994d01ddc66accdbcdb772214ba415664993fe80442f6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f52e03e2799621b7f7f103173fb9c7d660d6bc1b9748efbcaab09881bb136cc"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "d5dbe0bbfd7e00136344e7872fc26ad1db935cf7c6421c5888e42bab6cc2f6b3"
+    sha256 cellar: :any_skip_relocation, catalina:      "9ceb962508dce8cc2468095292fbff2b69fd86e0b9ecca813bf8ead72d4effa1"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ca91ffae5583800407ee3f87d682c986d72133c17959fa55f9d36ef1903e0a07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e759412bed0a0a57c8939634b35ccfba178bba4c9831000d0a28e1104d6942c"
   end
 
   depends_on "pkgconf" => :build
@@ -43,8 +43,8 @@ class PortableRuby < PortableFormula
   end
 
   resource "bootsnap" do
-    url "https://rubygems.org/downloads/bootsnap-1.21.1.gem"
-    sha256 "9373acfe732da35846623c337d3481af8ce77c7b3a927fb50e9aa92b46dbc4c4"
+    url "https://rubygems.org/downloads/bootsnap-1.24.4.gem"
+    sha256 "a4d939fc2cc5242a83d3a7cb4fb97743ac58475afe91e0600479a3df6f117541"
 
     livecheck do
       url "https://rubygems.org/api/v1/versions/bootsnap.json"
@@ -57,7 +57,14 @@ class PortableRuby < PortableFormula
   def install
     # Remove almost all bundled gems and replace with our own set.
     rm_r ".bundle"
-    allowed_gems = ["debug", "fiddle"]
+    # Allowed gem dependency tree:
+    # - debug
+    # - fiddle
+    # - irb
+    #   - reline
+    #   - rdoc
+    # - rake
+    allowed_gems = %w[debug fiddle irb rake reline rdoc]
     bundled_gems = File.foreach("gems/bundled_gems").select do |line|
       line.blank? || line.start_with?("#") || allowed_gems.any? { |gem| line.match?(/\A#{Regexp.escape(gem)}\s/) }
     end
@@ -150,11 +157,6 @@ class PortableRuby < PortableFormula
     abi_version = `#{bin}/ruby -rrbconfig -e 'print RbConfig::CONFIG["ruby_version"]'`
     abi_arch = `#{bin}/ruby -rrbconfig -e 'print RbConfig::CONFIG["arch"]'`
 
-    # Update incflags so that yaml.h (and other headers) can be found when building gems.
-    inreplace lib/"ruby/#{abi_version}/#{abi_arch}/rbconfig.rb" do |s|
-      s.sub!(/(CONFIG\["incflags"\] = )""/, "\\1\"-I$(prefix)/include\"")
-    end
-
     if OS.linux?
       # Don't restrict to a specific GCC compiler binary we used (e.g. gcc-5).
       inreplace lib/"ruby/#{abi_version}/#{abi_arch}/rbconfig.rb" do |s|
@@ -169,10 +171,6 @@ class PortableRuby < PortableFormula
       # Ship libcrypt.a so that building native gems doesn't need system libcrypt installed.
       cp libxcrypt.lib/"libcrypt.a", lib/"libcrypt.a"
     end
-
-    # Ship libyaml.a & yaml.h so that building native gems doesn't need system libyaml installed.
-    cp libyaml.lib/"libyaml.a", lib/"libyaml.a"
-    cp libyaml.include/"yaml.h", include/"yaml.h"
 
     libexec.mkpath
     cp openssl.libexec/"etc/openssl/cert.pem", libexec/"cert.pem"
@@ -204,6 +202,8 @@ class PortableRuby < PortableFormula
       require "fiddle"
       require "bootsnap"
     EOS
+    system testpath/"bin/rake", "--version"
+    system testpath/"bin/irb", "--version"
     system testpath/"bin/gem", "environment"
     system testpath/"bin/bundle", "init"
     # install gem with native components

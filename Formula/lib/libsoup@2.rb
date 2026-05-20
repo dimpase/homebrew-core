@@ -6,8 +6,6 @@ class LibsoupAT2 < Formula
   license "LGPL-2.0-or-later"
   revision 1
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
     rebuild 1
     sha256 arm64_tahoe:   "3843052f79eaa80401b387d1a0c3092c87530d4d3b8990c62a850be37e70c379"
@@ -24,6 +22,7 @@ class LibsoupAT2 < Formula
   # release and only usage of `libsoup@2` is unmaintained `libgdata`.
   # [^1]: https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/449
   deprecate! date: "2025-09-05", because: :unsupported
+  disable! date: "2026-09-05", because: :unsupported
 
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build

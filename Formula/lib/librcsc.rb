@@ -4,15 +4,15 @@ class Librcsc < Formula
   url "https://github.com/helios-base/librcsc/archive/refs/tags/rc2024.tar.gz"
   sha256 "81a3f86c9727420178dd936deb2994d764c7cd4888a2150627812ab1b813531b"
   license "LGPL-3.0-or-later"
-  revision 4
+  revision 6
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "2b641eddf9a63f9283866990970730dc474aa28a8b6531a96004c82d709cbf98"
-    sha256 cellar: :any,                 arm64_sequoia: "522d93d7ccd31d28687d2f47e5f929d8efb4bc0f3c0a2d8052b7bdef56e651df"
-    sha256 cellar: :any,                 arm64_sonoma:  "991407902fce040ab0f3fc51fe766538c5d7db053330a3a19621ce0198b39a76"
-    sha256 cellar: :any,                 sonoma:        "8648400acecb2198fba9299579882c0f2cc82b63ed4f953f96e3051621e0dedf"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "373a75834d3518cc59f7a40cfb688353c80128ee0c9ad28e6cc4e919fe7aabe8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3d680a74dd021cab8f5c6e5c4b0e2173e227a226c3b5e544d26d8fd7acff567a"
+    sha256 cellar: :any,                 arm64_tahoe:   "58bba310c7abcb9a65a3193bc1b9b2cf93ec27c7b5291dcfa17f1d8b4d0e3a46"
+    sha256 cellar: :any,                 arm64_sequoia: "a88635fe96fcd19aeb4ca66fbb6b3f92303ac151129b7b76cea00af23e02c271"
+    sha256 cellar: :any,                 arm64_sonoma:  "ef3a0f46cfc44eb09becdf11483aff810ab565236d3931a72960a9e72507e633"
+    sha256 cellar: :any,                 sonoma:        "2ce74234bcc5bb8cbfa54308536f440a94823aeb4e9b33a459f5585d204e903b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "50815b0242db98f4ec164f83332898aa7524da22e974ad69371c1be7cf31e0ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b9aba2e1ff156cea48ad4e8d3999c060e07a2ae6c5457bc49fc93d97e50bd4ed"
   end
 
   depends_on "autoconf" => :build
@@ -45,6 +45,7 @@ class Librcsc < Formula
 
     # Strip linkage to `boost`
     ENV.append "LDFLAGS", "-Wl,-dead_strip_dylibs" if OS.mac?
+    ENV.append "CFLAGS", "-std=gnu11"
 
     system "./bootstrap"
     system "./configure", "--disable-silent-rules",

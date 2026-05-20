@@ -3,10 +3,10 @@ class Qtwebengine < Formula
 
   desc "Provides functionality for rendering regions of dynamic web content"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtwebengine-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtwebengine-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtwebengine-everywhere-src-6.10.2.tar.xz"
-  sha256 "856eddf292a69a88618567deea67711b4ec720e69bcb575ed7bb539c9023961e"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtwebengine-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtwebengine-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtwebengine-everywhere-src-6.11.1.tar.xz"
+  sha256 "679c66ccc6c158fc215e9c58ef160331ecd29974232e345c05161889f8667083"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } }, # qwebengine_convert_dict; QtWebEngineProcess
@@ -14,10 +14,10 @@ class Qtwebengine < Formula
 
     # The following extra licenses are for Chromium's bundled libraries
     # https://doc.qt.io/qt-6/qtwebengine-licensing.html#third-party-licenses
-    "Apache-2.0",        # Abseil; Crashpad; FlatBuffers; libgav1; ...
+    "Apache-2.0",        # Abseil; boringssl; Crashpad; FlatBuffers; libgav1; ...
     "blessing",          # sqlite
     "BSD-2-Clause",      # aom; cpuinfo; dav1d; libavif
-    "LGPL-2.1-or-later", # ffmpeg (macOS); speech-dispatcher (Linux)
+    "LGPL-2.1-or-later", # ffmpeg; speech-dispatcher (Linux)
     "libpng-2.0",        # libpng (macOS)
     "MIT",               # Brotli; CityHash; FP16; fast_float; ...
     "MPL-1.1",           # hunspell
@@ -26,8 +26,8 @@ class Qtwebengine < Formula
     "SunPro",            # fdlibm
     "Zlib",              # zlib (macOS)
     :public_domain,      # sigslot; SPL-SQRT-FLOOR
-    { all_of: ["ISC", "OpenSSL"] }, # boringssl, TODO: remove in Chromium 134+
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtwebengine.git", branch: "dev"
 
   livecheck do
@@ -35,11 +35,11 @@ class Qtwebengine < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "99dfde734b22c0064d6ed5168ba788470f16e2e6b94a5e2294bd473caa2dfcc7"
-    sha256 cellar: :any,                 arm64_sequoia: "1af3fda80d8e22716a7d6ae3ac5a3b498437c038c3f456953087dd442da6540d"
-    sha256 cellar: :any,                 arm64_sonoma:  "b166219239385c92766d08f7f868f62fb72264fa5f50df77882afdfada493869"
-    sha256 cellar: :any,                 sonoma:        "172e03a367cd18d35540c936dae17d3256afea431a49814044f55eb0ea2c91b8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "00d2b22e3ac0de9ac41fe7dec21b0b51b4d2d1d81d0debd2c33686fef9c5c1e3"
+    sha256 cellar: :any,                 arm64_tahoe:   "27c941594e21c1030944063ae89e809e15a51feee81147704ed904c1cb749974"
+    sha256 cellar: :any,                 arm64_sequoia: "17ad5d170ab118eff4c1c1f0e6a525f4a927ee999ff2a66a198068ce1d0f25ae"
+    sha256 cellar: :any,                 arm64_sonoma:  "d17a47708aaf9478ad498c1dede4dab9b55917235c6132ab92ca1810db03c996"
+    sha256 cellar: :any,                 sonoma:        "507e1ad30d3cfbcd7328f6800d341ee75d9bfdb81841bd98b00a3d0cb83978e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d6c7431ce6506af0c2012da0dbdb4588b7a73360b393342486cea5aa97c52b8c"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -79,7 +79,6 @@ class Qtwebengine < Formula
     depends_on "alsa-lib"
     depends_on "dbus"
     depends_on "expat"
-    depends_on "ffmpeg"
     depends_on "fontconfig"
     depends_on "freetype"
     depends_on "harfbuzz"
@@ -191,10 +190,12 @@ class Qtwebengine < Formula
       #
       # The vendored copy of `re2` is used to avoid rebuilds with `re2` version
       # bumps and due to frequent API incompatibilities in Qt's copy of Chromium.
+      #
+      # The vendored copy of `ffmpeg` is used due to Chromium's usage of private API
+      # Issue ref: https://issues.chromium.org/issues/40218408
       %w[
         -DFEATURE_webengine_ozone_x11=ON
         -DFEATURE_webengine_system_alsa=ON
-        -DFEATURE_webengine_system_ffmpeg=ON
         -DFEATURE_webengine_system_freetype=ON
         -DFEATURE_webengine_system_gbm=ON
         -DFEATURE_webengine_system_harfbuzz=ON

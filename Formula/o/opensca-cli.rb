@@ -1,18 +1,18 @@
 class OpenscaCli < Formula
   desc "OpenSCA is a supply-chain security tool for security researchers and developers"
   homepage "https://opensca.xmirror.cn"
-  url "https://github.com/XmirrorSecurity/OpenSCA-cli/archive/refs/tags/v3.0.9.tar.gz"
-  sha256 "1bfadc131d1227b7d5d72ac36282bdf1edac85a9c5ecdfa4c5f923ebdae2cee2"
+  url "https://github.com/XmirrorSecurity/OpenSCA-cli/archive/refs/tags/v3.0.11.tar.gz"
+  sha256 "91a4951baf951580ef8eeda6096521026193c177f2ed4082c08a9d74442fd7fa"
   license "Apache-2.0"
   head "https://github.com/XmirrorSecurity/OpenSCA-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "76c50afaed0c9449571cd30869fd7af682ce4b904d090b0b3a33d95ac75e2194"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "929cae5f62efd8c6d9b432b310c338908d82821fd8e667dcc2c26d1595e09f88"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1575af93889d6c92847c0c9df9c58ab77490b57c12ff6a4b2da1f934847e8c67"
-    sha256 cellar: :any_skip_relocation, sonoma:        "fda462bc2c013f1ed5ba732184b234fe10d98273d1922deed8db8d44d894392b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "1e722516e74504df275c56ec240f93b7fa5048563338cd38ef8bade3d7c34b94"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "620a1d1c0201288411ede64b49d02a92d49d9966ce6a4ee85b1b03c208a1b166"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "43fd59165cf9a27004a30db23a82d7286d76a682990ce8e6ed7d5acead05c392"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "555cd679751baf31a842e2e861963346a1ed000f40f6309725743151a3cbefe2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "831eb3aec87ca87963cb635b44a11fa3dab01812a95e10dfd15bd800e63728b9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cb58aaf885bce3f95038d88d9c5fc46a80382e5d832f37cbb11654a345839c95"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "253979991c7ceda8f70377422d2ff31238fbb932018d73ad9e5bc0392c97a85c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fdf4a47dc3bbda7c13b597afe0fec8f18f137d6130b7ff602fbf10c411453639"
   end
 
   depends_on "go" => :build

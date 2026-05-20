@@ -1,30 +1,48 @@
 class Ladybug < Formula
   desc "Embedded graph database built for query speed and scalability"
   homepage "https://ladybugdb.com/"
-  url "https://github.com/LadybugDB/ladybug/archive/refs/tags/v0.14.3.tar.gz"
-  sha256 "9fcae7c52640ea11dd58c1424552dcd34bdb835e10b1c812fdd361a7a1b30377"
+  url "https://github.com/LadybugDB/ladybug/archive/refs/tags/v0.16.1.tar.gz"
+  sha256 "c22417b46b895df7c25f8314cab27bc1afbf1a43b06463a023c98eac5ffe16c3"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "85118d8cbe0dd171baf10824103f938fd139bd971fdf74864c63a7ef92e43d6c"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "241757fc482e3679056b74e344a3c0c58d9050df013bdba3457f8418db5726a9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4e1764e7e275ddd54c4b3caacc1ecfdd2b0977adfbff989fb78832b33c428e36"
-    sha256 cellar: :any_skip_relocation, sonoma:        "136df9ec9fb7b9d0f7973b617372cb1d5b5e994461156f9a2280ac96540d1933"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "9b897b41a46b517b2c1fc857a7f67fcd016f2de8decbb7f10ac0bf6fa6cf576c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9c090dfae861eafd229be01fa76d6b47562ce97bae6fa4d9cf51f5e7422f57ea"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_tahoe:   "0d4155d639e169913f17d3d1344591948fce00905e8a4398f3d9074a00200da7"
+    sha256 cellar: :any,                 arm64_sequoia: "645ba24811550a2e0ebe71ee97e4255beb275d912cdaee3008ffb1d3b492ff43"
+    sha256 cellar: :any,                 arm64_sonoma:  "ec2e1557fae4914afc541d1bfafee9b5169fba4eb0d8823d4beb4e7e33ff3919"
+    sha256 cellar: :any,                 sonoma:        "86dbdd77ed809cee24b42b309c7ed5ac00ce841cb45beb27883245c2f4309e82"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f878af0aa3ca57fc97e5ade8f58d5ee46218918fbd06c7cade5eff84ef61c372"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3a709d48e720801aa916a482a7c14e70e950a3a97837e6fc8d6f8ba0f77b4f36"
   end
 
   depends_on "cmake" => :build
   uses_from_macos "python" => :build
 
+  on_linux do
+    depends_on "gcc"
+  end
+
+  fails_with :gcc do
+    version "12"
+    cause "Requires C++20 std::format, https://gcc.gnu.org/gcc-13/changes.html#libstdcxx"
+  end
+
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    args = %W[
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
-    bin.install "build/tools/shell/lbug"
+    system "cmake", "--install", "build"
+
+    # Remove unwanted headers and libraries for `cppjieba`
+    rm_r Dir["{#{include},#{share}}/cppjieba/*"]
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/lbug --version")
+    # Upstream versioning up to patch version, so skip for 4th number in version
+    assert_match version.major_minor_patch.to_s, shell_output("#{bin}/lbug --version")
 
     # Test basic query functionality
     output = pipe_output("#{bin}/lbug -m csv -s", "UNWIND [1, 2, 3, 4, 5] as i return i;")

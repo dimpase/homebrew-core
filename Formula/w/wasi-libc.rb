@@ -9,8 +9,8 @@ class WasiLibc < Formula
   head "https://github.com/WebAssembly/wasi-libc.git", branch: "main"
 
   stable do
-    url "https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-30.tar.gz"
-    sha256 "095260fb7f6bebd032538ff631a5760a8cdf455f16a167cc1d7e7d6203fb87d0"
+    url "https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-32.tar.gz"
+    sha256 "ea9827495c0f35bca3b3d0a953e854cac112c43bea3196b5a4f7f8fc4704b9a4"
 
     resource "WASI" do
       # Check the commit hash of `tools/wasi-headers/WASI` from the commit of the tag above.
@@ -20,12 +20,12 @@ class WasiLibc < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "6c77e6bf24a06212673eec6f88fe8d8b4e31bf85ed122f3c82c90b6481e40d61"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6c77e6bf24a06212673eec6f88fe8d8b4e31bf85ed122f3c82c90b6481e40d61"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6c77e6bf24a06212673eec6f88fe8d8b4e31bf85ed122f3c82c90b6481e40d61"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6c77e6bf24a06212673eec6f88fe8d8b4e31bf85ed122f3c82c90b6481e40d61"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "dcc7103b2ae890070d7ea994ceafc80baf30f8d19983edc488c218ff907874e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dcc7103b2ae890070d7ea994ceafc80baf30f8d19983edc488c218ff907874e9"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3b24835e1e541ddb1cf6688880146174263d79b4e47e29c95bd130a998668bd3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3b24835e1e541ddb1cf6688880146174263d79b4e47e29c95bd130a998668bd3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3b24835e1e541ddb1cf6688880146174263d79b4e47e29c95bd130a998668bd3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3b24835e1e541ddb1cf6688880146174263d79b4e47e29c95bd130a998668bd3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d9f2cb6ddd72ace0e1fd9f2ffa5e66e285b961805636296ee9286bc8811ddde8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d9f2cb6ddd72ace0e1fd9f2ffa5e66e285b961805636296ee9286bc8811ddde8"
   end
 
   depends_on "cmake" => :build
@@ -34,8 +34,9 @@ class WasiLibc < Formula
   depends_on "ninja" => :build
   depends_on "wasm-micro-runtime" => :test
 
-  # Needs clang
-  fails_with :gcc
+  fails_with :gcc do
+    cause "requires Clang, see https://github.com/WebAssembly/wasi-libc/blob/main/README.md#building-from-source"
+  end
 
   def install
     resource("WASI").stage buildpath/"tools/wasi-headers/WASI" if build.stable?

@@ -1,20 +1,21 @@
 class ApacheArrow < Formula
   desc "Columnar in-memory analytics layer designed to accelerate big data"
   homepage "https://arrow.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-23.0.1/apache-arrow-23.0.1.tar.gz"
-  mirror "https://archive.apache.org/dist/arrow/arrow-23.0.1/apache-arrow-23.0.1.tar.gz"
-  sha256 "bd09adb4feac11fe49d1604f296618866702be610c86e2d513b561d877de6b18"
+  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-24.0.0/apache-arrow-24.0.0.tar.gz"
+  mirror "https://archive.apache.org/dist/arrow/arrow-24.0.0/apache-arrow-24.0.0.tar.gz"
+  sha256 "9a8094d24fa33b90c672ab77fdda253f29300c8b0dd3f0b8e55a29dbd98b82c9"
   license "Apache-2.0"
   revision 1
+  compatibility_version 2
   head "https://github.com/apache/arrow.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "c22fe0f6233b8249ad8d2ac9e6f792c11715a2b8f700dc32e814becc3a744179"
-    sha256 cellar: :any, arm64_sequoia: "3b53a0644996494587816b18e02a2ac271cf4fc87a970d4f2311278cf2aab500"
-    sha256 cellar: :any, arm64_sonoma:  "d8c6e62c238cfa860c5aad35fba9bf54ed52f8e78b1626956d75e3e67831811c"
-    sha256 cellar: :any, sonoma:        "00cc969a7b4d564589ced87afeda6b5dd2372ed6690eeb9c33dd29105a22b7ec"
-    sha256               arm64_linux:   "086fcd6489fbdb87210c0f839eedab7b14626f8987aa3db36e6f65360b2c24fb"
-    sha256               x86_64_linux:  "8c3e2221229b0b4bcd178b8716beb753eca9dae02262859bf6dda846c83d920b"
+    sha256 cellar: :any, arm64_tahoe:   "725827052d5622205be5a22b584fa371dd54dc4ed0ffb910c7c121900eee18cf"
+    sha256 cellar: :any, arm64_sequoia: "f06e7d05526ea26d23ee2b4cf89e42deb65e8dd19c56e266103cef2537555d51"
+    sha256 cellar: :any, arm64_sonoma:  "59e94b6daa2a495130d5f4239ae4c3e83f0a5ee0f8baa5c0f702559959bf85fe"
+    sha256 cellar: :any, sonoma:        "0198edd477ebbd5b384c7d022b1b14a1ff2edb5710fa9e2081be2c12d13bf430"
+    sha256               arm64_linux:   "07e853a572a9224f5a62359549546a3343843776302ff09fed91c7cfc6c970bc"
+    sha256               x86_64_linux:  "7efac2027b0854793553b57a46609ee1a7da6f40eea1c81aaac58214846133ef"
   end
 
   depends_on "boost" => :build
@@ -27,7 +28,7 @@ class ApacheArrow < Formula
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
   depends_on "grpc"
-  depends_on "llvm@21"
+  depends_on "llvm"
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "protobuf"
@@ -44,11 +45,15 @@ class ApacheArrow < Formula
     depends_on "zlib-ng-compat"
   end
 
+  fails_with :gcc do
+    version "12"
+    cause "fails handling PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED"
+  end
+
   def install
-    # We set `ARROW_ORC=OFF` because it fails to build with Protobuf 27.0
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DLLVM_ROOT=#{Formula["llvm@21"].opt_prefix}
+      -DLLVM_ROOT=#{Formula["llvm"].opt_prefix}
       -DARROW_DEPENDENCY_SOURCE=SYSTEM
       -DARROW_ACERO=ON
       -DARROW_COMPUTE=ON
@@ -78,7 +83,10 @@ class ApacheArrow < Formula
     args << if OS.mac?
       "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-dead_strip_dylibs" # Reduce overlinking
     else
-      "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" # Avoid versioned LLVM RPATH getting dropped
+      # TODO: Remove after moving CI to Ubuntu 24.04. Cannot use newer GCC as it
+      # will increase minimum GLIBCXX in bottle resulting in a runtime dependency.
+      ENV.llvm_clang
+      "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--as-needed"
     end
     # ARROW_SIMD_LEVEL sets the minimum required SIMD. Since this defaults to
     # SSE4.2 on x86_64, we need to reduce level to match oldest supported CPU.
@@ -100,7 +108,7 @@ class ApacheArrow < Formula
         return 0;
       }
     CPP
-    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}", "-L#{lib}", "-larrow", "-o", "test"
+    system ENV.cxx, "test.cpp", "-std=c++20", "-I#{include}", "-L#{lib}", "-larrow", "-o", "test"
     system "./test"
   end
 end

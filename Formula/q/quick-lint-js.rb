@@ -4,16 +4,16 @@ class QuickLintJs < Formula
   url "https://c.quick-lint-js.com/releases/3.2.0/source/quick-lint-js-3.2.0.tar.gz"
   sha256 "f17b39726622637946136076c406e89d3a98ae363d5e3c2a93ab1139bf0e828d"
   license "GPL-3.0-or-later"
-  revision 10
+  revision 12
   head "https://github.com/quick-lint/quick-lint-js.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "49d03124a83f370f4a9cf64dbb426d63733316f6e8360751f41f6eabd8df7ae7"
-    sha256 cellar: :any,                 arm64_sequoia: "7a630eeb8cf9128abd1ae96bea338aa598a5d4f8dcc072f168ea32f6f281eae9"
-    sha256 cellar: :any,                 arm64_sonoma:  "437a3e91ecab5a92b40ab67016000d144a64f9dfcd97c9849ccd43eed596644b"
-    sha256 cellar: :any,                 sonoma:        "40ad5c3c8e7d7684cd010f435d55a612565e9eac743d3345ef9f79b43e1892cb"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "1bfb07780c00cef9046794798275f7e68cfb5ad9438ba98a9fb7bd33394a6881"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6171fc32f3961b428ea0799910225576b405a7cbb3f21a1c051f8890a675b0c7"
+    sha256 cellar: :any,                 arm64_tahoe:   "1d8abd1efbf3b612f762dd7a9c8f1b4c8cfb5b0540cb80702df22deccbf22686"
+    sha256 cellar: :any,                 arm64_sequoia: "cf53bcaae51537c3ec29e74e1ca8febb506c7ce3abace2c8bc71d79d16c32ba2"
+    sha256 cellar: :any,                 arm64_sonoma:  "3af1fd83465bcaaceb6549b6446d98f6e010a582dc71722eba853a818803bc08"
+    sha256 cellar: :any,                 sonoma:        "65e5cd9ae5a96af133efec956be0935ed231da0cadeca2d7af18875850b68764"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c93598fba05a4402479254731c4879cea0d74ded7d889ea395d102e1d56c06cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e0a8d29f50545ba7a100653acf8b9afa9195f8ef498a5f055c6a4a2471635347"
   end
 
   depends_on "cmake" => :build

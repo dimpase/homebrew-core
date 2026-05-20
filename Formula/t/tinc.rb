@@ -1,9 +1,9 @@
 class Tinc < Formula
   desc "Virtual Private Network (VPN) tool"
   homepage "https://www.tinc-vpn.org/"
-  url "https://tinc-vpn.org/packages/tinc-1.0.36.tar.gz"
-  mirror "http://tinc-vpn.org/packages/tinc-1.0.36.tar.gz"
-  sha256 "40f73bb3facc480effe0e771442a706ff0488edea7a5f2505d4ccb2aa8163108"
+  url "https://tinc-vpn.org/packages/tinc-1.0.37.tar.gz"
+  mirror "http://tinc-vpn.org/packages/tinc-1.0.37.tar.gz"
+  sha256 "f63b7e21c32c4c637576d85f36bdd28ea678b5aa17fad02427645dea30e52ac7"
   license "GPL-2.0-or-later" => { with: "openvpn-openssl-exception" }
 
   livecheck do
@@ -11,20 +11,18 @@ class Tinc < Formula
     regex(/href=.*?tinc[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  no_autobump! because: :requires_manual_review
-
   bottle do
-    rebuild 3
-    sha256 cellar: :any,                 arm64_tahoe:   "fec5d5550d6c34b8ed4a77e0df8a9eb507057df30076f9806e1dab5f10cf797a"
-    sha256 cellar: :any,                 arm64_sequoia: "557684567c679c553dd157dbe92f4740160e2f2a0521d4910e3e40d7578c613d"
-    sha256 cellar: :any,                 arm64_sonoma:  "d17dfcc53d3d26a6168cfb5a1630653308b853801f7495568a9f341d59c5ddc3"
-    sha256 cellar: :any,                 sonoma:        "f40c710167e11b42b729de6be12b8dbda24caa4b238739d4e3176a8ac7e00eb8"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "badc117b77ec0ad57a0954ac307698fa34223beb9406a210a30c6f64b0d5e08e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6929dbbd4bc0cbc6e790bedd9be5a92493e1b3810bc7b93c421200eac3c046ef"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_tahoe:   "787c187e6c7506a56b7c112480a601d7e881a17e52429c0f30e4f2b63d39ff5e"
+    sha256 cellar: :any,                 arm64_sequoia: "85c840467466955dc20f3b7bf38e814da2c30495fd31bb9ddc843292096d5ad5"
+    sha256 cellar: :any,                 arm64_sonoma:  "4e905858ac8c591b769fbed72a4a9f139c786cc36ef1e7cdb20a88f0b303eb94"
+    sha256 cellar: :any,                 sonoma:        "bc75d6f63b2643ccbf66658b8186511ae6fc65dfecba334c917af3511ac4eaaa"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f779b6e945b036f06086c7ccf55c615c172c68d4cf62eb0fa3555fbda893f1a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f2873265ddb0e5e93829694b60d4aa6a15690b54dd1b170c3e2586f3df9988f6"
   end
 
   depends_on "lzo"
-  depends_on "openssl@3"
+  depends_on "openssl@4"
 
   on_linux do
     depends_on "zlib-ng-compat"
@@ -35,7 +33,7 @@ class Tinc < Formula
 
   def install
     system "./configure", "--sysconfdir=#{etc}",
-                          "--with-openssl=#{Formula["openssl@3"].opt_prefix}",
+                          "--with-openssl=#{Formula["openssl@4"].opt_prefix}",
                           *std_configure_args
     system "make", "install"
 

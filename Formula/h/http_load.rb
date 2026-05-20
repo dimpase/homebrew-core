@@ -19,7 +19,7 @@ class HttpLoad < Formula
     end
   end
 
-  no_autobump! because: :requires_manual_review
+  no_autobump! because: :incompatible_version_format
 
   bottle do
     rebuild 1
@@ -37,6 +37,9 @@ class HttpLoad < Formula
     sha256 cellar: :any_skip_relocation, arm64_linux:    "21d002bd2aa7f0c6f9bb57c13777d961e01a3e149769017c6ed91cb4a1ea0f1c"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "5172c491fea4e76a68983d8fe6563a97e2ed2bef73b6bb0c95f5290282343116"
   end
+
+  # Upstream repo url is only available via http.
+  disable! date: "2026-07-24", because: :repo_removed
 
   depends_on "openssl@3"
 

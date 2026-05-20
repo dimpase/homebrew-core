@@ -1,17 +1,17 @@
 class BazelDiff < Formula
   desc "Performs Bazel Target Diffing between two revisions in Git"
   homepage "https://github.com/Tinder/bazel-diff/"
-  url "https://github.com/Tinder/bazel-diff/releases/download/16.0.0/release.tar.gz"
-  sha256 "6baf16fee77f36f9a69fe972e28bf600cc92f28d01850a97ee9f39a23b5d7534"
+  url "https://github.com/Tinder/bazel-diff/archive/refs/tags/v24.0.0.tar.gz"
+  sha256 "f7e2edfe85127f6f228688c94ce279b5e4b26a188d80b0c4aae55c9097636b0e"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0f7e1f48189b485e03ba2dd2e4ed918330c48d6aecd5917b2c9d037ac0092bca"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0f7e1f48189b485e03ba2dd2e4ed918330c48d6aecd5917b2c9d037ac0092bca"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0f7e1f48189b485e03ba2dd2e4ed918330c48d6aecd5917b2c9d037ac0092bca"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9ca6acad2d8e668632a1fd9a625dbee24d01b3557285dfae3c3979c17c613ef4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "ed9dfd934f9081c812898ef3ad6a6a4e2ec5d2a3d43e926fea418cffcff81031"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bceacdd3c64531039366a63f61dd4cf725569139367402d655a282fbce92346d"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ea69d90dde28839d4010863851c0a19507555cf8cd2fae934f1ca690eb46e306"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ea69d90dde28839d4010863851c0a19507555cf8cd2fae934f1ca690eb46e306"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ea69d90dde28839d4010863851c0a19507555cf8cd2fae934f1ca690eb46e306"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ea69d90dde28839d4010863851c0a19507555cf8cd2fae934f1ca690eb46e306"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "64ba494e81c29e97ea86573fc942e48ac8f991d424c6a72befe847df8b070a3d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "64ba494e81c29e97ea86573fc942e48ac8f991d424c6a72befe847df8b070a3d"
   end
 
   depends_on "bazel" => [:build, :test]

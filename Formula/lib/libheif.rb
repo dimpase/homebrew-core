@@ -1,17 +1,18 @@
 class Libheif < Formula
   desc "ISO/IEC 23008-12:2017 HEIF file format decoder and encoder"
   homepage "https://www.libde265.org/"
-  url "https://github.com/strukturag/libheif/releases/download/v1.21.2/libheif-1.21.2.tar.gz"
-  sha256 "75f530b7154bc93e7ecf846edfc0416bf5f490612de8c45983c36385aa742b42"
-  license "LGPL-3.0-only"
+  url "https://github.com/strukturag/libheif/releases/download/v1.22.0/libheif-1.22.0.tar.gz"
+  sha256 "8bd20cfa3201997b8f63266cddfabea2e1481467d7f992e6a2595e0bec691fc2"
+  license "LGPL-3.0-or-later"
+  compatibility_version 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "74409afd4371c441de5349908173d75a5d04525c41a4f145cb6f669b1a98ed4f"
-    sha256 cellar: :any,                 arm64_sequoia: "2158b5706d063ab6b40415990d257334f294159391184e07a6412db25ab7de05"
-    sha256 cellar: :any,                 arm64_sonoma:  "580ffc4cf73852d0f1f7e96aa7deccea4685c1a00b6669707f01c96d3a8dcc80"
-    sha256 cellar: :any,                 sonoma:        "3a6428ddc1440471e8b92203faff7a3047b6a52f7243ea7ce240982df5c7aee2"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "6a6a3852712f9beba084f87ccc72f42300083525c7ee5a023f16f4ba0987755c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f4b94da88750ba94317be8a3123ecafd7c635ca33e23c3381e28d57982a28baf"
+    sha256 cellar: :any,                 arm64_tahoe:   "1f3e43af36614e0ac6fd9415e29b6eb142d0e32a1defafd0214a90527b7eb1dd"
+    sha256 cellar: :any,                 arm64_sequoia: "b33e8f022966a1a1f8c26b78ff83c725868313a4245180f75fc1618bfeba07ab"
+    sha256 cellar: :any,                 arm64_sonoma:  "dbdc427e50935cc75110a4f4d993f4313f9517655d9a464f6a59b7702cbfd18d"
+    sha256 cellar: :any,                 sonoma:        "e84d7d1f6c6c8b92ee45308ffc07f8f89a454a40b0a3db10f35f6103f8061507"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "38eca108f6b72bb0112a5740c9d683b258726f6c9bb8b7daee6df68da58f25a0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e88f68728cf651f75a143fdbf4e38abd3b211bcaa907d6efad67a2a51117a740"
   end
 
   depends_on "cmake" => :build
@@ -22,17 +23,21 @@ class Libheif < Formula
   depends_on "libde265"
   depends_on "libpng"
   depends_on "libtiff"
-  depends_on "shared-mime-info"
   depends_on "webp"
   depends_on "x265"
 
   def install
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DPLUGIN_DIRECTORY=#{HOMEBREW_PREFIX}/lib/libheif
+      -DPLUGIN_INSTALL_DIRECTORY=#{lib}/libheif
       -DWITH_DAV1D=OFF
+      -DWITH_EXAMPLE_HEIF_VIEW=OFF
       -DWITH_GDK_PIXBUF=OFF
+      -DWITH_OpenH264_DECODER=OFF
       -DWITH_RAV1E=OFF
       -DWITH_SvtEnc=OFF
+      -DWITH_X264=OFF
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
@@ -49,8 +54,8 @@ class Libheif < Formula
     inreplace lib/"pkgconfig/libheif.pc", prefix, opt_prefix
   end
 
-  def post_install
-    system Formula["shared-mime-info"].opt_bin/"update-mime-database", "#{HOMEBREW_PREFIX}/share/mime"
+  def caveats
+    "Additional codecs can be enabled by `brew install libheif-plugins`"
   end
 
   test do

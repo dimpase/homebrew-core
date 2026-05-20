@@ -1,11 +1,11 @@
 class Dnscontrol < Formula
   desc "Synchronize your DNS to multiple providers from a simple DSL"
   homepage "https://dnscontrol.org/"
-  url "https://github.com/StackExchange/dnscontrol/archive/refs/tags/v4.35.0.tar.gz"
-  sha256 "a6e6c281f11941a3cb0f1f69ed1cb314fe78730647063255d6fd5d6f615b8186"
+  url "https://github.com/DNSControl/dnscontrol/archive/refs/tags/v4.39.0.tar.gz"
+  sha256 "0ad3bea6d327764bc824c42018045441cfbdaa0a5e801637fc3effc3ee17bc95"
   license "MIT"
   version_scheme 1
-  head "https://github.com/StackExchange/dnscontrol.git", branch: "main"
+  head "https://github.com/DNSControl/dnscontrol.git", branch: "main"
 
   # Upstream appears to use GitHub releases to indicate that a version is
   # released and they sometimes re-tag versions before that point, so it's
@@ -16,12 +16,12 @@ class Dnscontrol < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2ca55ff776b7ec8d88f9ae03222c4742ff47ca6ec06719a168acae6327bcf8ad"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3be01968ce2b98a3920f6f09ee6edfebc8bd1b5def9bd90f87d130c089b9c2f6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ff36f8cd8730467d97794cc6e8a61b921529dfd5d6451eb2a263a5917a17cad8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6d6db9b4830dbadb840cef620ad277eb495ece6ffc9237dc9750813734d85add"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "3a2e257f06b8a0e6a3fca55baf28c9d78009adddc5fbd676fbb5a80935e33dd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "31ca6ecfed3445ccd98dd77d294377a7b6d3af54687943fdf06269943935afc9"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "6be37f6e517706563ec23215d108ef3c3555c205581e0f9cfc325d0e45a342e6"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8b117719226e92451570f8c5e67f0dea0e48bd63d1fe00cb826c986fe769bc8e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "78b3c54f78e3f06a000633277f5d606dcb92097b831d6b0aa23593f766a53375"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e34f8cff6210270d1aeb22c17a2e6a93daa867d7aa135ebe8c9024baf02a7e7f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "87bb3ccdce54d4c94ee8133cfa96adcf70d14b348923bb0357f4275dab906086"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7cb10680ee280562cbc5504f7163dc6b1daf8be7c20b0bd8aed06b0c15feea4a"
   end
 
   depends_on "go" => :build
@@ -29,7 +29,7 @@ class Dnscontrol < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/StackExchange/dnscontrol/v4/pkg/version.version=#{version}
+      -X github.com/DNSControl/dnscontrol/v#{version.major}/pkg/version.version=#{version}
     ]
     system "go", "build", *std_go_args(ldflags:)
 

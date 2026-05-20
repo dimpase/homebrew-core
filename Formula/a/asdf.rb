@@ -1,8 +1,8 @@
 class Asdf < Formula
   desc "Extendable version manager with support for Ruby, Node.js, Erlang & more"
   homepage "https://asdf-vm.com/"
-  url "https://github.com/asdf-vm/asdf/archive/refs/tags/v0.18.0.tar.gz"
-  sha256 "c452a886503277260b7c82c07031800340f892bb2147bb3af67dca7268a410b5"
+  url "https://github.com/asdf-vm/asdf/archive/refs/tags/v0.19.0.tar.gz"
+  sha256 "bd2b497b0c58017cb7c863550d9cf585aefbd74e334a567cd6b8dcb339bb1806"
   license "MIT"
   head "https://github.com/asdf-vm/asdf.git", branch: "master"
 
@@ -12,14 +12,12 @@ class Asdf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b22b8e329c938b0b7c464de089c396e48c8712c8ea34df5130dc6f1652883616"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ae721d20a3a3f9402d2bad6201a001379adcc3300c01a4548fbb5067daeee338"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ae721d20a3a3f9402d2bad6201a001379adcc3300c01a4548fbb5067daeee338"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ae721d20a3a3f9402d2bad6201a001379adcc3300c01a4548fbb5067daeee338"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6bc472f55318b4b9810673f11731f42338e6ebf466cd4098426e0d72b483dd6a"
-    sha256 cellar: :any_skip_relocation, ventura:       "6bc472f55318b4b9810673f11731f42338e6ebf466cd4098426e0d72b483dd6a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "884f05b0a2dd2c2e377fb8f9c0ccd7070d1f499175fac67544d99f4df5e75e19"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f6863a8bc60de461a3228c19198f8c927bac21c4e17618a8c28d22ccfa7675a"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4b4f7836d3f8dd1b4b8958612843c0265cec41dd54c61e4e72ddbb7e2f58bf49"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4b4f7836d3f8dd1b4b8958612843c0265cec41dd54c61e4e72ddbb7e2f58bf49"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4b4f7836d3f8dd1b4b8958612843c0265cec41dd54c61e4e72ddbb7e2f58bf49"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d41db2d847be8153637321d3b02f09c683c41f676be9fde04c0b8fe382829055"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "607bac77c488c042954081712d7be3ec8640cd2f6c0e5a241aabd65611f8612c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "20cda6dddd47e19cf89cb107253e3e716333443d885bde1c82ddd0a41c53a620"
   end
 
   depends_on "go" => :build

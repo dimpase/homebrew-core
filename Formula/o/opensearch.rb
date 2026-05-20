@@ -1,26 +1,28 @@
 class Opensearch < Formula
   desc "Open source distributed and RESTful search engine"
   homepage "https://github.com/opensearch-project/OpenSearch"
-  url "https://github.com/opensearch-project/OpenSearch/archive/refs/tags/3.5.0.tar.gz"
-  sha256 "b57b3bf4945d6759f31fbc76042c8ffdb5159bd12caf7738865f1b08d93f55c6"
+  url "https://github.com/opensearch-project/OpenSearch.git",
+      tag:      "3.6.0",
+      revision: "4ca747d8d47f80162db323019357447126732e35"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "86ef68a72cdf2c2195157289cfe84b40c25907a8dac42440455eb7a671ec4ff9"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "df1fae55af0a3745c82d5ec3ad43702b30cc13142de0f1537390c83b37ae7460"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d40b37789f2608a23b35850c845849909665c8a2a8f86e5da50dae0200bd9ca9"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d2ffadce6eb4d5fbf29d006f5e0fcbcf03f3192a96f2fb3bd78e4a36b9eed9f7"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d4c7449efd06d179d4b505fb21e6919d32310e0003aae71d56574feaa1671b80"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1be1ab2eb8ab7c984570e732f6a9476236c603d7a46950e93053d568d216b12d"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4d4c2365ca4db4bdeeeacc439b2862fdc2ec1669debb0112ecd68fd3e1f2d375"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a6485d06559c900bb2e84410fc897998a803c7c62757f152b504bddd1e40e5c1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6622bed240cc4c5cabd443bfbf1a1db97db8abef445310d4842d25237dfba320"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8ce4783200e4fc7a550732e3e9bfed8d74d273a5209fef18e2473e7edde439ff"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4766c1cd628f563b7a97b162ad7673990f55e20bc45284d0d12d848937e46d56"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c8f399ee6a63960c551fa3415c060a72d35f5c816656eff6ae27442c99402508"
   end
 
-  depends_on "gradle@8" => :build
-  depends_on "openjdk"
+  # TODO: Use the vendored Gradle wrapper until its minor version matches Homebrew's `gradle`.
+  depends_on "openjdk@25"
 
   def install
     platform = OS.kernel_name.downcase
     platform += "-arm64" if Hardware::CPU.arm?
-    system "gradle", "-Dbuild.snapshot=false", ":distribution:archives:no-jdk-#{platform}-tar:assemble"
+    system "./gradlew", "-Dbuild.snapshot=false", ":distribution:archives:no-jdk-#{platform}-tar:assemble"
 
     mkdir "tar" do
       # Extract the package to the tar directory
@@ -57,7 +59,7 @@ class Opensearch < Formula
                 libexec/"bin/opensearch-keystore",
                 libexec/"bin/opensearch-plugin",
                 libexec/"bin/opensearch-shard"
-    bin.env_script_all_files(libexec/"bin", JAVA_HOME: Formula["openjdk"].opt_prefix)
+    bin.env_script_all_files(libexec/"bin", JAVA_HOME: Formula["openjdk@25"].opt_prefix)
   end
 
   def post_install
@@ -93,13 +95,16 @@ class Opensearch < Formula
     port = free_port
     (testpath/"data").mkdir
     (testpath/"logs").mkdir
-    spawn bin/"opensearch", "-Ehttp.port=#{port}",
+    pid = spawn bin/"opensearch", "-Ehttp.port=#{port}",
                             "-Epath.data=#{testpath}/data",
                             "-Epath.logs=#{testpath}/logs"
-    sleep 60
+    sleep 30
     output = shell_output("curl -s -XGET localhost:#{port}/")
     assert_equal "opensearch", JSON.parse(output)["version"]["distribution"]
 
     system bin/"opensearch-plugin", "list"
+  ensure
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

@@ -3,8 +3,8 @@ class Mesa < Formula
 
   desc "Graphics Library"
   homepage "https://www.mesa3d.org/"
-  url "https://archive.mesa3d.org/mesa-26.0.0.tar.xz"
-  sha256 "2a44e98e64d5c36cec64633de2d0ec7eff64703ee25b35364ba8fcaa84f33f72"
+  url "https://archive.mesa3d.org/mesa-26.0.6.tar.xz"
+  sha256 "1d3c3b8a8363b8cc354175bb4a684ad8b035211cc1d6fa17aeb9b9623c513f89"
   license all_of: [
     "MIT",
     "Apache-2.0", # include/{EGL,GLES*,vk_video,vulkan}, src/egl/generate/egl.xml, src/mapi/glapi/registry/gl.xml
@@ -20,16 +20,16 @@ class Mesa < Formula
     { "GPL-1.0-or-later" => { with: "Linux-syscall-note" } }, # include/drm-uapi/sync_file.h
     { "GPL-2.0-only" => { with: "Linux-syscall-note" } }, # include/drm-uapi/{d3dkmthk.h,dma-buf.h,etnaviv_drm.h}
   ]
-  revision 1
+  compatibility_version 1
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
 
   bottle do
-    sha256 arm64_tahoe:   "4eab1c854a97820840cdd11ef60522b15dcf2edf3acc64a8b40545607131bc87"
-    sha256 arm64_sequoia: "487eec9596e1dbd9ae8e65159bc0760894198dae8c71cf9d999287d03d74856a"
-    sha256 arm64_sonoma:  "f2b606ed629d054b113fc52b5162afe444c2e57ede9270c3fb80d69a73faf0d6"
-    sha256 sonoma:        "9bf88bff4f5ab94d5ec388eff97384f635d2200ea2e2682441d8314f98f44518"
-    sha256 arm64_linux:   "064ba76531c7ac86d5907bbe8e339c7457b5e6d7979471218674927d8ff5ea7d"
-    sha256 x86_64_linux:  "c1adac3c86df08b7239011b6eeccfad47f43a272af9620586bb68bf2b26de19a"
+    sha256 arm64_tahoe:   "335d2077f4cef9e76a4cca69f4c26e0ef1a77d229ae863dd6d1f529dfea36dd0"
+    sha256 arm64_sequoia: "186ff2d377484c6c2812f0e0f7a7811211694d713b7752ee22f2e4205b776410"
+    sha256 arm64_sonoma:  "41121311e549a7c22b40ed97e8e67fb41cbedc28921277e58531c4e09666ae90"
+    sha256 sonoma:        "6b59d53d5de07ecd7e05105cf97423284098e9b35643ca16b5e3f9b2c7d12118"
+    sha256 arm64_linux:   "372547e0b8e7fa4717ff6e26a97562bffba776143c65f9b60ef4f206765e9158"
+    sha256 x86_64_linux:  "41dc2b8413b3d874046215cc32be806f03a4abb2f977e2e29f3f2dac2ef35f57"
   end
 
   depends_on "bindgen" => :build
@@ -46,13 +46,13 @@ class Mesa < Formula
   depends_on "rust" => :build
   depends_on "xorgproto" => :build
 
-  depends_on "libclc" # OpenCL support needs share/clc/*.bc files at runtime
+  depends_on "libclc" => :no_linkage # OpenCL support needs share/clc/*.bc files at runtime
   depends_on "libpng"
   depends_on "libx11"
   depends_on "libxcb"
   depends_on "libxext"
   depends_on "libxfixes"
-  depends_on "llvm@21"
+  depends_on "llvm"
   depends_on "spirv-llvm-translator"
   depends_on "spirv-tools"
   depends_on "xcb-util-keysyms"
@@ -73,7 +73,6 @@ class Mesa < Formula
     depends_on "valgrind" => :build
     depends_on "wayland-protocols" => :build
 
-    depends_on "elfutils"
     depends_on "libdrm"
     depends_on "libxml2" # not used on macOS
     depends_on "libxshmfence"
@@ -84,6 +83,7 @@ class Mesa < Formula
 
     on_intel do
       depends_on "cbindgen" => :build
+      depends_on "elfutils"
     end
   end
 
@@ -91,8 +91,8 @@ class Mesa < Formula
                 extra_packages: %w[mako packaging ply pyyaml]
 
   resource "mako" do
-    url "https://files.pythonhosted.org/packages/9e/38/bd5b78a920a64d708fe6bc8e0a2c075e1389d53bef8413725c63ba041535/mako-1.3.10.tar.gz"
-    sha256 "99579a6f39583fa7e5630a28c3c1f440e4e97a414b80372649c0ce338da2ea28"
+    url "https://files.pythonhosted.org/packages/00/62/791b31e69ae182791ec67f04850f2f062716bbd205483d63a215f3e062d3/mako-1.3.12.tar.gz"
+    sha256 "9f778e93289bd410bb35daadeb4fc66d95a746f0b75777b942088b7fd7af550a"
   end
 
   resource "markupsafe" do
@@ -101,8 +101,8 @@ class Mesa < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz"
-    sha256 "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "ply" do
@@ -147,7 +147,7 @@ class Mesa < Formula
       # Work around .../rusticl_system_bindings.h:1:10: fatal error: 'stdio.h' file not found
       ENV["SDKROOT"] = MacOS.sdk_for_formula(self).path
 
-      vulkan_drivers = (MacOS.version >= :tahoe) ? "kosmickrisp,swrast" : "swrast"
+      vulkan_drivers = (MacOS.version >= :sequoia) ? "kosmickrisp,swrast" : "swrast"
 
       %W[
         -Dgallium-drivers=llvmpipe,zink

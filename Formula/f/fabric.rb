@@ -3,22 +3,24 @@ class Fabric < Formula
 
   desc "Library and command-line tool for SSH"
   homepage "https://www.fabfile.org/"
-  url "https://files.pythonhosted.org/packages/0d/3f/337f278b70ba339c618a490f6b8033b7006c583bd197a897f12fbc468c51/fabric-3.2.2.tar.gz"
-  sha256 "8783ca42e3b0076f08b26901aac6b9d9b1f19c410074e7accfab902c184ff4a3"
+  url "https://files.pythonhosted.org/packages/e3/7e/29cd6237c3b7ce79c3ca945eb99ab5affd101db54b2f7a78dde0cfa19fd4/fabric-3.2.3.tar.gz"
+  sha256 "dcbd2c47ad87688facaef5cc11aab6d1ec9ed05645fed97a5de7204d5d17cc44"
   license "BSD-2-Clause"
-  revision 3
+  revision 1
   head "https://github.com/fabric/fabric.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "f9b2acc01c39a13558f594a1d85306bed24c5a236c60d81745e43e86b3227081"
-    sha256 cellar: :any,                 arm64_sequoia: "44c1dc1fad2509dfac3ca56e812cf3d2ecef579e73fb94b29de2755e978da2bf"
-    sha256 cellar: :any,                 arm64_sonoma:  "1fe14add2ede732e4cc8ef929ef15beaf9ca67c73dfb95000fa45dbccc5383b9"
-    sha256 cellar: :any,                 sonoma:        "658ddf7e201048c628e828460eba63ec816b2e9c536717c7c444cf0ac65de454"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "a8982af48a0f5c147505e4581ea9771c5a98e2f89eca310b501d1df54012e92a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "00aa191e962828cdc383da9a8ef43bfc98c29e0737b2bfb89a26ca3fd24b12a8"
+    sha256 cellar: :any,                 arm64_tahoe:   "1177e8a10b8224740416642316730300b708f7a2266100d41a89f7127995c327"
+    sha256 cellar: :any,                 arm64_sequoia: "b4be3fd62c518105bfbcfd7f1880f5e1bf1c4483a0208e746300ce07ca866172"
+    sha256 cellar: :any,                 arm64_sonoma:  "869c3c99def5951d5347ae9397aaf290c7cbacde40d6e92a12439122cd0eed16"
+    sha256 cellar: :any,                 sonoma:        "dfdd62823570836bfbedb2f5a86cf4fb4ae9fab23aefab8f0246d71781b220a9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "125d533ad61f91b06c6e58b94dfc75be4809e523df694f8be9321a552c389212"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e2c3b200325ff671ff12bc50d12c6698e7f13bb449e6faf90b8a284da2e840f"
   end
 
-  depends_on "rust" => :build # for bcrypt
+  # `pkgconf` and `rust` are for bcrypt
+  depends_on "pkgconf" => :build
+  depends_on "rust" => :build
   depends_on "cryptography"
   depends_on "libsodium" # for pynacl
   depends_on "python@3.14"
@@ -47,8 +49,8 @@ class Fabric < Formula
   end
 
   resource "paramiko" do
-    url "https://files.pythonhosted.org/packages/1f/e7/81fdcbc7f190cdb058cffc9431587eb289833bdd633e2002455ca9bb13d4/paramiko-4.0.0.tar.gz"
-    sha256 "6a25f07b380cc9c9a88d2b920ad37167ac4667f8d9886ccebd8f90f654b5d69f"
+    url "https://files.pythonhosted.org/packages/62/93/dcc25d52f49022ae6175d15e6bd751f1acc99b98bc61fc55e5155a7be2e7/paramiko-5.0.0.tar.gz"
+    sha256 "36763b5b95c2a0dcfdf1abc48e48156ee425b21efe2f0e787c2dd5a95c0e5e79"
   end
 
   resource "pynacl" do
@@ -57,8 +59,8 @@ class Fabric < Formula
   end
 
   resource "wrapt" do
-    url "https://files.pythonhosted.org/packages/49/2a/6de8a50cb435b7f42c46126cf1a54b2aab81784e74c8595c8e025e8f36d3/wrapt-2.0.1.tar.gz"
-    sha256 "9c9c635e78497cacb81e84f8b11b23e0aacac7a136e73b8e5b2109a1d9fc468f"
+    url "https://files.pythonhosted.org/packages/2e/64/925f213fdcbb9baeb1530449ac71a4d57fc361c053d06bf78d0c5c7cd80c/wrapt-2.1.2.tar.gz"
+    sha256 "3996a67eecc2c68fd47b4e3c564405a5777367adfd9b8abb58387b63ee83b21e"
   end
 
   def install

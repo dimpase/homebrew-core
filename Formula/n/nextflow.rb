@@ -1,8 +1,8 @@
 class Nextflow < Formula
   desc "Reproducible scientific workflows"
   homepage "https://nextflow.io"
-  url "https://github.com/nextflow-io/nextflow/archive/refs/tags/v25.10.4.tar.gz"
-  sha256 "23eb79f23dc96bfa52669bc5bb845cd0987ec103dc25831b323d1ade5614f23a"
+  url "https://github.com/nextflow-io/nextflow/archive/refs/tags/v26.04.1.tar.gz"
+  sha256 "c3dc720e3ff8377d8b8ff95d9afa4239922a86abe1da45b269c49ec7368dbc4b"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class Nextflow < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "75b8e98abd71d583a5c5a6677b7f1e7f731efd0c71b3938ac8d7452d9a1dfdf5"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd11f1daf4e8fa76c0e0141ff630af48bc9bc7bd87f9573aefbee0f7242def50"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "465b89e3de403a466b1c3dc55ee1a4c5349761b0cf6a5ad2a0b04ada6603fc3a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8fdebff6bf949ae913d3b51f8a208937dba5ef8445e3a03357b66ec0a4db711d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "90ca508948b6aa7d3c28090baa59f89e0365301a4238342312cd4f666279972e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f7cef0e969ca6e44917cd79ae967f397018614abdfae03bc07e39ce3f0f38bc"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fd5b78bef096060b3f39948e71d1242b3e4c4800de18fe8c5bc6a2280ba4d9b1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ea1e59f2ffb195599aca043feb54942654c7f4de72148c041a082a1ba8604315"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5add0fdd7c47f5ea03556725af570a34a397f0b462baf5808efae32ac1b91119"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0d38335d567bcf75a3600c9c8ffc103389f959510ad9213099ea171d07fc720f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5b2fc26ab23da7d3bc8e200c5fa7833210095348d779290ab71e66e8aa03322d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "89a8169b409dd53c33b59b48aeb23089fa6eb82c071a4ef01851e74f41bc34db"
   end
 
   depends_on "gradle" => :build

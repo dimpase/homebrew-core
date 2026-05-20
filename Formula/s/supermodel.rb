@@ -1,22 +1,23 @@
 class Supermodel < Formula
   desc "Sega Model 3 arcade emulator"
   homepage "https://github.com/trzy/Supermodel"
-  url "https://github.com/trzy/Supermodel/archive/refs/tags/v0.3a-20260207-git-fe00551.tar.gz"
-  version "0.3a-20260207-git-fe00551"
-  sha256 "bc74409ae14ec4f37e6bf5756ec6b6881f8c3c61bf3ef403425a3d8e86337769"
+  url "https://github.com/trzy/Supermodel/archive/refs/tags/v0.3a-20260506-git-9c9e7b7.tar.gz"
+  version "0.3a-20260506-git-9c9e7b7"
+  sha256 "74a6310ebe080b1de08ae92bbe6b4f5ca73babb7ef184e90b23079700133b710"
   license "GPL-3.0-or-later"
   head "https://github.com/trzy/Supermodel.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "fd46c2ada7bef0526ba1c8c5f77e41421a181e7abcbeb1152312578d87600e4f"
-    sha256 cellar: :any,                 arm64_sequoia: "69b2f00d8e9e8a7c4081da1be8b10b588e9f84374293752c6bd29158e034ca57"
-    sha256 cellar: :any,                 arm64_sonoma:  "87ec43a75057a0fec645785bb9c97d24271bf6d9a43b39af1ddb768ee50e2503"
-    sha256 cellar: :any,                 sonoma:        "be64da4ac04c3093d4cb2ae8b084b532096f501fd4d17c459516901d719a8e9d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b314b30bf69984062bef18d9d2ce9271127038cf8f9c31dab176992a5c6c4e68"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "155998a85cc992ecd6549c7b948eb3eac2cf861d7f80d7419106968cf413b08a"
+    sha256 cellar: :any,                 arm64_tahoe:   "acf16b3d615cef9aa94cd26e0a5ddc5c855453849484ccf8f50d19ead6e70e15"
+    sha256 cellar: :any,                 arm64_sequoia: "0fa184087dae96b7825269d7fa0c22521030172f02cb38b6d3f60eaeadea4e3f"
+    sha256 cellar: :any,                 arm64_sonoma:  "c1bf21115566f1ac068b51949a762526e7d4acc5e88a6430deeba27886821122"
+    sha256 cellar: :any,                 sonoma:        "2ea25164409f2a1cd59c6e64b3915b98e4f066248019bad63e217f0ef8af1248"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c01e14c0679bfd75640f4f4b6d91c5a01a7c5c5424d5fa3e7250af0a516f989"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e0565487f846c020248075c50867c18c76f99d35351d1258f7ff7d04f62b4a7"
   end
 
   depends_on "sdl2"
+  depends_on "sdl2_net"
 
   on_linux do
     depends_on "mesa"
@@ -31,6 +32,7 @@ class Supermodel < Formula
     ENV.deparallelize
     # Set up SDL2 library correctly
     inreplace makefile_dir, "-framework SDL2", "`sdl2-config --libs`" if OS.mac?
+    inreplace "Src/OSD/SDL/SDLIncludes.h", "SDL_net.h", "SDL2/SDL_net.h" if OS.linux?
 
     system "make", "-f", makefile_dir
     bin.install "bin/supermodel"

@@ -1,36 +1,40 @@
 class Infracost < Formula
-  desc "Cost estimates for Terraform"
+  desc "Cost estimates for Terraform, Terragrunt, and CloudFormation"
   homepage "https://www.infracost.io/docs/"
-  url "https://github.com/infracost/infracost/archive/refs/tags/v0.10.43.tar.gz"
-  sha256 "f3e818c00f2748d488b96b86d1832d5b968b24f337e7af11e407c8abe22ab8bb"
+  url "https://github.com/infracost/cli/archive/refs/tags/v2.1.0.tar.gz"
+  sha256 "efbb960da9e130526499453a9e0c0c833ad314bc1170b22d33fbef9201d083a2"
   license "Apache-2.0"
-  head "https://github.com/infracost/infracost.git", branch: "master"
+  head "https://github.com/infracost/cli.git", branch: "main"
 
-  no_autobump! because: :bumped_by_upstream
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "45592f4284a4afe029e485aecaa415fbeaf0a831eb801f24f622a1a67e29a52d"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "45592f4284a4afe029e485aecaa415fbeaf0a831eb801f24f622a1a67e29a52d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45592f4284a4afe029e485aecaa415fbeaf0a831eb801f24f622a1a67e29a52d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e1c476e5b68acc3f437d0a2304cc7ad3700762a6fc128e16637d723eaa060fd9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "f7e1f629c6c0862f18865f910d3fa043ad5236d54ab69b8087adae83b923d25a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "66dead16524f33f4e7dede778dcaab0f20e5f91b5f08f5cff4c83b9c1f45e1c4"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ab936cd69a6d7caaaa93a835ee33abb1e2299a72f1d3a784adebd6590f8ea284"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ab936cd69a6d7caaaa93a835ee33abb1e2299a72f1d3a784adebd6590f8ea284"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ab936cd69a6d7caaaa93a835ee33abb1e2299a72f1d3a784adebd6590f8ea284"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2a3cef7d635fdf215aee1105bdc94cd9108f19984fc3d03ad4f0d137eb6af75d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "cb8fec4f261b4ac9576c0858f6a6691bdb66e6ca09437e0c9e771e833623addc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "08d4eb16f65817ced13b2679e0434fa06cb2dbcbf7604805c3df5531cc6ca22a"
   end
 
   depends_on "go" => :build
 
   def install
     ENV["CGO_ENABLED"] = "0"
-    ldflags = "-X github.com/infracost/infracost/internal/version.Version=v#{version}"
-    system "go", "build", *std_go_args(ldflags:), "./cmd/infracost"
+    ldflags = "-X github.com/infracost/cli/version.Version=v#{version}"
+    system "go", "build", *std_go_args(output: bin/"infracost", ldflags:), "main.go"
 
-    generate_completions_from_executable(bin/"infracost", "completion", "--shell")
+    generate_completions_from_executable(bin/"infracost", "completion")
   end
 
   test do
     assert_match "v#{version}", shell_output("#{bin}/infracost --version 2>&1")
 
-    output = shell_output("#{bin}/infracost breakdown --no-color 2>&1", 1)
-    assert_match "Error: INFRACOST_API_KEY is not set but is required", output
+    ENV["INFRACOST_CLI_AUTHENTICATION_TOKEN"] = "dummy"
+    output = shell_output("#{bin}/infracost setup --no-color 2>&1", 1)
+    assert_match "setup requires interactive login", output
   end
 end

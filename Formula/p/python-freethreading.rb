@@ -1,8 +1,8 @@
 class PythonFreethreading < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.14.3/Python-3.14.3.tgz"
-  sha256 "d7fe130d0501ae047ca318fa92aa642603ab6f217901015a1df6ce650d5470cd"
+  url "https://www.python.org/ftp/python/3.14.5/Python-3.14.5.tgz"
+  sha256 "9c22bfe9939a6c5418fc74b289a5f1cc41859ae82ac6b163016b5844bd0a86bc"
   license "Python-2.0"
 
   livecheck do
@@ -10,15 +10,14 @@ class PythonFreethreading < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "055db8b1347ab3f3b190b9fdbdf7e3c62cdf2f39756affd88989d2cad2f2b5d2"
-    sha256 arm64_sequoia: "06e124574b48f7efedd1afefe23f14033b896e4e53c6939010726f2d02a8594b"
-    sha256 arm64_sonoma:  "4ff7f46f9e7ba3fea15c5c30a68d9fe5d05956e3175c586b8941fca5b3b8f835"
-    sha256 tahoe:         "0d69a978bfae96e6ab5a6d7e089ed90feadb3d35383a06987eda4aea39d74dcf"
-    sha256 sequoia:       "616ef8e629182c1507e943548caf7ffbca112b377102b7567bdf81f63238a235"
-    sha256 sonoma:        "b2fd8d27207a880e1297d90a657966f6f70ef05d6a49dcec98cad8c36210f8e1"
-    sha256 arm64_linux:   "21628837f08926d9f08dbb32729aff60f386a4246accc3a26372251b24ea0640"
-    sha256 x86_64_linux:  "848c4bef3cb80b4195a2499a5fe03d38130fb019180be113818020ee9a58b463"
+    sha256 arm64_tahoe:   "6d0c75ac47493e67c1668beb7616235266acae8d7197bed2ebc83061764f3b46"
+    sha256 arm64_sequoia: "4f214aeaf1b487837d6cc82fb891435e6657e8be86e33843e1e44589851828c0"
+    sha256 arm64_sonoma:  "a13e77376aed185fdd08aa487d7e48ddf34096d21abfa4667e49eb284ac3e2f4"
+    sha256 tahoe:         "9503322121146d69a2e29d79c2a2b8eb8e3eae94dc2c9f3816f9a61448f3c0f8"
+    sha256 sequoia:       "7b9b168b628bf999d63564bafd9642e2bf1c1d6bc5a70284f987e566dbcad828"
+    sha256 sonoma:        "9fc8fe2b3e1da7433580ed940dec8a71a6a2f6bacec6ad66db8f5764a1025cdc"
+    sha256 arm64_linux:   "56c20df8073f5e3ba6c6df70e1cea7975da8d316ebea6ec7909839d54ccafc6e"
+    sha256 x86_64_linux:  "408217736e6a34ab5e070f544bb45f8fdd26068922881fede31ed322700a2669"
   end
 
   depends_on "pkgconf" => :build
@@ -39,7 +38,7 @@ class PythonFreethreading < Formula
   uses_from_macos "unzip"
 
   on_linux do
-    depends_on "berkeley-db@5"
+    depends_on "gdbm"
     depends_on "libnsl"
     depends_on "libtirpc"
     depends_on "zlib-ng-compat"
@@ -48,25 +47,24 @@ class PythonFreethreading < Formula
   pypi_packages package_name:   "",
                 extra_packages: %w[flit-core pip wheel]
 
-  # Always update to latest release
   resource "flit-core" do
     url "https://files.pythonhosted.org/packages/69/59/b6fc2188dfc7ea4f936cd12b49d707f66a1cb7a1d2c16172963534db741b/flit_core-3.12.0.tar.gz"
     sha256 "18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz"
-    sha256 "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/44/c2/65686a7783a7c27a329706207147e82f23c41221ee9ae33128fc331670a0/pip-26.0.tar.gz"
-    sha256 "3ce220a0a17915972fbf1ab451baae1521c4539e778b28127efa79b974aff0fa"
+    url "https://files.pythonhosted.org/packages/b6/48/cb9b7a682f6fe01a4221e1728941dd4ac3cd9090a17db3779d6ff490b602/pip-26.1.1.tar.gz"
+    sha256 "d36762751d156a4ee895de8af39aa0abeeeb577f93a2eca6ab62467bbf0f8a78"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/89/24/a2eb353a6edac9a0303977c4cb048134959dd2a51b48a269dfc9dde00c8a/wheel-0.46.3.tar.gz"
-    sha256 "e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803"
+    url "https://files.pythonhosted.org/packages/39/62/75f18a0f03b4219c456652c7780e4d749b929eb605c098ce3a5b6b6bc081/wheel-0.47.0.tar.gz"
+    sha256 "cc72bd1009ba0cf63922e28f94d9d83b920aa2bb28f798a31d0691b02fa3c9b3"
   end
 
   # Modify default sysconfig to match the brew install layout.
@@ -157,7 +155,7 @@ class PythonFreethreading < Formula
       args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
     else
       args << "--enable-shared"
-      args << "--with-dbmliborder=bdb"
+      args << "--with-dbmliborder=gdbm" # NOTE: no dependents so can directly use GPLv3+ `gdbm` to avoid BDB
     end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
@@ -436,11 +434,13 @@ class PythonFreethreading < Formula
     assert_match "ModuleNotFoundError: No module named '_tkinter'",
                  shell_output("#{python3} -Sc 'import tkinter' 2>&1", 1)
 
-    # gdbm is provided in a separate formula
-    assert_match "ModuleNotFoundError: No module named '_gdbm'",
-                 shell_output("#{python3} -Sc 'import _gdbm' 2>&1", 1)
-    assert_match "ModuleNotFoundError: No module named '_gdbm'",
-                 shell_output("#{python3} -Sc 'import dbm.gnu' 2>&1", 1)
+    # gdbm is not provided on macOS
+    if OS.mac?
+      assert_match "ModuleNotFoundError: No module named '_gdbm'",
+                   shell_output("#{python3} -Sc 'import _gdbm' 2>&1", 1)
+      assert_match "ModuleNotFoundError: No module named '_gdbm'",
+                   shell_output("#{python3} -Sc 'import dbm.gnu' 2>&1", 1)
+    end
 
     # Verify that the selected DBM interface works
     (testpath/"dbm_test.py").write <<~PYTHON

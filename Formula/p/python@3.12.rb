@@ -1,26 +1,26 @@
 class PythonAT312 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.12.12/Python-3.12.12.tgz"
-  sha256 "487c908ddf4097a1b9ba859f25fe46d22ccaabfb335880faac305ac62bffb79b"
+  url "https://www.python.org/ftp/python/3.12.13/Python-3.12.13.tgz"
+  sha256 "0816c4761c97ecdb3f50a3924de0a93fd78cb63ee8e6c04201ddfaedca500b0b"
   license "Python-2.0"
   revision 2
+  compatibility_version 1
 
   livecheck do
-    url "https://www.python.org/ftp/python/"
-    regex(%r{href=.*?v?(3\.12(?:\.\d+)*)/?["' >]}i)
+    url "https://www.python.org/downloads/source/"
+    regex(%r{href=.*?/Python[._-]v?(3\.12(?:\.\d+)*)\.t}i)
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_tahoe:   "a52a55b8504d94cb2e251485a2af7562db5c374d436283b665d4fb8766b94ac3"
-    sha256 arm64_sequoia: "0525a146dc792c478884d9d01355d5f168f60da4c37440e9598f36cf5f553a5d"
-    sha256 arm64_sonoma:  "0d9c288e026e3c308ee89f8c2dddbf6a0b88fc913a3af53d158dcbfb438a657b"
-    sha256 tahoe:         "1fce5b88a986aa414118f4d876fa3cb40c48ebbb2d8d4f663a709aa32492630c"
-    sha256 sequoia:       "eb50ae97d4bb4b41711e12b0d10523063dad3505024c475afe70aaa9cc3025ba"
-    sha256 sonoma:        "ac0195ffa0fdff7dc8bbd2232132b8db42ab79f2e1ab7dbfa94e0bb4e87846ee"
-    sha256 arm64_linux:   "b686d29642433b9c416dc568596a78d8b134581c08bfac359d43380c439e6be8"
-    sha256 x86_64_linux:  "b9f86cf166d77e2e11d19db95108cc0da56aeaeb4fff61b1f7d0a360afadbad1"
+    sha256 arm64_tahoe:   "bb198d273ef41a95d48aa16e330864608f103a58ef7c0a6c167e07866e32eeb0"
+    sha256 arm64_sequoia: "c378b0875288fc0490603e4ccece8f289a230c4068c27ea9dfa7a9a69d3c3b12"
+    sha256 arm64_sonoma:  "7becd6da101c7f3f406cac1a3350384618520f5b3fab5d46c57bf62b740d460b"
+    sha256 tahoe:         "3ff89a0955bfece8fe97f17d90f45d92fc87d5391d821294d6409795cd264ebb"
+    sha256 sequoia:       "b41f94ee7704c74be76d1a54fc9e394dd356770d13aa29be023cc1c33387f82a"
+    sha256 sonoma:        "3f2d37fb95ed10cd050222c174d642e04178e1da23538ed5f3a9d142381027b6"
+    sha256 arm64_linux:   "31924f4cc9d1d71638a231185e1c74a9a5e1919198d332b1ccb10f6a2ad31c92"
+    sha256 x86_64_linux:  "1375b78e136989dfbea7b7e6cc8c54a70e2ddcd9bbeab8eb04b7d3b250b8f2d4"
   end
 
   depends_on "pkgconf" => :build
@@ -30,7 +30,7 @@ class PythonAT312 < Formula
   depends_on "xz"
 
   uses_from_macos "bzip2"
-  uses_from_macos "expat"
+  uses_from_macos "expat", since: :sequoia
   uses_from_macos "libedit"
   uses_from_macos "libffi"
   uses_from_macos "libxcrypt"
@@ -56,18 +56,18 @@ class PythonAT312 < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz"
-    sha256 "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/44/c2/65686a7783a7c27a329706207147e82f23c41221ee9ae33128fc331670a0/pip-26.0.tar.gz"
-    sha256 "3ce220a0a17915972fbf1ab451baae1521c4539e778b28127efa79b974aff0fa"
+    url "https://files.pythonhosted.org/packages/73/7e/d2b04004e1068ad4fdfa2f227b839b5d03e602e47cdbbf49de71137c9546/pip-26.1.tar.gz"
+    sha256 "81e13ebcca3ffa8cc85e4deff5c27e1ee26dea0aa7fc2f294a073ac208806ff3"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/89/24/a2eb353a6edac9a0303977c4cb048134959dd2a51b48a269dfc9dde00c8a/wheel-0.46.3.tar.gz"
-    sha256 "e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803"
+    url "https://files.pythonhosted.org/packages/39/62/75f18a0f03b4219c456652c7780e4d749b929eb605c098ce3a5b6b6bc081/wheel-0.47.0.tar.gz"
+    sha256 "cc72bd1009ba0cf63922e28f94d9d83b920aa2bb28f798a31d0691b02fa3c9b3"
   end
 
   # Modify default sysconfig to match the brew install layout.

@@ -1,14 +1,15 @@
 class Qtwebview < Formula
   desc "Displays web content in a QML application"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.10/6.10.2/submodules/qtwebview-everywhere-src-6.10.2.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.10/6.10.2/submodules/qtwebview-everywhere-src-6.10.2.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.10/6.10.2/submodules/qtwebview-everywhere-src-6.10.2.tar.xz"
-  sha256 "7ec406ff0998900ccef0ff8e4e5b1fbf15e4e18f3b43eb72e8b2aeda0dd0eab4"
+  url "https://download.qt.io/official_releases/qt/6.11/6.11.1/submodules/qtwebview-everywhere-src-6.11.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.11/6.11.1/submodules/qtwebview-everywhere-src-6.11.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.11/6.11.1/submodules/qtwebview-everywhere-src-6.11.1.tar.xz"
+  sha256 "8d62c8ef70d58260e9b3e8b5fc1a8bc48495308a4437003a394483757427133d"
   license all_of: [
     { any_of: ["LGPL-3.0-only", "GPL-2.0-only", "GPL-3.0-only"] },
     "BSD-3-Clause", # *.cmake
   ]
+  compatibility_version 1
   head "https://code.qt.io/qt/qtwebview.git", branch: "dev"
 
   livecheck do
@@ -16,11 +17,11 @@ class Qtwebview < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "f535a0b6a3f7acc0a5e0c560f66405abda13ba96ca069665ea16f5a78a0b7636"
-    sha256 cellar: :any,                 arm64_sequoia: "1806844888def59d5bf53acb5476a840e93618d07275af3d883dc8b11bb0b399"
-    sha256 cellar: :any,                 arm64_sonoma:  "b2a9efdd037a78740fd4cbf3147898c3b397613dee7a6f7565a7b3e68c1d2192"
-    sha256 cellar: :any,                 sonoma:        "0f4f9b49977ae160c67359148df70c9e841f36370d1d94d7781e255ed8cd5e85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22fcf8717c8d5570c44eba55ac6d119a854d5860f0fb0a2f68094001da7d68db"
+    sha256 cellar: :any,                 arm64_tahoe:   "b984232e4807c0b2b0392b70de63c69af350674ee1f5943ede098604572f424d"
+    sha256 cellar: :any,                 arm64_sequoia: "c5d8bc46a0491596a01dbe410b19b02588678c34a39bcc80607d5e9f96515506"
+    sha256 cellar: :any,                 arm64_sonoma:  "2a65c8eff7f3119a261e6121f9802c5f4c68bf0835157d50d3a3aabd5c0fc145"
+    sha256 cellar: :any,                 sonoma:        "e9309c1802f4691da7544ab26393df4be1c2de55f0cfbc45d871ddd1f3804c2d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1d40eb9e5f38687a24dd829072940b8d45582937b6b0e997d25d1c7458a370dd"
   end
 
   depends_on "cmake" => :build

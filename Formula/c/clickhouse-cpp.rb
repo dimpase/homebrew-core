@@ -1,24 +1,25 @@
 class ClickhouseCpp < Formula
   desc "C++ client library for ClickHouse"
   homepage "https://github.com/ClickHouse/clickhouse-cpp"
-  url "https://github.com/ClickHouse/clickhouse-cpp/archive/refs/tags/v2.6.0.tar.gz"
-  sha256 "f694395ab49e7c2380297710761a40718278cefd86f4f692d3f8ce4293e1335f"
+  url "https://github.com/ClickHouse/clickhouse-cpp/archive/refs/tags/v2.6.1.tar.gz"
+  sha256 "51b9592f4b348d7aa0e5b598ed75c781ee9e3dd6f671e6d198dda3a6c5a7b222"
   license "Apache-2.0"
   head "https://github.com/ClickHouse/clickhouse-cpp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f6e3824acd6cbc7fb6eb0fca264341b71ce231bb8bcf9c49a8d2068233963616"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0f2fe3c51ac226cc47312483cf41ae089775ba3352d0c9165d4d2fc31f737992"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "44b493b2c517dbcf968bc3573dfdf9c0dd45573095272fc3a53922aca7ce51af"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1e34322b12d40a1c6a31a8a17448aed7c6ded46057340afe14bf3fe0be89acdc"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "13b147b1c1087b24fb84ca2dc42691de39e60f24e12f774af1c1c701073646c7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c1f392feecc378fec9d916616f84fc2ba97d96fb6910098cf5ceeb4b22e026bd"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "818ece612ed4a302ee0dcd877173b627dc625c177303fc07fec95aaf6d1e81ff"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3c16a93d6b8d4ad58f6ef7a1f515096f33a44b6f9b6773a9419de72d89eaa1ed"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c8002b62519b3da6207aa49190637f283a483a064304455066e7992920c71307"
+    sha256 cellar: :any_skip_relocation, sonoma:        "73d35fdb7f7ccf11c694391a9c67c02504a5491d47556584bb97199994a090f5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ca0d5daf8d385e5be6cafafaf4d7d64a6ab4c12c47e4ed6825a0e5bb1fb53f36"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ae484d44f11192568191882fca27e0a80d56aac59109aa2c4ab1ad2601514ab0"
   end
 
   depends_on "cmake" => :build
-  depends_on "abseil"
+  depends_on "abseil" => :no_linkage
   depends_on "lz4"
-  depends_on "openssl@3"
+  depends_on "openssl@4"
   depends_on "zstd"
 
   def install
@@ -27,11 +28,11 @@ class ClickhouseCpp < Formula
     #   https://github.com/ClickHouse/clickhouse-cpp/pull/301#issuecomment-1520592157
     rm_r(Dir["contrib/*"] - ["contrib/cityhash"])
     args = %W[
+      -DOPENSSL_ROOT_DIR=#{Formula["openssl@4"].opt_prefix}
       -DWITH_OPENSSL=ON
-      -DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}
       -DWITH_SYSTEM_ABSEIL=ON
       -DWITH_SYSTEM_CITYHASH=OFF
-      -DWITH_SYSTEM_LZ4=O
+      -DWITH_SYSTEM_LZ4=ON
       -DWITH_SYSTEM_ZSTD=ON
     ]
     # Upstream only allows building static libs on macOS
@@ -41,9 +42,6 @@ class ClickhouseCpp < Formula
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    # Install vendored `cityhash`.
-    (libexec/"lib").install "build/contrib/cityhash/cityhash/libcityhash.a" if OS.mac?
   end
 
   test do
@@ -88,11 +86,11 @@ class ClickhouseCpp < Formula
 
     args = %W[
       -std=c++17 -I#{include} -L#{lib} -lclickhouse-cpp-lib
-      -L#{Formula["openssl@3"].opt_lib} -lcrypto -lssl
+      -L#{Formula["openssl@4"].opt_lib} -lcrypto -lssl
       -L#{Formula["lz4"].opt_lib} -llz4
       -L#{Formula["zstd"].opt_lib} -lzstd
     ]
-    args += %W[-L#{libexec}/lib -lcityhash] if OS.mac?
+    args << "-lcityhash" if OS.mac?
     system ENV.cxx, "main.cpp", *args, "-o", "test-client"
     assert_match "Exception: fail to connect: ", shell_output("./test-client", 1)
   end

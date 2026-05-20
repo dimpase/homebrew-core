@@ -1,20 +1,20 @@
 class Moor < Formula
   desc "Nice to use pager for humans"
   homepage "https://github.com/walles/moor"
-  url "https://github.com/walles/moor/archive/refs/tags/v2.11.0.tar.gz"
-  sha256 "091a8bba0d75354c2897029ae89604f47c63d1670ce32f4f80f10b99612dc584"
+  url "https://github.com/walles/moor/archive/refs/tags/v2.13.2.tar.gz"
+  sha256 "0b1d9f35674b6261225f51f891d2b8bd2ea80fdddb74b8f43fbc56106b6dd054"
   license "BSD-2-Clause"
   head "https://github.com/walles/moor.git", branch: "master"
 
   no_autobump! because: :bumped_by_upstream
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "8679ee57e8f3384a37c730e7adea4c853e0f91c703df001c348317b4d2452189"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8679ee57e8f3384a37c730e7adea4c853e0f91c703df001c348317b4d2452189"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8679ee57e8f3384a37c730e7adea4c853e0f91c703df001c348317b4d2452189"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a0241628f65147d9f93660c18f56837e6d251c315342bb8b38cfbf3534d3d910"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "ed20cd5ca0241ed2f72939fcb45558eaf9911f50c9608ac621e6b912698b6449"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "813ccc4818a05a7231ad0108b5abe100beca4210cdf23b382cad78fd0d933001"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "af3779931e7b6aad74e36a73cb486353ff790ae95d8a4cadc3ef37126e827aca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "af3779931e7b6aad74e36a73cb486353ff790ae95d8a4cadc3ef37126e827aca"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "af3779931e7b6aad74e36a73cb486353ff790ae95d8a4cadc3ef37126e827aca"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f78e3cac7509b689e985bcc4b37564ae26f9519bf69bbc3f258019c4102658d3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "6a8d9c9cb22ca952966f9bc463571241200d5a9093c1939b3df359f06a580f3e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "da6bf965718452a850bc3839b91a55234d1db8b7eb5a56e3483623ce14bad091"
   end
 
   depends_on "go" => :build

@@ -1,18 +1,18 @@
 class Pyrefly < Formula
   desc "Fast type checker and IDE for Python"
   homepage "https://pyrefly.org/"
-  url "https://github.com/facebook/pyrefly/archive/refs/tags/0.54.0.tar.gz"
-  sha256 "a94031147bfd14c24b6122b1e391f7e274e4fa2283eaec6012cdbc84dc0dee1a"
+  url "https://github.com/facebook/pyrefly/archive/refs/tags/1.0.0.tar.gz"
+  sha256 "a92476d5922edaf511020f8edaffaed91afeef64e0040f51a43151efa715136a"
   license "MIT"
   head "https://github.com/facebook/pyrefly.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "227fbf909cf5164a8b0df40e4b93b821a45e0b8b0fad47d6c10a9c4659b7caa8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "69b115a17d974fb55477693ce32b3e7ecf0c3b6b92b64d8261c59a7cb49f9308"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "429703510b856bfe42910caa9e377eb76f62609c756bb837998976b5aef69fc3"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8d6fcb8f51937be885853f479d76527b8274d61616f031f491f9c22e0e03b9e3"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "b1eba3eab6d91a389569d3f99339ed8285ded82f8e34a1f222575d6d15aa1bf7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2f41c1ee6c6f7733d3320b874debc53e4656e409f6fb03535ac77ea734751751"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "4337a1785db9b7b54ccd865a4fb853a0729d5e368d4c470bb68721bdccd0b525"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "45497197611fc40202695e8170c05fdbf818f4cabb667c0bf085c83c06b383b9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b05049c2a145c30edaf2694c55b66922d63b92c046e320ddfb36280938425fc6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1bdaf9be0b71d5f9671078e984e5e7abc2fd3923ee7fcf1d7ddc647ed72ed64b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b21f9de777ec8dcf7f652c246cdcf51ac6ea5830baf463311270806f979aee66"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7a5fa5e4d8e3b93264b13e7643b52225f845a52e31de149d3a06d19da02445f8"
   end
 
   depends_on "rust" => :build
@@ -30,6 +30,7 @@ class Pyrefly < Formula
   end
 
   test do
+    system bin/"pyrefly", "init"
     (testpath/"test.py").write <<~PYTHON
       def hello(name: str) -> int:
           return f"Hello, {name}!"
