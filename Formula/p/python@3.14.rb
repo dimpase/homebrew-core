@@ -38,6 +38,16 @@ class PythonAT314 < Formula
   uses_from_macos "libffi"
   uses_from_macos "ncurses"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: "/usr/local/Cellar", sequoia: "5746971b6af001eb6e9ff47afb994070238b6a5b0285d506009afab852b36e47"
+      end
+    end
+  end
+
   on_linux do
     depends_on "zlib-ng-compat"
   end

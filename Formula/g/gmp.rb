@@ -30,6 +30,16 @@ class Gmp < Formula
 
   uses_from_macos "m4" => :build
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 2
+        sha256 cellar: :any, sequoia: "a897e455b16b99a533fa1736d36563269c8cccdb5b1d974bae2a3531774f5907"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

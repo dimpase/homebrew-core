@@ -21,6 +21,16 @@ class Mpdecimal < Formula
     sha256 cellar: :any, x86_64_linux:      "d92d8706831c7dfa2fdd0f1a0d8548137a7ef325ae5c5a7f98fb5090182d6974"
   end
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 2
+        sha256 cellar: :any, sequoia: "a56e6c112f6f6b6309def96d4995f96eda58247da1385df1ef93f45c0ffbd4a4"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

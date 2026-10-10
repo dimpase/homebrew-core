@@ -24,6 +24,14 @@ class Msolve < Formula
 
   on_macos do
     depends_on "libomp"
+
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "2d91927d15244c5ba126a2fe5a03706f90ec69488029cce0d9f2be66cd08b3e1"
+      end
+    end
   end
 
   def install

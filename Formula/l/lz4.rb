@@ -24,6 +24,16 @@ class Lz4 < Formula
 
   depends_on "cmake" => :build
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 4
+        sha256 cellar: :any, sequoia: "12946181053102444bcd819a12538f517e4f4992bc73bdf04d8805b00416b5ab"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

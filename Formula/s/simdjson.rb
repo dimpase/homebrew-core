@@ -16,6 +16,16 @@ class Simdjson < Formula
 
   depends_on "cmake" => :build
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "18396ec13b154307ed1fb6506fb017066fed6dd8a97d6fe4b5ab14a8defa620c"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

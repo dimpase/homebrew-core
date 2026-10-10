@@ -23,6 +23,16 @@ class OpensslAT4 < Formula
 
   uses_from_macos "perl" => :build
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: "/usr/local/Cellar", sequoia: "c3712e411eaabf822fed4c97dda57028716b9c68564a93f08968bd8fd3155acb"
+      end
+    end
+  end
+
   link_overwrite "bin/openssl", "include/openssl/*", "share/man/man*/*ssl.gz"
   link_overwrite "lib/libcrypto*", "lib/libssl*", "lib/ossl-modules/legacy.*"
   link_overwrite "lib/cmake/OpenSSL/OpenSSLConfig.cmake", "lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake"

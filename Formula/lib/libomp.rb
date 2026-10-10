@@ -25,6 +25,16 @@ class Libomp < Formula
   depends_on "cmake" => :build
   uses_from_macos "llvm" => :build
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "346294d4d5bc9d5aaa74da0243d449bff91ecd8fee1fe83118b2dfd3124a1049"
+      end
+    end
+  end
+
   on_linux do
     depends_on "python@3.14"
   end

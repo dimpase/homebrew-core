@@ -20,6 +20,16 @@ class Xz < Formula
     sha256 cellar: :any, x86_64_linux:      "aa3b18af4d682e52746cd73dca60cec5422bfe1dc8bf4fff3c38a63fe4d516f5"
   end
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "bb6d7c5644a0d070c98b7160d1a117493f64b635f9721c5856cfdab8faccc13c"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

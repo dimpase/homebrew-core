@@ -86,6 +86,16 @@ class Readline < Formula
 
   uses_from_macos "ncurses"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "7dbd315206755d6b762f9f2c0667d517a456df5d2fc828e43b410b9a2806e4f9"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

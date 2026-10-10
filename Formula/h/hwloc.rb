@@ -31,6 +31,16 @@ class Hwloc < Formula
   uses_from_macos "libxml2"
   uses_from_macos "ncurses"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "9c536e79428043eb0b89faa3751cb4fcfb6bc4e2741a1be7b239b1edd949da2e"
+      end
+    end
+  end
+
   def install
     system "./autogen.sh" if build.head?
     system "./configure", "--enable-shared",
