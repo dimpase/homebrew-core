@@ -24,7 +24,9 @@ class Msolve < Formula
 
   on_macos do
     depends_on "libomp"
+  end
 
+  on_macos do
     on_intel do
       bottle do
         root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"

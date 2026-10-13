@@ -3,21 +3,21 @@ class Black < Formula
 
   desc "Python code formatter"
   homepage "https://black.readthedocs.io/en/stable/"
-  url "https://files.pythonhosted.org/packages/d9/38/02b7c5d2475f40c000a142b3bcddd29ff6674617eba1b2236f0cda9fff41/black-26.10.0.tar.gz"
-  sha256 "b3476ce71b494fc6e39d77e75488e8339a87583029bbf608416e955c83582bd6"
+  url "https://files.pythonhosted.org/packages/f8/65/a9611a6ec0a8c88d86e59385da02d68d9533f7e86a05913d20c67be54029/black-26.10.1.tar.gz"
+  sha256 "5f9f83beae62437e060dafd53d7f1fc327e3d3494f74d72ee5c2b73eb90fc4e7"
   license "MIT"
   head "https://github.com/psf/black.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "a9ba30160c0cc359e4e9dffb3878d4b23737b35e0944e67f56b0cd996f3ea70d"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "f1225cd6d444b7fee1003aa071f7a68432afef375ec160d1516de4a798b9e3a2"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "f0ba190c4847da6f3f8307bdf0051537a059dd0116253d07e2ce3ba7b973b110"
-    sha256 cellar: :any,                 arm64_linux:       "f5727722d56dff5da02e5e583f828196d706554466fd463eba540393cbb614cb"
-    sha256 cellar: :any,                 x86_64_linux:      "518a83ccad0e0736d80cc49f71b18fbedcfa96012c64cbc454fc087cae5718af"
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "b389df385ac8a95cf64da540360440cbb0fe7c5343bfaf8a866dcaf1f4d125ff"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "95cf0e42ea32e15238d7de7ab14774da6db374984f7f1f806628ce32035d23cb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "049cac47655fbde1c946e9f1ef097b5aead749e0354b67f35b3f4e8d8e37df77"
+    sha256 cellar: :any,                 arm64_linux:       "e492acbb1d2eaedfa28e0b8221d768cb3a6b0141e7a29698e06e7d11f0a39db5"
+    sha256 cellar: :any,                 x86_64_linux:      "ffeabc52ecc743ae19689861e4e0935e5b63a2c769a98deeebf8c6ccc58fd65f"
   end
 
   depends_on "rust" => :build # pytokens -> mypy -> ast-serialize
-  depends_on "python@3.14"
+  depends_on "python@3.15"
 
   pypi_packages package_name: "black[d]"
 
@@ -27,8 +27,8 @@ class Black < Formula
   end
 
   resource "aiohttp" do
-    url "https://files.pythonhosted.org/packages/58/d9/22ce5786ac0c1653ae8b6c23bded02c1686d11f0dbb45b31ce128e0df985/aiohttp-3.14.3.tar.gz"
-    sha256 "9491196535a88924a60afd5b5f434b5b203b6cc616250878dbdb223a8f7844bc"
+    url "https://files.pythonhosted.org/packages/93/2f/6a91adaa2dc26877d6ed2f54c0370c8910f019db7d77c5c6a194611e93ea/aiohttp-3.14.4.tar.gz"
+    sha256 "831fc5bd39ec2517851e348f613ddb5447a47cf4b71cb09845af7ad7ed45d8f9"
   end
 
   resource "aiosignal" do
@@ -77,8 +77,8 @@ class Black < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/42/23/4a86fc741c38c5b69792a4ef954b281afa69bea9f083f881de1b0d23bc07/platformdirs-4.12.3.tar.gz"
-    sha256 "427fc0bb321ae0c5b037fa03238ca74820437be162e78b4848c4d4055b9b766c"
+    url "https://files.pythonhosted.org/packages/90/a1/d5f9002a70298c64a789779077d8dd90c10aa1f47fe40c86802df874f2a6/platformdirs-4.12.4.tar.gz"
+    sha256 "63743c02414e755de4e31b8f68125c1407495b86c5a006e203c01ff8b9924250"
   end
 
   resource "propcache" do

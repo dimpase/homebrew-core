@@ -6,14 +6,14 @@ class Dxpy < Formula
   url "https://files.pythonhosted.org/packages/2a/9b/979fd7e0644dc270e91b165dc60c88fc885750aa7665d869ab7e3fd96e2d/dxpy-0.416.0.tar.gz"
   sha256 "d93bef77f30a4afcef32fba056c9624b6f0c73129360fa02089b7f51736f18a5"
   license "Apache-2.0"
-  revision 1
+  revision 3
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "fee840e7ffb634821f7802f0a7353af620eb443e77c24deeed08916051a6bbe5"
-    sha256 cellar: :any, arm64_tahoe:       "641d605d88d551e426394ff500353c7246dabc06286e4d17042202cb7c8d58d3"
-    sha256 cellar: :any, arm64_sequoia:     "a84fe7a4395d3f8efb2839a5c5aeb569c0eb676afcb382eafc5e84a1536af063"
-    sha256 cellar: :any, arm64_linux:       "ca77ba0f312f39906532e6439dce77da750d845099caca703f760866eb36ab0f"
-    sha256 cellar: :any, x86_64_linux:      "74f0512cb8443bb2fb87d741aedf483dafe76f02cf320f587658ea7554af4772"
+    sha256 cellar: :any, arm64_golden_gate: "6de9fddb11e7c4ba364f6ef5dfc454abdaec26d37573eb6981d05a62aac60a9f"
+    sha256 cellar: :any, arm64_tahoe:       "c624907afdb339cd23a17651e276caaf98da67ba9b0e22037b0bad43c93ffd70"
+    sha256 cellar: :any, arm64_sequoia:     "8580e02032d7fc4f40b49f0c1271cdbed8332fec6595caa297043d4ba60d8ffa"
+    sha256 cellar: :any, arm64_linux:       "5d5177a377316ca00e38c2c74dc0c1dba72da9a5e48837798077e917e9f38b23"
+    sha256 cellar: :any, x86_64_linux:      "07b2b29c13fed60bd663bfeede3d6d0b80b135ee3b6090745d43221b4e0c83b3"
   end
 
   depends_on "aws-c-auth"
@@ -27,7 +27,7 @@ class Dxpy < Formula
   depends_on "aws-checksums"
   depends_on "certifi" => :no_linkage
   depends_on "cryptography" => :no_linkage
-  depends_on "python@3.14"
+  depends_on "python@3.15"
 
   conflicts_with "deno", because: "both install `dx` binaries"
 
@@ -66,6 +66,13 @@ class Dxpy < Formula
   resource "urllib3" do
     url "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz"
     sha256 "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
+
+    # Backport fix for OpenSSL 4 until dxpy updates urllib3 pin to allow 2.8.0
+    patch do
+      url "https://github.com/urllib3/urllib3/commit/627636551e0e0159996b0f28dd21a60372cc5b10.patch?full_index=1"
+      sha256 "6e5f13b1b60313fbd8a70d0aab58f7c6a413f641ad6fa2e5a3539e3de68bbe27"
+      type :backport
+    end
   end
 
   # Issue ref: https://github.com/dnanexus/dx-toolkit/pull/1530
@@ -79,6 +86,10 @@ class Dxpy < Formula
   end
 
   def install
+    urllib3 = resource("urllib3")
+    odie "Remove urllib3 check as version is now >= 2.8.0!" if urllib3.version >= "2.8.0"
+    odie "Restore urllib3 patch!" if urllib3.patches.empty?
+
     ENV["AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO"] = "1"
     ENV["AWS_CRT_BUILD_USE_SYSTEM_LIBS"] = "1"
     # Avoid overlinking to aws-c-* indirect dependencies

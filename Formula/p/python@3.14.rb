@@ -41,9 +41,9 @@ class PythonAT314 < Formula
   on_macos do
     on_intel do
       bottle do
-        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
         rebuild 1
-        sha256 cellar: "/usr/local/Cellar", sequoia: "5746971b6af001eb6e9ff47afb994070238b6a5b0285d506009afab852b36e47"
+        sha256 cellar: "/usr/local/Cellar", sequoia: "2c1c026c1370cc57a3fc0690819ce93b118dd2e16cddba71c1c6e0b457ebf6da"
       end
     end
   end

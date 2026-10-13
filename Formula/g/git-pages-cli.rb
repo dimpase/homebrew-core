@@ -1,19 +1,17 @@
 class GitPagesCli < Formula
   desc "Tool for publishing a site to a git-pages server"
   homepage "https://codeberg.org/git-pages/git-pages-cli"
-  url "https://codeberg.org/git-pages/git-pages-cli/releases/download/v1.10.1/git-pages-cli-src.zip"
-  sha256 "a4b23a4ef54111b160e9dc749d288ba96645282f78f355bbf28d2b48a1c6a664"
+  url "https://codeberg.org/git-pages/git-pages-cli/releases/download/v1.11.2/git-pages-cli-src.zip"
+  sha256 "d00d935b69a4fbf4144767d63e13cf81ac2b3ce14e7825167a404e2169196407"
   license "0BSD"
   head "https://codeberg.org/git-pages/git-pages-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "db6c756bfcad2abc0b4531a3896a6b39e2e2b532b46eca7397202bf8c22b2f27"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "a060f9d46ac1a31830744c5f7f6d645473dbf98eb224d638a34453328ec39113"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "a060f9d46ac1a31830744c5f7f6d645473dbf98eb224d638a34453328ec39113"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "a060f9d46ac1a31830744c5f7f6d645473dbf98eb224d638a34453328ec39113"
-    sha256 cellar: :any_skip_relocation, sonoma:            "d1d8b280ee61b3ffba12eca3f7dc10cf8dd484614e8d1201b2518e3814cd9669"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "0b65d30ac2990144492140ae98f517484c19b1137890ff2d2dfd492f81ba8872"
-    sha256 cellar: :any,                 x86_64_linux:      "a87aa40c98fa6187d30474e631312cfaed35125dd4bf3c3615ce0a780ec555ad"
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "490935500d696a399d7ab7e4d8eb179bd30997ced262cd4ce0ff80cf058b123c"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "490935500d696a399d7ab7e4d8eb179bd30997ced262cd4ce0ff80cf058b123c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "490935500d696a399d7ab7e4d8eb179bd30997ced262cd4ce0ff80cf058b123c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:       "9fa686eb678ce60dff5eb8c2293c92c532f1dc93f220c299060a547170d59e21"
+    sha256 cellar: :any,                 x86_64_linux:      "637cea880009764048c6b583d343693823269cd43e1d7761965a05afc27f1417"
   end
 
   depends_on "go" => :build

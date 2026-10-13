@@ -1,16 +1,16 @@
 class Mago < Formula
   desc "Toolchain for PHP to help developers write better code"
   homepage "https://github.com/carthage-software/mago"
-  url "https://github.com/carthage-software/mago/releases/download/1.54.0/source-code.tar.gz"
-  sha256 "d67dca98a2e676962ef378f6550dc34def6314b5ce0f09baf8a3e80b7ea7f5bd"
+  url "https://github.com/carthage-software/mago/releases/download/1.56.3/source-code.tar.gz"
+  sha256 "7ab9b333bcdcfa2b665fb89bf9f95e64d1c812c6bcbb9b64df03de32e6b4879f"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "651d2febb6093917de00f399ae1baaaf543f4e63699a1d9122b2bbaaa7149d68"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "4b9bdccca71d79934294b7e10baac77dad19124cb04c51ff38707ebb1caf4f83"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "64322d761e6dd03604731b37e5453239b691631bcd53de003d0fc71637bc5de3"
-    sha256 cellar: :any,                 arm64_linux:       "c7c98da622f9903eb68bafc11324c7b90d1a4953bb3ed2696343db1e74ebf32d"
-    sha256 cellar: :any,                 x86_64_linux:      "dd38b3ce08f8eb3b2daef28ee1a8d324e8ecceb7e0638f508693deba974ab570"
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "1000a215b4d052ca8479721bb9d6d10e7410c739b75f8a54586819da5a907692"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "1cd858dca0072e3212259eb0d1a76f19847152c6440d83784d606cad78f023fe"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "ecd9e11f4a45f3a94cad40daaa2fde9a969d08d53ce0df711fedd435873e37cc"
+    sha256 cellar: :any,                 arm64_linux:       "e4e3bfe94363baeeec7c9612009f5d9f94ff474feb5fe710d841a425e9e7d9bb"
+    sha256 cellar: :any,                 x86_64_linux:      "c6b3322bd6db8f41291f2325e0c968544860e063edb7e9025e3347590a00463e"
   end
 
   depends_on "pkgconf" => :build

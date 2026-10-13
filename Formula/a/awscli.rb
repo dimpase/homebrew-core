@@ -3,18 +3,18 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/refs/tags/2.37.11.tar.gz"
-  sha256 "c2d76dff425447073c25097772dc74b0efdf48b85d6d8cb93af763c704f20788"
+  url "https://github.com/aws/aws-cli/archive/refs/tags/2.37.13.tar.gz"
+  sha256 "e39287b59bed2fb8f530c12f58a605ee099a3548f1d1db72533263a0ea016d17"
   license "Apache-2.0"
   compatibility_version 1
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "8cbe000f0c0ae86de1c8f51d365963d647a025a581514b42393b8985a02a38c0"
-    sha256 cellar: :any, arm64_tahoe:       "18597d32bf16a3e3faaa4cceeb8f3feb74c94ca7be4021a5ea7ae426bfbab333"
-    sha256 cellar: :any, arm64_sequoia:     "6917920c08d18f86cf766b833537632e0fcf981eb403dae8f9d73ccfbfa64232"
-    sha256 cellar: :any, arm64_linux:       "d16bb5a187fd40e9c36ee04c455debad370683dcae7fa62378154d57284445a6"
-    sha256 cellar: :any, x86_64_linux:      "1b8fc01571ae4c96fbdfabe0851885d58ba725816fc11b8d972a193b3ba55440"
+    sha256 cellar: :any, arm64_golden_gate: "7550f89e9332d04862f44cf570014091cd819be1183543eaeb8f99b2883f174c"
+    sha256 cellar: :any, arm64_tahoe:       "a34bc5c3ba29a8aebde917f1719afe927ca5e9ba993e472193a58b1d3d65e6bb"
+    sha256 cellar: :any, arm64_sequoia:     "c811ab811033be05934bb89ec3717806a1cf0319a6b9e63ad268a8912877e37f"
+    sha256 cellar: :any, arm64_linux:       "1211b2df8a94a9c756e8a48e1345e53a6268c821dffd3182fc0006d844ba3c0f"
+    sha256 cellar: :any, x86_64_linux:      "b4f2941012272573d56ac730f01ac2dc08c97c8694205d6fed25dae466b44104"
   end
 
   depends_on "aws-c-auth"
@@ -26,7 +26,7 @@ class Awscli < Formula
   depends_on "aws-c-mqtt"
   depends_on "aws-c-s3"
   depends_on "aws-checksums"
-  depends_on "python@3.14"
+  depends_on "python@3.15"
 
   uses_from_macos "mandoc"
 
@@ -90,6 +90,13 @@ class Awscli < Formula
   resource "urllib3" do
     url "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
     sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
+
+    # Backport fix for OpenSSL 4 until awscli updates urllib3 pin to allow 2.8.0
+    patch do
+      url "https://github.com/urllib3/urllib3/commit/627636551e0e0159996b0f28dd21a60372cc5b10.patch?full_index=1"
+      sha256 "6e5f13b1b60313fbd8a70d0aab58f7c6a413f641ad6fa2e5a3539e3de68bbe27"
+      type :backport
+    end
   end
 
   resource "wcwidth" do
@@ -97,10 +104,14 @@ class Awscli < Formula
     sha256 "4d478375d31bc5395a3c55c40ccdf3354688364cd61c4f6adacaa9215d0b3605"
   end
 
-  # downloads wheels during build
+  # downloads sdists during build for build-system dependencies
   allow_network_access! :build
 
   def install
+    urllib3 = resource("urllib3")
+    odie "Remove urllib3 check as version is now >= 2.8.0!" if urllib3.version >= "2.8.0"
+    odie "Restore urllib3 patch!" if urllib3.patches.empty?
+
     ENV["AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO"] = "1"
     ENV["AWS_CRT_BUILD_USE_SYSTEM_LIBS"] = "1"
     # Avoid overlinking to aws-c-* indirect dependencies

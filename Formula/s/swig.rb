@@ -31,6 +31,16 @@ class Swig < Formula
 
   uses_from_macos "python" => :test
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
+        rebuild 1
+        sha256 cellar: "/usr/local/Cellar", sequoia: "b428b06ebd069310b75db048161bce3abc4af66ad4bb5dd61ee203002e1673a9"
+      end
+    end
+  end
+
   on_linux do
     depends_on "zlib-ng-compat"
   end

@@ -3,23 +3,24 @@ class GalleryDl < Formula
 
   desc "Command-line downloader for image-hosting site galleries and collections"
   homepage "https://codeberg.org/mikf/gallery-dl"
-  url "https://files.pythonhosted.org/packages/15/c1/00bd1712cd24cd5ac5c0267596cce3e17fc580f057b344a68122355643ed/gallery_dl-1.32.15.tar.gz"
-  sha256 "a33192d265d8877d94fd37ac358d5e4ff6955b739b350c8a7077392d2ca4edd5"
+  url "https://files.pythonhosted.org/packages/86/65/9fb8b494ea145a7148e64ab6a577adca0413b0f9e90b422e8349cdb95a2f/gallery_dl-1.32.16.tar.gz"
+  sha256 "bacd7d63423ad45db98704fedafa1302343db6f250f9e9f69a9e142754ed9e37"
   license "GPL-2.0-only"
   head "https://codeberg.org/mikf/gallery-dl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "25386d6d07473e445739b33699e60dbe6e21764a38341ae5e87baa95db479e31"
-    sha256 cellar: :any, arm64_tahoe:       "8dfab0648d0679458e86226dd8fc609e81c56ed56027b48bee4f532fd51e35e2"
-    sha256 cellar: :any, arm64_sequoia:     "12ee4890326e6515f8865d8c8ee53725d55c10cf76c1d4c25b46bd54ec38ef6f"
-    sha256 cellar: :any, arm64_linux:       "ce76b402998626d040de21459f114f5bb1d8891aece5ade191f34480ceb873be"
-    sha256 cellar: :any, x86_64_linux:      "08e9a16240f36695a56a13154be2cdeed7744b2e8bd420c29445f62f343f2d4a"
+    rebuild 1
+    sha256 cellar: :any, arm64_golden_gate: "095ae9bd32e0dd483e5de37a099ae4b46d4fd33307555fe49efd04fdf6f81031"
+    sha256 cellar: :any, arm64_tahoe:       "7f9fd54ae4b957c03abb4a845532f9558953e66a7e0424e7fbe632737faa01e0"
+    sha256 cellar: :any, arm64_sequoia:     "718b3cd866d4779b7f9ccc6fcd64caa4e40003574727c3b913117f560a291bb8"
+    sha256 cellar: :any, arm64_linux:       "09affa1017e84f98338f11bfd0f1772da771b9ff71e69342c0b442acff73bb93"
+    sha256 cellar: :any, x86_64_linux:      "299f661510b57ca72471572a97e1cdf91af633f10cd1c4c9c6c2055797130566"
   end
 
   depends_on "certifi" => :no_linkage
   depends_on "cryptography" => :no_linkage
   depends_on "libyaml"
-  depends_on "python@3.14"
+  depends_on "python@3.15"
   depends_on "yt-dlp" => :no_linkage
 
   pypi_packages package_name:     "gallery-dl[extra]",
@@ -62,8 +63,8 @@ class GalleryDl < Formula
   end
 
   resource "pycryptodomex" do
-    url "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz"
-    sha256 "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da"
+    url "https://files.pythonhosted.org/packages/4c/25/214ea825a9031f5af2c8b2506ee16701a2560d4712165dd00098dd527bcb/pycryptodomex-3.24.0.tar.gz"
+    sha256 "0428f19f13452c6b89bbaf2c530f84f369873811dfa77f0cee0da4f40fb0474f"
   end
 
   resource "pysocks" do

@@ -3,18 +3,19 @@ class Httptap < Formula
 
   desc "HTTP request visualizer with phase-by-phase timing breakdown"
   homepage "https://docs.httptap.dev/"
-  url "https://files.pythonhosted.org/packages/92/6c/6b1f118c33b677d0598c4b7bda37a2d6233bebabc09ee44d2dc46fab3084/httptap-0.8.0.tar.gz"
-  sha256 "b5d620866a4ecb1cfde498353c5dc35d4708de0858eea49474ebdf8b118f19c1"
+  url "https://files.pythonhosted.org/packages/b9/54/fffa661a21fdca07c8817565fdd8dcda621f02f1aedd4648f2397c5c1571/httptap-0.8.1.tar.gz"
+  sha256 "ba7bda55669fbaadd82b9cf75add4bf378306eb7fb0c2b2caef097fa14de24d2"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "ef79d374772951885385822454ba30bfd8066701996bb82a70b05df5536cfda7"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "3cf60fe344b230c3e49fcb990a7709acfc228661fa6de11293c5ec3edb2935a3"
   end
 
   depends_on "rust" => :build
   depends_on "certifi" => :no_linkage
   depends_on "cryptography" => :no_linkage
-  depends_on "python@3.14"
+  depends_on "python@3.15"
 
   pypi_packages package_name:     "httptap[completion]",
                 exclude_packages: %w[certifi cryptography]
@@ -95,11 +96,6 @@ class Httptap < Formula
       type :backport
       resolves "https://github.com/sethmlarson/socksio/pull/61"
     end
-  end
-
-  resource "typing-extensions" do
-    url "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz"
-    sha256 "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5"
   end
 
   def install

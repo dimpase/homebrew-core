@@ -1,16 +1,16 @@
 class LettaCode < Formula
   desc "Memory-first coding agent"
   homepage "https://docs.letta.com/letta-code"
-  url "https://registry.npmjs.org/@letta-ai/letta-code/-/letta-code-0.34.6.tgz"
-  sha256 "5909df41e28aa38340b5283005bbaddd3c21346688201f39154e5956fce53e30"
+  url "https://registry.npmjs.org/@letta-ai/letta-code/-/letta-code-0.34.11.tgz"
+  sha256 "27b7b936910fe11a86480df90461f2c2298d49ac7153966659888f2c43e9b6b5"
   license "Apache-2.0"
 
   bottle do
-    sha256               arm64_golden_gate: "268a7b688b26fae0850f144e8214e9892bd5f90a49af61fa89a625c489b8e50e"
-    sha256               arm64_tahoe:       "e6b5f6723c4f5d1a8052e687142f3695a6090517976da764fd2c346974513177"
-    sha256               arm64_sequoia:     "e28b0f22aa54b6f8d5028ffe5a4e53766aa9e52f60061773d030de7a3303263b"
-    sha256 cellar: :any, arm64_linux:       "f547a730900d794ad3cb9405264e583cdbda333c5650538a3a9c8bac33f6529e"
-    sha256 cellar: :any, x86_64_linux:      "1129c41bfd57892f1b6e5ecbd01e48764a5318d1cd652d0ba7db61716f0cf669"
+    sha256               arm64_golden_gate: "fda6c4597419172780d39423cd81720bc536c885eb58c4cc231c7c6c47ec2c70"
+    sha256               arm64_tahoe:       "9e6649d72d3ae5c843235ab478ed5234cc81bcb169f3aeba5e89a2e17f57fbc5"
+    sha256               arm64_sequoia:     "c0b9339a21e248426bed8bb2e48a60c62328a5eb596f894fdfa7f133f24ae0d4"
+    sha256 cellar: :any, arm64_linux:       "323db1bec27151669a53cb44dcfd6fef89f93f6b8fbcce16d7bcfdce9f3741e6"
+    sha256 cellar: :any, x86_64_linux:      "d9ed532d4298894b3be40c6d78bb3fe4ee8cd7b72606b2e74d39715631f603b5"
   end
 
   depends_on "pkgconf" => :build
@@ -32,38 +32,45 @@ class LettaCode < Formula
     end
   end
 
+  allow_network_access! :build
+
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink libexec.glob("bin/*")
 
+    # Include nested copies installed by letta-agent-sdk.
     # Remove ripgrep pre-built binaries
     node_modules = libexec/"lib/node_modules/@letta-ai/letta-code/node_modules"
-    rm_r(node_modules.glob("@vscode/ripgrep-*"))
-    rm_r(node_modules/"@vscode/ripgrep") # keeping separate from previous rm_r to fail if missing
+    rm_r(node_modules.glob("**/@vscode/ripgrep-*").sort.reverse)
+    rm_r(node_modules.glob("**/@vscode/ripgrep").sort.reverse)
 
     # Remove Electron-only sharp fork with x86_64-only pre-built binaries
-    rm_r(node_modules/"@janhapke")
+    rm_r(node_modules.glob("**/@janhapke").sort.reverse)
 
     # Replace node-pty pre-built binaries
-    cd node_modules/"node-pty" do
-      rm_r(["prebuilds", "third_party"])
-      system "npm", "run", "install"
+    node_modules.glob("**/node-pty").each do |pty|
+      cd pty do
+        rm_r(["prebuilds", "third_party"])
+        system "npm", "run", "install"
+      end
     end
 
     # Replace sharp pre-built binaries
-    rm_r(node_modules.glob("@img/sharp-*"))
+    rm_r(node_modules.glob("**/@img/sharp-*").sort.reverse)
     resource("node-gyp").stage do
       system "npm", "install", *std_npm_args(prefix: buildpath/"node-gyp")
       ENV.append_path "NODE_PATH", buildpath/"node-gyp/lib/node_modules"
     end
-    cd node_modules/"sharp" do
-      ENV["SHARP_FORCE_GLOBAL_LIBVIPS"] = "1"
-      system "npm", "run", "build"
-      rm_r("src/build/Release/obj.target")
+    node_modules.glob("**/sharp").each do |sharp_dir|
+      cd sharp_dir do
+        ENV["SHARP_FORCE_GLOBAL_LIBVIPS"] = "1"
+        system "npm", "run", "build"
+        rm_r("src/build/Release/obj.target")
 
-      # help letta.js find source-built sharp
-      sharp = Pathname.pwd.glob("src/build/Release/sharp-*.node").first
-      (node_modules/"@img"/sharp.basename(".node")).install_symlink sharp => "sharp.node"
+        # help letta.js find source-built sharp
+        sharp = Pathname.pwd.glob("src/build/Release/sharp-*.node").first
+        (sharp_dir.parent/"@img"/sharp.basename(".node")).install_symlink sharp => "sharp.node"
+      end
     end
   end
 

@@ -29,6 +29,16 @@ class Pcre2 < Formula
 
   uses_from_macos "bzip2"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
+        rebuild 1
+        sha256 cellar: :any, sequoia: "15d1dd0978f2c6469e54724ec4313b471a612f1684402a53c5081d54146cb46a"
+      end
+    end
+  end
+
   on_linux do
     depends_on "zlib-ng-compat"
   end

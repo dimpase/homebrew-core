@@ -26,9 +26,9 @@ class OpensslAT4 < Formula
   on_macos do
     on_intel do
       bottle do
-        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-sequoia-20261009"
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
         rebuild 1
-        sha256 cellar: "/usr/local/Cellar", sequoia: "c3712e411eaabf822fed4c97dda57028716b9c68564a93f08968bd8fd3155acb"
+        sha256 cellar: "/usr/local/Cellar", sequoia: "8947c7924dfde3ac636e239db6f38affc3da43339b6fdd3b84fdc467879267a5"
       end
     end
   end
@@ -52,7 +52,7 @@ class OpensslAT4 < Formula
     if OS.mac?
       arch_args += %W[darwin64-#{Hardware::CPU.arch}-cc enable-ec_nistp_64_gcc_128]
     elsif Hardware::CPU.intel?
-      arch_args << (Hardware::CPU.is_64_bit? ? "linux-x86_64" : "linux-elf")
+      arch_args << "linux-x86_64"
     elsif Hardware::CPU.arm?
       arch_args << (Hardware::CPU.is_64_bit? ? "linux-aarch64" : "linux-armv4")
     end

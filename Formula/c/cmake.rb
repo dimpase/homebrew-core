@@ -28,6 +28,16 @@ class Cmake < Formula
 
   uses_from_macos "ncurses"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
+        rebuild 2
+        sha256 cellar: :any_skip_relocation, sequoia: "7c91d5d66731ef4550a205f3ea3c776ba3af57f6e2f0c472ea87b2b88d076b10"
+      end
+    end
+  end
+
   on_linux do
     depends_on "openssl@4"
   end

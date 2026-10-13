@@ -24,6 +24,16 @@ class Ninja < Formula
   uses_from_macos "python" => [:build, :test]
 
   # runs a server in the test
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
+        rebuild 2
+        sha256 cellar: :any_skip_relocation, sequoia: "bd3b11e103d209dff52bc40e58fdaad570af65af3f277cdaf32c3ccb7cff3bbd"
+      end
+    end
+  end
+
   allow_network_access! :test
 
   def install

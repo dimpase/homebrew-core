@@ -6,26 +6,27 @@ class Harlequin < Formula
   url "https://files.pythonhosted.org/packages/c9/67/aa8c31405378d0a2b755597d164daea2eb2f7754b713385d4e7e9662d345/harlequin-2.16.1.tar.gz"
   sha256 "f60956a36c298913297a044e287df03bf051e392f797c649219b7195f0f70d15"
   license "MIT"
+  revision 2
   head "https://github.com/tconbeer/harlequin.git", branch: "main"
 
   no_autobump! because: "has non-PyPI resources"
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "669da53b39737c1d598b63ac723ead611d6418c64be880d024cacd1dc609f571"
-    sha256 cellar: :any, arm64_tahoe:       "b7cc52297ccd3a476b3d3bd2d6b9f50fc46d2e4a9025df15381b0f7fd260daa5"
-    sha256 cellar: :any, arm64_sequoia:     "8c1c29f83bc60ad6985665a449f26a448d5d213bd38f06a2fd7b1888bd7bbdfc"
-    sha256 cellar: :any, arm64_linux:       "dfc518cfeebef424f6ef0387bc266785c5f9b27e683aab399c468bc63199342f"
-    sha256 cellar: :any, x86_64_linux:      "36f86d2f192eed99e9d0203209eb34f42c423d9fa9073dcb7dca0e9471cdc3e3"
+    sha256 cellar: :any, arm64_golden_gate: "637fc6ab6924c4c18d244cc5ff2b667102ea2a3b149a160307a151467c9c98b0"
+    sha256 cellar: :any, arm64_tahoe:       "8ddd6e514c6de7defb49652537e5b97e891ed94185683d430533532508465308"
+    sha256 cellar: :any, arm64_sequoia:     "7334baff22a17e5e6f7cb5adf1694b05dd40eb2294c8574608511490e32cdf9f"
+    sha256 cellar: :any, arm64_linux:       "baddb07d7d8a57bec4c3be3bd31bc5ed1385c91fe487bc3cf2e52b618b209a4d"
+    sha256 cellar: :any, x86_64_linux:      "3938bc5a0ae6b79b7d993dc715c984e858a29c975c4b778eca22027ced35e67f"
   end
 
   depends_on "cmake" => :build
+  depends_on "libyaml" => :build # pyarrow > pyyaml
   depends_on "ninja" => :build
   depends_on "rust" => :build # pyarrow > libcst
   depends_on "apache-arrow"
   depends_on "libpq" # psycopg
-  depends_on "libyaml" # pyarrow > pyyaml
-  depends_on "numpy"
-  depends_on "python@3.14"
+  depends_on "numpy" => :no_linkage
+  depends_on "python@3.15"
   depends_on "unixodbc" # harlequin-odbc
 
   on_linux do
@@ -77,8 +78,8 @@ class Harlequin < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/7e/99/7690b6d4034fffd95959cbe0c02de8deb3098cc577c67bb6a24fe5d7caa7/markupsafe-3.0.3.tar.gz"
-    sha256 "722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698"
+    url "https://files.pythonhosted.org/packages/38/9b/e422a865e1d5d57d0e509b4e0bf1c1a70a7f6382c29a5aa428df994c8bc8/markupsafe-3.0.4.tar.gz"
+    sha256 "2e9ad7dd851bf45fab9f75cbff4cb493fee9979e8d8c7c9c3ee119022518edd6"
   end
 
   resource "mdit-py-plugins" do
@@ -99,11 +100,18 @@ class Harlequin < Formula
   resource "mysql-connector-python" do
     url "https://files.pythonhosted.org/packages/26/c9/a9446dbebbcdf7d828d0a3be9049607eab6eeffb4e46ef1ee8ac304baede/mysql_connector_python-9.7.0.tar.gz"
     sha256 "933887e71c871b6e9d8908459fe8303ebcf8feb5cc1e1c49caa6490e525cf78e"
+
+    # Apply Fedora patch to support OpenSSL 4 / Python 3.15
+    # https://src.fedoraproject.org/rpms/mysql-connector-python/blob/rawhide/f/mysql-connector-python-python315-ssl.patch
+    patch :p2 do
+      file "Patches/mysql-connector-python/mysql-connector-python-python315-ssl.patch"
+      type :unofficial
+    end
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/17/c8/721b3855fe457da514fe249247d404b9b39c5d16532278f70ebaa6acf18b/platformdirs-4.12.2.tar.gz"
-    sha256 "eab5f70271a490ef74618bb314fbb86e3c7e82fa3b9c922c2ea0e0a1a155d329"
+    url "https://files.pythonhosted.org/packages/90/a1/d5f9002a70298c64a789779077d8dd90c10aa1f47fe40c86802df874f2a6/platformdirs-4.12.4.tar.gz"
+    sha256 "63743c02414e755de4e31b8f68125c1407495b86c5a006e203c01ff8b9924250"
   end
 
   resource "prompt-toolkit" do
@@ -127,8 +135,8 @@ class Harlequin < Formula
   end
 
   resource "pyarrow" do
-    url "https://files.pythonhosted.org/packages/3d/e3/27f57f80141379d60defe6703eb50a707325706f07fedfd1312c7a751995/pyarrow-25.0.1.tar.gz"
-    sha256 "9150a83248bfed9813ea3c3af74c3856c1984d444aa28e58bf7733b9750ddf6a"
+    url "https://files.pythonhosted.org/packages/ec/34/17c34cb38e5d940e38f0f0d9fdfa0e8a506676409ea9b85aff7e3079f831/pyarrow-26.0.0.tar.gz"
+    sha256 "0cccd36e00ea3afeb52ded61f2721ce71f604853d70c45365c58324eb773d6ae"
   end
 
   resource "pygments" do
@@ -277,9 +285,11 @@ class Harlequin < Formula
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/dc/ac/3a943d2792c9bb368aaa8b50121c0f778460ba2d7fbdc0a0366201d9e761/wcwidth-0.9.1.tar.gz"
-    sha256 "5823209b0d43af322ce698c689380d7c15ca31fa8e6e3be8459f27031bef0af5"
+    url "https://files.pythonhosted.org/packages/f0/b4/7830542634bb2d3e62aa3b586a72d5b3b6c91c3168929e7000ef3fed041d/wcwidth-0.9.2.tar.gz"
+    sha256 "ae0ef90b90f6af38b54f1fe6d58662ec33b3cb4b8391958a62416d654231727b"
   end
+
+  allow_network_access! :build
 
   def install
     virtualenv_install_with_resources

@@ -17,6 +17,16 @@ class Automake < Formula
 
   depends_on "autoconf"
 
+  on_macos do
+    on_intel do
+      bottle do
+        root_url "https://github.com/dimpase/M2-homebrew-tap/releases/download/intel-bottles-38436650687"
+        rebuild 1
+        sha256 cellar: :any_skip_relocation, sequoia: "2434412051422a27d7511f76695284150e37704c7a91ef5e51a0227518f6ee40"
+      end
+    end
+  end
+
   deny_network_access!
 
   def install

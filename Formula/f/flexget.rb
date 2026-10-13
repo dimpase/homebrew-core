@@ -3,23 +3,24 @@ class Flexget < Formula
 
   desc "Multipurpose automation tool for content"
   homepage "https://www.flexget.com"
-  url "https://files.pythonhosted.org/packages/c0/c6/20be0279ce13c4d151ad09f86612004a2a40328e5db70bb123d43e8e2559/flexget-3.22.0.tar.gz"
-  sha256 "6bef30659e6fc17ebaa4bba9b2c7facc5be5927e5f859484b03be94114e79459"
+  url "https://files.pythonhosted.org/packages/98/db/ccdabd924e6e9d954dcc683fdb4c0016f8fc21c7be3d79dd7fac2f1566c7/flexget-3.22.2.tar.gz"
+  sha256 "d1ae3caba93f89027cd4c9731fc11b69fe9784a729c5ea9dc24d488b296010ad"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "e1208fe9c7400e2a4470ea781418a5790036077be2b00106037fc68a680211dc"
-    sha256 cellar: :any, arm64_tahoe:       "9327add92e1956caa2cd6385f7804d6fd727ae42b087623f8229ee5ab908ebfd"
-    sha256 cellar: :any, arm64_sequoia:     "1a90dce20522d03ac8256fd97cbf956eb990afcfe96ff1763bcd7f667b8be92e"
-    sha256 cellar: :any, arm64_linux:       "033669f29b7ee6a5a485fc6894809f874348b4f40d641afb3b90d12df17a21f5"
-    sha256 cellar: :any, x86_64_linux:      "973d788f5d4e95c55ed40182622ea1178c58e60cf0bd58c54c6ff82be292aa96"
+    rebuild 1
+    sha256 cellar: :any, arm64_golden_gate: "fae905aa9875114b3f273bf2a4562f06867bb35603100bceb5e9a23dd13713e6"
+    sha256 cellar: :any, arm64_tahoe:       "1dec6084641caa2b754481434d468e3a4af3e6cca50d9de052a4825c7ac192e0"
+    sha256 cellar: :any, arm64_sequoia:     "8c5264bd3292ce600ddcfbb1be6bc1cb9059ca6ad6b92175e0473ae998e874ec"
+    sha256 cellar: :any, arm64_linux:       "066afef84445ab99b40978dc8ebd6552b72e46c434dcf819300a50c5f737300d"
+    sha256 cellar: :any, x86_64_linux:      "26d90b207e263a4e41ddc42ce11df841a783b59a4e2ab14f7185b1079d5738e0"
   end
 
   depends_on "rust" => :build
   depends_on "certifi" => :no_linkage
   depends_on "cryptography" => :no_linkage
   depends_on "libyaml"
-  depends_on "python@3.14"
+  depends_on "python@3.15"
   depends_on "rpds-py" => :no_linkage
 
   pypi_packages package_name:     "flexget[transmission]",
@@ -240,6 +241,13 @@ class Flexget < Formula
   resource "pendulum" do
     url "https://files.pythonhosted.org/packages/cb/72/9a51afa0a822b09e286c4cb827ed7b00bc818dac7bd11a5f161e493a217d/pendulum-3.2.0.tar.gz"
     sha256 "e80feda2d10fa3ff8b1526715f7d33dcb7e08494b3088f2c8a3ac92d4a4331ce"
+
+    # Bump `pyo3` version to support Python 3.15
+    patch do
+      url "https://github.com/python-pendulum/pendulum/commit/72a744e387a1b8f208a05e0ba7e8d9c03aff78ed.patch?full_index=1"
+      sha256 "d5374bfde8cfaee9e36bab687ec7cb7503bedd895555d641ef78fc202245900e"
+      type :backport
+    end
   end
 
   resource "plumbum" do
